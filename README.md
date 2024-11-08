@@ -58,7 +58,6 @@ SafeTrust is built using:
 1. **Secure Deposits**: For example, when renting a house, a deposit is securely held in a smart contract, ensuring protection for both parties.
 2. **Transaction Safety**: If conditions are met (no damage, no breach of terms), the renter’s deposit is returned after transparent validation through SafeTrust.
 3. **Dispute Resolution**: Automated and transparent dispute handling ensures fair outcomes based on predefined terms agreed by both parties.
-4. **Car Rentals Too!**: Works similarly for cars – deposit is held until the car is returned as agreed.
 
 ### 🌟 Why SafeTrust?
 
