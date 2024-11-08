@@ -1,7 +1,7 @@
 
 # 🌐 SafeTrust - Landing Page
 
-Welcome to **SafeTrust** – a modern, sleek, and interactive landing page designed to make secure transactions effortless. With the latest web technologies, SafeTrust leverages **Next.js** for efficient server-side rendering and **React** for a smooth, component-based user experience.
+Welcome to **SafeTrust** – a modern, sleek, and interactive landing page designed to make secure transactions P2P effortless. With the latest web technologies, SafeTrust leverages **Next.js** for efficient server-side rendering and **React** for a smooth, component-based user experience.
 
 ## 👀 Preview
 
