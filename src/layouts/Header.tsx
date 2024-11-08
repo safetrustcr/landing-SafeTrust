@@ -15,8 +15,8 @@ const Header: React.FC = () => {
   return (
     <header className="fixed top-0 left-0 w-full bg-white flex justify-between items-center px-4 py-4 md:px-8 shadow-md z-50">
       <div className="text-2xl md:text-3xl font-semibold">
-        <span className="text-black">Titan</span>
-        <span className="text-custom-orange">Labs</span>
+        <span className="text-black">Safe</span>
+        <span className="text-custom-orange">Trust</span>
       </div>
 
       <div className="md:hidden">

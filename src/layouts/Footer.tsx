@@ -1,5 +1,5 @@
 import React from 'react'
-import { FaFacebookF, FaTwitter, FaGithub, FaYoutube, FaInstagram } from 'react-icons/fa'
+import { FaGithub, FaDiscord } from 'react-icons/fa'
 
 const currentYear = new Date().getFullYear()
 
@@ -11,20 +11,11 @@ const Footer: React.FC = () => (
       </div>
 
       <div className="flex justify-center space-x-6 text-3xl">
-        <a href="#" className="text-white hover:text-gray-300">
-          <FaFacebookF />
-        </a>
-        <a href="#" className="text-white hover:text-gray-300">
-          <FaInstagram />
-        </a>
-        <a href="#" className="text-white hover:text-gray-300">
-          <FaTwitter />
-        </a>
-        <a href="https://github.com/titanlabsco" className="text-white hover:text-gray-300">
+        <a href="https://github.com/safetrustcr" className="text-white hover:text-gray-300">
           <FaGithub />
         </a>
-        <a href="#" className="text-white hover:text-gray-300">
-          <FaYoutube />
+        <a href="https://discord.com/invite/5wSxRF62cP" className="text-white hover:text-gray-300">
+          <FaDiscord />
         </a>
       </div>
 
@@ -33,8 +24,8 @@ const Footer: React.FC = () => (
       </p>
 
       <div className="text-1xs text-gray-500">
-        Powered by <span className="text-white">Titan</span>
-        <span className="text-orange-500">Labs</span>© {currentYear}
+        Powered by <span className="text-white">Safe</span>
+        <span className="text-orange-500">Trust</span>© {currentYear}
       </div>
     </div>
   </footer>
