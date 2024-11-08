@@ -11,19 +11,19 @@ const WhatWeOffer: React.FC = () => {
     {
       title: 'Deposit Protection',
       description:
-        'Your deposit money is securely held in escrow, ensuring that it is only released once all rental conditions are met.',
-      icon: '💼'
+        'Your funds are securely held using blockchain-based escrow, released only when all conditions are fulfilled.',
+      icon: '🔒'
     },
     {
       title: 'Verified Agreements',
       description:
-        'All rental agreements are securely verified through blockchain technology, ensuring both parties are protected.',
+        'Blockchain verification for all agreements ensures security and trust, removing the need for intermediaries.',
       icon: '🖊️'
     },
     {
-      title: 'Automated Rentals',
+      title: 'Smart Contract Automation',
       description:
-        'Our platform automates the rental process, ensuring smooth transactions from start to finish with smart contracts.',
+        'Automated transactions through smart contracts streamline processes, eliminating manual handling and reducing disputes.',
       icon: '⚙️'
     }
   ]
@@ -33,8 +33,8 @@ const WhatWeOffer: React.FC = () => {
       <div className="max-w-7xl mx-auto text-center">
         <h2 className="text-4xl font-bold mb-6">What We Offer</h2>
         <p className="text-lg text-gray-200 mb-12">
-          Discover how SafeTrust ensures secure, transparent, and automated rental experiences <br />
-          for both tenants and landlords, with a focus on protecting your deposit money.
+          Discover how SafeTrust provides a secure, decentralized, and transparent platform for P2P transactions. <br />
+          Our services protect your assets, establish trust, and automate processes, making every transaction reliable.
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12">

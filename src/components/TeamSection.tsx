@@ -1,48 +1,44 @@
 import React from 'react'
-import Image from 'next/image'
 
 interface TeamMember {
   name: string
   role: string
   role2: string
-  image: string
 }
 
 const TeamSection: React.FC = () => {
   const teamMembers: TeamMember[] = [
     {
       name: 'Josué Brenes',
-      role: 'Co-founder',
-      role2: 'Frontend Developer',
-      image: '/img/brenes.jpg'
+      role: '',
+      role2: 'Frontend Developer'
     },
     {
       name: 'Randall Valenciano',
-      role: 'Co-founder',
-      role2: 'Fullstack Developer',
-      image: '/img/randall.jpg'
+      role: '',
+      role2: 'Fullstack Developer'
     },
     {
       name: 'Diego Duarte',
-      role: 'Co-founder',
-      role2: 'Fullstack Developer',
-      image: '/img/diego.jpg'
+      role: '',
+      role2: 'Fullstack Developer'
     },
     {
-      name: 'Humberto Trejos',
-      role: 'Co-founder',
-      role2: 'Backend Developer',
-      image: '/img/humberto.jpg'
+      name: 'Anwar Sanchez',
+      role: '',
+      role2: 'Fullstack Developer'
     },
     {
       name: 'Josué Soto',
-      role: 'Co-founder',
-      role2: 'Backend Developer',
-      image: '/img/soto.jpg'
+      role: '',
+      role2: 'Backend Developer'
+    },
+    {
+      name: 'Diego Barquero',
+      role: '',
+      role2: 'Fullstack Developer'
     }
   ]
-
-  const colors = ['bg-[#344153]', 'bg-[#28313E]', 'bg-[#334050]', 'bg-[#283440]', 'bg-[#405164]']
 
   return (
     <section id="team" className="py-24 bg-gray-50">
@@ -52,26 +48,15 @@ const TeamSection: React.FC = () => {
           Our talented team is committed to building reliable and innovative solutions for your organization.
         </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {teamMembers.map((member, index) => (
             <div
               key={index}
-              className={`flex flex-col justify-between h-full rounded-lg shadow-lg overflow-hidden transition transform hover:scale-105 ${colors[index]} max-w-60 mx-auto`}
+              className="flex flex-col justify-center h-48 w-60 rounded-lg shadow-lg overflow-hidden transition transform hover:scale-105 bg-[#344153] mx-auto p-6"
             >
-              <div className="p-6 flex-grow">
-                <h3 className="text-xl font-bold mb-1 text-white">{member.name.toUpperCase()}</h3>
-                <p className="text-sm mb-1 text-white">{member.role}</p>
-                <p className="text-sm mb-4 text-white">{member.role2}</p>
-              </div>
-              <div className="relative w-full h-64">
-                <Image
-                  src={member.image}
-                  alt={member.name}
-                  layout="fill"
-                  objectFit="contain"
-                  className="w-full h-64 object-contain"
-                />
-              </div>
+              <h3 className="text-xl font-bold mb-1 text-white">{member.name.toUpperCase()}</h3>
+              <p className="text-sm mb-1 text-white">{member.role}</p>
+              <p className="text-sm text-white">{member.role2}</p>
             </div>
           ))}
         </div>
