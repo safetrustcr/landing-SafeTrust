@@ -33,16 +33,11 @@ const HeroSection: React.FC = () => {
           blockchain and trustless technologies. Experience transparency and
           reliability in every cryptocurrency transaction.
         </p>
-        <button 
-        
-        className="bg-white text-black py-2 px-6 md:py-3 md:px-8 rounded-md text-base md:text-lg hover:bg-gray-300 transition mb-8 md:mb-12">
+        <button className="bg-white text-black py-2 px-6 md:py-3 md:px-8 rounded-md text-base md:text-lg hover:bg-gray-300 transition mb-8 md:mb-12">
           Get Started Now
         </button>
 
-        <div 
-        
-        
-        className="flex flex-col md:flex-row justify-center md:justify-start gap-8 md:gap-12">
+        <div className="flex flex-col md:flex-row justify-center md:justify-start gap-8 md:gap-12">
           <Feature icon="🔒" title="Deposit Security" />
           <Feature icon="🖊️" title="Verified Agreements" />
           <Feature icon="⚙️" title="Automated Contracts" />
