@@ -3,6 +3,7 @@ Welcome to **SafeTrust** – a modern, sleek, and interactive landing page desig
 
 ## 👀 Preview
 🚀 **[Live Preview](https://safetrust-landing.vercel.app/)** 
+
 ![image](https://github.com/user-attachments/assets/a1816f13-48ad-49d0-9af6-559b4a949c9b)
 ---
 ## 🛠️ Technology Stack
