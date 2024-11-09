@@ -1,7 +1,7 @@
-import React from 'react'
-import { FaGithub, FaDiscord } from 'react-icons/fa'
+import React from "react";
+import { FaGithub, FaDiscord } from "react-icons/fa";
 
-const currentYear = new Date().getFullYear()
+const currentYear = new Date().getFullYear();
 
 const Footer: React.FC = () => (
   <footer className="bg-custom-dark text-white py-12">
@@ -11,16 +11,23 @@ const Footer: React.FC = () => (
       </div>
 
       <div className="flex justify-center space-x-6 text-3xl">
-        <a href="https://github.com/safetrustcr" className="text-white hover:text-gray-300">
+        <a
+          href="https://github.com/safetrustcr"
+          className="text-white hover:text-gray-300"
+        >
           <FaGithub />
         </a>
-        <a href="https://discord.com/invite/5wSxRF62cP" className="text-white hover:text-gray-300">
+        <a
+          href="https://discord.com/invite/5wSxRF62cP"
+          className="text-white hover:text-gray-300"
+        >
           <FaDiscord />
         </a>
       </div>
 
       <p className="text-sm uppercase tracking-widest">
-        Ensuring secure, decentralized property transfers <br /> with smart contracts and verified signatures.
+        Ensuring secure, decentralized property transfers <br /> with smart
+        contracts and verified signatures.
       </p>
 
       <div className="text-1xs text-gray-500">
@@ -29,6 +36,6 @@ const Footer: React.FC = () => (
       </div>
     </div>
   </footer>
-)
+);
 
-export default Footer
+export default Footer;

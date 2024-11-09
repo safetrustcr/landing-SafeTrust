@@ -1,8 +1,8 @@
-import React from 'react'
+import React from "react";
 
 interface FeatureProps {
-  icon: string
-  title: string
+  icon: string;
+  title: string;
 }
 
 const Feature: React.FC<FeatureProps> = ({ icon, title }) => (
@@ -10,7 +10,7 @@ const Feature: React.FC<FeatureProps> = ({ icon, title }) => (
     <span className="text-4xl">{icon}</span>
     <p className="text-lg font-medium text-center md:text-left">{title}</p>
   </div>
-)
+);
 
 const HeroSection: React.FC = () => {
   return (
@@ -28,9 +28,10 @@ const HeroSection: React.FC = () => {
         </h1>
 
         <p className="text-base md:text-lg text-gray-200 mb-6 md:mb-8">
-          SafeTrust is a decentralized platform designed to revolutionize P2P transactions, providing secure deposits
-          and payments powered by blockchain and trustless technologies. Experience transparency and reliability in every
-          cryptocurrency transaction.
+          SafeTrust is a decentralized platform designed to revolutionize P2P
+          transactions, providing secure deposits and payments powered by
+          blockchain and trustless technologies. Experience transparency and
+          reliability in every cryptocurrency transaction.
         </p>
         <button className="bg-white text-black py-2 px-6 md:py-3 md:px-8 rounded-md text-base md:text-lg hover:bg-gray-300 transition mb-8 md:mb-12">
           Get Started Now
@@ -43,7 +44,7 @@ const HeroSection: React.FC = () => {
         </div>
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default HeroSection
+export default HeroSection;

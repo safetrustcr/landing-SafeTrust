@@ -14,10 +14,10 @@ If you have ideas, suggestions, or encounter a bug, please **open a new issue** 
 
 When working on an issue:
 
-1. **Introduce Yourself**: 
+1. **Introduce Yourself**:
    ```markdown
    Hi, I'm [Your Name] and I'll be working on issue #[Issue Number].
-   
+   ```
 2. **Estimated Time to Completion**: Approximate number of hours or days required to complete the task.
 
 3. **Approach and Methodology**: Briefly outline your strategy for tackling the issue, including any relevant tools, technologies, or resources you plan to utilize
@@ -28,20 +28,17 @@ When working on an issue:
 
 6. Committing: When committing, follow the commit guidelines below to keep history organized.
 
-
 7. Submit a Pull Request: Once complete, push to your fork and open a pull request to the dev branch. Include a summary of changes and any necessary context.
 
 ## 🛠️ Continuous Integration (GitHub Actions)
 
 Our CI pipeline will automatically check your code. Once you submit a pull request, GitHub Actions will start a build and notify you of the status.
 
-
 ## 🔖 Commits
-
 
 You can do a regular commit by following the next:
 
-``` [type] significant message ```
+`[type] significant message`
 
 ### Type
 
@@ -62,17 +59,19 @@ revert: Reverts a previous commit
 ## 🌱 Branches
 
 1. Branch Structure:
-* main: Used for production releases.
-* dev: The primary branch for development.
+
+- main: Used for production releases.
+- dev: The primary branch for development.
 
 2. Naming Conventions:
-* Keep branch names short and descriptive.
-* Use kebab-case, grouping tokens, and slashes as separators.
-* Examples:
-* docs/contributor-guide
-* test/integration-tests
-* feat/authentication-flow
-* fix/bug-header-alignment
+
+- Keep branch names short and descriptive.
+- Use kebab-case, grouping tokens, and slashes as separators.
+- Examples:
+- docs/contributor-guide
+- test/integration-tests
+- feat/authentication-flow
+- fix/bug-header-alignment
 
 3. Branch Removal: Once a branch is merged, delete it if it no longer serves a purpose.
 
