@@ -28,9 +28,9 @@ const HeroSection: React.FC = () => {
         </h1>
 
         <p className="text-base md:text-lg text-gray-200 mb-6 md:mb-8">
-          SafeTrust offers a secure and reliable platform to rent an apartment without the risk of losing your deposit
-          money. With blockchain technology, we ensure transparency, protecting both tenants and landlords from
-          financial disputes.
+          SafeTrust is a decentralized platform designed to revolutionize P2P transactions, providing secure deposits
+          and payments powered by blockchain and trustless technologies. Experience transparency and reliability in every
+          cryptocurrency transaction.
         </p>
         <button className="bg-white text-black py-2 px-6 md:py-3 md:px-8 rounded-md text-base md:text-lg hover:bg-gray-300 transition mb-8 md:mb-12">
           Get Started Now
