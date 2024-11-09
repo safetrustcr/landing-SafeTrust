@@ -1,13 +1,17 @@
-import type { Metadata } from 'next'
-import React from 'react'
-import './globals.css'
+import type { Metadata } from "next";
+import React from "react";
+import "./globals.css";
 
 export const metadata: Metadata = {
-  title: 'Home',
-  description: 'Home'
-}
+  title: "Home",
+  description: "Home",
+};
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="en">
       <body className="antialiased font-inter">
@@ -16,5 +20,5 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </div>
       </body>
     </html>
-  )
+  );
 }

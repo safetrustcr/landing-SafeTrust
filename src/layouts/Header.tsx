@@ -1,16 +1,16 @@
-'use client'
+"use client";
 
-import React, { useState } from 'react'
-import { Link } from 'react-scroll'
-import useMetaMask from '../hooks/useWallet'
+import React, { useState } from "react";
+import { Link } from "react-scroll";
+import useMetaMask from "../hooks/useWallet";
 
 const Header: React.FC = () => {
-  const { account, connectWallet } = useMetaMask()
-  const [isOpen, setIsOpen] = useState(false)
+  const { account, connectWallet } = useMetaMask();
+  const [isOpen, setIsOpen] = useState(false);
 
   const toggleMenu = () => {
-    setIsOpen(!isOpen)
-  }
+    setIsOpen(!isOpen);
+  };
 
   return (
     <header className="fixed top-0 left-0 w-full bg-white flex justify-between items-center px-4 py-4 md:px-8 shadow-md z-50">
@@ -126,7 +126,7 @@ const Header: React.FC = () => {
         </div>
       )}
     </header>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;

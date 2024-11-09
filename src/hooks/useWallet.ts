@@ -1,28 +1,30 @@
-import { useState } from 'react'
+import { useState } from "react";
 
 interface Ethereum {
-  request: (args: { method: string }) => Promise<unknown>
+  request: (args: { method: string }) => Promise<unknown>;
 }
 
 const useWallet = () => {
-  const [account, setAccount] = useState<string | null>(null)
+  const [account, setAccount] = useState<string | null>(null);
 
   const connectWallet = async () => {
-    const { ethereum } = window as unknown as { ethereum?: Ethereum }
+    const { ethereum } = window as unknown as { ethereum?: Ethereum };
 
     if (ethereum) {
       try {
-        const accounts = (await ethereum.request({ method: 'eth_requestAccounts' })) as string[]
-        setAccount(accounts[0])
+        const accounts = (await ethereum.request({
+          method: "eth_requestAccounts",
+        })) as string[];
+        setAccount(accounts[0]);
       } catch (error) {
-        console.error('Error connecting to MetaMask', error)
+        console.error("Error connecting to MetaMask", error);
       }
     } else {
-      console.error('MetaMask not detected')
+      console.error("MetaMask not detected");
     }
-  }
+  };
 
-  return { account, connectWallet }
-}
+  return { account, connectWallet };
+};
 
-export default useWallet
+export default useWallet;
