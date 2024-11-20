@@ -1,5 +1,5 @@
 import React from "react";
-import { FaGithub, FaDiscord } from "react-icons/fa";
+import { FaGithub, FaTelegram, FaTwitter } from "react-icons/fa";
 
 const currentYear = new Date().getFullYear();
 
@@ -18,10 +18,16 @@ const Footer: React.FC = () => (
           <FaGithub />
         </a>
         <a
-          href="https://discord.com/invite/5wSxRF62cP"
+          href="https://t.me/safetrustcr"
           className="text-white hover:text-gray-300"
         >
-          <FaDiscord />
+          <FaTelegram />
+        </a>
+        <a
+          href="https://x.com/SafeTrustCR"
+          className="text-white hover:text-gray-300"
+        >
+          <FaTwitter />
         </a>
       </div>
 
