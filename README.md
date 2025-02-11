@@ -64,5 +64,5 @@ SafeTrust is built using:
 
 ## 📜 License
 
-© 2024 SafeTrust. Released under the [MIT License](https://github.com/safetrustcr).
+© 2024 SafeTrust. Released under the [MIT License](https://opensource.org/license/MIT).
 Ready to join the future of secure rentals?
