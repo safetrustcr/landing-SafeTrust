@@ -2,12 +2,6 @@
 
 Welcome to **SafeTrust** – a modern, sleek, and interactive landing page designed to make secure transactions P2P effortless. With the latest web technologies, SafeTrust leverages **Next.js** for efficient server-side rendering and **React** for a smooth, component-based user experience.
 
-## 👀 Preview
-
-🚀 **[Live Preview](https://safetrust-landing.vercel.app/)**
-
-## ![image](https://github.com/user-attachments/assets/a1816f13-48ad-49d0-9af6-559b4a949c9b)
-
 ## 🛠️ Technology Stack
 
 SafeTrust is built using:
@@ -21,24 +15,36 @@ SafeTrust is built using:
 
 ---
 
-## 🚀 Installation & Setup
+# 🚀 Installation & Setup
 
-1. **Clone the repository** and **install dependencies**:
-   ```bash
-   git clone https://github.com/yourusername/safetrust.git
-   cd safetrust
-   npm install
-   ```
-2. **Scripts**:
-   - `npm run build`: Builds the project into `dist` (HTML, JS, CSS)
-   - `npm run build:assets`: Copies assets from `src/assets/` to `dist`
-   - `npm run build:pug`: Compiles Pug files in `src/pug/` to `dist`
-   - `npm run build:scripts`: Moves `src/js/scripts.js` to `dist`
-   - `npm run build:scss`: Compiles SCSS files in `src/scss/` to `dist`
-   - `npm run clean`: Cleans `dist` directory for a fresh build
-   - `npm run start:debug`: Runs the project in debug mode
-   - `npm start` or `npm run start`: Runs a live preview and watches for file changes
-     > ⚠️ **Note**: Ensure you have **npm** installed to run this environment.
+## 1️⃣ Clone the Repository
+
+Clone the repository and navigate to the project directory:
+
+```bash
+git clone https://github.com/yourusername/safetrust-landing.git
+cd safetrust-landing
+```
+
+## 2️⃣ Add Upstream Repository
+
+```bash
+git remote add upstream https://github.com/safetrustcr/safetrust-landing.git
+```
+
+## 3️⃣ Install Dependencies
+
+```bash
+npm install
+```
+
+## 4️⃣ Start the Development Server
+
+```bash
+npm run dev
+```
+
+This will start the project at `http://localhost:3000`.
 
 ---
 
