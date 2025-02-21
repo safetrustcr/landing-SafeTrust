@@ -1,54 +1,73 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-scroll'
 import useMetaMask from '../hooks/useWallet'
+import { motion } from 'framer-motion'
 
 const Header: React.FC = () => {
   const { account, connectWallet } = useMetaMask()
   const [isOpen, setIsOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const isScrolled = window.scrollY > 20
+      setScrolled(isScrolled)
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
   const toggleMenu = () => {
     setIsOpen(!isOpen)
   }
 
   return (
-    <header className="fixed top-0 left-0 w-full bg-white flex justify-between items-center px-4 py-4 md:px-8 shadow-md z-50">
-      <div className="text-2xl md:text-3xl font-semibold">
-        <span className="text-black">Titan</span>
-        <span className="text-custom-orange">Labs</span>
+    <motion.header 
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      transition={{ duration: 0.5 }}
+      className={`fixed top-0 left-0 w-full flex justify-between items-center px-4 py-4 md:px-8 z-50 transition-all duration-300 ${
+        scrolled ? 'bg-black/90 backdrop-blur-md' : 'bg-transparent'
+      }`}
+    >
+      <div className="flex items-center space-x-2">
+        <div className="w-8 h-8 bg-blue-600 rounded-lg"></div>
+        <span className="text-2xl font-semibold text-white">SafeTrust</span>
       </div>
 
       <div className="md:hidden">
-        <button onClick={toggleMenu} className="text-black focus:outline-none">
+        <button onClick={toggleMenu} className="text-white focus:outline-none">
           ☰
         </button>
       </div>
 
-      <div className="hidden md:flex items-center space-x-4">
+      <nav className="hidden md:flex items-center space-x-8">
         <Link
-          to="info"
+          to="features"
           smooth={true}
           duration={800}
-          className="cursor-pointer text-black hover:text-custom-orange transition"
+          className="text-gray-300 hover:text-white transition cursor-pointer"
         >
-          Info
+          Features
         </Link>
         <Link
-          to="services"
+          to="pricing"
           smooth={true}
           duration={800}
-          className="cursor-pointer text-black hover:text-custom-orange transition"
+          className="text-gray-300 hover:text-white transition cursor-pointer"
         >
-          Services
+          Pricing
         </Link>
         <Link
-          to="team"
+          to="support"
           smooth={true}
           duration={800}
-          className="cursor-pointer text-black hover:text-custom-orange transition"
+          className="text-gray-300 hover:text-white transition cursor-pointer"
         >
-          Team
+          Support
         </Link>
 
         {account ? (
@@ -70,37 +89,47 @@ const Header: React.FC = () => {
             Connect Wallet
           </button>
         )}
-      </div>
+      </nav>
 
+      {/* Mobile Menu */}
       {isOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 z-40 flex justify-center items-center">
-          <div className="bg-white p-8 rounded-lg flex flex-col items-center space-y-6">
+        <motion.div 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="fixed inset-0 bg-black bg-opacity-90 z-40 flex justify-center items-center"
+        >
+          <motion.div 
+            initial={{ scale: 0.9, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            className="bg-gray-900 p-8 rounded-xl flex flex-col items-center space-y-6"
+          >
             <Link
-              to="info"
+              to="features"
               smooth={true}
               duration={800}
-              className="cursor-pointer text-black hover:text-custom-orange transition text-xl"
+              className="text-gray-300 hover:text-white transition text-xl"
               onClick={() => setIsOpen(false)}
             >
-              Info
+              Features
             </Link>
             <Link
-              to="services"
+              to="pricing"
               smooth={true}
               duration={800}
-              className="cursor-pointer text-black hover:text-custom-orange transition text-xl"
+              className="text-gray-300 hover:text-white transition text-xl"
               onClick={() => setIsOpen(false)}
             >
-              Services
+              Pricing
             </Link>
             <Link
-              to="team"
+              to="support"
               smooth={true}
               duration={800}
-              className="cursor-pointer text-black hover:text-custom-orange transition text-xl"
+              className="text-gray-300 hover:text-white transition text-xl"
               onClick={() => setIsOpen(false)}
             >
-              Team
+              Support
             </Link>
 
             {account ? (
@@ -122,10 +151,10 @@ const Header: React.FC = () => {
                 Connect Wallet
               </button>
             )}
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       )}
-    </header>
+    </motion.header>
   )
 }
 
