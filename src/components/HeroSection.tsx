@@ -3,15 +3,6 @@
 import { Button } from "@/components/ui/button";
 import { Wallet } from "lucide-react";
 
-//!THIS IS AN EXAMPLE OF A COMPONENT THAT IS NOT YET IMPLEMENTED, BUT YOU CAN USE IT AS A REFERENCE TO CREATE YOUR OWN COMPONENTS
-
-// import TestimonialSection from "./testimonial-section"
-// import FeaturesSection from "./features-section"
-// import PricingSection from "./pricing-section"
-// import FAQSection from "./faq-section"
-// import CTASection from "./cta-section"
-// import Footer from "./footer"
-
 export default function HeroSection() {
   return (
     <div className="min-h-screen bg-black text-white">
@@ -72,27 +63,6 @@ export default function HeroSection() {
           </div>
         </div>
       </main>
-
-      {/* <FeaturesSection />
-      <PricingSection />
-      <FAQSection /> */}
-      {/* <TestimonialSection /> */}
-      {/* <CTASection />
-      <Footer /> */}
-
-      <style jsx>{`
-        @keyframes pulse {
-          0% {
-            opacity: 0.5;
-          }
-          50% {
-            opacity: 1;
-          }
-          100% {
-            opacity: 0.5;
-          }
-        }
-      `}</style>
     </div>
   );
 }
