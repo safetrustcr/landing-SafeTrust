@@ -1,5 +1,13 @@
-import FAQSection from "@/components/ui/Faq";
+"use client";
+
+import HeroSection from "@/components/HeroSection";
+import FaqSection from "@/components/FaqSection";
 
 export default function Home() {
-  return <FAQSection />;
+  return (
+    <>
+      <HeroSection />
+      <FaqSection />
+    </>
+  );
 }
