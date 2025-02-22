@@ -53,6 +53,7 @@ export default function HeroSection() {
           <div className="grid grid-cols-3 gap-4">
             {Array.from({ length: 9 }).map((_, i) => (
               <div
+                // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
                 key={i}
                 className="h-24 w-24 rounded-lg bg-primary/20 p-4"
                 style={{
