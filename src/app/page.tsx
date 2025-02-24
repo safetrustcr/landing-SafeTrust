@@ -9,8 +9,8 @@ export default function Home() {
   return (
     <>
       <HeroSection />
-      <FaqSection />
       <Discover />
+      <FaqSection />
       <Footer />
     </>
   );
