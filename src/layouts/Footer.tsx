@@ -142,7 +142,7 @@ const Footer: React.FC = () => {
             <Twitter size={24} />
           </motion.a>
           <motion.a 
-            href="https://github.com/safetrustcr" 
+            href="https://github.com/titanlabsco" 
             className="text-white hover:text-blue-400 bg-gray-800 p-3 rounded-full"
             variants={iconVariants}
             whileHover="hover"
@@ -186,7 +186,7 @@ const Footer: React.FC = () => {
           variants={itemVariants}
         >
           Powered by <span className="text-white">Safe Trust</span>
-          <span className="text-blue-500"> </span>© {currentYear}
+          <span className="text-blue-500"></span>© {currentYear}
         </motion.div>
         
         {/* Navigation links */}
