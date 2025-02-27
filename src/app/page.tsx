@@ -17,5 +17,7 @@ export default function Home() {
       <TransactionTiers/>
       <Footer />
       </>
+      <Footer />
+    </>
   );
 }
