@@ -58,12 +58,13 @@ const Footer: React.FC = () => {
   };
 
   const logoVariants = {
+    initial: {},
     animate: {
       textShadow: ["0 0 0px rgba(59, 130, 246, 0)", "0 0 10px rgba(59, 130, 246, 0.5)", "0 0 0px rgba(59, 130, 246, 0)"],
       transition: {
         duration: 2,
         repeat: Infinity,
-        repeatType: "reverse"
+        repeatType: "reverse" as const
       }
     }
   };

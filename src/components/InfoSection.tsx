@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
+import { motion, useInView, AnimationControls } from 'framer-motion';
 import { Shield, Lock, RefreshCw } from 'lucide-react';
 
 const InfoSection: React.FC = () => {
@@ -33,21 +33,6 @@ const InfoSection: React.FC = () => {
     }
   };
 
-  const iconAnimations = {
-    shield: {
-      y: [0, -5, 0],
-      transition: { repeat: Infinity, duration: 3, repeatType: "reverse" }
-    },
-    lock: {
-      rotate: [0, 10, 0, -10, 0],
-      transition: { repeat: Infinity, duration: 5, repeatType: "reverse" }
-    },
-    refresh: {
-      rotate: [0, 360],
-      transition: { repeat: Infinity, duration: 10, ease: "linear" }
-    }
-  };
-
   return (
     <section 
       id="info" 
@@ -64,7 +49,7 @@ const InfoSection: React.FC = () => {
         transition={{
           duration: 15,
           repeat: Infinity,
-          repeatType: "reverse"
+          repeatType: "mirror"
         }}
       />
       
@@ -77,7 +62,7 @@ const InfoSection: React.FC = () => {
         transition={{
           duration: 12,
           repeat: Infinity,
-          repeatType: "reverse"
+          repeatType: "mirror"
         }}
       />
 
@@ -111,7 +96,14 @@ const InfoSection: React.FC = () => {
               whileHover={{ y: -5, boxShadow: "0 10px 25px -5px rgba(59, 130, 246, 0.3)" }}
               transition={{ type: "spring", stiffness: 300 }}
             >
-              <motion.div animate={iconAnimations.shield}>
+              <motion.div 
+                animate={{ y: [0, -5, 0] }}
+                transition={{ 
+                  repeat: Infinity, 
+                  duration: 3, 
+                  repeatType: "mirror" 
+                }}
+              >
                 <Shield size={32} className="text-blue-400" />
               </motion.div>
               <p className="text-sm mt-2 text-gray-300">Deposit Protection</p>
@@ -122,7 +114,14 @@ const InfoSection: React.FC = () => {
               whileHover={{ y: -5, boxShadow: "0 10px 25px -5px rgba(59, 130, 246, 0.3)" }}
               transition={{ type: "spring", stiffness: 300 }}
             >
-              <motion.div animate={iconAnimations.lock}>
+              <motion.div 
+                animate={{ rotate: [0, 10, 0, -10, 0] }}
+                transition={{ 
+                  repeat: Infinity, 
+                  duration: 5, 
+                  repeatType: "mirror" 
+                }}
+              >
                 <Lock size={32} className="text-blue-400" />
               </motion.div>
               <p className="text-sm mt-2 text-gray-300">Secure Transactions</p>
@@ -133,7 +132,14 @@ const InfoSection: React.FC = () => {
               whileHover={{ y: -5, boxShadow: "0 10px 25px -5px rgba(59, 130, 246, 0.3)" }}
               transition={{ type: "spring", stiffness: 300 }}
             >
-              <motion.div animate={iconAnimations.refresh}>
+              <motion.div 
+                animate={{ rotate: [0, 360] }}
+                transition={{ 
+                  repeat: Infinity, 
+                  duration: 10, 
+                  ease: "linear" 
+                }}
+              >
                 <RefreshCw size={32} className="text-blue-400" />
               </motion.div>
               <p className="text-sm mt-2 text-gray-300">Automated Process</p>
@@ -225,12 +231,12 @@ contract SafeTrustEscrow {
         <motion.div 
           className="absolute inset-0 bg-gradient-to-r from-blue-400 to-indigo-600 filter blur-2xl -z-10 opacity-10"
           animate={{ 
-            opacity: [0.1, 0.2, 0.1],
+            opacity: [0.1, 0.2, 0.1]
           }}
           transition={{ 
             duration: 3, 
             repeat: Infinity, 
-            repeatType: "reverse" 
+            repeatType: "mirror" 
           }}
         />
       </motion.div>
