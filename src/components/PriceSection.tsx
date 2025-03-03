@@ -63,39 +63,44 @@ export default function TransactionTiers() {
   };
 
   return (
-    <div className="min-h-screen w-full bg-black text-white flex flex-col items-center p-6 sm:p-8 lg:p-12 m-0 pb-0">
-      <Typography variant="h1" className="text-4xl font-bold text-center">
-        Transaction <span className="text-[#4C6FFF]">Tiers</span>
+    <div className="min-h-screen w-full bg-[#0a0a15] text-white flex flex-col items-center p-6 sm:p-8 lg:p-12 m-0 pb-0 relative overflow-hidden">
+      {/* Background glow effects */}
+      <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-blue-900/10 rounded-full blur-3xl pointer-events-none"></div>
+      <div className="absolute bottom-1/3 right-1/4 w-72 h-72 bg-indigo-800/10 rounded-full blur-3xl pointer-events-none"></div>
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent to-blue-900/5 pointer-events-none"></div>
+      
+      <Typography variant="h1" className="text-4xl font-bold text-center relative z-10">
+        Transaction <span className="text-blue-600">Tiers</span>
       </Typography>
-      <Typography variant="p" className="text-gray-400 text-center mt-8">
+      <Typography variant="p" className="text-gray-400 text-center mt-8 relative z-10">
         Choose the perfect plan for your transaction needs with our transparent
         fee structure.
       </Typography>
 
       {/* Billing Toggle */}
-      <div className="flex items-center gap-6 mt-10">
+      <div className="flex items-center gap-6 mt-10 relative z-10">
         <span className="text-white">Monthly</span>
         <Switch checked={yearly} onCheckedChange={setYearly} />
         <span className="text-white">Yearly</span>
-        <Badge className="bg-[#0A0F22] text-[#4C6FFF] px-2 py-1 rounded-md">
+        <Badge className="bg-blue-950 text-blue-600 px-2 py-1 rounded-md">
           Save 25%
         </Badge>
       </div>
 
       {/* Pricing Plans */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 mt-8 w-full max-w-5xl">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 mt-8 w-full max-w-5xl relative z-10">
         {plans.map((plan) => (
           <Card
             key={plan.name}
             onClick={() => setSelectedPlan(plan.name)}
-            className={`relative text-white bg-[rgba(17,19,26,0.7)] backdrop-blur-md p-6 border flex flex-col justify-between h-[380px] cursor-pointer transition-all hover:border-[#4C6FFF] ${
+            className={`relative text-white bg-blue-950/30 backdrop-blur-md p-6 border flex flex-col justify-between h-[380px] cursor-pointer transition-all hover:border-blue-600 hover:shadow-lg hover:shadow-blue-900/20 ${
               selectedPlan === plan.name
-                ? "border-[#4C6FFF]"
-                : "border-gray-700"
+                ? "border-blue-600"
+                : "border-blue-900/20"
             }`}
           >
             {plan.name === "Pro" && (
-              <Badge className="absolute top-[-10px] right-4 bg-[#4C6FFF] text-white px-3 py-1 rounded-md text-sm">
+              <Badge className="absolute top-[-10px] right-4 bg-blue-600 text-white px-3 py-1 rounded-md text-sm">
                 Popular
               </Badge>
             )}
@@ -113,13 +118,13 @@ export default function TransactionTiers() {
               <ul className="space-y-2 text-white text-sm">
                 {plan.details.map((detail, index) => (
                   <li key={index} className="flex items-center gap-2">
-                    <Check className="text-[#4C6FFF]" /> {detail}
+                    <Check className="text-blue-600" /> {detail}
                   </li>
                 ))}
               </ul>
             </CardContent>
             <Button
-              className="w-full bg-[#4C6FFF] text-white hover:bg-[#3A50CC] transition-all"
+              className="w-full bg-blue-600 text-white hover:bg-blue-800 transition-all"
               onClick={() => handleWalletClick(plan.name)}
             >
               {plan.name === "Enterprise" ? "Contact Sales" : "Connect Wallet"}
@@ -128,7 +133,7 @@ export default function TransactionTiers() {
         ))}
       </div>
 
-      {walletError && <p className="text-red-500 mt-4">{walletError}</p>}
+      {walletError && <p className="text-red-500 mt-4 relative z-10">{walletError}</p>}
     </div>
   );
 }
