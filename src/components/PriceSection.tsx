@@ -117,7 +117,10 @@ export default function TransactionTiers() {
   };
 
   return (
-    <div id="pricing" className="min-h-screen w-full bg-[#0a0a15] text-white flex flex-col items-center p-6 sm:p-8 lg:p-12 m-0 pb-0 relative overflow-hidden">
+    <div
+      id="pricing"
+      className="min-h-screen w-full bg-[#0a0a15] text-white flex flex-col items-center p-6 sm:p-8 lg:p-12 m-0 pb-0 relative overflow-hidden"
+    >
       <style jsx>{`
         @keyframes fadeIn {
           from {
@@ -181,10 +184,25 @@ export default function TransactionTiers() {
       </div>
 
       {/* Pricing Plans */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-8 w-full max-w-5xl relative z-10">
+      <section
+        aria-labelledby="pricing-plans-heading"
+        role="radiogroup"
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-8 w-full max-w-5xl relative z-10"
+      >
+        <h2 id="pricing-plans-heading" className="sr-only">
+          Pricing Plans
+        </h2>
         {plans.map((plan) => (
           <Card
             key={plan.name}
+            role="radio"
+            aria-checked={selectedPlan === plan.name}
+            tabIndex={0}
+            aria-label={`${plan.name} plan, costs ${
+              billingPeriod === "monthly"
+                ? `$${plan.monthly} per month`
+                : `$${plan.yearly} per year`
+            }`}
             onClick={() => setSelectedPlan(plan.name)}
             className={`relative text-white bg-blue-950/30 backdrop-blur-md p-6 md:p-4 border flex flex-col justify-between h-[450px] md:h-[400px] cursor-pointer transition-all duration-300 ease-in-out hover:border-blue-600 hover:shadow-lg hover:shadow-blue-900/20 ${
               selectedPlan === plan.name
@@ -225,7 +243,10 @@ export default function TransactionTiers() {
               )}
             </CardHeader>
             <CardContent className="flex flex-col flex-grow md:py-3">
-              <ul className="space-y-2 md:space-y-1.5 text-white text-sm md:text-[13px] xl:text-[15px] mb-6 md:mb-4">
+              <ul
+                aria-label={`${plan.name} plan features`}
+                className="space-y-2 md:space-y-1.5 text-white text-sm md:text-[13px] xl:text-[15px] mb-6 md:mb-4"
+              >
                 {plan.details.map((detail, index) => (
                   <li
                     key={index}
@@ -250,6 +271,11 @@ export default function TransactionTiers() {
               </div>
             </CardContent>
             <Button
+              aria-label={`${
+                plan.name === "Enterprise"
+                  ? "Contact sales for Enterprise plan"
+                  : `Connect wallet to ${plan.name} plan`
+              }`}
               className="w-full bg-blue-600 text-white hover:bg-blue-800 transition-all duration-300 mt-4 md:mt-2 md:py-2 md:text-sm"
               onClick={() => handleWalletClick(plan.name)}
             >
@@ -257,7 +283,7 @@ export default function TransactionTiers() {
             </Button>
           </Card>
         ))}
-      </div>
+      </section>
 
       {walletError && (
         <p className="text-red-500 mt-4 relative z-10 transition-all duration-300">
