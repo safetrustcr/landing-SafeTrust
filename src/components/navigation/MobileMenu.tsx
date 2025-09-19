@@ -13,9 +13,11 @@ interface MobileMenuProps {
 
 const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose, isTablet = false }) => {
   const [screenSize, setScreenSize] = useState<'mobile' | 'tablet' | 'laptop' | 'desktop'>('mobile');
+  const [isClient, setIsClient] = useState(false);
 
-  // Detect screen size
+  // Detect screen size - only on client side
   useEffect(() => {
+    setIsClient(true);
     const checkScreenSize = () => {
       if (window.innerWidth >= 1920) {
         setScreenSize('desktop');
@@ -121,7 +123,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose, isTablet = fal
           {/* Mobile Menu */}
           <motion.nav
             className={`fixed top-0 right-0 h-full bg-[#0a0a15] border-l border-blue-900/30 z-50 overflow-hidden ${
-              screenSize === 'tablet' ? 'w-64' : 'w-80'
+              isClient && screenSize === 'tablet' ? 'w-64' : 'w-80'
             }`}
             variants={menuVariants}
             initial="closed"

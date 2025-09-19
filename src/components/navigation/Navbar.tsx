@@ -9,7 +9,8 @@ import NavigationLink from './NavigationLink';
 
 const Navbar: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [screenSize, setScreenSize] = useState<'mobile' | 'tablet' | 'laptop' | 'desktop'>('mobile');
+  const [screenSize, setScreenSize] = useState<'mobile' | 'tablet' | 'laptop' | 'desktop'>('laptop');
+  const [isClient, setIsClient] = useState(false);
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -19,8 +20,9 @@ const Navbar: React.FC = () => {
     setIsMobileMenuOpen(false);
   };
 
-  // Detect screen size
+  // Detect screen size - only on client side
   useEffect(() => {
+    setIsClient(true);
     const checkScreenSize = () => {
       if (window.innerWidth >= 1920) {
         setScreenSize('desktop');
@@ -114,7 +116,7 @@ const Navbar: React.FC = () => {
       </nav>
 
       {/* Mobile Menu - Only show for mobile and tablet */}
-      {(screenSize === 'mobile' || screenSize === 'tablet') && (
+      {isClient && (screenSize === 'mobile' || screenSize === 'tablet') && (
         <MobileMenu
           isOpen={isMobileMenuOpen}
           onClose={closeMobileMenu}
