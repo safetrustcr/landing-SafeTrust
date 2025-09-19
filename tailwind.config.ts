@@ -9,6 +9,12 @@ export default {
   ],
   theme: {
     extend: {
+      screens: {
+        'mobile': '320px',     // Mobile: 320px - 767px
+        'tablet': '768px',     // Tablet: 768px - 1365px
+        'laptop': '1366px',    // Laptop/Desktop: 1366px - 1919px
+        'desktop': '1920px',   // Desktop: 1920px+
+      },
       colors: {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
