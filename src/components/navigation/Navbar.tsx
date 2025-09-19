@@ -85,17 +85,8 @@ const Navbar: React.FC = () => {
           </motion.div>
         </div>
 
-        {/* Tablet Navigation - Show more items + hamburger for remaining */}
+        {/* Tablet Navigation - Only Get Started button outside, all links in hamburger */}
         <div className="hidden tablet:flex laptop:hidden items-center gap-3">
-          {navigationItems.slice(0, 3).map((item) => (
-            <NavigationLink
-              key={item.href}
-              href={item.href}
-              className="hover:text-blue-400 transition-colors duration-300 text-sm"
-            >
-              {item.label}
-            </NavigationLink>
-          ))}
           <motion.div
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}

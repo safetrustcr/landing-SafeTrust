@@ -99,9 +99,9 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose, isTablet = fal
     { href: '#support', label: 'Support' }
   ];
 
-  // For tablet, show only the items not visible in the main nav
+  // For tablet, show all navigation items in hamburger menu
   // For laptop and desktop, mobile menu should not be used
-  const navigationItems = screenSize === 'tablet' ? allNavigationItems.slice(3) : allNavigationItems;
+  const navigationItems = allNavigationItems;
 
   return (
     <AnimatePresence>
@@ -138,6 +138,26 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose, isTablet = fal
                   <div className="h-8 w-8 rounded-lg bg-blue-600" />
                   <span className="text-xl font-semibold">SafeTrust</span>
                 </div>
+                <button
+                  onClick={onClose}
+                  className="p-2 hover:bg-blue-900/20 rounded-md transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-900"
+                  aria-label="Close menu"
+                >
+                  <svg
+                    className="w-6 h-6 text-white"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  </svg>
+                </button>
               </div>
 
               {/* Navigation Links */}
