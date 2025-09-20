@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { motion, useAnimation, AnimatePresence } from 'framer-motion';
 import { Button } from "@/components/ui/button";
 import { Wallet } from "lucide-react";
+import Navbar from "./navigation/Navbar";
 
 interface FeatureProps {
   icon: React.ReactNode;
@@ -197,32 +198,7 @@ export default function HeroSection() {
 
   return (
     <div className="min-h-screen bg-[#0a0a15] text-white overflow-hidden">
-      <nav className="container mx-auto flex items-center justify-between p-4 relative z-10">
-        <div className="flex items-center gap-2">
-          <div className="h-8 w-8 rounded-lg bg-blue-600" />
-          <span className="text-xl font-semibold">SafeTrust</span>
-        </div>
-        <div className="flex items-center gap-6">
-          <a href="#features" className="text-gray-300 hover:text-white">
-            Features
-          </a>
-          <a href="#how-it-works" className="text-gray-300 hover:text-white">
-            How It Works
-          </a>
-          <a href="#pricing" className="text-gray-300 hover:text-white">
-            Pricing
-          </a>
-          <a href="#support" className="text-gray-300 hover:text-white">
-            Support
-          </a>
-          <Button
-            variant="outline"
-            className="border-blue-600 text-blue-500 hover:bg-blue-900/20 hover:text-white"
-          >
-            Get Started
-          </Button>
-        </div>
-      </nav>
+      <Navbar />
 
       <main className="container mx-auto min-h-[calc(100vh-80px)] grid grid-cols-1 lg:grid-cols-2 gap-12 px-4">
         <div className="flex flex-col justify-center space-y-6">
