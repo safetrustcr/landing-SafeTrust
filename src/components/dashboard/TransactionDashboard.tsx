@@ -5,7 +5,6 @@ import { Download, RefreshCw, TrendingUp, Clock, CheckCircle, XCircle } from 'lu
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Container } from '@/components/ui/container';
 import { TransactionTable } from './TransactionTable';
 import { TransactionSearch } from './TransactionSearch';
 import { TransactionFilters } from './TransactionFilters';
@@ -79,25 +78,27 @@ export function TransactionDashboard() {
 
   if (error) {
     return (
-      <Container className="py-8">
-        <Card className="p-8 text-center">
-          <div className="text-destructive mb-4">
-            <XCircle className="h-12 w-12 mx-auto mb-2" />
-            <div className="text-lg font-medium">Error loading transactions</div>
-            <div className="text-sm text-muted-foreground mb-4">{error}</div>
-            <Button onClick={refreshData} variant="outline">
-              <RefreshCw className="h-4 w-4 mr-2" />
-              Try Again
-            </Button>
-          </div>
-        </Card>
-      </Container>
+      <div className="min-h-screen bg-[#0a0a15] text-white">
+        <div className="w-full max-w-none mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 lg:py-8">
+          <Card className="p-8 text-center">
+            <div className="text-destructive mb-4">
+              <XCircle className="h-12 w-12 mx-auto mb-2" />
+              <div className="text-lg font-medium">Error loading transactions</div>
+              <div className="text-sm text-muted-foreground mb-4">{error}</div>
+              <Button onClick={refreshData} variant="outline">
+                <RefreshCw className="h-4 w-4 mr-2" />
+                Try Again
+              </Button>
+            </div>
+          </Card>
+        </div>
+      </div>
     );
   }
 
   return (
     <div className="min-h-screen bg-[#0a0a15] text-white">
-      <Container className="py-8 space-y-6">
+      <div className="w-full max-w-none mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 lg:py-8 space-y-4 sm:space-y-6">
       <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
         <div className="flex-1">
           <h1 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-[#336AD9] to-blue-600 bg-clip-text text-transparent">
@@ -234,7 +235,7 @@ export function TransactionDashboard() {
           loading={loading}
         />
       </div>
-      </Container>
+      </div>
     </div>
   );
 }
