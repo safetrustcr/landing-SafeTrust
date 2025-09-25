@@ -5,7 +5,7 @@ import { Transaction } from '@/lib/transaction-api';
 import { Badge } from '@/components/ui/badge';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Copy, ExternalLink, ChevronDown, ChevronRight } from 'lucide-react';
+import { Copy, ExternalLink, ChevronDown, ChevronRight, Clock } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 interface TransactionTableProps {
@@ -109,34 +109,41 @@ export function TransactionTable({
         const statusInfo = statusConfig[transaction.status];
 
         return (
-          <Card key={transaction.id} className="overflow-hidden hover:shadow-lg transition-shadow duration-300 border-l-4 border-l-transparent hover:border-l-[#336AD9] bg-blue-900/10 backdrop-blur-sm border border-blue-800/30">
-            <div className="p-3 md:p-4">
-              <div className="flex items-start justify-between gap-2">
-                <div className="flex items-start gap-2 flex-1 min-w-0">
+          <Card key={transaction.id} className="overflow-hidden hover:shadow-lg transition-all duration-300 border-l-4 border-l-transparent hover:border-l-[#336AD9] bg-blue-900/10 backdrop-blur-sm border border-blue-800/30">
+            <div className="p-4 md:p-6">
+              <div className="flex items-start justify-between gap-3">
+                <div className="flex items-start gap-3 flex-1 min-w-0">
                   <Button
                     variant="ghost"
                     size="sm"
                     onClick={() => toggleRow(transaction.id)}
-                    className="p-1 h-6 w-6 flex-shrink-0"
+                    className="p-2 h-8 w-8 flex-shrink-0 hover:bg-blue-800/20 rounded-md"
                   >
                     {isExpanded ? (
-                      <ChevronDown className="h-3 w-3" />
+                      <ChevronDown className="h-4 w-4" />
                     ) : (
-                      <ChevronRight className="h-3 w-3" />
+                      <ChevronRight className="h-4 w-4" />
                     )}
                   </Button>
                   
-                  <div className="flex-1 min-w-0">
-                    <div className="flex flex-col sm:flex-row sm:items-center gap-2 mb-1">
-                      <code className="text-xs font-mono bg-muted px-2 py-1 rounded break-all">
+                  <div className="flex-1 min-w-0 space-y-2">
+                    <div className="flex flex-col sm:flex-row sm:items-center gap-2">
+                      <code className="text-sm font-mono bg-blue-900/20 px-3 py-1 rounded-md break-all text-gray-200 border border-blue-800/30">
                         {formatAddress(transaction.hash)}
                       </code>
-                      <Badge className={cn("text-xs flex-shrink-0", statusInfo.className)}>
+                      <Badge className={cn("text-xs flex-shrink-0 px-2 py-1", statusInfo.className)}>
                         {statusInfo.label}
                       </Badge>
                     </div>
-                    <div className="text-xs sm:text-sm text-gray-400">
-                      {formatTimestamp(transaction.timestamp)} • {formatAmount(transaction.amount)}
+                    <div className="flex flex-col sm:flex-row sm:items-center gap-2 text-sm text-gray-400">
+                      <span className="flex items-center gap-1">
+                        <Clock className="h-3 w-3" />
+                        {formatTimestamp(transaction.timestamp)}
+                      </span>
+                      <span className="hidden sm:inline">•</span>
+                      <span className="font-medium text-blue-400">
+                        {formatAmount(transaction.amount)}
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -146,70 +153,99 @@ export function TransactionTable({
                     variant="ghost"
                     size="sm"
                     onClick={() => copyToClipboard(transaction.hash)}
-                    className="h-8 w-8 p-0"
+                    className="h-8 w-8 p-0 hover:bg-blue-800/20 rounded-md"
+                    title="Copy transaction hash"
                   >
-                    <Copy className="h-3 w-3" />
+                    <Copy className="h-4 w-4" />
                   </Button>
                   <Button
                     variant="ghost"
                     size="sm"
-                    className="h-8 w-8 p-0"
+                    className="h-8 w-8 p-0 hover:bg-blue-800/20 rounded-md"
+                    title="View on blockchain explorer"
                   >
-                    <ExternalLink className="h-3 w-3" />
+                    <ExternalLink className="h-4 w-4" />
                   </Button>
                 </div>
               </div>
 
               {isExpanded && (
-                <div className="mt-4 pt-4 border-t space-y-3">
-                  <div className="grid grid-cols-1 gap-4">
-                    <div>
-                      <div className="text-xs text-gray-400 mb-1">From Address</div>
-                      <div className="flex items-center gap-2">
-                        <code className="text-xs font-mono bg-muted px-2 py-1 rounded flex-1 break-all">
-                          {transaction.fromAddress}
-                        </code>
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          onClick={() => copyToClipboard(transaction.fromAddress)}
-                          className="h-6 w-6 p-0 flex-shrink-0"
-                        >
-                          <Copy className="h-3 w-3" />
-                        </Button>
+                <div className="mt-6 pt-6 border-t border-blue-800/30 space-y-6">
+                  {/* Address Section */}
+                  <div className="space-y-4">
+                    <h4 className="text-sm font-medium text-gray-300 mb-3">Transaction Details</h4>
+                    
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                      <div className="space-y-2">
+                        <div className="text-xs font-medium text-gray-400 uppercase tracking-wide">From Address</div>
+                        <div className="flex items-start gap-2">
+                          <code className="text-xs font-mono bg-blue-900/20 px-3 py-2 rounded-md flex-1 break-all text-gray-200 border border-blue-800/30">
+                            {transaction.fromAddress}
+                          </code>
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => copyToClipboard(transaction.fromAddress)}
+                            className="h-8 w-8 p-0 flex-shrink-0 hover:bg-blue-800/20"
+                          >
+                            <Copy className="h-4 w-4" />
+                          </Button>
+                        </div>
                       </div>
-                    </div>
-                    <div>
-                      <div className="text-xs text-gray-400 mb-1">To Address</div>
-                      <div className="flex items-center gap-2">
-                        <code className="text-xs font-mono bg-muted px-2 py-1 rounded flex-1 break-all">
-                          {transaction.toAddress}
-                        </code>
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          onClick={() => copyToClipboard(transaction.toAddress)}
-                          className="h-6 w-6 p-0 flex-shrink-0"
-                        >
-                          <Copy className="h-3 w-3" />
-                        </Button>
+                      
+                      <div className="space-y-2">
+                        <div className="text-xs font-medium text-gray-400 uppercase tracking-wide">To Address</div>
+                        <div className="flex items-start gap-2">
+                          <code className="text-xs font-mono bg-blue-900/20 px-3 py-2 rounded-md flex-1 break-all text-gray-200 border border-blue-800/30">
+                            {transaction.toAddress}
+                          </code>
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => copyToClipboard(transaction.toAddress)}
+                            className="h-8 w-8 p-0 flex-shrink-0 hover:bg-blue-800/20"
+                          >
+                            <Copy className="h-4 w-4" />
+                          </Button>
+                        </div>
                       </div>
                     </div>
                   </div>
                   
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 text-sm">
-                    <div>
-                      <div className="text-xs text-gray-400 mb-1">Transaction ID</div>
-                      <div className="font-mono text-white text-xs break-all">{transaction.id}</div>
-                    </div>
-                    <div>
-                      <div className="text-xs text-gray-400 mb-1">Amount</div>
-                      <div className="font-medium text-white">{formatAmount(transaction.amount)}</div>
-                    </div>
-                    <div className="sm:col-span-2 lg:col-span-1">
-                      <div className="text-xs text-gray-400 mb-1">Full Timestamp</div>
-                      <div className="text-xs">
-                        {transaction.timestamp.toLocaleString()}
+                  {/* Transaction Info Section */}
+                  <div className="space-y-4">
+                    <h4 className="text-sm font-medium text-gray-300 mb-3">Transaction Information</h4>
+                    
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                      <div className="space-y-2">
+                        <div className="text-xs font-medium text-gray-400 uppercase tracking-wide">Transaction ID</div>
+                        <div className="flex items-center gap-2">
+                          <code className="text-xs font-mono bg-blue-900/20 px-3 py-2 rounded-md flex-1 break-all text-gray-200 border border-blue-800/30">
+                            {transaction.id}
+                          </code>
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => copyToClipboard(transaction.id)}
+                            className="h-8 w-8 p-0 flex-shrink-0 hover:bg-blue-800/20"
+                          >
+                            <Copy className="h-4 w-4" />
+                          </Button>
+                        </div>
+                      </div>
+                      
+                      <div className="space-y-2">
+                        <div className="text-xs font-medium text-gray-400 uppercase tracking-wide">Amount</div>
+                        <div className="text-lg font-semibold text-blue-400 bg-blue-900/20 px-3 py-2 rounded-md border border-blue-800/30">
+                          {formatAmount(transaction.amount)}
+                        </div>
+                      </div>
+                      
+                      <div className="space-y-2 sm:col-span-2 lg:col-span-1">
+                        <div className="text-xs font-medium text-gray-400 uppercase tracking-wide">Full Timestamp</div>
+                        <div className="text-sm text-gray-200 bg-blue-900/20 px-3 py-2 rounded-md border border-blue-800/30">
+                          {transaction.timestamp.toLocaleString()}
+                        </div>
                       </div>
                     </div>
                   </div>
