@@ -99,16 +99,16 @@ export function TransactionDashboard() {
     <div className="min-h-screen bg-[#0a0a15] text-white">
       <Container className="py-8 space-y-6">
       <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
-        <div>
-          <h1 className="text-3xl font-bold bg-gradient-to-r from-[#336AD9] to-blue-600 bg-clip-text text-transparent">
+        <div className="flex-1">
+          <h1 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-[#336AD9] to-blue-600 bg-clip-text text-transparent">
             Transaction Dashboard
           </h1>
-          <p className="text-muted-foreground mt-1">
+          <p className="text-muted-foreground mt-1 text-sm md:text-base">
             Monitor and manage your blockchain transactions
           </p>
         </div>
         
-        <div className="flex items-center gap-2">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 mt-4 lg:mt-0">
           <Button
             variant="outline"
             onClick={refreshData}
@@ -119,13 +119,13 @@ export function TransactionDashboard() {
             Refresh
           </Button>
           
-          <div className="flex items-center gap-1">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-1">
             <Button
               variant="outline"
               size="sm"
               onClick={handleExportCSV}
               disabled={!transactions.length || isExporting}
-              className="flex items-center gap-2 border-blue-700/40 text-gray-400 bg-blue-900/10 hover:bg-blue-900/20 hover:text-gray-300 transition-all duration-300"
+              className="flex items-center justify-center gap-2 border-blue-700/40 text-gray-400 bg-blue-900/10 hover:bg-blue-900/20 hover:text-gray-300 transition-all duration-300 w-full sm:w-auto"
             >
               <Download className="h-4 w-4" />
               CSV
@@ -135,7 +135,7 @@ export function TransactionDashboard() {
               size="sm"
               onClick={handleExportPDF}
               disabled={!transactions.length || isExporting}
-              className="flex items-center gap-2 border-blue-700/40 text-gray-400 bg-blue-900/10 hover:bg-blue-900/20 hover:text-gray-300 transition-all duration-300"
+              className="flex items-center justify-center gap-2 border-blue-700/40 text-gray-400 bg-blue-900/10 hover:bg-blue-900/20 hover:text-gray-300 transition-all duration-300 w-full sm:w-auto"
             >
               <Download className="h-4 w-4" />
               PDF
@@ -145,7 +145,7 @@ export function TransactionDashboard() {
       </div>
 
       {loading && !stats ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
           {[...Array(4)].map((_, i) => (
             <Card key={i} className="p-4 bg-blue-900/10 backdrop-blur-sm border border-blue-800/30 animate-pulse">
               <div className="flex items-center justify-between">
@@ -159,52 +159,52 @@ export function TransactionDashboard() {
           ))}
         </div>
       ) : stats && (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          <Card className="p-4 border-l-4 border-l-[#336AD9] bg-blue-900/10 backdrop-blur-sm border border-blue-800/30">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
+          <Card className="p-3 md:p-4 border-l-4 border-l-[#336AD9] bg-blue-900/10 backdrop-blur-sm border border-blue-800/30">
             <div className="flex items-center justify-between">
-              <div>
-                <div className="text-2xl font-bold text-blue-400">{stats.total}</div>
-                <div className="text-sm text-gray-400">Total Transactions</div>
+              <div className="flex-1 min-w-0">
+                <div className="text-lg md:text-2xl font-bold text-blue-400">{stats.total}</div>
+                <div className="text-xs md:text-sm text-gray-400 truncate">Total Transactions</div>
               </div>
-              <TrendingUp className="h-8 w-8 text-blue-400" />
+              <TrendingUp className="h-6 w-6 md:h-8 md:w-8 text-blue-400 flex-shrink-0" />
             </div>
           </Card>
           
-          <Card className="p-4 border-l-4 border-l-yellow-500 bg-blue-900/10 backdrop-blur-sm border border-blue-800/30">
+          <Card className="p-3 md:p-4 border-l-4 border-l-yellow-500 bg-blue-900/10 backdrop-blur-sm border border-blue-800/30">
             <div className="flex items-center justify-between">
-              <div>
-                <div className="text-2xl font-bold text-yellow-400">{stats.pending}</div>
-                <div className="text-sm text-gray-400">Pending</div>
+              <div className="flex-1 min-w-0">
+                <div className="text-lg md:text-2xl font-bold text-yellow-400">{stats.pending}</div>
+                <div className="text-xs md:text-sm text-gray-400 truncate">Pending</div>
               </div>
-              <Clock className="h-8 w-8 text-yellow-400" />
+              <Clock className="h-6 w-6 md:h-8 md:w-8 text-yellow-400 flex-shrink-0" />
             </div>
           </Card>
           
-          <Card className="p-4 border-l-4 border-l-green-500 bg-blue-900/10 backdrop-blur-sm border border-blue-800/30">
+          <Card className="p-3 md:p-4 border-l-4 border-l-green-500 bg-blue-900/10 backdrop-blur-sm border border-blue-800/30">
             <div className="flex items-center justify-between">
-              <div>
-                <div className="text-2xl font-bold text-green-400">{stats.completed}</div>
-                <div className="text-sm text-gray-400">Completed</div>
+              <div className="flex-1 min-w-0">
+                <div className="text-lg md:text-2xl font-bold text-green-400">{stats.completed}</div>
+                <div className="text-xs md:text-sm text-gray-400 truncate">Completed</div>
               </div>
-              <CheckCircle className="h-8 w-8 text-green-400" />
+              <CheckCircle className="h-6 w-6 md:h-8 md:w-8 text-green-400 flex-shrink-0" />
             </div>
           </Card>
           
-          <Card className="p-4 border-l-4 border-l-red-500 bg-blue-900/10 backdrop-blur-sm border border-blue-800/30">
+          <Card className="p-3 md:p-4 border-l-4 border-l-red-500 bg-blue-900/10 backdrop-blur-sm border border-blue-800/30">
             <div className="flex items-center justify-between">
-              <div>
-                <div className="text-2xl font-bold text-red-400">{stats.failed}</div>
-                <div className="text-sm text-gray-400">Failed</div>
+              <div className="flex-1 min-w-0">
+                <div className="text-lg md:text-2xl font-bold text-red-400">{stats.failed}</div>
+                <div className="text-xs md:text-sm text-gray-400 truncate">Failed</div>
               </div>
-              <XCircle className="h-8 w-8 text-red-400" />
+              <XCircle className="h-6 w-6 md:h-8 md:w-8 text-red-400 flex-shrink-0" />
             </div>
           </Card>
         </div>
       )}
 
       <div className="space-y-4">
-        <div className="flex flex-col lg:flex-row gap-4">
-          <div className="flex-1">
+        <div className="flex flex-col gap-4">
+          <div className="w-full">
             <TransactionSearch
               onSearch={handleSearch}
               className="w-full"

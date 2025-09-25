@@ -42,7 +42,9 @@ export function useTransactionData() {
 
   useEffect(() => {
     fetchTransactions();
-    
+  }, []);
+
+  useEffect(() => {
     const interval = setInterval(() => {
       fetchTransactions(filters);
     }, 30000);

@@ -62,34 +62,34 @@ export function TransactionTable({
     }).format(timestamp);
   };
 
-  if (loading) {
-    return (
-      <div className={`space-y-2 ${className}`}>
-        {[...Array(3)].map((_, i) => (
-          <Card key={i} className="overflow-hidden bg-blue-900/10 backdrop-blur-sm border border-blue-800/30 animate-pulse">
-            <div className="p-4">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3 flex-1 min-w-0">
-                  <div className="h-6 w-6 bg-blue-800/30 rounded"></div>
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2 mb-1">
-                      <div className="h-6 bg-blue-800/30 rounded w-24"></div>
-                      <div className="h-5 bg-blue-800/30 rounded w-16"></div>
+      if (loading) {
+        return (
+          <div className={`space-y-2 ${className}`}>
+            {[...Array(3)].map((_, i) => (
+              <Card key={i} className="overflow-hidden bg-blue-900/10 backdrop-blur-sm border border-blue-800/30 animate-pulse">
+                <div className="p-3 md:p-4">
+                  <div className="flex items-start justify-between gap-2">
+                    <div className="flex items-start gap-2 flex-1 min-w-0">
+                      <div className="h-6 w-6 bg-blue-800/30 rounded flex-shrink-0"></div>
+                      <div className="flex-1 min-w-0">
+                        <div className="flex flex-col sm:flex-row sm:items-center gap-2 mb-1">
+                          <div className="h-6 bg-blue-800/30 rounded w-24"></div>
+                          <div className="h-5 bg-blue-800/30 rounded w-16"></div>
+                        </div>
+                        <div className="h-4 bg-blue-800/30 rounded w-32"></div>
+                      </div>
                     </div>
-                    <div className="h-4 bg-blue-800/30 rounded w-32"></div>
+                    <div className="flex items-center gap-1 flex-shrink-0">
+                      <div className="h-8 w-8 bg-blue-800/30 rounded"></div>
+                      <div className="h-8 w-8 bg-blue-800/30 rounded"></div>
+                    </div>
                   </div>
                 </div>
-                <div className="flex items-center gap-1">
-                  <div className="h-8 w-8 bg-blue-800/30 rounded"></div>
-                  <div className="h-8 w-8 bg-blue-800/30 rounded"></div>
-                </div>
-              </div>
-            </div>
-          </Card>
-        ))}
-      </div>
-    );
-  }
+              </Card>
+            ))}
+          </div>
+        );
+      }
 
   if (transactions.length === 0) {
     return (
@@ -110,14 +110,14 @@ export function TransactionTable({
 
         return (
           <Card key={transaction.id} className="overflow-hidden hover:shadow-lg transition-shadow duration-300 border-l-4 border-l-transparent hover:border-l-[#336AD9] bg-blue-900/10 backdrop-blur-sm border border-blue-800/30">
-            <div className="p-4">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3 flex-1 min-w-0">
+            <div className="p-3 md:p-4">
+              <div className="flex items-start justify-between gap-2">
+                <div className="flex items-start gap-2 flex-1 min-w-0">
                   <Button
                     variant="ghost"
                     size="sm"
                     onClick={() => toggleRow(transaction.id)}
-                    className="p-1 h-6 w-6"
+                    className="p-1 h-6 w-6 flex-shrink-0"
                   >
                     {isExpanded ? (
                       <ChevronDown className="h-3 w-3" />
@@ -127,21 +127,21 @@ export function TransactionTable({
                   </Button>
                   
                   <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2 mb-1">
-                      <code className="text-xs font-mono bg-muted px-2 py-1 rounded">
+                    <div className="flex flex-col sm:flex-row sm:items-center gap-2 mb-1">
+                      <code className="text-xs font-mono bg-muted px-2 py-1 rounded break-all">
                         {formatAddress(transaction.hash)}
                       </code>
-                      <Badge className={cn("text-xs", statusInfo.className)}>
+                      <Badge className={cn("text-xs flex-shrink-0", statusInfo.className)}>
                         {statusInfo.label}
                       </Badge>
                     </div>
-                    <div className="text-sm text-gray-400">
+                    <div className="text-xs sm:text-sm text-gray-400">
                       {formatTimestamp(transaction.timestamp)} • {formatAmount(transaction.amount)}
                     </div>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-1">
+                <div className="flex items-center gap-1 flex-shrink-0">
                   <Button
                     variant="ghost"
                     size="sm"
@@ -162,18 +162,18 @@ export function TransactionTable({
 
               {isExpanded && (
                 <div className="mt-4 pt-4 border-t space-y-3">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 gap-4">
                     <div>
                       <div className="text-xs text-gray-400 mb-1">From Address</div>
                       <div className="flex items-center gap-2">
-                        <code className="text-xs font-mono bg-muted px-2 py-1 rounded flex-1">
+                        <code className="text-xs font-mono bg-muted px-2 py-1 rounded flex-1 break-all">
                           {transaction.fromAddress}
                         </code>
                         <Button
                           variant="ghost"
                           size="sm"
                           onClick={() => copyToClipboard(transaction.fromAddress)}
-                          className="h-6 w-6 p-0"
+                          className="h-6 w-6 p-0 flex-shrink-0"
                         >
                           <Copy className="h-3 w-3" />
                         </Button>
@@ -182,14 +182,14 @@ export function TransactionTable({
                     <div>
                       <div className="text-xs text-gray-400 mb-1">To Address</div>
                       <div className="flex items-center gap-2">
-                        <code className="text-xs font-mono bg-muted px-2 py-1 rounded flex-1">
+                        <code className="text-xs font-mono bg-muted px-2 py-1 rounded flex-1 break-all">
                           {transaction.toAddress}
                         </code>
                         <Button
                           variant="ghost"
                           size="sm"
                           onClick={() => copyToClipboard(transaction.toAddress)}
-                          className="h-6 w-6 p-0"
+                          className="h-6 w-6 p-0 flex-shrink-0"
                         >
                           <Copy className="h-3 w-3" />
                         </Button>
@@ -197,16 +197,16 @@ export function TransactionTable({
                     </div>
                   </div>
                   
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 text-sm">
                     <div>
                       <div className="text-xs text-gray-400 mb-1">Transaction ID</div>
-                      <div className="font-mono text-white">{transaction.id}</div>
+                      <div className="font-mono text-white text-xs break-all">{transaction.id}</div>
                     </div>
                     <div>
                       <div className="text-xs text-gray-400 mb-1">Amount</div>
                       <div className="font-medium text-white">{formatAmount(transaction.amount)}</div>
                     </div>
-                    <div>
+                    <div className="sm:col-span-2 lg:col-span-1">
                       <div className="text-xs text-gray-400 mb-1">Full Timestamp</div>
                       <div className="text-xs">
                         {transaction.timestamp.toLocaleString()}

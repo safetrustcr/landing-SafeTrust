@@ -94,7 +94,7 @@ export function TransactionFilters({
             variant={activeFilters.status === option.value ? "default" : "outline"}
             size="sm"
             onClick={() => handleStatusFilter(option.value)}
-            className={`transition-colors ${
+            className={`transition-colors flex-1 sm:flex-none ${
               activeFilters.status === option.value 
                 ? option.color 
                 : 'border-blue-700/40 text-gray-400 bg-blue-900/10 hover:bg-blue-900/20 hover:text-gray-300'
@@ -112,14 +112,14 @@ export function TransactionFilters({
               <Calendar className="h-4 w-4" />
               Date Range
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-1">
                 <label className="text-xs text-gray-400">From</label>
                 <Input
                   type="date"
                   value={dateFrom}
                   onChange={(e) => setDateFrom(e.target.value)}
-                  className="text-sm bg-blue-900/10 border border-blue-800/30 text-white focus:border-blue-600 focus:ring-1 focus:ring-blue-600"
+                  className="text-sm bg-blue-900/10 border border-blue-800/30 text-white focus:border-blue-600 focus:ring-1 focus:ring-blue-600 w-full"
                 />
               </div>
               <div className="space-y-1">
@@ -128,16 +128,16 @@ export function TransactionFilters({
                   type="date"
                   value={dateTo}
                   onChange={(e) => setDateTo(e.target.value)}
-                  className="text-sm bg-blue-900/10 border border-blue-800/30 text-white focus:border-blue-600 focus:ring-1 focus:ring-blue-600"
+                  className="text-sm bg-blue-900/10 border border-blue-800/30 text-white focus:border-blue-600 focus:ring-1 focus:ring-blue-600 w-full"
                 />
               </div>
             </div>
-            <div className="flex gap-2">
+            <div className="flex flex-col sm:flex-row gap-2">
               <Button
                 size="sm"
                 onClick={handleDateFilter}
                 disabled={!dateFrom && !dateTo}
-                className="bg-blue-900/15 hover:bg-blue-900/25 text-gray-400 hover:text-gray-300 border border-blue-700/40"
+                className="bg-blue-900/15 hover:bg-blue-900/25 text-gray-400 hover:text-gray-300 border border-blue-700/40 w-full sm:w-auto"
               >
                 Apply Date Filter
               </Button>
@@ -146,7 +146,7 @@ export function TransactionFilters({
                   size="sm"
                   variant="outline"
                   onClick={clearDateFilters}
-                  className="border-blue-700/40 text-gray-400 bg-blue-900/10 hover:bg-blue-900/20 hover:text-gray-300"
+                  className="border-blue-700/40 text-gray-400 bg-blue-900/10 hover:bg-blue-900/20 hover:text-gray-300 w-full sm:w-auto"
                 >
                   Clear Dates
                 </Button>
