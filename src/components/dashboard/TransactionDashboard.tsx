@@ -58,19 +58,26 @@ export function TransactionDashboard() {
   const handleExportPDF = useCallback(async () => {
     if (!transactions.length) return;
     
-    setIsExporting(true);
     try {
+      setIsExporting(true);
       const htmlBlob = await transactionApi.exportToPDF(transactions);
+      
       const url = URL.createObjectURL(htmlBlob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `safetrust-transactions-${new Date().toISOString().split('T')[0]}.html`;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
-    } catch (err) {
-      console.error('Export failed:', err);
+      const printWindow = window.open(url, '_blank');
+      
+      if (printWindow) {
+        printWindow.onload = () => {
+          setTimeout(() => {
+            printWindow.print();
+            setTimeout(() => {
+              printWindow.close();
+              URL.revokeObjectURL(url);
+            }, 1000);
+          }, 500);
+        };
+      }
+    } catch (error) {
+      console.error('Failed to export PDF:', error);
     } finally {
       setIsExporting(false);
     }
