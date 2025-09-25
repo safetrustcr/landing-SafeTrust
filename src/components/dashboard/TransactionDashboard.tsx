@@ -109,39 +109,38 @@ export function TransactionDashboard() {
           </p>
         </div>
         
-        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 mt-4 lg:mt-0">
+        <div className="flex flex-row items-center gap-2 mt-4 lg:mt-0">
           <Button
             variant="outline"
             onClick={refreshData}
             disabled={loading}
-            className="flex items-center gap-2 border-blue-700/40 text-gray-400 bg-blue-900/10 hover:bg-blue-900/20 hover:text-gray-300 transition-all duration-300"
+            className="flex items-center justify-center gap-2 border-blue-700/40 text-gray-400 bg-blue-900/10 hover:bg-blue-900/20 hover:text-gray-300 transition-all duration-300 flex-1"
           >
             <RefreshCw className={`h-4 w-4 ${loading ? 'animate-spin' : ''}`} />
             Refresh
           </Button>
           
-          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-1">
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={handleExportCSV}
-              disabled={!transactions.length || isExporting}
-              className="flex items-center justify-center gap-2 border-blue-700/40 text-gray-400 bg-blue-900/10 hover:bg-blue-900/20 hover:text-gray-300 transition-all duration-300 w-full sm:w-auto"
-            >
-              <Download className="h-4 w-4" />
-              CSV
-            </Button>
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={handleExportPDF}
-              disabled={!transactions.length || isExporting}
-              className="flex items-center justify-center gap-2 border-blue-700/40 text-gray-400 bg-blue-900/10 hover:bg-blue-900/20 hover:text-gray-300 transition-all duration-300 w-full sm:w-auto"
-            >
-              <Download className="h-4 w-4" />
-              PDF
-            </Button>
-          </div>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={handleExportCSV}
+            disabled={!transactions.length || isExporting}
+            className="flex items-center justify-center gap-2 border-blue-700/40 text-gray-400 bg-blue-900/10 hover:bg-blue-900/20 hover:text-gray-300 transition-all duration-300 flex-1"
+          >
+            <Download className="h-4 w-4" />
+            CSV
+          </Button>
+          
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={handleExportPDF}
+            disabled={!transactions.length || isExporting}
+            className="flex items-center justify-center gap-2 border-blue-700/40 text-gray-400 bg-blue-900/10 hover:bg-blue-900/20 hover:text-gray-300 transition-all duration-300 flex-1"
+          >
+            <Download className="h-4 w-4" />
+            PDF
+          </Button>
         </div>
       </div>
 
