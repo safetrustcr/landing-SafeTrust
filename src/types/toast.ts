@@ -13,4 +13,5 @@ export interface Toast {
   title?: string;
   description?: string;
   duration?: number;
+  message?: string;
 }

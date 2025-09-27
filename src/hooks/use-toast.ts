@@ -1,6 +1,8 @@
+"use client";
+
 import { useContext } from "react";
 import { v4 as uuidv4 } from "uuid";
-import { Toast, ToastType } from "../types/toast";
+import { Toast } from "../types/toast";
 import { ToastContext } from "@/components/ui/toast/toast-provider";
 
 export const useToast = () => {
@@ -15,14 +17,12 @@ export const useToast = () => {
 
   return {
     push,
-    success: (payload: Omit<Toast, "id"> & { type?: ToastType }) =>
+    success: (payload: Omit<Toast, "id">) =>
       push({ ...payload, type: "success" }),
-    error: (payload: Omit<Toast, "id"> & { type?: ToastType }) =>
-      push({ ...payload, type: "error" }),
-    warning: (payload: Omit<Toast, "id"> & { type?: ToastType }) =>
+    error: (payload: Omit<Toast, "id">) => push({ ...payload, type: "error" }),
+    warning: (payload: Omit<Toast, "id">) =>
       push({ ...payload, type: "warning" }),
-    info: (payload: Omit<Toast, "id"> & { type?: ToastType }) =>
-      push({ ...payload, type: "info" }),
+    info: (payload: Omit<Toast, "id">) => push({ ...payload, type: "info" }),
     dismiss: (id: string) => ctx.remove(id),
   };
 };
