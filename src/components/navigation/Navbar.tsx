@@ -47,11 +47,13 @@ const Navbar: React.FC = () => {
     { href: '#features', label: 'Features' },
     { href: '#how-it-works', label: 'How It Works' },
     { href: '#pricing', label: 'Pricing' },
+    { href: '/dashboard', label: 'Dashboard' },
     { href: '#support', label: 'Support' }
   ];
 
   return (
     <>
+      <nav className="w-full flex items-center justify-between px-4 py-4 relative z-10 laptop:container laptop:mx-auto bg-[#0a0a15]/80 backdrop-blur-sm border-b border-blue-800/20">
       <nav className="w-full flex items-center justify-between px-4 py-4 relative z-10 laptop:container laptop:mx-auto bg-background/80 backdrop-blur-md border-b border-border/50 transition-colors duration-300">
         {/* Logo */}
         <motion.div 
