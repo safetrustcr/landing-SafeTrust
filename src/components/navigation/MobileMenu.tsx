@@ -111,7 +111,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose, isTablet = fal
         <>
           {/* Backdrop */}
           <motion.div
-            className="fixed inset-0 bg-black/50 z-40 focus:outline-none"
+            className="fixed inset-0 bg-black/50 dark:bg-black/70 z-40 focus:outline-none"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -122,7 +122,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose, isTablet = fal
           
           {/* Mobile Menu */}
           <motion.nav
-            className={`fixed top-0 right-0 h-full bg-[#0a0a15] border-l border-blue-900/30 z-50 overflow-hidden ${
+            className={`fixed top-0 right-0 h-full bg-background dark:bg-background border-l border-border dark:border-border z-50 overflow-hidden transition-colors duration-300 ${
               isClient && screenSize === 'tablet' ? 'w-64' : 'w-80'
             }`}
             variants={menuVariants}
@@ -135,18 +135,22 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose, isTablet = fal
           >
             <div className="flex flex-col h-full">
               {/* Header */}
-              <div className="flex items-center justify-between p-6 border-b border-blue-900/30">
+              <div className="flex items-center justify-between p-6 border-b border-border dark:border-border">
                 <div className="flex items-center gap-2">
-                  <div className="h-8 w-8 rounded-lg bg-blue-600" />
-                  <span className="text-xl font-semibold">SafeTrust</span>
+                  <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center">
+                    <span className="text-white font-bold text-sm">S</span>
+                  </div>
+                  <span className="text-xl font-semibold bg-gradient-to-r from-blue-600 to-blue-400 dark:from-blue-400 dark:to-blue-200 bg-clip-text text-transparent">
+                    SafeTrust
+                  </span>
                 </div>
                 <button
                   onClick={onClose}
-                  className="p-2 hover:bg-blue-900/20 rounded-md transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-900"
+                  className="p-2 hover:bg-muted dark:hover:bg-muted rounded-md transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:ring-offset-2 focus:ring-offset-background"
                   aria-label="Close menu"
                 >
                   <svg
-                    className="w-6 h-6 text-white"
+                    className="w-6 h-6 text-foreground dark:text-foreground"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -196,7 +200,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose, isTablet = fal
 
               {/* CTA Button */}
               <motion.div
-                className="p-6 border-t border-blue-900/30 flex-shrink-0"
+                className="p-6 border-t border-border dark:border-border flex-shrink-0"
                 variants={linkVariants}
                 initial="closed"
                 animate="open"
@@ -204,7 +208,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose, isTablet = fal
               >
                 <Button
                   variant="outline"
-                  className="w-full border-blue-600 text-blue-500 hover:bg-blue-900/20 hover:text-white focus:outline-none focus:bg-blue-900/20 focus:text-white focus:border-blue-400 focus:shadow-lg focus:shadow-blue-500/25 transition-all duration-300"
+                  className="w-full border-blue-600 dark:border-blue-400 text-blue-600 dark:text-blue-400 hover:bg-blue-600/10 dark:hover:bg-blue-400/10 hover:text-blue-700 dark:hover:text-blue-300 focus:outline-none focus:bg-blue-600/10 dark:focus:bg-blue-400/10 focus:text-blue-700 dark:focus:text-blue-300 focus:border-blue-500 dark:focus:border-blue-300 focus:shadow-lg focus:shadow-blue-500/25 dark:focus:shadow-blue-400/25 transition-all duration-300"
                   onClick={onClose}
                 >
                   Get Started
