@@ -62,13 +62,13 @@ const StepCard: React.FC<StepCardProps> = ({ icon, title, description, index }) 
       initial="hidden"
       animate={controls}
       variants={variants}
-      className="bg-blue-900/10 backdrop-blur-sm border border-blue-800/30 rounded-lg p-6"
+      className="bg-card backdrop-blur-sm border border-border rounded-lg p-6 transition-colors duration-300"
     >
-      <div className="flex items-center justify-center w-12 h-12 rounded-full bg-blue-800/20 mb-4">
+      <div className="flex items-center justify-center w-12 h-12 rounded-full bg-primary/20 mb-4">
         {icon}
       </div>
-      <h3 className="text-xl font-semibold mb-3 text-white">{title}</h3>
-      <p className="text-gray-400">{description}</p>
+      <h3 className="text-xl font-semibold mb-3 text-foreground">{title}</h3>
+      <p className="text-muted-foreground">{description}</p>
     </motion.div>
   );
 };
@@ -77,7 +77,7 @@ const StepCard: React.FC<StepCardProps> = ({ icon, title, description, index }) 
 const AnimatedCircle: React.FC<AnimatedCircleProps> = ({ delay, size, position, opacity }) => {
   return (
     <motion.div
-      className={`absolute rounded-full bg-blue-600 filter blur-xl pointer-events-none`}
+      className={`absolute rounded-full bg-primary filter blur-xl pointer-events-none transition-colors duration-300`}
       style={{
         width: size,
         height: size,
@@ -120,7 +120,7 @@ const ConnectingLine: React.FC<ConnectingLineProps> = ({ index }) => {
         ref={ref}
         initial={{ width: 0 }}
         animate={controls}
-        className="h-0.5 bg-gradient-to-r from-blue-600/30 to-blue-600/80 w-full"
+        className="h-0.5 bg-gradient-to-r from-primary/30 to-primary/80 w-full transition-colors duration-300"
       />
     </div>
   );
@@ -159,13 +159,13 @@ const BusinessBenefit: React.FC<BusinessBenefitProps> = ({ title, description, i
       className="flex flex-col items-center text-center p-4"
     >
       <motion.div
-        className="mb-4 text-blue-500"
+        className="mb-4 text-primary"
         whileHover={{ scale: 1.1, rotate: 5 }}
       >
         {icon}
       </motion.div>
-      <h3 className="text-lg font-medium text-white mb-2">{title}</h3>
-      <p className="text-gray-400 text-sm">{description}</p>
+      <h3 className="text-lg font-medium text-foreground mb-2">{title}</h3>
+      <p className="text-muted-foreground text-sm">{description}</p>
     </motion.div>
   );
 };
@@ -183,22 +183,22 @@ const HowItWorksSection: React.FC = () => {
 
   const steps = [
     {
-      icon: <Shield className="w-6 h-6 text-blue-400" />,
+      icon: <Shield className="w-6 h-6 text-primary" />,
       title: "Create Security Deposit",
       description: "Set up your escrow with customizable security parameters for your business transactions.",
     },
     {
-      icon: <Clock className="w-6 h-6 text-blue-400" />,
+      icon: <Clock className="w-6 h-6 text-primary" />,
       title: "Automated Hold Period",
       description: "Funds are automatically held in secure smart contracts until conditions are met.",
     },
     {
-      icon: <CheckCircle className="w-6 h-6 text-blue-400" />,
+      icon: <CheckCircle className="w-6 h-6 text-primary" />,
       title: "Verification Process",
       description: "All transactions undergo our proprietary verification process to ensure legitimacy.",
     },
     {
-      icon: <DollarSign className="w-6 h-6 text-blue-400" />,
+      icon: <DollarSign className="w-6 h-6 text-primary" />,
       title: "Seamless Transfer",
       description: "Upon successful completion, funds are instantly released to the appropriate party.",
     },
@@ -230,7 +230,7 @@ const HowItWorksSection: React.FC = () => {
   return (
     <section 
       id="how-it-works" 
-      className="min-h-screen bg-[#0a0a15] py-24 px-6 md:px-16 relative overflow-hidden"
+      className="min-h-screen bg-background py-24 px-6 md:px-16 relative overflow-hidden transition-colors duration-300"
       ref={ref}
     >
       {/* Background elements */}
@@ -247,15 +247,15 @@ const HowItWorksSection: React.FC = () => {
           transition={{ duration: 0.7 }}
         >
           <motion.h2 
-            className="text-3xl md:text-4xl font-bold mb-6 text-white"
+            className="text-3xl md:text-4xl font-bold mb-6 text-foreground"
             initial={{ opacity: 0, y: 20 }}
             animate={playAnimation ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.7, delay: 0.2 }}
           >
-            How It <span className="text-blue-500">Works</span>
+            How It <span className="text-primary">Works</span>
           </motion.h2>
           <motion.p 
-            className="text-gray-400 max-w-2xl mx-auto text-lg"
+            className="text-muted-foreground max-w-2xl mx-auto text-lg"
             initial={{ opacity: 0 }}
             animate={playAnimation ? { opacity: 1 } : {}}
             transition={{ duration: 0.7, delay: 0.4 }}
@@ -287,8 +287,8 @@ const HowItWorksSection: React.FC = () => {
           animate={playAnimation ? { opacity: 1 } : {}}
           transition={{ duration: 0.7, delay: 0.6 }}
         >
-          <h2 className="text-2xl md:text-3xl font-bold mb-10 text-white">
-            Making Your <span className="text-blue-500">Business Life Easier</span>
+          <h2 className="text-2xl md:text-3xl font-bold mb-10 text-foreground">
+            Making Your <span className="text-primary">Business Life Easier</span>
           </h2>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-10">
@@ -311,11 +311,11 @@ const HowItWorksSection: React.FC = () => {
           animate={playAnimation ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7, delay: 0.8 }}
         >
-          <h3 className="text-xl md:text-2xl font-medium mb-6 text-white">
+          <h3 className="text-xl md:text-2xl font-medium mb-6 text-foreground">
             Ready to secure your business transactions?
           </h3>
           <motion.button
-            className="bg-blue-600 text-white py-3 px-8 rounded-lg flex items-center gap-2 mx-auto hover:bg-blue-700 transition-colors"
+            className="bg-primary text-primary-foreground py-3 px-8 rounded-lg flex items-center gap-2 mx-auto hover:bg-primary/90 transition-colors duration-300"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
