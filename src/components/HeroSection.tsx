@@ -76,7 +76,7 @@ const Particle: React.FC<{ start: { x: number; y: number }; end: { x: number; y:
         delay,
         times: [0, 0.5, 1],
         repeat: Infinity,
-        repeatDelay: Math.random() * 3 + 2
+        repeatDelay: (delay % 3) + 2
       }}
     />
   );
@@ -112,22 +112,19 @@ export default function HeroSection() {
     squares.forEach((square, idx) => {
       if (!square) return;
       
-      const numConnections = Math.floor(Math.random() * 3) + 1;
+      const numConnections = (idx % 3) + 1;
       const start = getSquareCenter(square);
       
       for (let i = 0; i < numConnections; i++) {
         // Find a different square to connect to
-        let targetIdx;
-        do {
-          targetIdx = Math.floor(Math.random() * squares.length);
-        } while (targetIdx === idx || !squares[targetIdx]);
+        const targetIdx = (idx + i + 1) % squares.length;
         
         const targetSquare = squares[targetIdx];
         if (!targetSquare) continue;
         
         const end = getSquareCenter(targetSquare);
-        const duration = Math.random() * 1 + 0.5; // 0.5-1.5s
-        const delay = Math.random() * 0.5;
+        const duration = ((idx + i) % 10) * 0.1 + 0.5; // 0.5-1.5s
+        const delay = ((idx + i) % 5) * 0.1;
         
         newLines.push({
           start,
@@ -138,12 +135,12 @@ export default function HeroSection() {
         });
         
         // Add particle that travels along the line
-        if (Math.random() > 0.5) {
+        if (idx % 2 === 0) {
           newParticles.push({
             start,
             end,
             id: `particle-${idx}-${targetIdx}-${i}`,
-            delay: Math.random() * 2
+            delay: ((idx + targetIdx) % 4) * 0.5
           });
         }
       }
@@ -314,27 +311,36 @@ export default function HeroSection() {
           
           {/* Floating particles in the background */}
           <div className="absolute inset-0 pointer-events-none">
-            {[...Array(15)].map((_, index) => (
-              <motion.div
-                key={`particle-float-${index}`}
-                className="absolute w-1 h-1 bg-blue-500 rounded-full"
-                style={{
-                  left: `${Math.random() * 100}%`,
-                  top: `${Math.random() * 100}%`,
-                }}
-                animate={{
-                  opacity: [0, 0.6, 0],
-                  scale: [0, 1, 0],
-                  x: [0, Math.random() * 40 - 20],
-                  y: [0, Math.random() * 40 - 20],
-                }}
-                transition={{
-                  duration: Math.random() * 3 + 2,
-                  repeat: Infinity,
-                  delay: Math.random() * 2,
-                }}
-              />
-            ))}
+            {[...Array(15)].map((_, index) => {
+              const leftPos = (index * 7.14) % 100;
+              const topPos = (index * 6.67) % 100;
+              const xMove = (index % 3 - 1) * 20;
+              const yMove = ((index + 1) % 3 - 1) * 20;
+              const duration = 2 + (index % 3);
+              const delay = (index % 4) * 0.5;
+              
+              return (
+                <motion.div
+                  key={`particle-float-${index}`}
+                  className="absolute w-1 h-1 bg-blue-500 rounded-full"
+                  style={{
+                    left: `${leftPos}%`,
+                    top: `${topPos}%`,
+                  }}
+                  animate={{
+                    opacity: [0, 0.6, 0],
+                    scale: [0, 1, 0],
+                    x: [0, xMove],
+                    y: [0, yMove],
+                  }}
+                  transition={{
+                    duration,
+                    repeat: Infinity,
+                    delay,
+                  }}
+                />
+              );
+            })}
           </div>
         </motion.div>
       
