@@ -1,0 +1,5 @@
+<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect x="4" y="4" width="32" height="32" rx="8" fill="#f1f5f9" stroke="#059669" stroke-width="3" />
+  <text x="50%" y="54%" text-anchor="middle" fill="#059669" font-size="10" font-family="Arial" dy=".3em">SOC</text>
+  <text x="50%" y="70%" text-anchor="middle" fill="#059669" font-size="7" font-family="Arial" dy=".3em">2</text>
+</svg>
