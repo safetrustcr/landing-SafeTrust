@@ -98,7 +98,7 @@ export default function TransactionTiers() {
 
     return (
       <div className="transition-all duration-500 ease-in-out transform">
-        <p className="text-3xl font-bold text-white transition-all duration-500 ease-in-out">
+        <p className="text-3xl font-bold text-foreground transition-all duration-500 ease-in-out">
           <span
             key={`${plan.name}-${billingPeriod}-price`}
             className="inline-block transition-all duration-500 ease-in-out transform"
@@ -107,7 +107,7 @@ export default function TransactionTiers() {
           </span>{" "}
           <span
             key={`${plan.name}-${billingPeriod}-period`}
-            className="text-xl font-semibold text-gray-400 inline-block transition-all duration-500 ease-in-out transform"
+            className="text-xl font-semibold text-muted-foreground inline-block transition-all duration-500 ease-in-out transform"
           >
             / {period}
           </span>
@@ -119,7 +119,7 @@ export default function TransactionTiers() {
   return (
     <div
       id="pricing"
-      className="min-h-screen w-full bg-[#0a0a15] text-white flex flex-col items-center p-6 sm:p-8 lg:p-12 m-0 pb-0 relative overflow-hidden"
+      className="min-h-screen w-full bg-background text-foreground flex flex-col items-center p-6 sm:p-8 lg:p-12 m-0 pb-0 relative overflow-hidden transition-colors duration-300"
     >
       <style jsx>{`
         @keyframes fadeIn {
@@ -142,19 +142,19 @@ export default function TransactionTiers() {
         }
       `}</style>
       {/* Background glow effects */}
-      <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-blue-900/10 rounded-full blur-3xl pointer-events-none"></div>
-      <div className="absolute bottom-1/3 right-1/4 w-72 h-72 bg-indigo-800/10 rounded-full blur-3xl pointer-events-none"></div>
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent to-blue-900/5 pointer-events-none"></div>
+      <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-primary/10 rounded-full blur-3xl pointer-events-none transition-colors duration-300"></div>
+      <div className="absolute bottom-1/3 right-1/4 w-72 h-72 bg-primary/10 rounded-full blur-3xl pointer-events-none transition-colors duration-300"></div>
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent to-primary/5 pointer-events-none transition-colors duration-300"></div>
 
       <Typography
         variant="h1"
         className="text-4xl font-bold text-center relative z-10"
       >
-        Transaction <span className="text-blue-600">Tiers</span>
+        Transaction <span className="text-primary">Tiers</span>
       </Typography>
       <Typography
         variant="p"
-        className="text-gray-400 text-center mt-8 relative z-10"
+        className="text-muted-foreground text-center mt-8 relative z-10"
       >
         Choose the perfect plan for your transaction needs with our transparent
         fee structure.
@@ -162,17 +162,17 @@ export default function TransactionTiers() {
 
       {/* Billing Toggle */}
       <div className="relative flex items-center gap-3 sm:gap-6 mt-10">
-        <span className="text-gray-300 text-sm sm:text-base">Monthly</span>
+        <span className="text-muted-foreground text-sm sm:text-base">Monthly</span>
         <Switch
           checked={billingPeriod === "yearly"}
           onCheckedChange={() =>
             setBillingPeriod(billingPeriod === "monthly" ? "yearly" : "monthly")
           }
         />
-        <span className="text-gray-300 text-sm sm:text-base">Yearly</span>
+        <span className="text-muted-foreground text-sm sm:text-base">Yearly</span>
         <div className="relative ml-2">
           <Badge
-            className={`bg-blue-950/70 text-blue-500 px-2 py-1 rounded-full text-xs transition-all duration-500 ease-in-out transform ${
+            className={`bg-primary/10 text-primary px-2 py-1 rounded-full text-xs transition-all duration-500 ease-in-out transform ${
               billingPeriod === "yearly"
                 ? "opacity-100 scale-100 translate-x-0"
                 : "opacity-0 scale-95 translate-x-2"
@@ -204,10 +204,10 @@ export default function TransactionTiers() {
                 : `$${plan.yearly} per year`
             }`}
             onClick={() => setSelectedPlan(plan.name)}
-            className={`relative text-white bg-blue-950/30 backdrop-blur-md p-6 md:p-4 border flex flex-col justify-between h-[450px] md:h-[400px] cursor-pointer transition-all duration-300 ease-in-out hover:border-blue-600 hover:shadow-lg hover:shadow-blue-900/20 ${
+            className={`relative text-foreground bg-card backdrop-blur-md p-6 md:p-4 border flex flex-col justify-between h-[450px] md:h-[400px] cursor-pointer transition-all duration-300 ease-in-out hover:border-primary hover:shadow-lg hover:shadow-primary/20 ${
               selectedPlan === plan.name
-                ? "border-blue-600"
-                : "border-blue-900/20"
+                ? "border-primary"
+                : "border-border"
             }`}
           >
             <div
@@ -218,26 +218,26 @@ export default function TransactionTiers() {
               }`}
             >
               {plan.name === "Pro" && (
-                <Badge className="bg-blue-600 text-white px-3 py-1 md:px-2 md:py-0.5 rounded-md text-sm md:text-xs">
+                <Badge className="bg-primary text-primary-foreground px-3 py-1 md:px-2 md:py-0.5 rounded-md text-sm md:text-xs">
                   Popular
                 </Badge>
               )}
             </div>
             <CardHeader className="md:pb-3">
-              <CardTitle className="transition-all duration-500 ease-in-out md:text-md text-gray-200">
+              <CardTitle className="transition-all duration-500 ease-in-out md:text-md text-foreground">
                 {plan.name}
               </CardTitle>
               {plan.showTransactionText ? (
                 <div className="flex items-baseline gap-2 transition-all duration-500 ease-in-out">
-                  <p className="text-gray-200 text-3xl md:text-[28px] font-semibold transition-all duration-500 ease-in-out">
+                  <p className="text-foreground text-3xl md:text-[28px] font-semibold transition-all duration-500 ease-in-out">
                     {plan.percentage}
                   </p>
-                  <span className="text-sm md:text-xs text-gray-400 transition-all duration-500 ease-in-out">
+                  <span className="text-sm md:text-xs text-muted-foreground transition-all duration-500 ease-in-out">
                     / transaction
                   </span>
                 </div>
               ) : (
-                <p className="text-gray-200 text-3xl md:text-2xl font-semibold transition-all duration-500 ease-in-out">
+                <p className="text-foreground text-3xl md:text-2xl font-semibold transition-all duration-500 ease-in-out">
                   Custom
                 </p>
               )}
@@ -245,14 +245,14 @@ export default function TransactionTiers() {
             <CardContent className="flex flex-col flex-grow md:py-3">
               <ul
                 aria-label={`${plan.name} plan features`}
-                className="space-y-2 md:space-y-1.5 text-white text-sm md:text-[13px] xl:text-[15px] mb-6 md:mb-4"
+                className="space-y-2 md:space-y-1.5 text-foreground text-sm md:text-[13px] xl:text-[15px] mb-6 md:mb-4"
               >
                 {plan.details.map((detail, index) => (
                   <li
                     key={index}
                     className="flex items-center gap-2 transition-all duration-500 ease-in-out transform opacity-100"
                   >
-                    <Check className="text-blue-600 flex-shrink-0 transition-all duration-300 ease-in-out md:w-4 md:h-4" />
+                    <Check className="text-primary flex-shrink-0 transition-all duration-300 ease-in-out md:w-4 md:h-4" />
                     <span className="transition-all duration-500 ease-in-out">
                       {detail}
                     </span>
@@ -276,7 +276,7 @@ export default function TransactionTiers() {
                   ? "Contact sales for Enterprise plan"
                   : `Connect wallet to ${plan.name} plan`
               }`}
-              className="w-full bg-blue-600 text-white hover:bg-blue-800 transition-all duration-300 mt-4 md:mt-2 md:py-2 md:text-sm"
+              className="w-full bg-primary text-primary-foreground hover:bg-primary/90 transition-all duration-300 mt-4 md:mt-2 md:py-2 md:text-sm"
               onClick={() => handleWalletClick(plan.name)}
             >
               {plan.name === "Enterprise" ? "Contact Sales" : "Connect Wallet"}
@@ -286,7 +286,7 @@ export default function TransactionTiers() {
       </section>
 
       {walletError && (
-        <p className="text-red-500 mt-4 relative z-10 transition-all duration-300">
+        <p className="text-destructive mt-4 relative z-10 transition-all duration-300">
           {walletError}
         </p>
       )}
