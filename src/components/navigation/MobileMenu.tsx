@@ -9,9 +9,11 @@ interface MobileMenuProps {
   isOpen: boolean;
   onClose: () => void;
   isTablet?: boolean;
+  activeSection: string;
+  setActiveSection: (section: string) => void;
 }
 
-const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose, isTablet = false }) => {
+const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose, activeSection, setActiveSection, isTablet = false }) => {
   const [screenSize, setScreenSize] = useState<'mobile' | 'tablet' | 'laptop' | 'desktop'>('mobile');
   const [isClient, setIsClient] = useState(false);
 
@@ -56,6 +58,11 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose, isTablet = fal
       document.body.style.overflow = 'unset';
     };
   }, [isOpen, onClose]);
+
+  const handleOnClick = (section: string) => {
+    setActiveSection(section);
+    onClose();
+  };
 
   const menuVariants = {
     closed: {
@@ -188,8 +195,9 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose, isTablet = fal
                     >
                       <NavigationLink
                         href={item.href}
-                        onClick={onClose}
+                        onClick={() => handleOnClick(item.href)}
                         isMobile={true}
+                        activeSection={activeSection === item.href}
                       >
                         {item.label}
                       </NavigationLink>
