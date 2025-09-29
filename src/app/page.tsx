@@ -27,11 +27,10 @@ export default function Home() {
       </div>
       
       <Discover />
-      <HowItWorksSection /> 
+      <HowItWorksSection />
       <FaqSection />
       <TransactionTiers />
       <Footer />
-      
     </>
   );
 }
