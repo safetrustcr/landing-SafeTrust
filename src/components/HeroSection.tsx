@@ -27,7 +27,10 @@ const HeroSection: React.FC<HeroSectionProps> = ({ className }) => {
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{
-          backgroundImage: `linear-gradient(rgba(10, 10, 21, 0.7), rgba(10, 10, 21, 0.5)), url('/img/hero/security-box-usdt.png')`,
+          backgroundImage: `linear-gradient(rgba(10, 10, 21, 0.7), rgba(10, 10, 21, 0.5)), url('/img/hero/security-box-usdt')`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat'
         }}
       />
 
