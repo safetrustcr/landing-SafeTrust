@@ -5,6 +5,7 @@ import { motion, useAnimation, AnimatePresence } from 'framer-motion';
 import { Button } from "@/components/ui/button";
 import { Wallet } from "lucide-react";
 import Navbar from "./navigation/Navbar";
+import { useTracker } from "@/hooks/use-analytics";
 
 interface FeatureProps {
   icon: React.ReactNode;
@@ -35,17 +36,21 @@ const Line: React.FC<LineProps> = ({ start, end, duration, delay }) => {
     });
   }, [controls, duration, delay]);
 
+  // Calculate line attributes
+  const lineLength = Math.sqrt(
+    Math.pow(end.x - start.x, 2) + Math.pow(end.y - start.y, 2)
+  );
+  
   return (
     <motion.line
       x1={start.x}
       y1={start.y}
       x2={end.x}
       y2={end.y}
-      stroke="rgba(59, 130, 246, 0.4)"
+      stroke="rgba(30, 64, 175, 0.4)"
       strokeWidth="1"
       initial={{ pathLength: 0 }}
       animate={controls}
-      className="dark:stroke-blue-400/40 stroke-blue-600/40"
     />
   );
 };
@@ -60,7 +65,7 @@ const Particle: React.FC<{ start: { x: number; y: number }; end: { x: number; y:
       cx={start.x}
       cy={start.y}
       r="2"
-      fill="#3b82f6"
+      fill="#1e40af"
       initial={{ opacity: 0 }}
       animate={{
         opacity: [0, 0.8, 0],
@@ -72,14 +77,14 @@ const Particle: React.FC<{ start: { x: number; y: number }; end: { x: number; y:
         delay,
         times: [0, 0.5, 1],
         repeat: Infinity,
-        repeatDelay: Math.random() * 3 + 2
+        repeatDelay: (delay % 3) + 2
       }}
-      className="dark:fill-blue-400 fill-blue-600"
     />
   );
 };
 
 export default function HeroSection() {
+  const { buttonClick } = useTracker();
   const svgRef = useRef<SVGSVGElement>(null);
   const gridRef = useRef<HTMLDivElement>(null);
   const [lines, setLines] = useState<Array<{ start: { x: number; y: number }; end: { x: number; y: number }; id: string; duration: number; delay: number }>>([]);
@@ -109,22 +114,19 @@ export default function HeroSection() {
     squares.forEach((square, idx) => {
       if (!square) return;
       
-      const numConnections = Math.floor(Math.random() * 3) + 1;
+      const numConnections = (idx % 3) + 1;
       const start = getSquareCenter(square);
       
       for (let i = 0; i < numConnections; i++) {
         // Find a different square to connect to
-        let targetIdx;
-        do {
-          targetIdx = Math.floor(Math.random() * squares.length);
-        } while (targetIdx === idx || !squares[targetIdx]);
+        const targetIdx = (idx + i + 1) % squares.length;
         
         const targetSquare = squares[targetIdx];
         if (!targetSquare) continue;
         
         const end = getSquareCenter(targetSquare);
-        const duration = Math.random() * 1 + 0.5; // 0.5-1.5s
-        const delay = Math.random() * 0.5;
+        const duration = ((idx + i) % 10) * 0.1 + 0.5; // 0.5-1.5s
+        const delay = ((idx + i) % 5) * 0.1;
         
         newLines.push({
           start,
@@ -135,12 +137,12 @@ export default function HeroSection() {
         });
         
         // Add particle that travels along the line
-        if (Math.random() > 0.5) {
+        if (idx % 2 === 0) {
           newParticles.push({
             start,
             end,
             id: `particle-${idx}-${targetIdx}-${i}`,
-            delay: Math.random() * 2
+            delay: ((idx + targetIdx) % 4) * 0.5
           });
         }
       }
@@ -185,7 +187,8 @@ export default function HeroSection() {
     }),
     hover: {
       scale: 1.1,
-      boxShadow: "0 0 15px rgba(59, 130, 246, 0.6)",
+      boxShadow: "0 0 15px rgba(30, 64, 175, 0.6)",
+      backgroundColor: "rgba(30, 64, 175, 0.3)",
       transition: {
         duration: 0.3
       }
@@ -193,7 +196,7 @@ export default function HeroSection() {
   };
 
   return (
-    <div className="min-h-screen bg-background text-foreground transition-colors duration-300 overflow-hidden">
+    <div className="min-h-screen bg-[#0a0a15] text-white overflow-hidden">
       <Navbar />
 
       <main className="container mx-auto min-h-[calc(100vh-80px)] grid grid-cols-1 lg:grid-cols-2 gap-12 px-4">
@@ -205,7 +208,7 @@ export default function HeroSection() {
             transition={{ duration: 0.7 }}
           >
             <motion.span 
-              className="text-blue-500 dark:text-blue-400"
+              className="text-blue-500"
               initial={{ opacity: 0, x: -10 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.7, delay: 0.3 }}
@@ -216,7 +219,7 @@ export default function HeroSection() {
           </motion.h1>
           
           <motion.p 
-            className="text-xl text-muted-foreground"
+            className="text-xl text-gray-400"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.7, delay: 0.6 }}
@@ -237,7 +240,8 @@ export default function HeroSection() {
               whileTap={{ scale: 0.95 }}
             >
               <Button 
-                className="bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 text-white px-6 py-3 text-lg flex items-center gap-2 transition-colors duration-300"
+                className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 text-lg flex items-center gap-2"
+                onClick={() => buttonClick('connect_wallet_button', { location: 'hero_section' })}
               >
                 <Wallet className="w-5 h-5" />
                 Connect Wallet
@@ -284,7 +288,7 @@ export default function HeroSection() {
             {[...Array(9)].map((_, index) => (
               <motion.div 
                 key={index}
-                className="h-24 w-24 rounded-lg bg-blue-900/20 dark:bg-blue-800/30 light:bg-blue-100/50 p-4 relative border border-blue-200/20 dark:border-blue-700/30 transition-colors duration-300"
+                className="h-24 w-24 rounded-lg bg-blue-900/20 p-4 relative"
                 id={`square-${index}`}
                 custom={index}
                 variants={squareVariants}
@@ -293,7 +297,7 @@ export default function HeroSection() {
                 whileHover="hover"
               >
                 <motion.div
-                  className="absolute inset-0 rounded-lg bg-gradient-to-br from-transparent to-blue-800/50 dark:to-blue-600/30 opacity-20"
+                  className="absolute inset-0 rounded-lg bg-gradient-to-br from-transparent to-blue-800 opacity-20"
                   animate={{
                     opacity: [0.2, 0.4, 0.2],
                   }}
@@ -310,40 +314,49 @@ export default function HeroSection() {
           
           {/* Floating particles in the background */}
           <div className="absolute inset-0 pointer-events-none">
-            {[...Array(15)].map((_, index) => (
-              <motion.div
-                key={`particle-float-${index}`}
-                className="absolute w-1 h-1 bg-blue-500 dark:bg-blue-400 rounded-full"
-                style={{
-                  left: `${Math.random() * 100}%`,
-                  top: `${Math.random() * 100}%`,
-                }}
-                animate={{
-                  opacity: [0, 0.6, 0],
-                  scale: [0, 1, 0],
-                  x: [0, Math.random() * 40 - 20],
-                  y: [0, Math.random() * 40 - 20],
-                }}
-                transition={{
-                  duration: Math.random() * 3 + 2,
-                  repeat: Infinity,
-                  delay: Math.random() * 2,
-                }}
-              />
-            ))}
+            {[...Array(15)].map((_, index) => {
+              const leftPos = (index * 7.14) % 100;
+              const topPos = (index * 6.67) % 100;
+              const xMove = (index % 3 - 1) * 20;
+              const yMove = ((index + 1) % 3 - 1) * 20;
+              const duration = 2 + (index % 3);
+              const delay = (index % 4) * 0.5;
+              
+              return (
+                <motion.div
+                  key={`particle-float-${index}`}
+                  className="absolute w-1 h-1 bg-blue-500 rounded-full"
+                  style={{
+                    left: `${leftPos}%`,
+                    top: `${topPos}%`,
+                  }}
+                  animate={{
+                    opacity: [0, 0.6, 0],
+                    scale: [0, 1, 0],
+                    x: [0, xMove],
+                    y: [0, yMove],
+                  }}
+                  transition={{
+                    duration,
+                    repeat: Infinity,
+                    delay,
+                  }}
+                />
+              );
+            })}
           </div>
         </motion.div>
       
         {/* Background glow effects - positioned away from squares */}
-        <div className="absolute right-1/6 bottom-1/6 w-32 h-32 bg-blue-800/20 dark:bg-blue-600/10 rounded-full filter blur-3xl opacity-80 dark:opacity-60 pointer-events-none transition-opacity duration-300" />
-        <div className="absolute top-3/4 left-1/6 w-24 h-24 bg-blue-900/15 dark:bg-blue-700/10 rounded-full filter blur-2xl opacity-50 dark:opacity-40 pointer-events-none transition-opacity duration-300" />
-        <div className="absolute top-1/6 left-1/6 w-20 h-20 bg-blue-950/20 dark:bg-blue-800/15 rounded-full filter blur-xl opacity-60 dark:opacity-50 pointer-events-none transition-opacity duration-300" />
+        <div className="absolute right-1/6 bottom-1/6 w-32 h-32 bg-blue-800 rounded-full filter blur-3xl opacity-8 pointer-events-none" />
+        <div className="absolute top-3/4 left-1/6 w-24 h-24 bg-blue-900 rounded-full filter blur-2xl opacity-5 pointer-events-none" />
+        <div className="absolute top-1/6 left-1/6 w-20 h-20 bg-blue-950 rounded-full filter blur-xl opacity-10 pointer-events-none" />
         
         {/* Additional round lights */}
-        <div className="absolute bottom-1/12 right-1/3 w-16 h-16 bg-indigo-900/15 dark:bg-indigo-600/10 rounded-full filter blur-xl opacity-60 dark:opacity-40 pointer-events-none transition-opacity duration-300" />
-        <div className="absolute top-1/5 right-1/5 w-14 h-14 bg-blue-800/20 dark:bg-blue-500/15 rounded-full filter blur-lg opacity-70 dark:opacity-50 pointer-events-none transition-opacity duration-300" />
-        <div className="absolute top-2/3 left-1/12 w-18 h-18 bg-blue-700/15 dark:bg-blue-400/10 rounded-full filter blur-2xl opacity-40 dark:opacity-30 pointer-events-none transition-opacity duration-300" />
-        <div className="absolute bottom-1/3 right-1/12 w-12 h-12 bg-indigo-800/20 dark:bg-indigo-500/15 rounded-full filter blur-lg opacity-60 dark:opacity-45 pointer-events-none transition-opacity duration-300" />
+        <div className="absolute bottom-1/12 right-1/3 w-16 h-16 bg-indigo-900 rounded-full filter blur-xl opacity-6 pointer-events-none" />
+        <div className="absolute top-1/5 right-1/5 w-14 h-14 bg-blue-800 rounded-full filter blur-lg opacity-7 pointer-events-none" />
+        <div className="absolute top-2/3 left-1/12 w-18 h-18 bg-blue-700 rounded-full filter blur-2xl opacity-4 pointer-events-none" />
+        <div className="absolute bottom-1/3 right-1/12 w-12 h-12 bg-indigo-800 rounded-full filter blur-lg opacity-6 pointer-events-none" />
       </main>
     </div>
   );
