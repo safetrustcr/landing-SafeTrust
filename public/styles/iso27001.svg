@@ -1,0 +1,5 @@
+<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="20" cy="20" r="18" stroke="#2563eb" stroke-width="3" fill="#e0f2fe" />
+  <text x="50%" y="54%" text-anchor="middle" fill="#2563eb" font-size="10" font-family="Arial" dy=".3em">ISO</text>
+  <text x="50%" y="70%" text-anchor="middle" fill="#2563eb" font-size="7" font-family="Arial" dy=".3em">27001</text>
+</svg>
