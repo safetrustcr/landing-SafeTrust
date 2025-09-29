@@ -30,15 +30,14 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <ToastProvider position="top-right" maxToasts={3}>
-          {children}
+          <ThemeProvider
+            defaultTheme="dark"
+            enableSystem={true}
+            storageKey="safetrust-theme"
+          >
+            {children}
+          </ThemeProvider>
         </ToastProvider>
-        <ThemeProvider
-          defaultTheme="dark"
-          enableSystem={true}
-          storageKey="safetrust-theme"
-        >
-          {children}
-        </ThemeProvider>
       </body>
     </html>
   );

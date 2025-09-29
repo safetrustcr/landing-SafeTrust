@@ -1,9 +1,9 @@
 "use client";
 
-import React, { useEffect, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Button } from '@/components/ui/button';
-import NavigationLink from './NavigationLink';
+import React, { useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Button } from "@/components/ui/button";
+import NavigationLink from "./NavigationLink";
 
 interface MobileMenuProps {
   isOpen: boolean;
@@ -11,8 +11,14 @@ interface MobileMenuProps {
   isTablet?: boolean;
 }
 
-const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose, isTablet = false }) => {
-  const [screenSize, setScreenSize] = useState<'mobile' | 'tablet' | 'laptop' | 'desktop'>('mobile');
+const MobileMenu: React.FC<MobileMenuProps> = ({
+  isOpen,
+  onClose,
+  isTablet = false,
+}) => {
+  const [screenSize, setScreenSize] = useState<
+    "mobile" | "tablet" | "laptop" | "desktop"
+  >("mobile");
   const [isClient, setIsClient] = useState(false);
 
   // Detect screen size - only on client side
@@ -20,60 +26,60 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose, isTablet = fal
     setIsClient(true);
     const checkScreenSize = () => {
       if (window.innerWidth >= 1920) {
-        setScreenSize('desktop');
+        setScreenSize("desktop");
       } else if (window.innerWidth >= 1366) {
-        setScreenSize('laptop');
+        setScreenSize("laptop");
       } else if (window.innerWidth >= 768) {
-        setScreenSize('tablet');
+        setScreenSize("tablet");
       } else if (window.innerWidth >= 320) {
-        setScreenSize('mobile');
+        setScreenSize("mobile");
       } else {
-        setScreenSize('mobile');
+        setScreenSize("mobile");
       }
     };
 
     checkScreenSize();
-    window.addEventListener('resize', checkScreenSize);
-    return () => window.removeEventListener('resize', checkScreenSize);
+    window.addEventListener("resize", checkScreenSize);
+    return () => window.removeEventListener("resize", checkScreenSize);
   }, []);
 
   // Close menu on escape key
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
+      if (e.key === "Escape") {
         onClose();
       }
     };
 
     if (isOpen) {
-      document.addEventListener('keydown', handleEscape);
+      document.addEventListener("keydown", handleEscape);
       // Prevent body scroll when menu is open
-      document.body.style.overflow = 'hidden';
+      document.body.style.overflow = "hidden";
     }
 
     return () => {
-      document.removeEventListener('keydown', handleEscape);
-      document.body.style.overflow = 'unset';
+      document.removeEventListener("keydown", handleEscape);
+      document.body.style.overflow = "unset";
     };
   }, [isOpen, onClose]);
 
   const menuVariants = {
     closed: {
       opacity: 0,
-      x: '100%',
+      x: "100%",
       transition: {
         duration: 0.3,
-        ease: 'easeInOut'
-      }
+        ease: "easeInOut",
+      },
     },
     open: {
       opacity: 1,
       x: 0,
       transition: {
         duration: 0.3,
-        ease: 'easeInOut'
-      }
-    }
+        ease: "easeInOut",
+      },
+    },
   };
 
   const linkVariants = {
@@ -81,24 +87,24 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose, isTablet = fal
       opacity: 0,
       y: 20,
       transition: {
-        duration: 0.2
-      }
+        duration: 0.2,
+      },
     },
     open: {
       opacity: 1,
       y: 0,
       transition: {
         duration: 0.3,
-        ease: 'easeOut'
-      }
-    }
+        ease: "easeOut",
+      },
+    },
   };
 
   const allNavigationItems = [
-    { href: '#features', label: 'Features' },
-    { href: '#how-it-works', label: 'How It Works' },
-    { href: '#pricing', label: 'Pricing' },
-    { href: '#support', label: 'Support' }
+    { href: "#features", label: "Features" },
+    { href: "#how-it-works", label: "How It Works" },
+    { href: "#pricing", label: "Pricing" },
+    { href: "#support", label: "Support" },
   ];
 
   // For tablet, show all navigation items in hamburger menu
@@ -119,11 +125,11 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose, isTablet = fal
             tabIndex={-1}
             aria-hidden="true"
           />
-          
+
           {/* Mobile Menu */}
           <motion.nav
             className={`fixed top-0 right-0 h-full bg-background dark:bg-background border-l border-border dark:border-border z-50 overflow-hidden transition-colors duration-300 ${
-              isClient && screenSize === 'tablet' ? 'w-64' : 'w-80'
+              isClient && screenSize === "tablet" ? "w-64" : "w-80"
             }`}
             variants={menuVariants}
             initial="closed"
@@ -174,18 +180,15 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose, isTablet = fal
                     open: {
                       transition: {
                         staggerChildren: 0.1,
-                        delayChildren: 0.1
-                      }
-                    }
+                        delayChildren: 0.1,
+                      },
+                    },
                   }}
                   initial="closed"
                   animate="open"
                 >
                   {navigationItems.map((item, index) => (
-                    <motion.div
-                      key={item.href}
-                      variants={linkVariants}
-                    >
+                    <motion.div key={item.href} variants={linkVariants}>
                       <NavigationLink
                         href={item.href}
                         onClick={onClose}
