@@ -7,6 +7,7 @@ import { Switch } from "@/components/ui/switch";
 import { Badge } from "@/components/ui/badge";
 import { Check } from "lucide-react";
 import { Typography } from "@/components/ui/typography";
+import { useTracker } from "@/hooks/use-analytics";
 
 interface Plan {
   name: string;
@@ -18,6 +19,7 @@ interface Plan {
 }
 
 export default function TransactionTiers() {
+  const { buttonClick, logEvent } = useTracker();
   const [selectedPlan, setSelectedPlan] = useState("Pro");
   const [walletError, setWalletError] = useState("");
   const [billingPeriod, setBillingPeriod] = useState<"monthly" | "yearly">(
@@ -85,9 +87,11 @@ export default function TransactionTiers() {
       setWalletError(
         "Error: Unable to connect. Please check your internet connection."
       );
+      logEvent('wallet_connect_failed', { plan_name: planName, reason: 'offline' });
     } else {
       setWalletError("");
       console.log(`Wallet connected for ${planName}`);
+      buttonClick('wallet_connect_button', { plan_name: planName, location: 'pricing_section' });
     }
   };
 
@@ -165,9 +169,11 @@ export default function TransactionTiers() {
         <span className="text-muted-foreground text-sm sm:text-base">Monthly</span>
         <Switch
           checked={billingPeriod === "yearly"}
-          onCheckedChange={() =>
-            setBillingPeriod(billingPeriod === "monthly" ? "yearly" : "monthly")
-          }
+          onCheckedChange={() => {
+            const newPeriod = billingPeriod === "monthly" ? "yearly" : "monthly";
+            setBillingPeriod(newPeriod);
+            logEvent('billing_period_changed', { from: billingPeriod, to: newPeriod });
+          }}
         />
         <span className="text-muted-foreground text-sm sm:text-base">Yearly</span>
         <div className="relative ml-2">
@@ -203,7 +209,10 @@ export default function TransactionTiers() {
                 ? `$${plan.monthly} per month`
                 : `$${plan.yearly} per year`
             }`}
-            onClick={() => setSelectedPlan(plan.name)}
+            onClick={() => {
+              setSelectedPlan(plan.name);
+              buttonClick('plan_selected', { plan_name: plan.name, billing_period: billingPeriod });
+            }}
             className={`relative text-foreground bg-card backdrop-blur-md p-6 md:p-4 border flex flex-col justify-between h-[450px] md:h-[400px] cursor-pointer transition-all duration-300 ease-in-out hover:border-primary hover:shadow-lg hover:shadow-primary/20 ${
               selectedPlan === plan.name
                 ? "border-primary"
