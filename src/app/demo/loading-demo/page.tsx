@@ -8,12 +8,56 @@ import LoadingSpinner from "@/components/loading/LoadingSpinner";
 import ProgressBar from "@/components/loading/ProgressBar";
 import ErrorBoundary from "@/components/error/ErrorBoundary";
 import { useLoadingState } from "@/hooks/use-loading-state";
+import {
+  Shield,
+  Lock,
+  Zap,
+  Bot,
+  Link as LinkIcon,
+  Globe,
+  KeyRound,
+} from "lucide-react";
 
 type Feature = {
   title: string;
   description: string;
-  icon: string;
+  icon: React.ReactNode;
 };
+
+const FEATURE_LIST: Feature[] = [
+  {
+    title: "Cross-Chain Compatibility",
+    description:
+      "Transact seamlessly across Ethereum, Stellar, and other blockchains.",
+    icon: <Globe className="w-10 h-10 text-blue-400" />,
+  },
+  {
+    title: "Secure Escrow System",
+    description:
+      "Create and manage deposits with advanced, customizable escrow.",
+    icon: <Shield className="w-10 h-10 text-purple-400" />,
+  },
+  {
+    title: "Asset Protection",
+    description: "Blue-chip grade protocols with multi-signature security.",
+    icon: <Lock className="w-10 h-10 text-indigo-400" />,
+  },
+  {
+    title: "Real-Time Settlement",
+    description: "Instant transfers with enterprise blockchain speed.",
+    icon: <Zap className="w-10 h-10 text-yellow-400" />,
+  },
+  {
+    title: "Smart Contracts",
+    description: "AI-powered contracts automate complex agreements safely.",
+    icon: <Bot className="w-10 h-10 text-green-400" />,
+  },
+  {
+    title: "DeFi Integration",
+    description: "Connect with leading DeFi protocols while staying secure.",
+    icon: <LinkIcon className="w-10 h-10 text-pink-400" />,
+  },
+];
 
 export default function LoadingDemoPage() {
   const { isLoading, error, progress, startLoading, failLoading, reset } =
@@ -23,54 +67,15 @@ export default function LoadingDemoPage() {
     {
       title: "SafeTrust Platform",
       description: "Next-generation secure blockchain transactions.",
-      icon: "🔷",
+      icon: <KeyRound className="w-10 h-10 text-cyan-400" />,
     },
   ]);
 
   const handleLoad = () => {
     startLoading(async () => {
       await new Promise((resolve) => setTimeout(resolve, 2500));
-
-      const newFeatures: Feature[] = [
-        {
-          title: "Cross-Chain Compatibility",
-          description:
-            "Transact seamlessly across Ethereum, Stellar, and other blockchains.",
-          icon: "🌐",
-        },
-        {
-          title: "Secure Escrow System",
-          description:
-            "Create and manage deposits with advanced, customizable escrow.",
-          icon: "🛡️",
-        },
-        {
-          title: "Asset Protection",
-          description:
-            "Blue-chip grade protocols with multi-signature security.",
-          icon: "🔐",
-        },
-        {
-          title: "Real-Time Settlement",
-          description: "Instant transfers with enterprise blockchain speed.",
-          icon: "⚡",
-        },
-        {
-          title: "Smart Contracts",
-          description:
-            "AI-powered contracts automate complex agreements safely.",
-          icon: "🤖",
-        },
-        {
-          title: "DeFi Integration",
-          description:
-            "Connect with leading DeFi protocols while staying secure.",
-          icon: "🔗",
-        },
-      ];
-
-      setFeatures(newFeatures);
-      return newFeatures;
+      setFeatures(FEATURE_LIST);
+      return FEATURE_LIST;
     });
   };
 
@@ -142,7 +147,7 @@ export default function LoadingDemoPage() {
                     key={idx}
                     className="group p-6 border border-slate-700/50 rounded-2xl bg-slate-900/50 backdrop-blur-xl hover:bg-slate-800/50 hover:border-blue-500/50 transition-all duration-300 hover:shadow-xl hover:shadow-blue-500/10 hover:-translate-y-1"
                   >
-                    <div className="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300">
+                    <div className="mb-4 group-hover:scale-110 transition-transform duration-300">
                       {feature.icon}
                     </div>
                     <h2 className="text-xl font-semibold text-slate-100 mb-2">
