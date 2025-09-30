@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "prepare": "husky"
   },
   "dependencies": {
     "@radix-ui/react-accordion": "^1.2.3",
@@ -27,11 +28,10 @@
     "recharts": "^3.2.1",
     "shadcn-ui": "^0.9.4",
     "sonner": "^2.0.7",
-    "tailwind-merge": "^3.0.2",
+    "storybook": "^9.1.8",
+    "tailwind-merge": "^3.3.1",
     "tailwindcss-animate": "^1.0.7",
     "uuid": "^13.0.0"
-    "tailwind-merge": "^3.3.1",
-    "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
@@ -41,6 +41,8 @@
     "@types/uuid": "^11.0.0",
     "eslint": "^9",
     "eslint-config-next": "15.1.7",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.3",
     "postcss": "^8",
     "tailwindcss": "^3.4.1",
     "typescript": "^5"
