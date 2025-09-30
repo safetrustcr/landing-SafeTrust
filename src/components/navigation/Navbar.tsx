@@ -33,6 +33,10 @@ const Navbar: React.FC = () => {
         setScreenSize("laptop");
       } else if (window.innerWidth >= 768) {
         setScreenSize("tablet");
+
+      } else if (window.innerWidth >= 320) {
+        setScreenSize("mobile");
+
       } else {
         setScreenSize("mobile");
       }
@@ -120,7 +124,9 @@ const Navbar: React.FC = () => {
         </div>
       </nav>
 
-      {/* Mobile Menu */}
+
+      {/* Mobile Menu - Only show for mobile and tablet */}
+
       {isClient && (screenSize === "mobile" || screenSize === "tablet") && (
         <MobileMenu
           isOpen={isMobileMenuOpen}

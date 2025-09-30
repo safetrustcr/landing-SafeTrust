@@ -3,6 +3,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "../../public/styles/globals.css";
 import ToastProvider from "@/components/ui/toast/toast-provider";
 import { ThemeProvider } from "../lib/theme-provider";
+import { TrackerProvider } from "@/components/AnalyticsProvider";
+import { AnalyticsLogger } from "@/components/AnalyticsLogger";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,15 +31,20 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <ToastProvider position="top-right" maxToasts={3}>
-          <ThemeProvider
-            defaultTheme="dark"
-            enableSystem={true}
-            storageKey="safetrust-theme"
-          >
-            {children}
-          </ThemeProvider>
-        </ToastProvider>
+
+        <TrackerProvider enabled={true} debug={true}>
+          <ToastProvider position="top-right" maxToasts={3}>
+            <ThemeProvider
+              defaultTheme="dark"
+              enableSystem={true}
+              storageKey="safetrust-theme"
+            >
+              {children}
+            </ThemeProvider>
+          </ToastProvider>
+          <AnalyticsLogger />
+        </TrackerProvider>
+
       </body>
     </html>
   );
