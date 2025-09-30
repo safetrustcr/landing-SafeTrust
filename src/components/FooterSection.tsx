@@ -1,9 +1,6 @@
 import * as React from "react";
-import { Input } from "./ui/input";
-import { Button } from "./ui/button";
-import * as React from "react"
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 
 export function Footer() {
   return (
@@ -19,27 +16,6 @@ export function Footer() {
           <div className="flex items-center mb-6 md:mb-0">
             <div className="bg-gradient-to-br from-blue-500 to-blue-700 w-8 h-8 rounded mr-3 flex items-center justify-center">
               <span className="text-white font-bold text-lg">S</span>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1fr_1fr] gap-x-4 gap-y-8 mb-12">
-          <div className="md:col-span-2 lg:col-span-1">
-            <div className="flex items-center mb-6">
-              <div className="bg-gradient-to-br from-blue-500 to-blue-700 w-6 h-6 rounded mr-2 flex items-center justify-center">
-                <span className="text-white font-bold text-xs">S</span>
-              </div>
-              <span className="text-xl font-semibold bg-gradient-to-r from-blue-600 to-blue-400 dark:from-blue-400 dark:to-blue-200 bg-clip-text text-transparent">
-                SafeTrust
-              </span>
-            </div>
-            <div className="flex flex-col sm:flex-row w-full gap-2">
-              <Input 
-                type="email" 
-                placeholder="Enter your email" 
-                className="bg-card border-border rounded-md w-full text-muted-foreground pl-4 backdrop-blur-sm focus:border-primary focus:ring-primary/20 transition-colors duration-300"
-              />
-              <Button 
-                className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-md px-6 mt-2 sm:mt-0 transition-all duration-300"
-              >
-                Subscribe
-              </Button>
             </div>
             <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-blue-400 dark:from-blue-400 dark:to-blue-200 bg-clip-text text-transparent">
               SafeTrust
