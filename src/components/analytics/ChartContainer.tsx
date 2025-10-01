@@ -1,26 +1,38 @@
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  LineChart, 
-  Line, 
-  BarChart, 
-  Bar, 
-  AreaChart, 
+import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  LineChart,
+  Line,
+  BarChart,
+  Bar,
+  AreaChart,
   Area,
-  XAxis, 
-  YAxis, 
-  CartesianGrid, 
-  Tooltip, 
-  Legend, 
-  ResponsiveContainer 
-} from 'recharts';
-import { Download, BarChart3, LineChart as LineChartIcon, TrendingUp } from 'lucide-react';
-import { Card } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { AnalyticsData, ChartConfig, chartConfigs, exportToCSV, formatNumber, formatCurrency } from '@/lib/chart-utils';
-import { cn } from '@/lib/utils';
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+} from "recharts";
+import {
+  Download,
+  BarChart3,
+  LineChart as LineChartIcon,
+  TrendingUp,
+} from "lucide-react";
+import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import {
+  AnalyticsData,
+  ChartConfig,
+  chartConfigs,
+  exportToCSV,
+  formatNumber,
+  formatCurrency,
+} from "@/lib/chart-utils";
+import { cn } from "@/lib/utils";
 
-type ChartType = 'line' | 'bar' | 'area';
+type ChartType = "line" | "bar" | "area";
 
 interface ChartContainerProps {
   data: AnalyticsData[];
@@ -34,11 +46,21 @@ interface ChartContainerProps {
 
 interface CustomTooltipProps {
   active?: boolean;
-  payload?: any[];
+  payload?: Array<{
+    color: string;
+    name: string;
+    value: number;
+    dataKey: string;
+    payload: unknown;
+  }>;
   label?: string;
 }
 
-const CustomTooltip: React.FC<CustomTooltipProps> = ({ active, payload, label }) => {
+const CustomTooltip: React.FC<CustomTooltipProps> = ({
+  active,
+  payload,
+  label,
+}) => {
   if (!active || !payload || !payload.length) return null;
 
   return (
@@ -52,16 +74,15 @@ const CustomTooltip: React.FC<CustomTooltipProps> = ({ active, payload, label })
       </p>
       {payload.map((entry, index) => (
         <div key={index} className="flex items-center gap-2 text-sm">
-          <div 
-            className="w-3 h-3 rounded-full" 
+          <div
+            className="w-3 h-3 rounded-full"
             style={{ backgroundColor: entry.color }}
           />
           <span className="text-muted-foreground">{entry.name}:</span>
           <span className="font-medium text-white">
-            {entry.dataKey === 'volume' 
-              ? formatCurrency(entry.value) 
-              : formatNumber(entry.value)
-            }
+            {entry.dataKey === "volume"
+              ? formatCurrency(entry.value)
+              : formatNumber(entry.value)}
           </span>
         </div>
       ))}
@@ -73,34 +94,37 @@ export const ChartContainer: React.FC<ChartContainerProps> = ({
   data,
   title,
   description,
-  defaultType = 'line',
+  defaultType = "line",
   height = 400,
   showExport = true,
-  className
+  className,
 }) => {
   const [chartType, setChartType] = useState<ChartType>(defaultType);
-  const [selectedMetrics, setSelectedMetrics] = useState<string[]>(['transactions', 'volume']);
+  const [selectedMetrics, setSelectedMetrics] = useState<string[]>([
+    "transactions",
+    "volume",
+  ]);
 
   const handleExport = () => {
-    exportToCSV(data, `${title.toLowerCase().replace(/\s+/g, '-')}-chart-data`);
+    exportToCSV(data, `${title.toLowerCase().replace(/\s+/g, "-")}-chart-data`);
   };
 
   const toggleMetric = (metric: string) => {
-    setSelectedMetrics(prev => 
-      prev.includes(metric) 
-        ? prev.filter(m => m !== metric)
+    setSelectedMetrics((prev) =>
+      prev.includes(metric)
+        ? prev.filter((m) => m !== metric)
         : [...prev, metric]
     );
   };
 
   const getChartConfig = (): ChartConfig[] => {
     const configs = chartConfigs[chartType] || chartConfigs.line;
-    return configs.filter(config => selectedMetrics.includes(config.dataKey));
+    return configs.filter((config) => selectedMetrics.includes(config.dataKey));
   };
 
   const renderChart = () => {
     const config = getChartConfig();
-    
+
     const commonProps = {
       data,
       margin: { top: 5, right: 30, left: 20, bottom: 5 },
@@ -109,13 +133,18 @@ export const ChartContainer: React.FC<ChartContainerProps> = ({
     const commonElements = (
       <>
         <CartesianGrid strokeDasharray="3 3" stroke="#475569" opacity={0.3} />
-        <XAxis 
-          dataKey="date" 
+        <XAxis
+          dataKey="date"
           stroke="hsl(var(--muted-foreground))"
           fontSize={12}
-          tickFormatter={(value) => new Date(value).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}
+          tickFormatter={(value) =>
+            new Date(value).toLocaleDateString(undefined, {
+              month: "short",
+              day: "numeric",
+            })
+          }
         />
-        <YAxis 
+        <YAxis
           stroke="hsl(var(--muted-foreground))"
           fontSize={12}
           tickFormatter={formatNumber}
@@ -126,11 +155,11 @@ export const ChartContainer: React.FC<ChartContainerProps> = ({
     );
 
     switch (chartType) {
-      case 'bar':
+      case "bar":
         return (
           <BarChart {...commonProps}>
             {commonElements}
-            {config.map((item, index) => (
+            {config.map((item) => (
               <Bar
                 key={item.dataKey}
                 dataKey={item.dataKey}
@@ -142,12 +171,12 @@ export const ChartContainer: React.FC<ChartContainerProps> = ({
             ))}
           </BarChart>
         );
-      
-      case 'area':
+
+      case "area":
         return (
           <AreaChart {...commonProps}>
             {commonElements}
-            {config.map((item, index) => (
+            {config.map((item) => (
               <Area
                 key={item.dataKey}
                 type="monotone"
@@ -161,12 +190,12 @@ export const ChartContainer: React.FC<ChartContainerProps> = ({
             ))}
           </AreaChart>
         );
-      
+
       default: // line
         return (
           <LineChart {...commonProps}>
             {commonElements}
-            {config.map((item, index) => (
+            {config.map((item) => (
               <Line
                 key={item.dataKey}
                 type="monotone"
@@ -184,15 +213,15 @@ export const ChartContainer: React.FC<ChartContainerProps> = ({
   };
 
   const chartTypeButtons = [
-    { type: 'line' as ChartType, icon: LineChartIcon, label: 'Line' },
-    { type: 'bar' as ChartType, icon: BarChart3, label: 'Bar' },
-    { type: 'area' as ChartType, icon: TrendingUp, label: 'Area' },
+    { type: "line" as ChartType, icon: LineChartIcon, label: "Line" },
+    { type: "bar" as ChartType, icon: BarChart3, label: "Bar" },
+    { type: "area" as ChartType, icon: TrendingUp, label: "Area" },
   ];
 
   const metricButtons = [
-    { key: 'transactions', label: 'Transactions', color: '#3b82f6' },
-    { key: 'volume', label: 'Volume', color: '#10b981' },
-    { key: 'users', label: 'Users', color: '#f59e0b' },
+    { key: "transactions", label: "Transactions", color: "#3b82f6" },
+    { key: "volume", label: "Volume", color: "#10b981" },
+    { key: "users", label: "Users", color: "#f59e0b" },
   ];
 
   return (
@@ -209,10 +238,12 @@ export const ChartContainer: React.FC<ChartContainerProps> = ({
             <div>
               <h3 className="text-xl font-semibold text-white">{title}</h3>
               {description && (
-                <p className="text-sm text-muted-foreground mt-1">{description}</p>
+                <p className="text-sm text-muted-foreground mt-1">
+                  {description}
+                </p>
               )}
             </div>
-            
+
             <div className="flex items-center gap-2">
               {/* Chart Type Selector */}
               <div className="flex items-center gap-1 p-1 bg-slate-800 rounded-lg border border-slate-700">
@@ -259,11 +290,12 @@ export const ChartContainer: React.FC<ChartContainerProps> = ({
                 onClick={() => toggleMetric(key)}
                 className={cn(
                   "h-7 text-xs border-slate-700",
-                  selectedMetrics.includes(key) && "bg-primary text-primary-foreground"
+                  selectedMetrics.includes(key) &&
+                    "bg-primary text-primary-foreground"
                 )}
               >
-                <div 
-                  className="w-2 h-2 rounded-full mr-1.5" 
+                <div
+                  className="w-2 h-2 rounded-full mr-1.5"
                   style={{ backgroundColor: color, color: "white" }}
                 />
                 {label}
