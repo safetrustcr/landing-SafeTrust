@@ -31,6 +31,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+
         <ThemeProvider
           defaultTheme="dark"
           enableSystem={true}
@@ -50,6 +51,7 @@ export default function RootLayout({
             {children}
           </ThemeProvider>
         </ToastProvider>
+
 
         <TrackerProvider enabled={true} debug={true}>
           <ToastProvider position="top-right" maxToasts={3}>
