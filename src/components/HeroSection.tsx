@@ -5,6 +5,7 @@ import { motion, useAnimation, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Wallet } from "lucide-react";
 import Navbar from "./navigation/Navbar";
+import { useTracker } from "@/hooks/use-analytics";
 
 // interface FeatureProps {
 //   icon: React.ReactNode;
@@ -83,6 +84,7 @@ const Particle: React.FC<{
 };
 
 export default function HeroSection() {
+  const { buttonClick } = useTracker();
   const svgRef = useRef<SVGSVGElement>(null);
   const gridRef = useRef<HTMLDivElement>(null);
   const [lines, setLines] = useState<
@@ -267,6 +269,14 @@ export default function HeroSection() {
           >
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
               <Button className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 text-lg flex items-center gap-2">
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <Button 
+                className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 text-lg flex items-center gap-2"
+                onClick={() => buttonClick('connect_wallet_button', { location: 'hero_section' })}
+              >
                 <Wallet className="w-5 h-5" />
                 Connect Wallet
               </Button>

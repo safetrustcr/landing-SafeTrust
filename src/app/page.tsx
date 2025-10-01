@@ -6,6 +6,7 @@ import TransactionTiers from "@/components/PriceSection";
 import Discover from "@/components/DiscoverSection";
 import { Footer } from "@/components/FooterSection";
 import HowItWorksSection from "@/components/HowItWorksSection";
+import SecuritySection from "@/components/SecuritySection";
 import { Button } from "@/components/ui/button";
 import { Tooltip } from "@/components/ui/Tooltip";
 
@@ -27,11 +28,11 @@ export default function Home() {
       </div>
       
       <Discover />
-      <HowItWorksSection /> 
+      <HowItWorksSection />
+      <SecuritySection />
       <FaqSection />
       <TransactionTiers />
       <Footer />
-      
     </>
   );
 }
