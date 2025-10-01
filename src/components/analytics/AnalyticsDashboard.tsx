@@ -1,15 +1,15 @@
-"use client"
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { RefreshCw, Calendar, TrendingUp, Users, DollarSign, Activity } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
-import { MetricCard } from './MetricCard';
-import { ChartContainer } from './ChartContainer';
-import { DateRangePicker } from './DateRangePicker';
-import { useAnalyticsData } from '@/hooks/use-analytics-data';
-import { cn } from '@/lib/utils';
-import { toast } from 'sonner';
+"use client";
+import React, { useState } from "react";
+import { motion } from "framer-motion";
+import { RefreshCw, TrendingUp } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { MetricCard } from "./MetricCard";
+import { ChartContainer } from "./ChartContainer";
+import { DateRangePicker } from "./DateRangePicker";
+import { useAnalyticsData } from "@/hooks/use-analytics-data";
+import { cn } from "@/lib/utils";
+import { toast } from "sonner";
 
 interface DateRange {
   start: Date;
@@ -29,7 +29,6 @@ export const AnalyticsDashboard: React.FC = () => {
     refreshInterval: 60000, // Refresh every minute
   });
 
-
   const handleRefresh = () => {
     refetch();
     toast.success("Data Refreshed", {
@@ -46,7 +45,9 @@ export const AnalyticsDashboard: React.FC = () => {
       <div className="min-h-screen bg-slate-900 flex items-center justify-center p-4">
         <Card className="p-8 border-destructive/20 bg-destructive/5">
           <div className="text-center">
-            <h2 className="text-xl font-semibold text-destructive mb-2">Error Loading Analytics</h2>
+            <h2 className="text-xl font-semibold text-destructive mb-2">
+              Error Loading Analytics
+            </h2>
             <p className="text-muted-foreground mb-4">{error}</p>
             <Button onClick={handleRefresh} variant="outline">
               <RefreshCw className="w-4 h-4 mr-2" />
@@ -80,7 +81,7 @@ export const AnalyticsDashboard: React.FC = () => {
               Analytics Dashboard
             </h1>
             <p className="text-base sm:text-lg text-muted-foreground">
-              Real-time insights into your platform's performance
+              Real-time insights into your platform&#39;s performance
             </p>
           </div>
 
@@ -107,7 +108,6 @@ export const AnalyticsDashboard: React.FC = () => {
             </Button>
           </div>
         </motion.div>
-
 
         {/* Loading State */}
         {isLoading && (
@@ -136,7 +136,10 @@ export const AnalyticsDashboard: React.FC = () => {
                 key={metric.label}
                 metric={metric}
                 index={index}
-                isCurrency={metric.label.includes('Volume') || metric.label.includes('Avg')}
+                isCurrency={
+                  metric.label.includes("Volume") ||
+                  metric.label.includes("Avg")
+                }
               />
             ))}
           </div>
@@ -210,7 +213,8 @@ export const AnalyticsDashboard: React.FC = () => {
                 No Data Available
               </h3>
               <p className="text-muted-foreground mb-6">
-                Select a different date range or check back later for analytics data.
+                Select a different date range or check back later for analytics
+                data.
               </p>
               <Button onClick={handleRefresh} variant="outline">
                 <RefreshCw className="w-4 h-4 mr-2" />

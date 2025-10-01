@@ -1,0 +1,43 @@
+npm test
+
+cat > .husky/pre-commit << 'EOF'
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+echo "🔍 Running pre-commit checks..."
+echo ""
+
+# Run lint-staged
+echo "📝 Checking code style and formatting..."
+npx lint-staged
+
+# Check if lint-staged failed
+if [ $? -ne 0 ]; then
+  echo "❌ Linting failed. Please fix the errors and try again."
+  exit 1
+fi
+
+echo ""
+echo "🔷 Running TypeScript type check..."
+npm run type-check
+
+# Check if type-check failed
+if [ $? -ne 0 ]; then
+  echo "❌ Type check failed. Please fix the type errors and try again."
+  exit 1
+fi
+
+echo ""
+echo "🧪 Running tests on staged files..."
+npm run test:staged
+
+# Check if tests failed
+if [ $? -ne 0 ]; then
+  echo "❌ Tests failed. Please fix the failing tests and try again."
+  exit 1
+fi
+
+echo ""
+echo "✅ All pre-commit checks passed! Proceeding with commit..."
+echo ""
+EOF
