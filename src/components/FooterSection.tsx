@@ -2,7 +2,9 @@ import * as React from "react";
 
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
+
 import * as React from "react"
+
 
 
 export function Footer() {
@@ -15,6 +17,14 @@ export function Footer() {
       <div className="container mx-auto px-4 relative z-10">
       <div className="container mx-auto px-6 sm:px-8 lg:px-12 relative z-10">
         {/* Header area with logo and newsletter */}
+
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1fr_1fr] gap-x-4 gap-y-8 mb-12">
+          <div className="md:col-span-2 lg:col-span-1">
+            <div className="flex items-center mb-6">
+              <div className="bg-gradient-to-br from-blue-500 to-blue-700 w-6 h-6 rounded mr-2 flex items-center justify-center">
+                <span className="text-white font-bold text-xs">S</span>
+
         <div className="flex flex-col md:flex-row justify-between items-center mb-16">
           <div className="flex items-center mb-6 md:mb-0">
             <div className="bg-gradient-to-br from-blue-500 to-blue-700 w-8 h-8 rounded mr-3 flex items-center justify-center">
@@ -22,6 +32,7 @@ export function Footer() {
             </div>
           </div>
         </div>
+
               </div>
               <span className="text-xl font-semibold bg-gradient-to-r from-blue-600 to-blue-400 dark:from-blue-400 dark:to-blue-200 bg-clip-text text-transparent">
                 SafeTrust
@@ -37,6 +48,7 @@ export function Footer() {
                 Subscribe
               </Button>
             </div>
+
             <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-blue-400 dark:from-blue-400 dark:to-blue-200 bg-clip-text text-transparent">
               SafeTrust
             </span>
@@ -85,6 +97,7 @@ export function Footer() {
             <Button className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-md px-6 mt-2 sm:mt-0 transition-all duration-300">
               Subscribe
             </Button>
+
           </div>
         </div>
 
