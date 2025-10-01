@@ -31,6 +31,28 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+
+        <ThemeProvider
+          defaultTheme="dark"
+          enableSystem={true}
+          storageKey="safetrust-theme"
+        >
+          <ToastProvider position="top-right" maxToasts={3}>
+            {children}
+          </ToastProvider>
+        </ThemeProvider>
+      fix/broken-files-and-duplicates
+        <ToastProvider position="top-right" maxToasts={3}>
+          <ThemeProvider
+            defaultTheme="dark"
+            enableSystem={true}
+            storageKey="safetrust-theme"
+          >
+            {children}
+          </ThemeProvider>
+        </ToastProvider>
+
+
         <TrackerProvider enabled={true} debug={true}>
           <ToastProvider position="top-right" maxToasts={3}>
             <ThemeProvider

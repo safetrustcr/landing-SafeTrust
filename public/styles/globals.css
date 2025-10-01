@@ -141,3 +141,69 @@ body {
 .animate-slide-in-right {
   animation: slideInFromRight 0.3s ease-out;
 }
+
+/* Button micro-animations */
+.btn-animate {
+  transition: all 150ms ease;
+  transform-origin: center;
+  will-change: transform;
+}
+
+.btn-animate:hover:not(:disabled) {
+  transform: scale(1.02);
+}
+
+.btn-animate:active:not(:disabled) {
+  transform: scale(0.98);
+  transition-duration: 75ms;
+}
+
+.btn-animate:disabled {
+  transform: none;
+  cursor: not-allowed;
+}
+
+/* Loading spinner animation */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.btn-loading {
+  position: relative;
+  pointer-events: none;
+}
+
+.btn-loading::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 16px;
+  height: 16px;
+  margin: -8px 0 0 -8px;
+  border: 2px solid transparent;
+  border-top: 2px solid currentColor;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.btn-loading > * {
+  opacity: 0;
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+  .btn-animate:hover {
+    transform: none;
+  }
+  
+  .btn-animate:active {
+    transform: scale(0.95);
+    transition-duration: 100ms;
+  }
+}
