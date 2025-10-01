@@ -30,16 +30,20 @@ const NavigationLink: React.FC<NavigationLinkProps> = ({
     : "text-blue-400 dark:text-blue-300 font-semibold relative after:content-[''] after:absolute after:left-0 after:right-0 after:-bottom-1 after:h-0.5 after:bg-blue-400 dark:after:bg-blue-300";
 
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault();
-    
-    // Smooth scroll to section
-    const target = document.querySelector(href);
-    if (target) {
-      target.scrollIntoView({ 
-        behavior: 'smooth',
-        block: 'start'
-      });
+    // Only prevent default and smooth scroll for anchor links (starting with #)
+    if (href.startsWith('#')) {
+      e.preventDefault();
+      
+      // Smooth scroll to section
+      const target = document.querySelector(href);
+      if (target) {
+        target.scrollIntoView({ 
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
     }
+    // For regular page routes (/icons, /dashboard, etc.), allow normal navigation
     
     // Call onClick if provided (for closing mobile menu)
     if (onClick) {
