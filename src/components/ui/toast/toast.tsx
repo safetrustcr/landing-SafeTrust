@@ -17,7 +17,7 @@ export default function Toast({
   toast: ToastType;
   onDismiss: () => void;
 }) {
-  const { id, title, description, type, duration = 3000 } = toast;
+  const { title, description, type, duration = 3000 } = toast;
   const [leaving, setLeaving] = useState(false);
   const [progress, setProgress] = useState(100);
   const timerRef = useRef<number | null>(null);
