@@ -31,26 +31,16 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-      fix/broken-files-and-duplicates
-        <ToastProvider position="top-right" maxToasts={3}>
+        <TrackerProvider enabled={true} debug={true}>
           <ThemeProvider
             defaultTheme="dark"
             enableSystem={true}
             storageKey="safetrust-theme"
           >
-            {children}
-          </ThemeProvider>
-        </ToastProvider>
-        <TrackerProvider enabled={true} debug={true}>
-          <ToastProvider position="top-right" maxToasts={3}>
-            <ThemeProvider
-              defaultTheme="dark"
-              enableSystem={true}
-              storageKey="safetrust-theme"
-            >
+            <ToastProvider position="top-right" maxToasts={3}>
               {children}
-            </ThemeProvider>
-          </ToastProvider>
+            </ToastProvider>
+          </ThemeProvider>
           <AnalyticsLogger />
         </TrackerProvider>
       </body>
