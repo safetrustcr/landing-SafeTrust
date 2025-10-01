@@ -1,0 +1,135 @@
+/* ============================
+   Font Size (Text Scale)
+   ============================ */
+.text-sm {
+  font-size: 0.875rem; /* 14px */
+  line-height: 1.25rem; /* 20px */
+}
+
+.text-base {
+  font-size: 1rem; /* 16px */
+  line-height: 1.5rem; /* 24px */
+}
+
+.text-lg {
+  font-size: 1.125rem; /* 18px */
+  line-height: 1.75rem; /* 28px */
+}
+
+.text-xl {
+  font-size: 1.25rem; /* 20px */
+  line-height: 1.75rem; /* 28px */
+}
+
+.text-2xl {
+  font-size: 1.5rem; /* 24px */
+  line-height: 2rem; /* 32px */
+}
+
+.text-3xl {
+  font-size: 1.875rem; /* 30px */
+  line-height: 2.25rem; /* 36px */
+}
+
+.text-4xl {
+  font-size: 2.25rem; /* 36px */
+  line-height: 2.5rem; /* 40px */
+}
+
+/* Responsive sizes */
+@media (min-width: 640px) {
+  .sm\:text-base {
+    font-size: 1rem; /* 16px */
+    line-height: 1.5rem; /* 24px */
+  }
+  .sm\:text-lg {
+    font-size: 1.125rem; /* 18px */
+    line-height: 1.75rem; /* 28px */
+  }
+  .sm\:text-4xl {
+    font-size: 2.25rem; /* 36px */
+    line-height: 2.5rem; /* 40px */
+  }
+}
+
+@media (min-width: 768px) {
+  .md\:text-5xl {
+    font-size: 3rem; /* 48px */
+    line-height: 1; /* Single line height */
+  }
+}
+
+/* ============================
+   Font Weight
+   ============================ */
+.font-normal {
+  font-weight: 400;
+}
+.font-medium {
+  font-weight: 500;
+}
+.font-semibold {
+  font-weight: 600;
+}
+
+.font-bold {
+  font-weight: 700;
+}
+
+/* ============================
+   Text Colors
+   ============================ */
+.text-white {
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity, 1)); /* #ffffff */
+}
+
+.text-gray-400 {
+  --tw-text-opacity: 1;
+  color: rgb(156 163 175 / var(--tw-text-opacity, 1)); /* #9ca3af */
+}
+
+.text-gray-500 {
+  --tw-text-opacity: 1;
+  color: rgb(107 114 128 / var(--tw-text-opacity, 1)); /* #6b7280 */
+}
+
+.text-destructive {
+  color: hsl(var(--destructive)); /* Typically a red tone */
+}
+
+.bg-destructive {
+  background-color: hsl(
+    var(--destructive)
+  ); /* Background brother of text-destructive */
+}
+
+.text-muted-foreground {
+  color: hsl(var(--muted-foreground));
+}
+
+.bg-muted-foreground {
+  background-color: hsl(var(--muted-foreground));
+}
+
+.text-foreground {
+  color: hsl(var(--foreground));
+}
+
+.bg-foreground {
+  background-color: hsl(var(--foreground));
+}
+
+/* ============================
+   Text Alignment
+   ============================ */
+.text-left {
+  text-align: start;
+}
+.text-center {
+  text-align: center;
+}
+
+.text-right {
+  text-align: end;
+}
