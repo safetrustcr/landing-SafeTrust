@@ -9,12 +9,12 @@ interface MobileMenuProps {
   isOpen: boolean;
   onClose: () => void;
   isTablet?: boolean;
+  activeSection: string;
+  setActiveSection: (section: string) => void;
 }
 
-const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
-  const [screenSize, setScreenSize] = useState<
-    "mobile" | "tablet" | "laptop" | "desktop"
-  >("mobile");
+const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose, activeSection, setActiveSection, isTablet = false }) => {
+  const [screenSize, setScreenSize] = useState<'mobile' | 'tablet' | 'laptop' | 'desktop'>('mobile');
   const [isClient, setIsClient] = useState(false);
 
   // Detect screen size - only on client side
@@ -58,6 +58,11 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
       document.body.style.overflow = "unset";
     };
   }, [isOpen, onClose]);
+
+  const handleOnClick = (section: string) => {
+    setActiveSection(section);
+    onClose();
+  };
 
   const menuVariants = {
     closed: {
@@ -184,8 +189,9 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
                     <motion.div key={item.href} variants={linkVariants}>
                       <NavigationLink
                         href={item.href}
-                        onClick={onClose}
+                        onClick={() => handleOnClick(item.href)}
                         isMobile={true}
+                        activeSection={activeSection === item.href}
                       >
                         {item.label}
                       </NavigationLink>
