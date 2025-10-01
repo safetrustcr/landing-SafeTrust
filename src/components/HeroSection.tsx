@@ -3,21 +3,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import { motion, useAnimation, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Wallet } from "lucide-react";
+import { Wallet, X } from "lucide-react";
 import Navbar from "./navigation/Navbar";
 import { useTracker } from "@/hooks/use-analytics";
-
-// interface FeatureProps {
-//   icon: React.ReactNode;
-//   title: string;
-// }
-
-// const Feature: React.FC<FeatureProps> = ({ icon, title }) => (
-//   <div className="flex flex-col items-center space-y-3 md:flex-row md:items-start md:space-y-0 md:space-x-3">
-//     <span className="text-4xl">{icon}</span>
-//     <p className="text-lg font-medium text-center md:text-left">{title}</p>
-//   </div>
-// );
 
 interface LineProps {
   start: { x: number; y: number };
@@ -35,11 +23,6 @@ const Line: React.FC<LineProps> = ({ start, end, duration, delay }) => {
       transition: { duration, delay, ease: "easeInOut" },
     });
   }, [controls, duration, delay]);
-
-  // Calculate line attributes
-  const lineLength = Math.sqrt(
-    Math.pow(end.x - start.x, 2) + Math.pow(end.y - start.y, 2)
-  );
 
   return (
     <motion.line
@@ -104,24 +87,35 @@ export default function HeroSection() {
       delay: number;
     }>
   >([]);
-  const [squares, setSquares] = useState<Array<HTMLElement | null>>([]);
+  const [squares, setSquares] = useState<HTMLElement[]>([]);
   const [isVisible, setIsVisible] = useState(false);
 
-  // Function to get center point of a square
+  // Mobile menu state
+  const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const openMobileMenu = () => setMobileMenuOpen(true);
+  const closeMobileMenu = () => setMobileMenuOpen(false);
+
+  // ESC key closes mobile menu
+  useEffect(() => {
+    const handleEsc = (event: KeyboardEvent) => {
+      if (event.key === "Escape") closeMobileMenu();
+    };
+    window.addEventListener("keydown", handleEsc);
+    return () => window.removeEventListener("keydown", handleEsc);
+  }, []);
+
   const getSquareCenter = (element: HTMLElement) => {
     const rect = element.getBoundingClientRect();
     const gridRect = gridRef.current?.getBoundingClientRect() || {
       left: 0,
       top: 0,
     };
-
     return {
       x: rect.left - gridRect.left + rect.width / 2,
       y: rect.top - gridRect.top + rect.height / 2,
     };
   };
 
-  // Function to create random connections between squares
   const createRandomConnections = () => {
     if (!squares.length) return;
 
@@ -139,22 +133,18 @@ export default function HeroSection() {
       delay: number;
     }> = [];
 
-    // Each square can have 1-3 connections
     squares.forEach((square, idx) => {
       if (!square) return;
-
       const numConnections = (idx % 3) + 1;
       const start = getSquareCenter(square);
 
       for (let i = 0; i < numConnections; i++) {
-        // Find a different square to connect to
         const targetIdx = (idx + i + 1) % squares.length;
-
         const targetSquare = squares[targetIdx];
         if (!targetSquare) continue;
 
         const end = getSquareCenter(targetSquare);
-        const duration = ((idx + i) % 10) * 0.1 + 0.5; // 0.5-1.5s
+        const duration = ((idx + i) % 10) * 0.1 + 0.5;
         const delay = ((idx + i) % 5) * 0.1;
 
         newLines.push({
@@ -165,7 +155,6 @@ export default function HeroSection() {
           delay,
         });
 
-        // Add particle that travels along the line
         if (idx % 2 === 0) {
           newParticles.push({
             start,
@@ -181,7 +170,6 @@ export default function HeroSection() {
     setParticles(newParticles);
   };
 
-  // Initialize connections
   useEffect(() => {
     if (gridRef.current) {
       const squareElements = Array.from(
@@ -189,47 +177,97 @@ export default function HeroSection() {
       ) as HTMLElement[];
       setSquares(squareElements);
 
-      // Delay animation start to ensure elements are rendered
       setTimeout(() => {
         setIsVisible(true);
         createRandomConnections();
       }, 500);
     }
 
-    // Recreate connections periodically
     const intervalId = setInterval(() => {
       createRandomConnections();
     }, 8000);
 
     return () => clearInterval(intervalId);
-  }, []);
+  }, [squares.length]);
 
-  // Square animation variants
   const squareVariants = {
     hidden: { scale: 0.8, opacity: 0 },
     visible: (i: number) => ({
       scale: 1,
       opacity: 1,
-      transition: {
-        delay: i * 0.1,
-        duration: 0.5,
-        ease: "easeOut",
-      },
+      transition: { delay: i * 0.1, duration: 0.5, ease: "easeOut" },
     }),
     hover: {
       scale: 1.1,
       boxShadow: "0 0 15px rgba(30, 64, 175, 0.6)",
       backgroundColor: "rgba(30, 64, 175, 0.3)",
-      transition: {
-        duration: 0.3,
-      },
+      transition: { duration: 0.3 },
     },
   };
 
   return (
     <div className="min-h-screen bg-[#0a0a15] text-white overflow-hidden">
-      <Navbar />
+      {/* Navbar with Hamburger */}
+      <div className="relative z-50">
+        <Navbar />
+        {/* Hamburger Button for mobile */}
+        <button
+          className="lg:hidden absolute top-4 left-4 p-2"
+          onClick={openMobileMenu}
+          aria-label="Open menu"
+        >
+          <svg
+            className="w-6 h-6 text-white"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M4 6h16M4 12h16M4 18h16"
+            />
+          </svg>
+        </button>
+      </div>
 
+      {/* Mobile Menu */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div
+            key="mobile-menu"
+            initial={{ x: "100%" }}
+            animate={{ x: 0 }}
+            exit={{ x: "100%" }}
+            transition={{ type: "tween", duration: 0.3 }}
+            className="fixed inset-0 bg-white z-50 flex flex-col items-center justify-center"
+          >
+            <Button
+              variant="close"
+              size="icon"
+              onClick={closeMobileMenu}
+              aria-label="Close menu"
+            >
+              <X className="h-6 w-6" />
+            </Button>
+
+            <nav className="flex flex-col items-center space-y-6 text-lg">
+              <a href="#home" onClick={closeMobileMenu}>
+                Home
+              </a>
+              <a href="#about" onClick={closeMobileMenu}>
+                About
+              </a>
+              <a href="#contact" onClick={closeMobileMenu}>
+                Contact
+              </a>
+            </nav>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Hero Section content (your existing code) */}
       <main className="container mx-auto min-h-[calc(100vh-80px)] grid grid-cols-1 lg:grid-cols-2 gap-12 px-4">
         <div className="flex flex-col justify-center space-y-6">
           <motion.h1
@@ -268,14 +306,13 @@ export default function HeroSection() {
             transition={{ duration: 0.5, delay: 0.9 }}
           >
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <Button className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 text-lg flex items-center gap-2">
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <Button 
+              <Button
                 className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 text-lg flex items-center gap-2"
-                onClick={() => buttonClick('connect_wallet_button', { location: 'hero_section' })}
+                onClick={() =>
+                  buttonClick("connect_wallet_button", {
+                    location: "hero_section",
+                  })
+                }
               >
                 <Wallet className="w-5 h-5" />
                 Connect Wallet
@@ -307,7 +344,6 @@ export default function HeroSection() {
                     delay={line.delay}
                   />
                 ))}
-
               {isVisible &&
                 particles.map((particle) => (
                   <Particle
@@ -330,12 +366,11 @@ export default function HeroSection() {
                 initial="hidden"
                 animate={isVisible ? "visible" : "hidden"}
                 whileHover="hover"
+                variants={squareVariants}
               >
                 <motion.div
                   className="absolute inset-0 rounded-lg bg-gradient-to-br from-transparent to-blue-800 opacity-20"
-                  animate={{
-                    opacity: [0.2, 0.4, 0.2],
-                  }}
+                  animate={{ opacity: [0.2, 0.4, 0.2] }}
                   transition={{
                     duration: 3,
                     repeat: Infinity,
@@ -346,52 +381,7 @@ export default function HeroSection() {
               </motion.div>
             ))}
           </div>
-
-          {/* Floating particles in the background */}
-          <div className="absolute inset-0 pointer-events-none">
-            {[...Array(15)].map((_, index) => {
-              const leftPos = (index * 7.14) % 100;
-              const topPos = (index * 6.67) % 100;
-              const xMove = ((index % 3) - 1) * 20;
-              const yMove = (((index + 1) % 3) - 1) * 20;
-              const duration = 2 + (index % 3);
-              const delay = (index % 4) * 0.5;
-
-              return (
-                <motion.div
-                  key={`particle-float-${index}`}
-                  className="absolute w-1 h-1 bg-blue-500 rounded-full"
-                  style={{
-                    left: `${leftPos}%`,
-                    top: `${topPos}%`,
-                  }}
-                  animate={{
-                    opacity: [0, 0.6, 0],
-                    scale: [0, 1, 0],
-                    x: [0, xMove],
-                    y: [0, yMove],
-                  }}
-                  transition={{
-                    duration,
-                    repeat: Infinity,
-                    delay,
-                  }}
-                />
-              );
-            })}
-          </div>
         </motion.div>
-
-        {/* Background glow effects - positioned away from squares */}
-        <div className="absolute right-1/6 bottom-1/6 w-32 h-32 bg-blue-800 rounded-full filter blur-3xl opacity-8 pointer-events-none" />
-        <div className="absolute top-3/4 left-1/6 w-24 h-24 bg-blue-900 rounded-full filter blur-2xl opacity-5 pointer-events-none" />
-        <div className="absolute top-1/6 left-1/6 w-20 h-20 bg-blue-950 rounded-full filter blur-xl opacity-10 pointer-events-none" />
-
-        {/* Additional round lights */}
-        <div className="absolute bottom-1/12 right-1/3 w-16 h-16 bg-indigo-900 rounded-full filter blur-xl opacity-6 pointer-events-none" />
-        <div className="absolute top-1/5 right-1/5 w-14 h-14 bg-blue-800 rounded-full filter blur-lg opacity-7 pointer-events-none" />
-        <div className="absolute top-2/3 left-1/12 w-18 h-18 bg-blue-700 rounded-full filter blur-2xl opacity-4 pointer-events-none" />
-        <div className="absolute bottom-1/3 right-1/12 w-12 h-12 bg-indigo-800 rounded-full filter blur-lg opacity-6 pointer-events-none" />
       </main>
     </div>
   );
