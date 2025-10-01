@@ -5,13 +5,7 @@ import { Transaction } from "@/lib/transaction-api";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import {
-  Copy,
-  ExternalLink,
-  ChevronDown,
-  ChevronRight,
-  Clock,
-} from "lucide-react";
+import { Copy, ExternalLink, Clock } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface TransactionTableProps {
@@ -138,7 +132,9 @@ export function TransactionTable({
                 {/* Header with hash and actions */}
                 <div className="flex items-start justify-between gap-3 md:items-center">
                   <div className="flex-1 min-w-0">
-                    <div className="text-xs text-gray-500 mb-2 font-medium uppercase tracking-wide">Transaction</div>
+                    <div className="text-xs text-gray-500 mb-2 font-medium uppercase tracking-wide">
+                      Transaction
+                    </div>
                     <code className="text-sm font-mono text-gray-200 break-all leading-relaxed">
                       {formatAddress(transaction.hash)}
                     </code>
@@ -178,7 +174,7 @@ export function TransactionTable({
                       {statusInfo.label}
                     </Badge>
                   </div>
-                  
+
                   <div className="bg-blue-900/20 rounded-lg p-3 border border-blue-800/30">
                     <div className="text-xs text-gray-400 mb-1">Amount</div>
                     <div className="font-bold text-blue-400 text-lg">
