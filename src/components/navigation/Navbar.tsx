@@ -9,13 +9,7 @@ import MobileMenu from './MobileMenu';
 import NavigationLink from './NavigationLink';
 import { useActiveSection } from '@/hooks/use-active-section';
 import { ThemeToggle } from '../theme-toggle';
-import React, { useState, useEffect } from "react";
-import { motion } from "framer-motion";
-import { Button } from "@/components/ui/button";
-import HamburgerButton from "@/components/ui/hamburger-button";
-import MobileMenu from "./MobileMenu";
-import NavigationLink from "./NavigationLink";
-import { ThemeToggle } from "../theme-toggle";
+
 
 
   const navigationItems = [

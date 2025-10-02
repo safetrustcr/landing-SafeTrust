@@ -37,6 +37,7 @@ const Line: React.FC<LineProps> = ({ start, end, duration, delay }) => {
   }, [controls, duration, delay]);
 
   // Calculate line attributes
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const lineLength = Math.sqrt(
     Math.pow(end.x - start.x, 2) + Math.pow(end.y - start.y, 2)
   );
@@ -202,9 +203,11 @@ export default function HeroSection() {
     }, 8000);
 
     return () => clearInterval(intervalId);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Square animation variants
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const squareVariants = {
     hidden: { scale: 0.8, opacity: 0 },
     visible: (i: number) => ({
@@ -267,8 +270,6 @@ export default function HeroSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.9 }}
           >
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <Button className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 text-lg flex items-center gap-2">
             <motion.div
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
