@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Input } from "@/components/ui/input";
+import { Input } from "@/components/ui/input";   // ✅ use consistent alias imports
 import { Button } from "@/components/ui/button";
 
 export function Footer() {
@@ -85,7 +85,7 @@ export function Footer() {
           </div>
         </div>
 
-        {/* Copyright */}
+        {/* Copyright and socials */}
         <div className="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-border">
           <p className="text-muted-foreground text-sm mb-4 md:mb-0">
             © 2025 SafeTrust. All rights reserved.
