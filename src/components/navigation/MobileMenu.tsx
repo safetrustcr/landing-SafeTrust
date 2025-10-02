@@ -9,11 +9,15 @@ interface MobileMenuProps {
   isOpen: boolean;
   onClose: () => void;
   isTablet?: boolean;
+  activeSection: string;
+  setActiveSection: (section: string) => void;
 }
 
 const MobileMenu: React.FC<MobileMenuProps> = ({
   isOpen,
   onClose,
+  activeSection,
+  setActiveSection,
   isTablet = false,
 }) => {
   const [screenSize, setScreenSize] = useState<
@@ -63,13 +67,17 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
     };
   }, [isOpen, onClose]);
 
+  const handleOnClick = (section: string) => {
+    setActiveSection(section);
+    onClose();
+  };
+
   const menuVariants = {
     closed: {
       opacity: 0,
-      x: "100%",
+      x: 320,
       transition: {
         duration: 0.3,
-        ease: "easeInOut",
       },
     },
     open: {
@@ -77,7 +85,6 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
       x: 0,
       transition: {
         duration: 0.3,
-        ease: "easeInOut",
       },
     },
   };
@@ -95,7 +102,6 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
       y: 0,
       transition: {
         duration: 0.3,
-        ease: "easeOut",
       },
     },
   };
@@ -107,8 +113,6 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
     { href: "#support", label: "Support" },
   ];
 
-  // For tablet, show all navigation items in hamburger menu
-  // For laptop and desktop, mobile menu should not be used
   const navigationItems = allNavigationItems;
 
   return (
@@ -187,12 +191,13 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
                   initial="closed"
                   animate="open"
                 >
-                  {navigationItems.map((item, index) => (
+                  {navigationItems.map((item) => (
                     <motion.div key={item.href} variants={linkVariants}>
                       <NavigationLink
                         href={item.href}
-                        onClick={onClose}
+                        onClick={() => handleOnClick(item.href)}
                         isMobile={true}
+                        activeSection={activeSection === item.href}
                       >
                         {item.label}
                       </NavigationLink>

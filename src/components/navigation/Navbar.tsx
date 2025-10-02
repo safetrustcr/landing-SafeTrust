@@ -1,5 +1,14 @@
 "use client";
 
+
+import React, { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
+import { Button } from '@/components/ui/button';
+import HamburgerButton from '@/components/ui/hamburger-button';
+import MobileMenu from './MobileMenu';
+import NavigationLink from './NavigationLink';
+import { useActiveSection } from '@/hooks/use-active-section';
+import { ThemeToggle } from '../theme-toggle';
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
@@ -8,12 +17,25 @@ import MobileMenu from "./MobileMenu";
 import NavigationLink from "./NavigationLink";
 import { ThemeToggle } from "../theme-toggle";
 
+
+  const navigationItems = [
+    { href: "#features", label: "Features" },
+    { href: "#how-it-works", label: "How It Works" },
+    { href: "#pricing", label: "Pricing" },
+    { href: "/dashboard", label: "Dashboard" },
+    { href: "#support", label: "Support" },
+  ];
+
+
 const Navbar: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [screenSize, setScreenSize] = useState<
     "mobile" | "tablet" | "laptop" | "desktop"
   >("laptop");
   const [isClient, setIsClient] = useState(false);
+  const { activeSection, setActiveSection } = useActiveSection(
+    navigationItems[0].href
+  );
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -47,14 +69,6 @@ const Navbar: React.FC = () => {
     return () => window.removeEventListener("resize", checkScreenSize);
   }, []);
 
-  const navigationItems = [
-    { href: "#features", label: "Features" },
-    { href: "#how-it-works", label: "How It Works" },
-    { href: "#pricing", label: "Pricing" },
-    { href: "/dashboard", label: "Dashboard" },
-    { href: "#support", label: "Support" },
-  ];
-
   return (
     <>
       <nav className="w-full flex items-center justify-between px-4 py-4 relative z-10 laptop:container laptop:mx-auto bg-background/80 backdrop-blur-md border-b border-border/50 transition-colors duration-300">
@@ -79,6 +93,7 @@ const Navbar: React.FC = () => {
             <NavigationLink
               key={item.href}
               href={item.href}
+              onClick={() => setActiveSection(item.href)}
               className="text-foreground/80 hover:text-blue-400 dark:hover:text-blue-300 transition-colors duration-300"
             >
               {item.label}
@@ -131,7 +146,9 @@ const Navbar: React.FC = () => {
         <MobileMenu
           isOpen={isMobileMenuOpen}
           onClose={closeMobileMenu}
-          isTablet={screenSize === "tablet"}
+          isTablet={screenSize === 'tablet'}
+          activeSection={activeSection}
+          setActiveSection={setActiveSection}
         />
       )}
     </>

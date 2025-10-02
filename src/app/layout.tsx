@@ -23,15 +23,14 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-
         <TrackerProvider enabled={true} debug={true}>
           <ToastProvider position="top-right" maxToasts={3}>
             <ThemeProvider
@@ -44,7 +43,6 @@ export default function RootLayout({
           </ToastProvider>
           <AnalyticsLogger />
         </TrackerProvider>
-
       </body>
     </html>
   );
