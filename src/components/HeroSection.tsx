@@ -262,26 +262,24 @@ export default function HeroSection() {
           </motion.p>
 
           <motion.div
-            className="flex max-w-md items-center"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.9 }}
-          >
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <Button className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 text-lg flex items-center gap-2">
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <Button 
-                className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 text-lg flex items-center gap-2"
-                onClick={() => buttonClick('connect_wallet_button', { location: 'hero_section' })}
-              >
-                <Wallet className="w-5 h-5" />
-                Connect Wallet
-              </Button>
-            </motion.div>
-          </motion.div>
+  className="flex max-w-md items-center"
+  initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.5, delay: 0.9 }}
+>
+  <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+    <Button
+      className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 text-lg flex items-center gap-2"
+      onClick={() =>
+        buttonClick("connect_wallet_button", { location: "hero_section" })
+      }
+    >
+      <Wallet className="w-5 h-5" />
+      Connect Wallet
+    </Button>
+  </motion.div>
+</motion.div>
+
         </div>
 
         <motion.div

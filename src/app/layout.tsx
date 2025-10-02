@@ -28,15 +28,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <TrackerProvider enabled={true} debug={true}>
           <ThemeProvider
             defaultTheme="dark"
             enableSystem={true}
-            storageKey="safetrust-theme"
-          >
+            storageKey="safetrust-theme">
             <ToastProvider position="top-right" maxToasts={3}>
               {children}
             </ToastProvider>

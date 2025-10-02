@@ -1,6 +1,11 @@
-import * as React from "react";
+
+import { Input } from "@/components/ui/input";   // ✅ use consistent alias imports
+import { Button } from "@/components/ui/button";
+
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
+
+import * as React from "react";
 
 export function Footer() {
   return (
@@ -10,6 +15,8 @@ export function Footer() {
       <div className="absolute top-1/3 right-1/4 w-72 h-72 bg-primary/10 rounded-full blur-3xl pointer-events-none transition-colors duration-300"></div>
       <div className="absolute inset-0 bg-gradient-to-b from-transparent to-primary/5 pointer-events-none transition-colors duration-300"></div>
 
+
+
       <div className="container mx-auto px-6 sm:px-8 lg:px-12 relative z-10">
         {/* Header area with logo and newsletter */}
         <div className="flex flex-col md:flex-row justify-between items-center mb-16">
@@ -17,6 +24,8 @@ export function Footer() {
             <div className="bg-gradient-to-br from-blue-500 to-blue-700 w-8 h-8 rounded mr-3 flex items-center justify-center">
               <span className="text-white font-bold text-lg">S</span>
             </div>
+ feat/added-icons-function
+
           </div>
         </div>
 
@@ -89,6 +98,7 @@ export function Footer() {
               </ul>
             </div>
           </div>
+
 
           {/* Copyright */}
           <div className="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-border">
