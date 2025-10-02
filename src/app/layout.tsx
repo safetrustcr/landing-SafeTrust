@@ -33,13 +33,12 @@ export default function RootLayout({
           <ThemeProvider
             defaultTheme="dark"
             enableSystem={true}
-            storageKey="safetrust-theme"
-          >
+            storageKey="safetrust-theme">
             <ToastProvider position="top-right" maxToasts={3}>
               {children}
-              <AnalyticsLogger />
             </ToastProvider>
           </ThemeProvider>
+          <AnalyticsLogger />
         </TrackerProvider>
       </body>
     </html>
