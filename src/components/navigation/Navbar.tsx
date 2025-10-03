@@ -8,7 +8,9 @@ import HamburgerButton from '@/components/ui/hamburger-button';
 import MobileMenu from './MobileMenu';
 import NavigationLink from './NavigationLink';
 import { useActiveSection } from '@/hooks/use-active-section';
-import { ThemeToggle } from "../theme-toggle";
+import { ThemeToggle } from '../theme-toggle';
+
+
 
 
   const navigationItems = [

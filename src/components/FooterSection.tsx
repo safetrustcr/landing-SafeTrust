@@ -4,8 +4,8 @@ import { Button } from "@/components/ui/button";
 
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
-
 import * as React from "react";
+
 
 export function Footer() {
   return (
@@ -111,6 +111,8 @@ export function Footer() {
             </div>
           </div>
         </div>
+      </div>
+      </div>
       </div>
     </footer>
   );
