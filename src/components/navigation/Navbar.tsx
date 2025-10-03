@@ -51,8 +51,10 @@ const Navbar: React.FC = () => {
         setScreenSize("laptop");
       } else if (window.innerWidth >= 768) {
         setScreenSize("tablet");
+
       } else if (window.innerWidth >= 320) {
         setScreenSize("mobile");
+
       } else {
         setScreenSize("mobile");
       }
@@ -106,7 +108,7 @@ const Navbar: React.FC = () => {
           </div>
         </div>
 
-        {/* Tablet Navigation - Theme toggle, Get Started button, and hamburger */}
+        {/* Tablet Navigation */}
         <div className="hidden tablet:flex laptop:hidden items-center gap-3">
           <ThemeToggle />
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
@@ -123,7 +125,7 @@ const Navbar: React.FC = () => {
           />
         </div>
 
-        {/* Mobile Navigation - Theme toggle and hamburger */}
+        {/* Mobile Navigation */}
         <div className="tablet:hidden flex items-center gap-3">
           <ThemeToggle />
           <HamburgerButton
@@ -133,7 +135,9 @@ const Navbar: React.FC = () => {
         </div>
       </nav>
 
+
       {/* Mobile Menu - Only show for mobile and tablet */}
+
       {isClient && (screenSize === "mobile" || screenSize === "tablet") && (
         <MobileMenu
           isOpen={isMobileMenuOpen}
