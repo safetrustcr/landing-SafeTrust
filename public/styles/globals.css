@@ -184,6 +184,24 @@ body {
   }
 }
 
+/* Indeterminate progress animation */
+@keyframes indeterminate-progress {
+  0% {
+    transform: translateX(-100%);
+  }
+  50% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.animate-indeterminate-progress {
+  animation: indeterminate-progress 1.5s ease-in-out infinite;
+  width: 40%;
+}
+
 .btn-loading {
   position: relative;
   pointer-events: none;

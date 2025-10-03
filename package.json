@@ -6,6 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "test": "echo \"No tests configured yet\"",
+    "test:staged": "echo \"No tests configured yet\"",
+    "type-check": "tsc --noEmit",
     "lint": "next lint",
     "prepare": "husky"
   },
@@ -33,7 +36,8 @@
     "tailwindcss-animate": "^1.0.7",
     "uuid": "^13.0.0",
     "tailwind-merge": "^3.3.1",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "uuid": "^13.0.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
@@ -47,5 +51,10 @@
     "postcss": "^8",
     "tailwindcss": "^3.4.1",
     "typescript": "5.9.2"
+  },
+  "lint-staged": {
+    "**/*.{js,jsx,ts,tsx}": [
+      "eslint --fix --max-warnings=10"
+    ]
   }
 }
