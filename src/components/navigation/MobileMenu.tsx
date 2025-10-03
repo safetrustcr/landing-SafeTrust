@@ -13,8 +13,16 @@ interface MobileMenuProps {
   setActiveSection: (section: string) => void;
 }
 
-const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose, activeSection, setActiveSection, isTablet = false }) => {
-  const [screenSize, setScreenSize] = useState<'mobile' | 'tablet' | 'laptop' | 'desktop'>('mobile');
+const MobileMenu: React.FC<MobileMenuProps> = ({
+  isOpen,
+  onClose,
+  activeSection,
+  setActiveSection,
+  isTablet = false,
+}) => {
+  const [screenSize, setScreenSize] = useState<
+    "mobile" | "tablet" | "laptop" | "desktop"
+  >("mobile");
   const [isClient, setIsClient] = useState(false);
 
   // Detect screen size - only on client side
@@ -107,8 +115,6 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose, activeSection,
     { href: "#support", label: "Support" },
   ];
 
-  // For tablet, show all navigation items in hamburger menu
-  // For laptop and desktop, mobile menu should not be used
   const navigationItems = allNavigationItems;
 
   return (

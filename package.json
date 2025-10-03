@@ -6,6 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "test": "echo \"No tests configured yet\"",
+    "test:staged": "echo \"No tests configured yet\"",
+    "type-check": "tsc --noEmit",
     "lint": "next lint",
     "prepare": "husky"
   },
@@ -45,5 +48,10 @@
     "postcss": "^8",
     "tailwindcss": "^3.4.1",
     "typescript": "5.9.2"
+  },
+  "lint-staged": {
+    "**/*.{js,jsx,ts,tsx}": [
+      "eslint --fix --max-warnings=10"
+    ]
   }
 }

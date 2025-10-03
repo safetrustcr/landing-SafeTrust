@@ -37,6 +37,7 @@ const Line: React.FC<LineProps> = ({ start, end, duration, delay }) => {
   }, [controls, duration, delay]);
 
   // Calculate line attributes
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const lineLength = Math.sqrt(
     Math.pow(end.x - start.x, 2) + Math.pow(end.y - start.y, 2)
   );
@@ -202,9 +203,11 @@ export default function HeroSection() {
     }, 8000);
 
     return () => clearInterval(intervalId);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Square animation variants
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const squareVariants = {
     hidden: { scale: 0.8, opacity: 0 },
     visible: (i: number) => ({
@@ -279,7 +282,6 @@ export default function HeroSection() {
     </Button>
   </motion.div>
 </motion.div>
-
         </div>
 
         <motion.div
