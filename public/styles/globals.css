@@ -225,64 +225,6 @@ body {
   opacity: 0;
 }
 
-/* Search Icon Animations */
-.search-icon {
-  transform: rotate(0deg);
-  transition: transform 300ms ease;
-}
-
-.search-icon.active {
-  transform: rotate(45deg);
-}
-
-.search-icon:hover {
-  transform: scale(1.1);
-}
-
-.search-icon.active:hover {
-  transform: rotate(45deg) scale(1.1);
-}
-
-/* Focus states for search icon */
-.search-icon:focus-visible {
-  outline: 2px solid hsl(var(--ring));
-  outline-offset: 2px;
-  border-radius: 4px;
-}
-
-/* Smooth morphing animation for search to X */
-@keyframes morphToX {
-  0% {
-    transform: rotate(0deg) scale(1);
-  }
-  50% {
-    transform: rotate(22.5deg) scale(1.05);
-  }
-  100% {
-    transform: rotate(45deg) scale(1.1);
-  }
-}
-
-@keyframes morphToSearch {
-  0% {
-    transform: rotate(45deg) scale(1.1);
-  }
-  50% {
-    transform: rotate(22.5deg) scale(1.05);
-  }
-  100% {
-    transform: rotate(0deg) scale(1);
-  }
-}
-
-.search-icon.morphing-to-x {
-  animation: morphToX 300ms ease-in-out;
-}
-
-.search-icon.morphing-to-search {
-  animation: morphToSearch 300ms ease-in-out;
-}
-
 /* Touch device optimizations */
 @media (hover: none) and (pointer: coarse) {
   .btn-animate:hover {
@@ -293,12 +235,5 @@ body {
     transform: scale(0.95);
     transition-duration: 100ms;
   }
-  
-  .search-icon:hover {
-    transform: none;
-  }
-  
-  .search-icon.active:hover {
-    transform: rotate(45deg);
-  }
 }
+
