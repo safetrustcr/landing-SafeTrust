@@ -237,3 +237,28 @@ body {
   }
 }
 
+.focus-visible {
+  @apply ring-2 ring-primary ring-offset-2 ring-offset-background outline-none;
+}
+
+/* Ensure links get focus outlines */
+a:focus-visible {
+  @apply focus-visible;
+}
+
+/* Ensure inputs get focus outlines */
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  @apply focus-visible;
+}
+
+/* Skip-to-content link (hidden until focused) */
+.skip-to-content {
+  @apply absolute left-2 top-2 -translate-y-full bg-primary text-primary-foreground px-3 py-2 rounded z-50;
+  transition: transform 0.2s ease;
+}
+
+.skip-to-content:focus {
+  @apply translate-y-0;
+}

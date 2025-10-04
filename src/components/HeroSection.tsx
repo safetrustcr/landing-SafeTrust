@@ -23,35 +23,132 @@ export interface CTAButton {
 
 const HeroSection: React.FC<HeroSectionProps> = () => {
   return (
-    <section className="hclaero-section relative min-h-screen bg-[#0a0a15] overflow-hidden">
-      <Navbar />
-      {/* Background Image with Overlay */}
-      <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{
-          backgroundImage: `linear-gradient(rgba(10, 10, 21, 0.7), rgba(10, 10, 21, 0.5)), url('/img/hero/security-box-usdt')`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-        }}
-      />
+    <div className="min-h-screen bg-[#0a0a15] text-white overflow-hidden relative">
+      {/* Skip to content link */}
+      <a href="#main-content" className="skip-to-content">
+        Skip to main content
+      </a>
 
-      {/* Content Container */}
-      <div className="hero-content relative z-10 flex flex-col justify-center min-h-[80vh] w-full">
-        <div className="content-wrapper w-full max-w-7xl mx-auto px-4 sm:px-8 lg:px-16">
-          {/* Brand Logo/Title */}
-          <div className="text-center mb-8">
-            <div className="flex items-center justify-center gap-3 mb-4">
-              <div className="flex items-center justify-center w-12 h-12 bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg">
-                <Shield className="w-6 h-6 text-white" />
-              </div>
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white tracking-tight">
-                Safe
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-400">
-                  Trust
-                </span>
-              </h1>
-            </div>
+      <Navbar />
+
+      <main
+        id="main-content"
+        className="container mx-auto min-h-[calc(100vh-80px)] grid grid-cols-1 lg:grid-cols-2 gap-12 px-4"
+      >
+        <div className="flex flex-col justify-center space-y-6">
+          <motion.h1
+            className="text-5xl font-bold leading-tight"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7 }}
+          >
+            <motion.span
+              className="text-blue-500"
+              initial={{ opacity: 0, x: -10 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.7, delay: 0.3 }}
+            >
+              Secure
+            </motion.span>{" "}
+            p2p
+            <span className="block">transactions platform</span>
+          </motion.h1>
+
+          <motion.p
+            className="text-xl text-gray-400"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.7, delay: 0.6 }}
+          >
+            Experience the power of decentralized trust and seamless blockchain
+            transactions. Our blue-chip security standards ensure your deposits
+            are always protected in our revolutionary P2P platform.
+          </motion.p>
+
+          <motion.div
+            className="flex max-w-md items-center"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.9 }}
+          >
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <Button
+                className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 text-lg flex items-center gap-2 focus-visible"
+                onClick={() =>
+                  buttonClick("connect_wallet_button", {
+                    location: "hero_section",
+                  })
+                }
+              >
+                <Wallet className="w-5 h-5" />
+                Connect Wallet
+              </Button>
+            </motion.div>
+          </motion.div>
+        </div>
+
+
+        <motion.div
+          className="hidden lg:flex items-center justify-center relative"
+          ref={gridRef}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1, delay: 0.3 }}
+        >
+          <svg
+            ref={svgRef}
+            className="absolute w-full h-full z-0 pointer-events-none"
+            style={{ overflow: "visible" }}
+          >
+            <AnimatePresence>
+              {isVisible &&
+                lines.map((line) => (
+                  <Line
+                    key={line.id}
+                    start={line.start}
+                    end={line.end}
+                    duration={line.duration}
+                    delay={line.delay}
+                  />
+                ))}
+
+              {isVisible &&
+                particles.map((particle) => (
+                  <Particle
+                    key={particle.id}
+                    start={particle.start}
+                    end={particle.end}
+                    delay={particle.delay}
+                  />
+                ))}
+            </AnimatePresence>
+          </svg>
+
+          <div className="grid grid-cols-3 gap-4">
+            {[...Array(9)].map((_, index) => (
+              <motion.div
+                key={index}
+                className="h-24 w-24 rounded-lg bg-blue-900/20 p-4 relative"
+                id={`square-${index}`}
+                custom={index}
+                initial="hidden"
+                animate={isVisible ? "visible" : "hidden"}
+                whileHover="hover"
+              >
+                <motion.div
+                  className="absolute inset-0 rounded-lg bg-gradient-to-br from-transparent to-blue-800 opacity-20"
+                  animate={{
+                    opacity: [0.2, 0.4, 0.2],
+                  }}
+                  transition={{
+                    duration: 3,
+                    repeat: Infinity,
+                    repeatType: "reverse",
+                    delay: index * 0.2,
+                  }}
+                />
+              </motion.div>
+            ))}
           </div>
 
           {/* Main Content */}
