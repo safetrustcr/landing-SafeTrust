@@ -1,13 +1,18 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { Container } from "@/components/ui/container";
 import IconShowcase, { IconUsageExamples } from "@/components/examples/IconShowcase";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, ExternalLink, BookOpen } from "lucide-react";
 import Link from "next/link";
+import { AnimatedSearchIcon } from "@/components/ui/AnimatedSearchIcon";
+import { SearchToggle } from "@/components/ui/SearchToggle";
 
 export default function IconsPage() {
+  const [searchActive, setSearchActive] = useState(false);
+  const [toggleActive, setToggleActive] = useState(false);
+
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
@@ -56,6 +61,110 @@ export default function IconsPage() {
           {/* Icon Showcase */}
           <section>
             <IconShowcase />
+          </section>
+
+          {/* Animated Search Icon Demo */}
+          <section>
+            <div className="border-t border-border pt-8">
+              <h2 className="text-2xl font-bold mb-6">Animated Search Icon</h2>
+              <div className="space-y-8">
+                {/* Basic Animated Search Icon */}
+                <div className="space-y-4">
+                  <h3 className="text-lg font-semibold">Basic Animated Search Icon</h3>
+                  <div className="flex items-center gap-4 p-6 bg-muted rounded-lg">
+                    <AnimatedSearchIcon
+                      isActive={searchActive}
+                      onToggle={() => setSearchActive(!searchActive)}
+                      size={32}
+                    />
+                    <div className="space-y-2">
+                      <p className="text-sm text-muted-foreground">
+                        Click the icon to toggle between search and close states
+                      </p>
+                      <p className="text-sm font-medium">
+                        Current state: {searchActive ? "Close (X)" : "Search"}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Search Toggle Component */}
+                <div className="space-y-4">
+                  <h3 className="text-lg font-semibold">Search Toggle Component</h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="space-y-4">
+                      <h4 className="font-medium">With Label</h4>
+                      <div className="flex items-center gap-4 p-6 bg-muted rounded-lg">
+                        <SearchToggle
+                          onToggle={(isActive) => setToggleActive(isActive)}
+                          showLabel={true}
+                          labelPosition="right"
+                          size={24}
+                        />
+                        <p className="text-sm text-muted-foreground">
+                          State: {toggleActive ? "Active" : "Inactive"}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="space-y-4">
+                      <h4 className="font-medium">Icon Only</h4>
+                      <div className="flex items-center gap-4 p-6 bg-muted rounded-lg">
+                        <SearchToggle
+                          onToggle={(isActive) => setToggleActive(isActive)}
+                          showLabel={false}
+                          size={28}
+                        />
+                        <p className="text-sm text-muted-foreground">
+                          State: {toggleActive ? "Active" : "Inactive"}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Different Sizes */}
+                <div className="space-y-4">
+                  <h3 className="text-lg font-semibold">Different Sizes</h3>
+                  <div className="flex items-center gap-6 p-6 bg-muted rounded-lg">
+                    <div className="text-center">
+                      <AnimatedSearchIcon size={16} />
+                      <p className="text-xs mt-2">16px</p>
+                    </div>
+                    <div className="text-center">
+                      <AnimatedSearchIcon size={24} />
+                      <p className="text-xs mt-2">24px</p>
+                    </div>
+                    <div className="text-center">
+                      <AnimatedSearchIcon size={32} />
+                      <p className="text-xs mt-2">32px</p>
+                    </div>
+                    <div className="text-center">
+                      <AnimatedSearchIcon size={48} />
+                      <p className="text-xs mt-2">48px</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Animation Speed Demo */}
+                <div className="space-y-4">
+                  <h3 className="text-lg font-semibold">Animation Speed Control</h3>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div className="text-center p-4 bg-muted rounded-lg">
+                      <AnimatedSearchIcon size={24} animationSpeed={150} />
+                      <p className="text-sm mt-2">Fast (150ms)</p>
+                    </div>
+                    <div className="text-center p-4 bg-muted rounded-lg">
+                      <AnimatedSearchIcon size={24} animationSpeed={300} />
+                      <p className="text-sm mt-2">Default (300ms)</p>
+                    </div>
+                    <div className="text-center p-4 bg-muted rounded-lg">
+                      <AnimatedSearchIcon size={24} animationSpeed={600} />
+                      <p className="text-sm mt-2">Slow (600ms)</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </section>
 
           {/* Usage Examples */}
