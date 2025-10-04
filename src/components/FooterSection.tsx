@@ -1,11 +1,7 @@
 
-import { Input } from "@/components/ui/input";   // ✅ use consistent alias imports
-import { Button } from "@/components/ui/button";
-
-import { Input } from "./ui/input";
-import { Button } from "./ui/button";
 import * as React from "react";
-
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 
 export function Footer() {
   return (
@@ -24,8 +20,9 @@ export function Footer() {
             <div className="bg-gradient-to-br from-blue-500 to-blue-700 w-8 h-8 rounded mr-3 flex items-center justify-center">
               <span className="text-white font-bold text-lg">S</span>
             </div>
- feat/added-icons-function
-
+            <span className="text-xl font-semibold bg-gradient-to-r from-blue-600 to-blue-400 dark:from-blue-400 dark:to-blue-200 bg-clip-text text-transparent">
+              SafeTrust
+            </span>
           </div>
         </div>
 
@@ -111,8 +108,6 @@ export function Footer() {
             </div>
           </div>
         </div>
-      </div>
-      </div>
       </div>
     </footer>
   );
