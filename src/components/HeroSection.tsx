@@ -230,10 +230,18 @@ export default function HeroSection() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0a0a15] text-white overflow-hidden">
+    <div className="min-h-screen bg-[#0a0a15] text-white overflow-hidden relative">
+      {/* Skip to content link */}
+      <a href="#main-content" className="skip-to-content">
+        Skip to main content
+      </a>
+
       <Navbar />
 
-      <main className="container mx-auto min-h-[calc(100vh-80px)] grid grid-cols-1 lg:grid-cols-2 gap-12 px-4">
+      <main
+        id="main-content"
+        className="container mx-auto min-h-[calc(100vh-80px)] grid grid-cols-1 lg:grid-cols-2 gap-12 px-4"
+      >
         <div className="flex flex-col justify-center space-y-6">
           <motion.h1
             className="text-5xl font-bold leading-tight"
@@ -265,24 +273,27 @@ export default function HeroSection() {
           </motion.p>
 
           <motion.div
-  className="flex max-w-md items-center"
-  initial={{ opacity: 0, y: 20 }}
-  animate={{ opacity: 1, y: 0 }}
-  transition={{ duration: 0.5, delay: 0.9 }}
->
-  <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-    <Button
-      className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 text-lg flex items-center gap-2"
-      onClick={() =>
-        buttonClick("connect_wallet_button", { location: "hero_section" })
-      }
-    >
-      <Wallet className="w-5 h-5" />
-      Connect Wallet
-    </Button>
-  </motion.div>
-</motion.div>
+            className="flex max-w-md items-center"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.9 }}
+          >
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <Button
+                className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 text-lg flex items-center gap-2 focus-visible"
+                onClick={() =>
+                  buttonClick("connect_wallet_button", {
+                    location: "hero_section",
+                  })
+                }
+              >
+                <Wallet className="w-5 h-5" />
+                Connect Wallet
+              </Button>
+            </motion.div>
+          </motion.div>
         </div>
+
 
         <motion.div
           className="hidden lg:flex items-center justify-center relative"
