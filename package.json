@@ -6,7 +6,11 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "test": "echo \"No tests configured yet\"",
+    "test:staged": "echo \"No tests configured yet\"",
+    "type-check": "tsc --noEmit",
+    "lint": "next lint",
+    "prepare": "husky"
   },
   "dependencies": {
     "@radix-ui/react-accordion": "^1.2.3",
@@ -24,6 +28,7 @@
     "react": "^19.0.0",
     "react-day-picker": "^9.11.0",
     "react-dom": "^19.0.0",
+    "react-is": "^19.2.0",
     "recharts": "^3.2.1",
     "shadcn-ui": "^0.9.4",
     "sonner": "^2.0.7",
@@ -33,14 +38,20 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
-    "@types/node": "^20",
+    "@types/node": "20.19.18",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "@types/uuid": "^11.0.0",
     "eslint": "^9",
     "eslint-config-next": "15.1.7",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.3",
     "postcss": "^8",
     "tailwindcss": "^3.4.1",
-    "typescript": "^5"
+    "typescript": "5.9.2"
+  },
+  "lint-staged": {
+    "**/*.{js,jsx,ts,tsx}": [
+      "eslint --fix --max-warnings=10"
+    ]
   }
 }

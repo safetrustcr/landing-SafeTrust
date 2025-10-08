@@ -3,6 +3,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "../../public/styles/globals.css";
 import ToastProvider from "@/components/ui/toast/toast-provider";
 import { ThemeProvider } from "../lib/theme-provider";
+import { TrackerProvider } from "@/components/AnalyticsProvider";
+import { AnalyticsLogger } from "@/components/AnalyticsLogger";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -21,24 +23,23 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <ToastProvider position="top-right" maxToasts={3}>
-          {children}
-        </ToastProvider>
-        <ThemeProvider
-          defaultTheme="dark"
-          enableSystem={true}
-          storageKey="safetrust-theme"
-        >
-          {children}
-        </ThemeProvider>
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        <TrackerProvider enabled={true} debug={true}>
+          <ThemeProvider
+            defaultTheme="dark"
+            enableSystem={true}
+            storageKey="safetrust-theme">
+            <ToastProvider position="top-right" maxToasts={3}>
+              {children}
+            </ToastProvider>
+          </ThemeProvider>
+          <AnalyticsLogger />
+        </TrackerProvider>
       </body>
     </html>
   );

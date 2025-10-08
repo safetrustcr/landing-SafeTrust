@@ -70,7 +70,7 @@ body {
   body {
     @apply bg-background text-foreground transition-colors duration-300;
   }
-  
+
   /* Smooth theme transitions */
   *,
   *::before,
@@ -79,20 +79,20 @@ body {
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     transition-duration: 300ms;
   }
-  
+
   /* Custom scrollbar */
   ::-webkit-scrollbar {
     width: 6px;
   }
-  
+
   ::-webkit-scrollbar-track {
     @apply bg-background;
   }
-  
+
   ::-webkit-scrollbar-thumb {
     @apply bg-muted-foreground/30 rounded-full;
   }
-  
+
   ::-webkit-scrollbar-thumb:hover {
     @apply bg-muted-foreground/50;
   }
@@ -108,6 +108,17 @@ body {
   }
   100% {
     opacity: 0.5;
+  }
+}
+@keyframes progress {
+  0% {
+    transform: translateX(-100%);
+  }
+  50% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(100%);
   }
 }
 
@@ -140,4 +151,154 @@ body {
 
 .animate-slide-in-right {
   animation: slideInFromRight 0.3s ease-out;
+}
+
+/* Button micro-animations */
+.btn-animate {
+  transition: all 150ms ease;
+  transform-origin: center;
+  will-change: transform;
+}
+
+.btn-animate:hover:not(:disabled) {
+  transform: scale(1.02);
+}
+
+.btn-animate:active:not(:disabled) {
+  transform: scale(0.98);
+  transition-duration: 75ms;
+}
+
+.btn-animate:disabled {
+  transform: none;
+  cursor: not-allowed;
+}
+
+/* Loading spinner animation */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Indeterminate progress animation */
+@keyframes indeterminate-progress {
+  0% {
+    transform: translateX(-100%);
+  }
+  50% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.animate-indeterminate-progress {
+  animation: indeterminate-progress 1.5s ease-in-out infinite;
+  width: 40%;
+}
+
+.btn-loading {
+  position: relative;
+  pointer-events: none;
+}
+
+.btn-loading::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 16px;
+  height: 16px;
+  margin: -8px 0 0 -8px;
+  border: 2px solid transparent;
+  border-top: 2px solid currentColor;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.btn-loading > * {
+  opacity: 0;
+}
+
+/* Search Icon Animations */
+.search-icon {
+  transform: rotate(0deg);
+  transition: transform 300ms ease;
+}
+
+.search-icon.active {
+  transform: rotate(45deg);
+}
+
+.search-icon:hover {
+  transform: scale(1.1);
+}
+
+.search-icon.active:hover {
+  transform: rotate(45deg) scale(1.1);
+}
+
+/* Focus states for search icon */
+.search-icon:focus-visible {
+  outline: 2px solid hsl(var(--ring));
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Smooth morphing animation for search to X */
+@keyframes morphToX {
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+  50% {
+    transform: rotate(22.5deg) scale(1.05);
+  }
+  100% {
+    transform: rotate(45deg) scale(1.1);
+  }
+}
+
+@keyframes morphToSearch {
+  0% {
+    transform: rotate(45deg) scale(1.1);
+  }
+  50% {
+    transform: rotate(22.5deg) scale(1.05);
+  }
+  100% {
+    transform: rotate(0deg) scale(1);
+  }
+}
+
+.search-icon.morphing-to-x {
+  animation: morphToX 300ms ease-in-out;
+}
+
+.search-icon.morphing-to-search {
+  animation: morphToSearch 300ms ease-in-out;
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+  .btn-animate:hover {
+    transform: none;
+  }
+  
+  .btn-animate:active {
+    transform: scale(0.95);
+    transition-duration: 100ms;
+  }
+  
+  .search-icon:hover {
+    transform: none;
+  }
+  
+  .search-icon.active:hover {
+    transform: rotate(45deg);
+  }
 }
