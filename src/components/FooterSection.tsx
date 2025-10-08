@@ -44,7 +44,7 @@ export function Footer() {
               />
               <Button className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-md px-6 mt-2 sm:mt-0 transition-all duration-300">
                 Subscribe
-              </Button>
+              </button>
             </div>
           </div>
 
