@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 import { ExternalLink, Download, Smartphone, AlertCircle, RefreshCw } from 'lucide-react';
 import { WalletProvider } from '../../types/wallet';
 import { isWalletInstalled, isMobile } from '../../lib/wallet-config';
@@ -124,14 +125,11 @@ const WalletOption: React.FC<WalletOptionProps> = ({
           transition-colors duration-200
         `}>
           {wallet.icon ? (
-            <img 
-              src={wallet.icon} 
+            <Image
+              src={wallet.icon}
               alt={`${wallet.name} icon`}
-              className="w-8 h-8"
-              onError={(e) => {
-                (e.target as HTMLImageElement).style.display = 'none';
-                (e.target as HTMLImageElement).parentElement!.textContent = getIcon();
-              }}
+              width={32}
+              height={32}
             />
           ) : (
             <span>{getIcon()}</span>

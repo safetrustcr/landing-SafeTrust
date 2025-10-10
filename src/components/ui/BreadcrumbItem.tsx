@@ -6,6 +6,7 @@ export interface BreadcrumbItemProps {
   href?: string
   active?: boolean
   children: React.ReactNode
+  className?: string
 }
 
 const BreadcrumbItem = React.forwardRef<HTMLLIElement, BreadcrumbItemProps>(
@@ -38,4 +39,8 @@ const BreadcrumbItem = React.forwardRef<HTMLLIElement, BreadcrumbItemProps>(
     )
   }
 )
+
+BreadcrumbItem.displayName = "BreadcrumbItem"
+
+export { BreadcrumbItem }
 

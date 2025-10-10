@@ -54,7 +54,8 @@ const Modal: React.FC<ModalProps> = ({
   // Handle focus trap
   useEffect(() => {
     if (isOpen && modalRef.current) {
-      const focusableElements = modalRef.current.querySelectorAll(
+      const modal = modalRef.current;
+      const focusableElements = modal.querySelectorAll(
         'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
       );
       const firstElement = focusableElements[0] as HTMLElement;
@@ -76,11 +77,11 @@ const Modal: React.FC<ModalProps> = ({
         }
       };
 
-      modalRef.current.addEventListener('keydown', handleTabKey);
+      modal.addEventListener('keydown', handleTabKey);
       firstElement?.focus();
 
       return () => {
-        modalRef.current?.removeEventListener('keydown', handleTabKey);
+        modal?.removeEventListener('keydown', handleTabKey);
       };
     }
   }, [isOpen]);

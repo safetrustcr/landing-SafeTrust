@@ -185,7 +185,7 @@ const WalletModal: React.FC<WalletModalProps> = ({ isOpen, onClose }) => {
                 <li>• Make sure MetaMask is unlocked</li>
                 <li>• Check if MetaMask is already processing another request</li>
                 <li>• Try refreshing the page if the issue persists</li>
-                <li>• Ensure you're not using an incognito/private window</li>
+                <li>• Ensure you are not using an incognito/private window</li>
               </ul>
             </div>
           </div>

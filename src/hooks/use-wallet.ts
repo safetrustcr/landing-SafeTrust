@@ -1,71 +1,80 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
-import { WalletConnectionState, WalletProvider, NetworkConfig, WalletError } from '../types/wallet';
-import { 
-  WALLET_PROVIDERS, 
-  SUPPORTED_NETWORKS, 
-  DEFAULT_CHAIN_ID, 
+import { WalletConnectionState, WalletProvider } from '../types/wallet';
+import {
+  WALLET_PROVIDERS,
+  SUPPORTED_NETWORKS,
   WALLET_ERRORS,
   isWalletInstalled,
   generateDeepLink,
-  isMobile 
+  isMobile
 } from '../lib/wallet-config';
 
 declare global {
   interface Window {
-    ethereum?: any;
-    coinbaseWalletExtension?: any;
+    ethereum?: any; // eslint-disable-line @typescript-eslint/no-explicit-any
+    coinbaseWalletExtension?: any; // eslint-disable-line @typescript-eslint/no-explicit-any
   }
 }
 
-export const useWallet = () => {
-  const [state, setState] = useState<WalletConnectionState>({
-    isConnecting: false,
-    isConnected: false,
-    account: undefined,
-    chainId: undefined,
-    provider: undefined,
-    error: undefined,
-  });
+// Global state store for synchronous updates across all hook instances
+let globalWalletState: WalletConnectionState = {
+  isConnecting: false,
+  isConnected: false,
+  account: undefined,
+  chainId: undefined,
+  provider: undefined,
+  error: undefined,
+};
 
-  const connectionTimeoutRef = useRef<NodeJS.Timeout>();
-  const providerRef = useRef<any>();
+// Listeners for state changes
+const stateListeners = new Set<(state: WalletConnectionState) => void>();
+
+const notifyStateChange = (newState: WalletConnectionState) => {
+  globalWalletState = newState;
+  stateListeners.forEach(listener => listener(newState));
+};
+
+const subscribeToStateChanges = (listener: (state: WalletConnectionState) => void) => {
+  stateListeners.add(listener);
+  return () => {
+    stateListeners.delete(listener);
+  };
+};
+
+export const useWallet = () => {
+  const [state, setState] = useState<WalletConnectionState>(globalWalletState);
+  
+  const connectionTimeoutRef = useRef<NodeJS.Timeout | undefined>(undefined);
+  const providerRef = useRef<any>(undefined); // eslint-disable-line @typescript-eslint/no-explicit-any
   const isInitialized = useRef(false);
   const connectionAttemptRef = useRef<string | null>(null);
 
-  // Debug function to log state changes
-  const debugLog = (action: string, data?: any) => {
-    console.log(`[WalletHook] ${action}:`, {
-      isConnected: state.isConnected,
-      isConnecting: state.isConnecting,
-      account: state.account,
-      error: state.error,
-      timestamp: new Date().toISOString(),
-      ...data
+  // Subscribe to global state changes
+  useEffect(() => {
+    const unsubscribe = subscribeToStateChanges((newState) => {
+      setState(newState);
     });
-  };
 
-  // Force update state and log changes
-  const updateState = useCallback((newState: Partial<WalletConnectionState>, action: string) => {
-    setState(prevState => {
-      const updatedState = { ...prevState, ...newState };
-      console.log(`[WalletHook] State Update - ${action}:`, {
-        previous: prevState,
-        new: updatedState,
-        timestamp: new Date().toISOString()
-      });
-      return updatedState;
-    });
+    return unsubscribe;
   }, []);
 
-  // Clear any ongoing connection timeout
+  const updateState = useCallback((newState: Partial<WalletConnectionState>, action: string) => {
+    const updatedState = { ...globalWalletState, ...newState };
+    console.log(`[WalletHook] State Update - ${action}:`, {
+      previous: globalWalletState,
+      new: updatedState,
+      timestamp: new Date().toISOString()
+    });
+    notifyStateChange(updatedState);
+  }, []);
+
   const clearConnectionTimeout = useCallback(() => {
     if (connectionTimeoutRef.current) {
       clearTimeout(connectionTimeoutRef.current);
       connectionTimeoutRef.current = undefined;
     }
-  }, []);
+  }, []);  
 
-  // Initialize wallet connection state
   useEffect(() => {
     if (!isInitialized.current) {
       console.log('[WalletHook] Initializing...');
@@ -78,9 +87,9 @@ export const useWallet = () => {
       clearConnectionTimeout();
       cleanupEventListeners();
     };
-  }, [clearConnectionTimeout]);
+  }, [clearConnectionTimeout]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const checkExistingConnection = async () => {
+  const checkExistingConnection = useCallback(async () => {
     try {
       console.log('[WalletHook] Checking existing connection...');
 
@@ -89,7 +98,6 @@ export const useWallet = () => {
         return;
       }
 
-      // Wait a bit for ethereum provider to be injected
       await new Promise(resolve => setTimeout(resolve, 100));
 
       if (!window.ethereum) {
@@ -99,7 +107,7 @@ export const useWallet = () => {
 
       const accounts = await window.ethereum.request({ 
         method: 'eth_accounts',
-        timeout: 5000 // 5 second timeout for checking accounts
+        timeout: 5000
       });
 
       console.log('[WalletHook] Existing accounts check:', accounts);
@@ -126,12 +134,12 @@ export const useWallet = () => {
       console.error('[WalletHook] Error checking existing connection:', error);
       updateState({
         isConnected: false,
-        error: undefined, // Don't show error for existing connection check
+        error: undefined,
       }, 'EXISTING_CONNECTION_ERROR');
     }
-  };
+  }, [updateState]);
 
-  const setupEventListeners = () => {
+  const setupEventListeners = useCallback(() => {
     if (typeof window === 'undefined' || !window.ethereum) {
       console.log('[WalletHook] No ethereum provider for event listeners');
       return;
@@ -139,15 +147,14 @@ export const useWallet = () => {
 
     console.log('[WalletHook] Setting up event listeners');
 
-    // Remove existing listeners first
     cleanupEventListeners();
 
     window.ethereum.on('accountsChanged', handleAccountsChanged);
     window.ethereum.on('chainChanged', handleChainChanged);
     window.ethereum.on('disconnect', handleDisconnect);
-  };
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const cleanupEventListeners = () => {
+  const cleanupEventListeners = useCallback(() => {
     if (typeof window === 'undefined' || !window.ethereum) return;
 
     console.log('[WalletHook] Cleaning up event listeners');
@@ -159,7 +166,7 @@ export const useWallet = () => {
     } catch (error) {
       console.warn('[WalletHook] Error cleaning up event listeners:', error);
     }
-  };
+  }, []);
 
   const handleAccountsChanged = useCallback((accounts: string[]) => {
     console.log('[WalletHook] Accounts changed:', accounts);
@@ -204,7 +211,6 @@ export const useWallet = () => {
     try {
       console.log(`[WalletHook] Connecting to wallet: ${walletId}`);
 
-      // Prevent multiple simultaneous connections
       if (connectionAttemptRef.current) {
         console.log('[WalletHook] Connection already in progress:', connectionAttemptRef.current);
         return;
@@ -212,7 +218,6 @@ export const useWallet = () => {
 
       connectionAttemptRef.current = walletId;
 
-      // Clear any previous errors and set connecting state
       updateState({ 
         isConnecting: true, 
         error: undefined 
@@ -223,16 +228,12 @@ export const useWallet = () => {
         throw new Error('Wallet provider not found');
       }
 
-      // Handle different wallet types
       if (walletId === 'walletconnect') {
         await connectWalletConnect();
         return;
       }
 
-      // For MetaMask and other browser wallets
       if (walletProvider.type === 'browser') {
-
-        // Check if wallet is installed
         if (!isWalletInstalled(walletId)) {
           if (isMobile() && walletProvider.deepLink) {
             await connectMobileWallet(walletProvider);
@@ -242,13 +243,11 @@ export const useWallet = () => {
           }
         }
 
-        // Get the provider
         const provider = await getProvider(walletId);
         if (!provider) {
           throw new Error(`${walletProvider.name} provider not found. Please ensure the wallet is installed and enabled.`);
         }
 
-        // Set connection timeout (increased to 60 seconds for MetaMask)
         connectionTimeoutRef.current = setTimeout(() => {
           console.log('[WalletHook] Connection timeout reached');
           connectionAttemptRef.current = null;
@@ -256,28 +255,27 @@ export const useWallet = () => {
             isConnecting: false,
             error: 'Connection timeout. Please check if MetaMask is unlocked and try again.',
           }, 'CONNECTION_TIMEOUT');
-        }, 60000); // 60 seconds timeout
+        }, 60000);
 
         console.log(`[WalletHook] Requesting accounts from ${walletProvider.name}...`);
 
-        // Request account access with better error handling
         let accounts;
         try {
           accounts = await provider.request({
             method: 'eth_requestAccounts',
           });
-        } catch (requestError: any) {
+        } catch (requestError: unknown) {
           console.error('[WalletHook] Error requesting accounts:', requestError);
 
-          // Handle specific MetaMask errors
-          if (requestError.code === 4001) {
+          const error = requestError as any; // eslint-disable-line @typescript-eslint/no-explicit-any
+          if (error.code === 4001) {
             throw new Error('Connection rejected by user. Please try again.');
-          } else if (requestError.code === -32002) {
+          } else if (error.code === -32002) {
             throw new Error('MetaMask is already processing a connection request. Please check MetaMask and try again.');
-          } else if (requestError.code === -32603) {
+          } else if (error.code === -32603) {
             throw new Error('MetaMask internal error. Please refresh the page and try again.');
           } else {
-            throw new Error(`Connection failed: ${requestError.message || 'Unknown error'}`);
+            throw new Error(`Connection failed: ${error.message || 'Unknown error'}`);
           }
         }
 
@@ -285,10 +283,8 @@ export const useWallet = () => {
           throw new Error('No accounts found. Please ensure your wallet is unlocked.');
         }
 
-        // Get chain ID
         const chainId = await provider.request({ method: 'eth_chainId' });
 
-        // Clear timeout and update state
         clearConnectionTimeout();
         connectionAttemptRef.current = null;
         providerRef.current = provider;
@@ -304,16 +300,15 @@ export const useWallet = () => {
 
         console.log('[WalletHook] Wallet connected successfully:', accounts[0]);
       }
-
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('[WalletHook] Wallet connection failed:', error);
 
       clearConnectionTimeout();
       connectionAttemptRef.current = null;
 
-      let errorMessage = error.message || 'Connection failed';
+      const err = error as any; // eslint-disable-line @typescript-eslint/no-explicit-any
+      let errorMessage = err.message || 'Connection failed';
 
-      // Clean up generic error messages
       if (errorMessage.includes('User rejected')) {
         errorMessage = 'Connection rejected by user. Please try again.';
       } else if (errorMessage.includes('already pending')) {
@@ -330,10 +325,9 @@ export const useWallet = () => {
     }
   };
 
-  const getProvider = async (walletId: string): Promise<any> => {
+  const getProvider = async (walletId: string): Promise<any> => { // eslint-disable-line @typescript-eslint/no-explicit-any
     if (typeof window === 'undefined') return null;
 
-    // Wait for provider to be available
     let attempts = 0;
     const maxAttempts = 10;
 
@@ -355,7 +349,6 @@ export const useWallet = () => {
           }
       }
 
-      // Wait 100ms before trying again
       await new Promise(resolve => setTimeout(resolve, 100));
       attempts++;
     }
@@ -373,19 +366,16 @@ export const useWallet = () => {
 
       console.log('[WalletHook] Opening mobile wallet:', deepLink);
 
-      // Open wallet app
       window.location.href = deepLink;
 
-      // Set a longer timeout for mobile connections
       connectionTimeoutRef.current = setTimeout(() => {
         connectionAttemptRef.current = null;
         updateState({
           isConnecting: false,
           error: 'Mobile connection timeout. Please ensure the wallet app is installed and try again.',
         }, 'MOBILE_CONNECTION_TIMEOUT');
-      }, 120000); // 2 minutes for mobile
+      }, 120000);
 
-      // Wait for user to return from wallet app
       const checkConnection = setInterval(async () => {
         try {
           if (window.ethereum) {
@@ -407,12 +397,11 @@ export const useWallet = () => {
               }, 'MOBILE_CONNECTION_SUCCESS');
             }
           }
-        } catch (error) {
+        } catch {
           // Continue checking
         }
       }, 1000);
-
-    } catch (error) {
+    } catch {
       connectionAttemptRef.current = null;
       updateState({
         isConnecting: false,
@@ -433,18 +422,15 @@ export const useWallet = () => {
     try {
       console.log('[WalletHook] Manual disconnect initiated');
 
-      // Clean up provider connection if needed
       if (providerRef.current?.disconnect) {
         await providerRef.current.disconnect();
       }
 
-      // Force state cleanup
       handleDisconnect();
 
       console.log('[WalletHook] Manual disconnect completed');
     } catch (error) {
       console.error('[WalletHook] Error during manual disconnect:', error);
-      // Force disconnect on error
       handleDisconnect();
     }
   }, [handleDisconnect]);
@@ -462,14 +448,13 @@ export const useWallet = () => {
     try {
       updateState({ error: undefined }, 'NETWORK_SWITCH_STARTED');
 
-      // Try to switch to the network
       await providerRef.current.request({
         method: 'wallet_switchEthereumChain',
         params: [{ chainId: `0x${chainId.toString(16)}` }],
       });
-    } catch (error: any) {
-      // If network doesn't exist, add it
-      if (error.code === 4902) {
+    } catch (error: unknown) {
+      const err = error as any; // eslint-disable-line @typescript-eslint/no-explicit-any
+      if (err.code === 4902) {
         try {
           await providerRef.current.request({
             method: 'wallet_addEthereumChain',
@@ -498,7 +483,6 @@ export const useWallet = () => {
     }
   };
 
-  // Retry connection function
   const retryConnection = useCallback(() => {
     if (connectionAttemptRef.current) {
       console.log('[WalletHook] Retrying connection to:', connectionAttemptRef.current);
@@ -507,11 +491,6 @@ export const useWallet = () => {
       connectWallet(walletId);
     }
   }, []);
-
-  // Debug effect to log all state changes
-  useEffect(() => {
-    debugLog('STATE_CHANGED');
-  }, [state.isConnected, state.isConnecting, state.account, state.error]);
 
   return {
     ...state,

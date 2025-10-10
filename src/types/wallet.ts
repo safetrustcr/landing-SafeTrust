@@ -17,7 +17,7 @@ export interface WalletConnectionState {
   isConnected: boolean;
   account?: string;
   chainId?: number;
-  provider?: any;
+  provider?: EthereumProvider;
   error?: string;
 }
 
@@ -49,6 +49,15 @@ export type WalletEventType =
 
 export interface WalletEvent {
   type: WalletEventType;
-  data?: any;
+  data?: unknown;
   error?: WalletError;
+}
+
+export interface EthereumProvider {
+  request: (args: { method: string; params?: unknown[] }) => Promise<unknown>;
+  on: (event: string, handler: (...args: unknown[]) => void) => void;
+  removeListener: (event: string, handler: (...args: unknown[]) => void) => void;
+  isMetaMask?: boolean;
+  isCoinbaseWallet?: boolean;
+  disconnect?: () => Promise<void>;
 }

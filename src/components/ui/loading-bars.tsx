@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import type { SpinnerSize } from "./spinner";
+import type { SpinnerSize } from "./Spinner";
 
 const sizeMap: Record<SpinnerSize, string> = {
   sm: "w-1 h-4",

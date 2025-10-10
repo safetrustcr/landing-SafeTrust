@@ -11,11 +11,10 @@ import { useActiveSection } from '@/hooks/use-active-section';
 import { ThemeToggle } from '../theme-toggle';
 import WalletModal from '../wallet/WalletModal';
 import { useWallet } from '../../hooks/use-wallet';
-import { 
-  Wallet, 
-  CheckCircle, 
-  AlertCircle, 
-  Globe, 
+import {
+  Wallet,
+  CheckCircle,
+  Globe,
   ChevronDown,
   Copy,
   LogOut,
@@ -139,7 +138,7 @@ const Navbar: React.FC = () => {
 
   // Close dropdown when clicking outside
   useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
+    const handleClickOutside = () => {
       if (isWalletDropdownOpen) {
         setIsWalletDropdownOpen(false);
       }
