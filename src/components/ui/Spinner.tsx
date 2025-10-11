@@ -1,67 +1,72 @@
-'use client'
+"use client";
+import React from "react";
+import LoadingDots from "./loading-dots";
+import LoadingBars from "./loading-bars";
 
-import React from "react"
-import LoadingDots from "../LoadingDots";
-import LoadingBar from "../LoadingBar";
-import LoadingCircle from "../LoadingCircle"; 
-import LoadingPulse from "../LoadingPulse";
+export type SpinnerVariant = "dots" | "bars" | "circle" | "pulse";
+export type SpinnerSize = "sm" | "md" | "lg";
 
-
-export type Spinnervariant = "dots"| "bars"|"circle" | "pulse"
-export type SpinnerSize = "sm"| "md" | "lg"
-
-interface SpinnerProps{
-  variant?:Spinnervariant,
-  size?:SpinnerSize,
-  color?:string,
-  className?:string
+interface SpinnerProps {
+  variant?: SpinnerVariant;
+  size?: SpinnerSize;
+  color?: string;
+  className?: string;
+  "aria-label"?: string;
 }
 
+const sizeMap: Record<SpinnerSize, string> = {
+  sm: "w-4 h-4",
+  md: "w-8 h-8",
+  lg: "w-12 h-12",
+};
 
-const Spinner:React.FC<SpinnerProps> =({
+export default function Spinner({
   variant = "circle",
-  size="md",
-  color="#000",
-  className=""
-})=>{
-  const sizeMapDots = {
-    sm:"w-4 h-4",
-    md:"w-6 h-6",
-    lg:"w-10 h-10"
-  }
-  const sizeMapBar = {
-    sm:"w-28 h-2",
-    md:"w-36 h-3",
-    lg:"w-44 h-4"
-  }
-  const sizeMapCircle = {
-    sm:"w-14 h-14",
-    md:"w-16 h-16",
-    lg:"w-20 h-20"
-  }
-  const sizeMapPulse = {
-    sm:"w-14 h-14",
-    md:"w-16 h-16",
-    lg:"w-20 h-20"
+  size = "md",
+  color = "text-blue-500",
+  className = "",
+  "aria-label": ariaLabel = "Loading...",
+}: SpinnerProps) {
+  if (variant === "dots") {
+    return <LoadingDots size={size} color={color} aria-label={ariaLabel} />;
   }
 
-  const commonPropsDots = {size:sizeMapDots[size],color,className}
-  const commonPropsBar = {size:sizeMapBar[size],color,className}
-  const commonPropsCircle = {size:sizeMapCircle[size],color,className}
-  const commonPropsPulse = {size:sizeMapPulse[size],color,className}
-
-  switch (variant){
-    case "dots":
-      return <LoadingDots {...commonPropsDots} />
-    
-    case "bars":
-      return <LoadingBar {...commonPropsBar} />;
-    case "pulse":
-      return <LoadingPulse {...commonPropsPulse} />;
-
-    default:
-      return <LoadingCircle {...commonPropsCircle} />;
+  if (variant === "bars") {
+    return <LoadingBars size={size} color={color} aria-label={ariaLabel} />;
   }
+
+  if (variant === "pulse") {
+    return (
+      <span
+        role="status"
+        aria-label={ariaLabel}
+        className={`${sizeMap[size]} ${color} animate-pulse rounded-full bg-current ${className}`}
+      />
+    );
+  }
+
+  // Circle fallback
+  return (
+    <svg
+      role="status"
+      aria-label={ariaLabel}
+      className={`animate-spin ${sizeMap[size]} ${color} ${className}`}
+      fill="none"
+      viewBox="0 0 24 24"
+    >
+      <circle
+        className="opacity-25"
+        cx="12"
+        cy="12"
+        r="10"
+        stroke="currentColor"
+        strokeWidth="4"
+      />
+      <path
+        className="opacity-75"
+        fill="currentColor"
+        d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+      />
+    </svg>
+  );
 }
-
-export default Spinner;

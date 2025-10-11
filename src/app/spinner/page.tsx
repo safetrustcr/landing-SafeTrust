@@ -1,4 +1,4 @@
-import Spinner from "@/components/ui/spinner";
+import Spinner from "@/components/ui/Spinner";
 
 export default function Page() {
   return (
