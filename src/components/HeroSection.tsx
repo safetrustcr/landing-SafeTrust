@@ -148,7 +148,7 @@ const HeroSection: React.FC<HeroSectionProps> = () => {
     }));
 
     const sampleParticles = Array.from({ length: 3 }, (_, i) => ({
-      id: i,
+      id: i + 100,
       start: { x: Math.random() * 300, y: Math.random() * 300 },
       end: { x: Math.random() * 300, y: Math.random() * 300 },
       delay: Math.random() * 3
