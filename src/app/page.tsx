@@ -15,7 +15,7 @@ export default function Home() {
   return (
     <>
       <HeroSection />
-      
+
       {/* Quick Tooltip Test Section */}
       <div className="bg-[#0a0a15] py-8">
         <div className="container mx-auto text-center">
@@ -31,12 +31,14 @@ export default function Home() {
         <h2 className="text-2xl font-bold mb-8 text-center text-gray-800 dark:text-white">
           Progress Bar Component Showcase
         </h2>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {/* Linear Progress Examples */}
           <div className="space-y-6">
-            <h3 className="text-lg font-semibold text-gray-700 dark:text-gray-300">Linear Progress</h3>
-            
+            <h3 className="text-lg font-semibold text-gray-700 dark:text-gray-300">
+              Linear Progress
+            </h3>
+
             {/* Determinate with label and percentage */}
             <ProgressBar
               value={65}
@@ -44,7 +46,7 @@ export default function Home() {
               label="Form Completion"
               showPercentage
             />
-            
+
             {/* Different sizes */}
             <ProgressBar
               value={45}
@@ -53,7 +55,7 @@ export default function Home() {
               label="Small Progress"
               showPercentage
             />
-            
+
             <ProgressBar
               value={80}
               max={100}
@@ -62,7 +64,7 @@ export default function Home() {
               color="green"
               showPercentage
             />
-            
+
             {/* Different colors */}
             <ProgressBar
               value={30}
@@ -71,7 +73,7 @@ export default function Home() {
               color="yellow"
               showPercentage
             />
-            
+
             <ProgressBar
               value={90}
               max={100}
@@ -79,18 +81,17 @@ export default function Home() {
               color="red"
               showPercentage
             />
-            
+
             {/* Indeterminate */}
-            <ProgressBar
-              isIndeterminate
-              label="Loading..."
-            />
+            <ProgressBar isIndeterminate label="Loading..." />
           </div>
-          
+
           {/* Circular Progress Examples */}
           <div className="space-y-6">
-            <h3 className="text-lg font-semibold text-gray-700 dark:text-gray-300">Circular Progress</h3>
-            
+            <h3 className="text-lg font-semibold text-gray-700 dark:text-gray-300">
+              Circular Progress
+            </h3>
+
             {/* Determinate circular */}
             <div className="flex justify-center">
               <ProgressBar
@@ -101,7 +102,7 @@ export default function Home() {
                 showPercentage
               />
             </div>
-            
+
             {/* Different sizes */}
             <div className="flex justify-center space-x-4">
               <ProgressBar
@@ -126,7 +127,7 @@ export default function Home() {
                 color="purple"
               />
             </div>
-            
+
             {/* Indeterminate circular */}
             <div className="flex justify-center">
               <ProgressBar
@@ -136,7 +137,7 @@ export default function Home() {
                 color="indigo"
               />
             </div>
-            
+
             {/* Custom color */}
             <div className="flex justify-center">
               <ProgressBar
@@ -149,22 +150,24 @@ export default function Home() {
             </div>
           </div>
         </div>
-        
+
         {/* Usage Examples */}
         <div className="mt-12">
-          <h3 className="text-lg font-semibold mb-4 text-gray-700 dark:text-gray-300">Usage Examples</h3>
+          <h3 className="text-lg font-semibold mb-4 text-gray-700 dark:text-gray-300">
+            Usage Examples
+          </h3>
           <div className="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg">
             <pre className="text-sm text-gray-800 dark:text-gray-200 overflow-x-auto">
-{`// Basic usage
-<ProgressBar 
-  value={65} 
-  max={100} 
+              {`// Basic usage
+<ProgressBar
+  value={65}
+  max={100}
   label="Form Completion"
-  showPercentage 
+  showPercentage
 />
 
 // Circular with custom color
-<ProgressBar 
+<ProgressBar
   variant="circular"
   value={75}
   color="green"
@@ -172,7 +175,7 @@ export default function Home() {
 />
 
 // Indeterminate loading
-<ProgressBar 
+<ProgressBar
   isIndeterminate
   label="Loading..."
   color="blue"

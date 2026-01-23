@@ -1,5 +1,5 @@
-import { TransactionDashboard } from '@/components/dashboard/TransactionDashboard';
-import Navbar from '@/components/navigation/Navbar';
+import { TransactionDashboard } from "@/components/dashboard/TransactionDashboard";
+import Navbar from "@/components/navigation/Navbar";
 
 export default function DashboardPage() {
   return (
