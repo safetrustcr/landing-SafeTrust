@@ -5,7 +5,7 @@ import ToastProvider from "@/components/ui/toast/toast-provider";
 import { ThemeProvider } from "../lib/theme-provider";
 import { TrackerProvider } from "@/components/AnalyticsProvider";
 import { AnalyticsLogger } from "@/components/AnalyticsLogger";
-// import { RouteProgressBar } from "@/components/ui/RouteProgressBar";
+import { RouteProgressBar } from "@/components/ui/RouteProgressBar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,7 +30,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        {/* <RouteProgressBar /> */}
+        <RouteProgressBar />
         <TrackerProvider enabled={true} debug={true}>
           <ThemeProvider
             defaultTheme="dark"
