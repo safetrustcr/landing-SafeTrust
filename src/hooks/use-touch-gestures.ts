@@ -1,10 +1,4 @@
-import {
-  useRef,
-  // useEffect,
-  useCallback,
-  useState,
-  type TouchEvent,
-} from "react";
+import { useRef, useCallback, useState, type TouchEvent } from "react";
 import {
   getTouchPoint,
   analyzeSwipe,
