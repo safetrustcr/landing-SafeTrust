@@ -1,5 +1,3 @@
-// src/hooks/use-touch-gestures.ts
-
 import {
   useRef,
   // useEffect,

@@ -325,7 +325,7 @@ const HeroSection: React.FC<HeroSectionProps> = () => {
               {isVisible &&
                 lines.map((line) => (
                   <Line
-                    key={line.id + Math.random() * 1000}
+                    key={line.id}
                     start={line.start}
                     end={line.end}
                     duration={line.duration}
