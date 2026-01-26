@@ -5,6 +5,7 @@ import ToastProvider from "@/components/ui/toast/toast-provider";
 import { ThemeProvider } from "../lib/theme-provider";
 import { TrackerProvider } from "@/components/AnalyticsProvider";
 import { AnalyticsLogger } from "@/components/AnalyticsLogger";
+import '@/styles/touch.css';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -19,6 +20,12 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "SafeTrust",
   description: "SafeTrust is a decentralized and secure platform P2P",
+  viewport: {
+    width: "device-width",
+    initialScale: 1,
+    maximumScale: 1,
+    userScalable: false,
+  },
 };
 
 export default function RootLayout({

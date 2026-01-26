@@ -370,9 +370,9 @@ const Navbar: React.FC = () => {
       )}
 
       {/* Wallet Modal */}
-      <WalletModal 
-        isOpen={isWalletModalOpen} 
-        onClose={closeWalletModal} 
+      <WalletModal
+        isOpen={isWalletModalOpen}
+        onClose={closeWalletModal}
       />
     </>
   );

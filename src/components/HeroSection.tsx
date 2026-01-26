@@ -59,10 +59,10 @@ const Particle: React.FC<ParticleProps> = ({ start, end, delay }) => (
     r="2"
     fill="rgb(59, 130, 246)"
     initial={{ x: 0, y: 0, opacity: 0 }}
-    animate={{ 
-      x: end.x - start.x, 
-      y: end.y - start.y, 
-      opacity: [0, 1, 0] 
+    animate={{
+      x: end.x - start.x,
+      y: end.y - start.y,
+      opacity: [0, 1, 0]
     }}
     transition={{ duration: 2, delay, repeat: Infinity }}
   />
@@ -74,8 +74,8 @@ const Button: React.FC<{
   onClick?: () => void;
   disabled?: boolean;
 }> = ({ children, className, onClick, disabled = false }) => (
-  <button 
-    className={className} 
+  <button
+    className={className}
     onClick={onClick}
     disabled={disabled}
   >
@@ -280,8 +280,8 @@ const HeroSection: React.FC<HeroSectionProps> = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.9 }}
           >
-            <motion.div 
-              whileHover={!mainButtonConfig.disabled ? { scale: 1.05 } : {}} 
+            <motion.div
+              whileHover={!mainButtonConfig.disabled ? { scale: 1.05 } : {}}
               whileTap={!mainButtonConfig.disabled ? { scale: 0.95 } : {}}
             >
               <Button
@@ -325,7 +325,7 @@ const HeroSection: React.FC<HeroSectionProps> = () => {
               {isVisible &&
                 lines.map((line) => (
                   <Line
-                    key={line.id}
+                    key={line.id + Math.random() * 1000}
                     start={line.start}
                     end={line.end}
                     duration={line.duration}
@@ -387,7 +387,7 @@ const HeroSection: React.FC<HeroSectionProps> = () => {
         </p>
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-6 pt-8">
-          <button 
+          <button
             onClick={secondaryButtonConfig.disabled ? undefined : openWalletModal}
             disabled={secondaryButtonConfig.disabled}
             className={secondaryButtonConfig.className}
@@ -424,9 +424,9 @@ const HeroSection: React.FC<HeroSectionProps> = () => {
       </section>
 
       {/* Wallet Modal */}
-      <WalletModal 
-        isOpen={isWalletModalOpen} 
-        onClose={closeWalletModal} 
+      <WalletModal
+        isOpen={isWalletModalOpen}
+        onClose={closeWalletModal}
       />
 
       <style jsx>{`
