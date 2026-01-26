@@ -1,0 +1,352 @@
+/* src/styles/touch.css */
+
+/* ========================================
+   Core Touch Styles
+   ======================================== */
+
+.touch-feedback {
+  -webkit-tap-highlight-color: rgba(51, 106, 217, 0.3);
+  touch-action: manipulation;
+}
+
+.touch-feedback:active {
+  transform: scale(0.98);
+  transition: transform 100ms ease-out;
+}
+
+/* ========================================
+   Prevent iOS Rubber Band Bounce
+   ======================================== */
+
+html {
+  overscroll-behavior-y: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+body {
+  overscroll-behavior-y: contain;
+  -webkit-overflow-scrolling: touch;
+  margin: 0;
+  padding: 0;
+}
+
+/* Alternative for pages that need regular scrolling */
+.allow-scroll {
+  overscroll-behavior-y: auto;
+}
+
+/* ========================================
+   Smooth Touch Scrolling
+   ======================================== */
+
+.touch-scroll {
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+}
+
+/* Momentum scrolling for iOS */
+.touch-scroll-momentum {
+  -webkit-overflow-scrolling: touch;
+  overflow-y: auto;
+}
+
+/* ========================================
+   Touch Targets - Minimum 44x44px
+   ======================================== */
+
+.touch-target {
+  min-width: 44px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Larger touch targets for mobile */
+@media (max-width: 768px) {
+  button,
+  a,
+  input[type="button"],
+  input[type="submit"],
+  .clickable {
+    min-height: 44px;
+    padding: 12px 16px;
+  }
+}
+
+/* ========================================
+   Swipe Indicators
+   ======================================== */
+
+.swipe-indicator {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 0;
+  transition: opacity 200ms ease-out;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+.swipe-indicator.left {
+  left: 20px;
+}
+
+.swipe-indicator.right {
+  right: 20px;
+}
+
+.swipe-indicator.active {
+  opacity: 1;
+}
+
+/* ========================================
+   Pull to Refresh Indicator
+   ======================================== */
+
+.pull-to-refresh {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.9), transparent);
+  opacity: 0;
+  transform: translateY(-100%);
+  transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 9998;
+}
+
+.pull-to-refresh.pulling {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.pull-to-refresh.refreshing {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.pull-refresh-icon {
+  width: 32px;
+  height: 32px;
+  transition: transform 300ms ease-out;
+}
+
+.pull-refresh-icon.spinning {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ========================================
+   Disable Text Selection During Gestures
+   ======================================== */
+
+.no-select {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+
+/* ========================================
+   Swipe Container
+   ======================================== */
+
+.swipe-container {
+  position: relative;
+  overflow: hidden;
+  touch-action: pan-y pinch-zoom;
+}
+
+.swipe-content {
+  transition: transform 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+}
+
+.swipe-content.swiping {
+  transition: none;
+}
+
+/* ========================================
+   Touch Ripple Effect
+   ======================================== */
+
+.ripple-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.ripple {
+  position: absolute;
+  border-radius: 50%;
+  background-color: currentColor;
+  opacity: 0.3;
+  transform: scale(0);
+  pointer-events: none;
+  animation: ripple-effect 600ms ease-out;
+}
+
+@keyframes ripple-effect {
+  0% {
+    transform: scale(0);
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.15;
+  }
+  100% {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+/* ========================================
+   Active State Feedback
+   ======================================== */
+
+.touch-active {
+  transform: scale(0.97);
+  opacity: 0.9;
+  transition: all 100ms ease-out;
+}
+
+/* ========================================
+   Prevent Accidental Zoom on Input Focus (iOS)
+   ======================================== */
+
+input,
+textarea,
+select {
+  font-size: 16px !important;
+}
+
+@media (max-width: 768px) {
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  input[type="number"],
+  textarea {
+    font-size: 16px !important;
+  }
+}
+
+/* ========================================
+   Safe Area Insets (iPhone Notch)
+   ======================================== */
+
+@supports (padding: max(0px)) {
+  .safe-area-top {
+    padding-top: max(env(safe-area-inset-top), 0px);
+  }
+
+  .safe-area-bottom {
+    padding-bottom: max(env(safe-area-inset-bottom), 0px);
+  }
+
+  .safe-area-left {
+    padding-left: max(env(safe-area-inset-left), 0px);
+  }
+
+  .safe-area-right {
+    padding-right: max(env(safe-area-inset-right), 0px);
+  }
+}
+
+/* ========================================
+   Disable Scroll Chaining
+   ======================================== */
+
+.scroll-isolated {
+  overscroll-behavior: contain;
+}
+
+/* ========================================
+   Custom Scrollbar for Touch Devices
+   ======================================== */
+
+@media (hover: none) and (pointer: coarse) {
+  ::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.3);
+  }
+}
+
+/* ========================================
+   Performance Optimizations
+   ======================================== */
+
+.gpu-accelerated {
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  will-change: transform;
+}
+
+.no-will-change {
+  will-change: auto;
+}
+
+/* ========================================
+   Accessibility - Focus Visible
+   ======================================== */
+
+.touch-feedback:focus-visible {
+  outline: 2px solid #336ad9;
+  outline-offset: 2px;
+}
+
+/* Remove outline for touch devices */
+@media (hover: none) and (pointer: coarse) {
+  *:focus {
+    outline: none;
+  }
+}
+
+/* ========================================
+   Utilities
+   ======================================== */
+
+.touch-none {
+  touch-action: none;
+}
+
+.touch-auto {
+  touch-action: auto;
+}
+
+.touch-pan-x {
+  touch-action: pan-x;
+}
+
+.touch-pan-y {
+  touch-action: pan-y;
+}
+
+.touch-pinch-zoom {
+  touch-action: pinch-zoom;
+}

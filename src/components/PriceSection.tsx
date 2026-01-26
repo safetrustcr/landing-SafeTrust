@@ -178,11 +178,10 @@ export default function TransactionTiers() {
         <span className="text-muted-foreground text-sm sm:text-base">Yearly</span>
         <div className="relative ml-2">
           <Badge
-            className={`bg-primary/10 text-primary px-2 py-1 rounded-full text-xs transition-all duration-500 ease-in-out transform ${
-              billingPeriod === "yearly"
+            className={`bg-primary/10 text-primary px-2 py-1 rounded-full text-xs transition-all duration-500 ease-in-out transform ${billingPeriod === "yearly"
                 ? "opacity-100 scale-100 translate-x-0"
                 : "opacity-0 scale-95 translate-x-2"
-            }`}
+              }`}
           >
             Save 20%
           </Badge>
@@ -204,27 +203,24 @@ export default function TransactionTiers() {
             role="radio"
             aria-checked={selectedPlan === plan.name}
             tabIndex={0}
-            aria-label={`${plan.name} plan, costs ${
-              billingPeriod === "monthly"
+            aria-label={`${plan.name} plan, costs ${billingPeriod === "monthly"
                 ? `$${plan.monthly} per month`
                 : `$${plan.yearly} per year`
-            }`}
+              }`}
             onClick={() => {
               setSelectedPlan(plan.name);
               buttonClick('plan_selected', { plan_name: plan.name, billing_period: billingPeriod });
             }}
-            className={`relative text-foreground bg-card backdrop-blur-md p-6 md:p-4 border flex flex-col justify-between h-[450px] md:h-[400px] cursor-pointer transition-all duration-300 ease-in-out hover:border-primary hover:shadow-lg hover:shadow-primary/20 ${
-              selectedPlan === plan.name
+            className={`relative text-foreground bg-card backdrop-blur-md p-6 md:p-4 border flex flex-col justify-between h-[450px] md:h-[400px] cursor-pointer transition-all duration-300 ease-in-out hover:border-primary hover:shadow-lg hover:shadow-primary/20 ${selectedPlan === plan.name
                 ? "border-primary"
                 : "border-border"
-            }`}
+              }`}
           >
             <div
-              className={`absolute top-[-10px] right-4 transition-all duration-500 ease-in-out transform ${
-                plan.name === "Pro"
+              className={`absolute top-[-10px] right-4 transition-all duration-500 ease-in-out transform ${plan.name === "Pro"
                   ? "opacity-100 scale-100 translate-y-0"
                   : "opacity-0 scale-95 translate-y-2"
-              }`}
+                }`}
             >
               {plan.name === "Pro" && (
                 <Badge className="bg-primary text-primary-foreground px-3 py-1 md:px-2 md:py-0.5 rounded-md text-sm md:text-xs">
@@ -280,11 +276,10 @@ export default function TransactionTiers() {
               </div>
             </CardContent>
             <Button
-              aria-label={`${
-                plan.name === "Enterprise"
+              aria-label={`${plan.name === "Enterprise"
                   ? "Contact sales for Enterprise plan"
                   : `Connect wallet to ${plan.name} plan`
-              }`}
+                }`}
               className="w-full bg-primary text-primary-foreground hover:bg-primary/90 transition-all duration-300 mt-4 md:mt-2 md:py-2 md:text-sm"
               onClick={() => handleWalletClick(plan.name)}
             >

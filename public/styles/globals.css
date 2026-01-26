@@ -160,6 +160,12 @@ body {
   will-change: transform;
 }
 
+.btn-animate-none:hover:not(:disabled),
+.btn-animate-none:active:not(:disabled) {
+  transform: none !important;
+  transition: none !important;
+}
+
 .btn-animate:hover:not(:disabled) {
   transform: scale(1.02);
 }
@@ -208,7 +214,7 @@ body {
 }
 
 .btn-loading::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 50%;
   left: 50%;
@@ -288,16 +294,16 @@ body {
   .btn-animate:hover {
     transform: none;
   }
-  
+
   .btn-animate:active {
     transform: scale(0.95);
     transition-duration: 100ms;
   }
-  
+
   .search-icon:hover {
     transform: none;
   }
-  
+
   .search-icon.active:hover {
     transform: rotate(45deg);
   }
