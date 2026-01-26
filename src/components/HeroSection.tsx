@@ -7,6 +7,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Navbar from "./navigation/Navbar";
 import WalletModal from "./wallet/WalletModal";
 import { useWallet } from "../hooks/use-wallet";
+import TouchFeedback from "./ui/TouchFeedback";
 
 export interface HeroSectionProps {
   className?: string;
@@ -284,14 +285,16 @@ const HeroSection: React.FC<HeroSectionProps> = () => {
               whileHover={!mainButtonConfig.disabled ? { scale: 1.05 } : {}}
               whileTap={!mainButtonConfig.disabled ? { scale: 0.95 } : {}}
             >
-              <Button
-                className={mainButtonConfig.className}
-                onClick={mainButtonConfig.disabled ? undefined : openWalletModal}
-                disabled={mainButtonConfig.disabled}
-              >
-                <Wallet className="w-5 h-5" />
-                {mainButtonConfig.text}
-              </Button>
+              <TouchFeedback borderRadius="0.5rem">
+                <Button
+                  className={mainButtonConfig.className}
+                  onClick={mainButtonConfig.disabled ? undefined : openWalletModal}
+                  disabled={mainButtonConfig.disabled}
+                >
+                  <Wallet className="w-5 h-5" />
+                  {mainButtonConfig.text}
+                </Button>
+              </TouchFeedback>
             </motion.div>
           </motion.div>
 
@@ -387,20 +390,24 @@ const HeroSection: React.FC<HeroSectionProps> = () => {
         </p>
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-6 pt-8">
-          <button
-            onClick={secondaryButtonConfig.disabled ? undefined : openWalletModal}
-            disabled={secondaryButtonConfig.disabled}
-            className={secondaryButtonConfig.className}
-          >
-            <Lock className="w-5 h-5" />
-            {secondaryButtonConfig.text}
-            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
-          </button>
+          <TouchFeedback borderRadius="0.75rem">
+            <button
+              onClick={secondaryButtonConfig.disabled ? undefined : openWalletModal}
+              disabled={secondaryButtonConfig.disabled}
+              className={secondaryButtonConfig.className}
+            >
+              <Lock className="w-5 h-5" />
+              {secondaryButtonConfig.text}
+              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
+            </button>
+          </TouchFeedback>
 
-          <button className="group border-2 border-gray-600 hover:border-purple-500 text-white font-semibold py-4 px-8 rounded-xl transition-all duration-300 hover:bg-purple-500/10 flex items-center gap-3 text-lg">
-            Learn More
-            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
-          </button>
+          <TouchFeedback color="rgba(168, 85, 247, 0.4)" opacity={0.35} borderRadius="0.75rem">
+            <button className="group border-2 border-gray-600 hover:border-purple-500 text-white font-semibold py-4 px-8 rounded-xl transition-all duration-300 hover:bg-purple-500/10 flex items-center gap-3 text-lg">
+              Learn More
+              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
+            </button>
+          </TouchFeedback>
         </div>
 
         <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-8 pt-12 opacity-70 max-w-5xl mx-auto">
