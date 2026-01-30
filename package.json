@@ -6,6 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "analyze": "ANALYZE=true next build",
+    "analyze:server": "ANALYZE=true BUNDLE_ANALYZE=server next build",
+    "analyze:browser": "ANALYZE=true BUNDLE_ANALYZE=browser next build",
     "test": "echo \"No tests configured yet\"",
     "test:staged": "echo \"No tests configured yet\"",
     "type-check": "tsc --noEmit",
@@ -38,6 +41,7 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
+    "@next/bundle-analyzer": "^16.1.4",
     "@types/node": "20.19.18",
     "@types/react": "^19",
     "@types/react-dom": "^19",
