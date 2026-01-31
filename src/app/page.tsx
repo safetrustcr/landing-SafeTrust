@@ -1,7 +1,7 @@
 "use client";
 
 import dynamic from 'next/dynamic';
-import HeroSection from "@/components/HeroSection";
+import { HeroSection } from "@/components/Hero";
 import { Button } from "@/components/ui/button";
 import { Tooltip } from "@/components/ui/Tooltip";
 import { LazyWrapper, LazySkeletonFallback } from "@/components/LazyWrapper";
