@@ -6,6 +6,8 @@ import { ThemeProvider } from "@/lib/theme-provider";
 import { TrackerProvider } from "@/components/AnalyticsProvider";
 import { AnalyticsLogger } from "@/components/AnalyticsLogger";
 import { PerformanceInitializer } from "@/components/PerformanceInitializer";
+import { PageView } from "@/components/analytics/PageView";
+import { defaultMetadata, structuredData, generateJsonLd } from "@/config/seo";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -19,16 +21,7 @@ const geistMono = Geist_Mono({
   display: "swap",
 });
 
-export const metadata: Metadata = {
-  title: "SafeTrust",
-  description: "SafeTrust is a decentralized and secure platform P2P",
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://safetrust.com'),
-  openGraph: {
-    title: "SafeTrust",
-    description: "SafeTrust is a decentralized and secure platform P2P",
-    type: "website",
-  },
-};
+export const metadata: Metadata = defaultMetadata;
 
 export const viewport = {
   width: "device-width",
@@ -51,9 +44,25 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+
+        {/* Structured Data - Organization */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: generateJsonLd(structuredData.organization),
+          }}
+        />
+
+        {/* Structured Data - Website */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: generateJsonLd(structuredData.website),
+          }}
+        />
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <TrackerProvider enabled={true} debug={true}>
+        <TrackerProvider enabled={true} debug={process.env.NODE_ENV === 'development'}>
           <ThemeProvider
             defaultTheme="dark"
             enableSystem={true}
@@ -62,6 +71,7 @@ export default function RootLayout({
               {children}
             </ToastProvider>
           </ThemeProvider>
+          <PageView />
           <AnalyticsLogger />
           <PerformanceInitializer />
         </TrackerProvider>
