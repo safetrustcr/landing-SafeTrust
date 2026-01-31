@@ -2,7 +2,7 @@
 
 import React, { useRef, useState } from "react";
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
-import { Shield, Lock, Wallet, ChevronDown } from "lucide-react";
+import { Shield, Lock, Wallet, ChevronDown, ArrowRight } from "lucide-react";
 import Navbar from "@/components/navigation/Navbar";
 import WalletModal from "@/components/wallet/WalletModal";
 import { useWallet } from "@/hooks/use-wallet";
@@ -166,6 +166,129 @@ function ScrollIndicator() {
   );
 }
 
+// Secondary CTA Section Component (like the original hero)
+interface SecondaryCTASectionProps {
+  onConnectWallet: () => void;
+  onLearnMore: () => void;
+  isConnected: boolean;
+  isConnecting: boolean;
+}
+
+function SecondaryCTASection({ onConnectWallet, onLearnMore, isConnected, isConnecting }: SecondaryCTASectionProps) {
+  const getButtonConfig = () => {
+    if (isConnecting) {
+      return {
+        text: 'Connecting...',
+        className: `
+          group font-semibold py-4 px-8 rounded-xl transition-all duration-300 flex items-center gap-3 text-lg
+          bg-purple-400 cursor-not-allowed opacity-75 text-white
+        `,
+        disabled: true
+      };
+    }
+
+    if (isConnected) {
+      return {
+        text: 'Wallet Connected',
+        className: `
+          group font-semibold py-4 px-8 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-xl flex items-center gap-3 text-lg
+          bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 hover:shadow-green-500/25 text-white cursor-pointer
+        `,
+        disabled: false
+      };
+    }
+
+    return {
+      text: 'Connect Wallet',
+      className: `
+        group font-semibold py-4 px-8 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-xl hover:shadow-purple-500/25 flex items-center gap-3 text-lg
+        bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white cursor-pointer
+      `,
+      disabled: false
+    };
+  };
+
+  const buttonConfig = getButtonConfig();
+
+  return (
+    <section className="w-full max-w-6xl mx-auto text-center space-y-8 px-4 sm:px-0 py-12 relative z-10">
+      <motion.h2 
+        className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-foreground leading-tight"
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6 }}
+      >
+        Secure p2p transactions platform
+      </motion.h2>
+
+      <motion.p 
+        className="text-lg sm:text-xl lg:text-2xl text-muted-foreground w-full max-w-5xl mx-auto leading-relaxed font-medium"
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6, delay: 0.1 }}
+      >
+        Experience the power of decentralized trust and seamless
+        blockchain transactions. Our blue-chip security standards ensure
+        your deposits are always protected in our revolutionary P2P
+        platform.
+      </motion.p>
+
+      <motion.div 
+        className="flex flex-col sm:flex-row items-center justify-center gap-6 pt-8"
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6, delay: 0.2 }}
+      >
+        <button 
+          onClick={buttonConfig.disabled ? undefined : onConnectWallet}
+          disabled={buttonConfig.disabled}
+          className={buttonConfig.className}
+        >
+          <Lock className="w-5 h-5" />
+          {buttonConfig.text}
+          <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
+        </button>
+
+        <button 
+          onClick={onLearnMore}
+          className="group border-2 border-border hover:border-purple-500 text-foreground font-semibold py-4 px-8 rounded-xl transition-all duration-300 hover:bg-purple-500/10 flex items-center gap-3 text-lg"
+        >
+          Learn More
+          <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
+        </button>
+      </motion.div>
+
+      <motion.div 
+        className="flex flex-wrap items-center justify-center gap-6 sm:gap-8 pt-12 opacity-70 max-w-5xl mx-auto"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 0.7 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6, delay: 0.3 }}
+      >
+        <div className="flex items-center gap-2 text-muted-foreground">
+          <Shield className="w-5 h-5 text-green-400" />
+          <span className="text-sm font-medium">Bank-Grade Security</span>
+        </div>
+        <div className="flex items-center gap-2 text-muted-foreground">
+          <Lock className="w-5 h-5 text-blue-400" />
+          <span className="text-sm font-medium">
+            End-to-End Encrypted
+          </span>
+        </div>
+        <div className="flex items-center gap-2 text-muted-foreground">
+          <div className="w-5 h-5 bg-gradient-to-r from-yellow-400 to-orange-400 rounded-full flex items-center justify-center">
+            <span className="text-xs font-bold text-black">₮</span>
+          </div>
+          <span className="text-sm font-medium">USDT Protected</span>
+        </div>
+      </motion.div>
+    </section>
+  );
+}
+
 // Main Hero Section Component
 export function HeroSection({ className = "" }: HeroSectionProps) {
   const [isWalletModalOpen, setIsWalletModalOpen] = useState(false);
@@ -183,7 +306,7 @@ export function HeroSection({ className = "" }: HeroSectionProps) {
   const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
   // Wallet connection state
-  const { isConnected, isConnecting, account, error } = useWallet();
+  const { isConnected, isConnecting, error } = useWallet();
 
   // Handlers
   const openWalletModal = () => setIsWalletModalOpen(true);
@@ -287,6 +410,14 @@ export function HeroSection({ className = "" }: HeroSectionProps) {
         {/* Security Visual */}
         <SecurityVisual />
       </motion.main>
+
+      {/* Secondary CTA Section (like the original hero) */}
+      <SecondaryCTASection 
+        onConnectWallet={openWalletModal}
+        onLearnMore={handleLearnMore}
+        isConnected={isConnected}
+        isConnecting={isConnecting}
+      />
 
       {/* Compact Trust Badges at Bottom */}
       <motion.div 
