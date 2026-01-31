@@ -29,6 +29,10 @@ const SecuritySection = dynamic(() => import("@/components/SecuritySection"), {
   loading: () => <LazySkeletonFallback height="400px" className="my-8" />,
 });
 
+const TestimonialSection = dynamic(() => import("@/components/TestimonialSection"), {
+  loading: () => <LazySkeletonFallback height="500px" className="my-8" />,
+});
+
 export default function Home() {
   return (
     <>
@@ -36,6 +40,7 @@ export default function Home() {
       <Discover />
       <HowItWorksSection />
       <SecuritySection />
+      <TestimonialSection />
       <FaqSection />
       <TransactionTiers />
       <Footer />
