@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -28,7 +29,6 @@ import {
   chartConfigs,
   exportToCSV,
   formatNumber,
-  formatCurrency,
 } from "@/lib/chart-utils";
 import { cn } from "@/lib/utils";
 
@@ -80,9 +80,7 @@ const CustomTooltip: React.FC<CustomTooltipProps> = ({
           />
           <span className="text-muted-foreground">{entry.name}:</span>
           <span className="font-medium text-white">
-            {entry.dataKey === "volume"
-              ? formatCurrency(entry.value)
-              : formatNumber(entry.value)}
+            {formatNumber(entry.value)}
           </span>
         </div>
       ))}
@@ -101,8 +99,8 @@ export const ChartContainer: React.FC<ChartContainerProps> = ({
 }) => {
   const [chartType, setChartType] = useState<ChartType>(defaultType);
   const [selectedMetrics, setSelectedMetrics] = useState<string[]>([
-    "transactions",
-    "volume",
+    "pageViews",
+    "clicks",
   ]);
 
   const handleExport = () => {
@@ -219,8 +217,8 @@ export const ChartContainer: React.FC<ChartContainerProps> = ({
   ];
 
   const metricButtons = [
-    { key: "transactions", label: "Transactions", color: "#3b82f6" },
-    { key: "volume", label: "Volume", color: "#10b981" },
+    { key: "pageViews", label: "Page Views", color: "#3b82f6" },
+    { key: "clicks", label: "Clicks", color: "#22c55e" },
     { key: "users", label: "Users", color: "#f59e0b" },
   ];
 

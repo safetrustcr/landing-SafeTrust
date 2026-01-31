@@ -1,25 +1,35 @@
+
 "use client";
 
 import { createContext, useEffect, ReactNode } from 'react';
+import { usePathname, useSearchParams } from 'next/navigation';
 import { tracker } from '@/lib/analytics';
 
-export const TrackerContext = createContext<{
-  logEvent: (event: string, data?: any) => void;
+type AnalyticsPayload = Record<string, unknown>;
+
+export interface TrackerContextValue {
+  logEvent: (event: string, data?: AnalyticsPayload) => void;
   visitPage: (path?: string) => void;
-  buttonClick: (element: string, data?: any) => void;
-  formSubmit: (form: string, data?: any) => void;
-} | null>(null);
+  buttonClick: (element: string, data?: AnalyticsPayload) => void;
+  formSubmit: (form: string, data?: AnalyticsPayload) => void;
+}
+
+export const TrackerContext = createContext<TrackerContextValue | null>(null);
 
 export function TrackerProvider({ children, enabled = true, debug = false }: { children: ReactNode; enabled?: boolean; debug?: boolean; }) {
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
   useEffect(() => {
     tracker.setup({ enabled, debug });
   }, [enabled, debug]);
 
   useEffect(() => {
     if (enabled && typeof window !== 'undefined') {
-      tracker.visitPage();
+      const url = pathname + (searchParams?.toString() ? `?${searchParams.toString()}` : '');
+      tracker.visitPage(url);
     }
-  }, [enabled]);
+  }, [pathname, searchParams, enabled]);
 
   const value = {
     logEvent: tracker.logEvent.bind(tracker),
