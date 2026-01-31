@@ -70,5 +70,5 @@ This will start the project at `http://localhost:3000`.
 
 ## 📜 License
 
-© 2025 SafeTrust. Released under the [MIT License](https://opensource.org/license/MIT).
+© 2026 SafeTrust. Released under the [MIT License](https://opensource.org/license/MIT).
 Ready to join the future of secure rentals?
