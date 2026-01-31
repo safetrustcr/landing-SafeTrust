@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "../../public/styles/globals.css";
+import "@/styles/card-animations.css";
 import ToastProvider from "@/components/ui/toast/toast-provider";
 import { ThemeProvider } from "@/lib/theme-provider";
 import { TrackerProvider } from "@/components/AnalyticsProvider";
@@ -66,7 +67,8 @@ export default function RootLayout({
           <ThemeProvider
             defaultTheme="dark"
             enableSystem={true}
-            storageKey="safetrust-theme">
+            storageKey="safetrust-theme"
+          >
             <ToastProvider position="top-right" maxToasts={3}>
               {children}
             </ToastProvider>

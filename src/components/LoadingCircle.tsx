@@ -1,8 +1,8 @@
 import React from "react";
 
 interface Props {
-  size?: string; 
-  color?: string; 
+  size?: string;
+  color?: string;
   className?: string;
 }
 
@@ -34,7 +34,11 @@ const LoadingCircle: React.FC<Props> = ({
         className={`${size} border-4 rounded-full animate-spin ${
           isTailwindColor ? color : ""
         } border-t-transparent`}
-        style={!isTailwindColor ? { borderColor: color, borderTopColor: "transparent" } : {}}
+        style={
+          !isTailwindColor
+            ? { borderColor: color, borderTopColor: "transparent" }
+            : {}
+        }
       ></div>
     </div>
   );
