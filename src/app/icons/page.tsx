@@ -8,6 +8,7 @@ import { ArrowLeft, ExternalLink, BookOpen } from "lucide-react";
 import Link from "next/link";
 import { AnimatedSearchIcon } from "@/components/ui/AnimatedSearchIcon";
 import { SearchToggle } from "@/components/ui/SearchToggle";
+import { AnimatedLogo } from "@/components/ui/AnimatedLogo";
 
 export default function IconsPage() {
   const [searchActive, setSearchActive] = useState(false);
@@ -34,8 +35,8 @@ export default function IconsPage() {
               </div>
             </div>
             <div className="flex items-center gap-2">
-              <Link 
-                href="https://lucide.dev" 
+              <Link
+                href="https://lucide.dev"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -167,6 +168,61 @@ export default function IconsPage() {
             </div>
           </section>
 
+          {/* Animated Logo Demo */}
+          <section>
+            <div className="border-t border-border pt-8">
+              <h2 className="text-2xl font-bold mb-6">Animated Logo</h2>
+              <div className="space-y-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {/* Interactive State */}
+                  <div className="space-y-4">
+                    <h3 className="text-lg font-semibold">Interactive (Hover/Tap)</h3>
+                    <div className="flex items-center justify-center p-8 bg-muted rounded-lg min-h-[160px]">
+                      <AnimatedLogo size="xl" />
+                    </div>
+                    <p className="text-sm text-muted-foreground">
+                      Hover to scale up, click to scale down.
+                    </p>
+                  </div>
+
+                  {/* Loading State */}
+                  <div className="space-y-4">
+                    <h3 className="text-lg font-semibold">Loading State</h3>
+                    <div className="flex items-center justify-center p-8 bg-muted rounded-lg min-h-[160px]">
+                      <AnimatedLogo size="xl" loading={true} />
+                    </div>
+                    <p className="text-sm text-muted-foreground">
+                      Shows a spinner and pulse effect.
+                    </p>
+                  </div>
+                </div>
+
+                {/* Sizes */}
+                <div className="space-y-4">
+                  <h3 className="text-lg font-semibold">Sizes</h3>
+                  <div className="flex flex-wrap items-end gap-8 p-8 bg-muted rounded-lg">
+                    <div className="flex flex-col items-center gap-2">
+                      <AnimatedLogo size="sm" />
+                      <span className="text-xs text-muted-foreground">sm</span>
+                    </div>
+                    <div className="flex flex-col items-center gap-2">
+                      <AnimatedLogo size="md" />
+                      <span className="text-xs text-muted-foreground">md</span>
+                    </div>
+                    <div className="flex flex-col items-center gap-2">
+                      <AnimatedLogo size="lg" />
+                      <span className="text-xs text-muted-foreground">lg</span>
+                    </div>
+                    <div className="flex flex-col items-center gap-2">
+                      <AnimatedLogo size="xl" />
+                      <span className="text-xs text-muted-foreground">xl</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
           {/* Usage Examples */}
           <section>
             <div className="border-t border-border pt-8">
@@ -245,7 +301,7 @@ const IconComponent = icon.component;`}
                   </ul>
                 </div>
                 <div className="space-y-4">
-                  <h3 className="text-lg font-semibold text-red-600">❌ Don't</h3>
+                 <h3 className="text-lg font-semibold text-red-600">{"❌ Don't"}</h3>
                   <ul className="space-y-2 text-sm">
                     <li className="flex items-start gap-2">
                       <span className="text-red-500 mt-1">•</span>
