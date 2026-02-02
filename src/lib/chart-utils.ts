@@ -1,7 +1,8 @@
+
 export interface AnalyticsData {
   date: string;
-  transactions: number;
-  volume: number;
+  pageViews: number;
+  clicks: number;
   users: number;
 }
 
@@ -33,14 +34,14 @@ export const generateMockData = (days: number = 30): AnalyticsData[] => {
     date.setDate(date.getDate() + i);
     
     // Generate realistic trending data with some variance
-    const baseTransactions = 1000 + (i * 20) + Math.random() * 200;
-    const baseVolume = 50000 + (i * 1000) + Math.random() * 10000;
-    const baseUsers = 500 + (i * 10) + Math.random() * 100;
+    const basePageViews = 100 + (i * 5) + Math.random() * 50;
+    const baseClicks = 20 + (i * 2) + Math.random() * 10;
+    const baseUsers = 50 + (i * 3) + Math.random() * 20;
 
     data.push({
       date: date.toISOString().split('T')[0],
-      transactions: Math.floor(baseTransactions),
-      volume: Math.floor(baseVolume),
+      pageViews: Math.floor(basePageViews),
+      clicks: Math.floor(baseClicks),
       users: Math.floor(baseUsers),
     });
   }
@@ -78,31 +79,31 @@ export const formatCurrency = (num: number): string => {
 // Default chart configurations
 export const chartConfigs: Record<string, ChartConfig[]> = {
   line: [
-    { dataKey: 'transactions', label: 'Transactions', color: '#3b82f6', strokeWidth: 3 },
-    { dataKey: 'volume', label: 'Volume ($)', color: '#22c55e', strokeWidth: 3 },         
-    { dataKey: 'users', label: 'Users', color: '#f59e0b', strokeWidth: 3 },               
+    { dataKey: 'pageViews', label: 'Page Views', color: '#3b82f6', strokeWidth: 3 },
+    { dataKey: 'clicks', label: 'Clicks', color: '#22c55e', strokeWidth: 3 },         
+    { dataKey: 'users', label: 'Unique Users', color: '#f59e0b', strokeWidth: 3 },               
   ],
   bar: [
-    { dataKey: 'transactions', label: 'Transactions', color: '#3b82f6', fillOpacity: 0.8 },
-    { dataKey: 'volume', label: 'Volume ($)', color: '#22c55e', fillOpacity: 0.8 },         
-    { dataKey: 'users', label: 'Users', color: '#f59e0b', fillOpacity: 0.8 },               
+    { dataKey: 'pageViews', label: 'Page Views', color: '#3b82f6', fillOpacity: 0.8 },
+    { dataKey: 'clicks', label: 'Clicks', color: '#22c55e', fillOpacity: 0.8 },         
+    { dataKey: 'users', label: 'Unique Users', color: '#f59e0b', fillOpacity: 0.8 },               
   ],
   area: [
-    { dataKey: 'transactions', label: 'Transactions', color: '#3b82f6', fillOpacity: 0.3 },
-    { dataKey: 'volume', label: 'Volume ($)', color: '#22c55e', fillOpacity: 0.3 },         
-    { dataKey: 'users', label: 'Users', color: '#f59e0b', fillOpacity: 0.3 },               
+    { dataKey: 'pageViews', label: 'Page Views', color: '#3b82f6', fillOpacity: 0.3 },
+    { dataKey: 'clicks', label: 'Clicks', color: '#22c55e', fillOpacity: 0.3 },         
+    { dataKey: 'users', label: 'Unique Users', color: '#f59e0b', fillOpacity: 0.3 },               
   ],
 };
 
 // Export chart data as CSV
 export const exportToCSV = (data: AnalyticsData[], filename: string = 'analytics-data') => {
-  const headers = ['Date', 'Transactions', 'Volume', 'Users'];
+  const headers = ['Date', 'Page Views', 'Clicks', 'Users'];
   const csvContent = [
     headers.join(','),
     ...data.map(row => [
       row.date,
-      row.transactions,
-      row.volume,
+      row.pageViews,
+      row.clicks,
       row.users
     ].join(','))
   ].join('\n');
