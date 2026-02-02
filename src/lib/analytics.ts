@@ -29,6 +29,11 @@ class SimpleTracker {
   setup(options: { enabled?: boolean; debug?: boolean }) {
     if (options.enabled !== undefined) this.enabled = options.enabled;
     if (options.debug !== undefined) this.debug = options.debug;
+
+    // Initialize Google Analytics
+    if (this.enabled && typeof window !== 'undefined') {
+      gtag.initGA();
+    }
   }
 
   private getVisitorId(): string {

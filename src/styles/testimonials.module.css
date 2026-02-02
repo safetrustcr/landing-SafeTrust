@@ -1,0 +1,282 @@
+/* ===========================================
+   Testimonials Section Styles
+   =========================================== */
+
+/* Section Container */
+.testimonialsSection {
+  position: relative;
+  overflow: hidden;
+  padding: 4rem 0;
+}
+
+/* Background gradient overlay */
+.backgroundOverlay {
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(ellipse 80% 50% at 20% 20%, rgba(51, 106, 217, 0.08), transparent),
+    radial-gradient(ellipse 60% 40% at 80% 80%, rgba(51, 106, 217, 0.05), transparent);
+  pointer-events: none;
+  z-index: 0;
+}
+
+:global(.dark) .backgroundOverlay {
+  background: 
+    radial-gradient(ellipse 80% 50% at 20% 20%, rgba(51, 106, 217, 0.15), transparent),
+    radial-gradient(ellipse 60% 40% at 80% 80%, rgba(51, 106, 217, 0.08), transparent);
+}
+
+/* Carousel Container */
+.carouselContainer {
+  position: relative;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.carouselWrapper {
+  position: relative;
+  overflow: hidden;
+}
+
+.carouselTrack {
+  display: flex;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+}
+
+/* Testimonial Card */
+.testimonialCard {
+  flex-shrink: 0;
+  width: 100%;
+  will-change: transform, opacity;
+}
+
+@media (min-width: 768px) {
+  .testimonialCard {
+    width: calc(50% - 1rem);
+    margin: 0 0.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .testimonialCard {
+    width: calc(33.333% - 1rem);
+  }
+}
+
+/* Quote Decoration */
+.quoteDecoration {
+  font-family: Georgia, 'Times New Roman', serif;
+  transition: color 0.3s ease;
+}
+
+/* Navigation Buttons */
+.navButton {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: hsl(var(--card));
+  border: 1px solid hsl(var(--border));
+  color: hsl(var(--foreground));
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.navButton:hover {
+  background: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+  border-color: hsl(var(--primary));
+  transform: translateY(-50%) scale(1.05);
+}
+
+.navButton:focus-visible {
+  outline: 2px solid hsl(var(--primary));
+  outline-offset: 2px;
+}
+
+.navButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.navButton:disabled:hover {
+  background: hsl(var(--card));
+  color: hsl(var(--foreground));
+  transform: translateY(-50%);
+}
+
+.navButtonPrev {
+  left: -24px;
+}
+
+.navButtonNext {
+  right: -24px;
+}
+
+@media (max-width: 1280px) {
+  .navButtonPrev {
+    left: 0;
+  }
+
+  .navButtonNext {
+    right: 0;
+  }
+}
+
+@media (max-width: 640px) {
+  .navButton {
+    width: 40px;
+    height: 40px;
+  }
+
+  .navButtonPrev {
+    left: 4px;
+  }
+
+  .navButtonNext {
+    right: 4px;
+  }
+}
+
+/* Dot Indicators */
+.dotsContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 2rem;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: none;
+  background: hsl(var(--muted));
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.3s ease;
+}
+
+.dot:hover {
+  background: hsl(var(--primary) / 0.5);
+}
+
+.dot:focus-visible {
+  outline: 2px solid hsl(var(--primary));
+  outline-offset: 2px;
+}
+
+.dotActive {
+  background: hsl(var(--primary));
+  width: 24px;
+  border-radius: 5px;
+}
+
+/* Pause indicator */
+.pauseIndicator {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  padding: 4px 8px;
+  font-size: 12px;
+  background: hsl(var(--card) / 0.9);
+  border: 1px solid hsl(var(--border));
+  border-radius: 4px;
+  color: hsl(var(--muted-foreground));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.carouselContainer:hover .pauseIndicator {
+  opacity: 1;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .carouselTrack {
+    transition: none;
+  }
+
+  .testimonialCard,
+  .navButton,
+  .dot {
+    transition: none;
+  }
+}
+
+/* Touch swipe area indicator */
+.swipeHint {
+  display: none;
+  text-align: center;
+  color: hsl(var(--muted-foreground));
+  font-size: 0.875rem;
+  margin-top: 1rem;
+}
+
+@media (max-width: 768px) and (hover: none) {
+  .swipeHint {
+    display: block;
+  }
+}
+
+/* Card hover effects */
+.testimonialCard:hover {
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+}
+
+:global(.dark) .testimonialCard:hover {
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+/* Animation for cards entering view */
+@keyframes cardEnter {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.cardEnterAnimation {
+  animation: cardEnter 0.5s ease-out forwards;
+}
+
+/* Gradient fade edges */
+.fadeEdge {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 60px;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.fadeEdgeLeft {
+  left: 0;
+  background: linear-gradient(to right, hsl(var(--background)), transparent);
+}
+
+.fadeEdgeRight {
+  right: 0;
+  background: linear-gradient(to left, hsl(var(--background)), transparent);
+}
+
+@media (max-width: 640px) {
+  .fadeEdge {
+    width: 30px;
+  }
+}

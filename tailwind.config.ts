@@ -15,6 +15,10 @@ export default {
         'laptop': '1366px',    // Laptop/Desktop: 1366px - 1919px
         'desktop': '1920px',   // Desktop: 1920px+
       },
+        backgroundImage: {
+          'gradient-primary': 'linear-gradient(135deg, #336AD9 0%, #8B5CF6 100%)',
+          'gradient-secondary': 'linear-gradient(135deg, #8B5CF6 0%, #336AD9 100%)',
+        },
       colors: {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
