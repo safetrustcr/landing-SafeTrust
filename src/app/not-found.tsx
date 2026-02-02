@@ -1,13 +1,20 @@
 'use client'
 
-import React from 'react'
+import React, { useEffect } from 'react'
 import { motion } from 'framer-motion'
 import ErrorPage from '@/components/error/ErrorPage'
 import { FileX, Home, ArrowLeft } from 'lucide-react'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
+import { track404 } from '@/lib/analytics/events'
 
 export default function NotFound() {
+  // Track 404 errors
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      track404(window.location.pathname, document.referrer);
+    }
+  }, []);
   const customIllustration = (
     <motion.div
       initial={{ opacity: 0, scale: 0.8 }}

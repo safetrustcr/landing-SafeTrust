@@ -6,6 +6,31 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+/* Gradient Utilities */
+.bg-gradient-primary {
+  background: linear-gradient(135deg, #336AD9 0%, #8B5CF6 100%);
+}
+
+.bg-gradient-secondary {
+  background: linear-gradient(135deg, #8B5CF6 0%, #336AD9 100%);
+}
+
+.text-gradient-primary {
+  background: linear-gradient(135deg, #336AD9 0%, #8B5CF6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+.text-gradient-secondary {
+  background: linear-gradient(135deg, #8B5CF6 0%, #336AD9 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;

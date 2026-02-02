@@ -28,7 +28,6 @@ export function Logo({ size = "md", animated = false, className, "aria-label": a
       viewBox="0 0 64 64"
       className={cn(
         // Default color follows text color; tweak here as desired
-        "text-foreground",
         hoverClasses,
         className
       )}

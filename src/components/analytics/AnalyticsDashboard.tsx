@@ -1,7 +1,9 @@
+
 "use client";
 import React, { useState } from "react";
+import Link from "next/link";
 import { motion } from "framer-motion";
-import { RefreshCw, TrendingUp } from "lucide-react";
+import { RefreshCw, TrendingUp, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { MetricCard } from "./MetricCard";
@@ -76,13 +78,25 @@ export const AnalyticsDashboard: React.FC = () => {
           transition={{ duration: 0.6 }}
           className="flex flex-col min-[671px]:flex-row min-[671px]:items-center justify-between gap-4"
         >
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-bold text-white mb-2">
-              Analytics Dashboard
-            </h1>
-            <p className="text-base sm:text-lg text-muted-foreground">
-              Real-time insights into your platform&#39;s performance
-            </p>
+          <div className="flex items-start gap-4">
+            <Link href="/">
+              <Button 
+                variant="default"
+                size="sm"
+                className="mt-1 gap-2 bg-blue-600 hover:bg-blue-700 text-white shadow-lg shadow-blue-900/20"
+              >
+                <ArrowLeft className="w-4 h-4" />
+                Back
+              </Button>
+            </Link>
+            <div>
+              <h1 className="text-3xl sm:text-4xl font-bold text-white mb-2">
+                Analytics Dashboard
+              </h1>
+              <p className="text-base sm:text-lg text-muted-foreground">
+                Real-time insights into your platform&#39;s performance
+              </p>
+            </div>
           </div>
 
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full sm:w-auto">
@@ -136,10 +150,7 @@ export const AnalyticsDashboard: React.FC = () => {
                 key={metric.label}
                 metric={metric}
                 index={index}
-                isCurrency={
-                  metric.label.includes("Volume") ||
-                  metric.label.includes("Avg")
-                }
+                isCurrency={false}
               />
             ))}
           </div>
@@ -151,8 +162,8 @@ export const AnalyticsDashboard: React.FC = () => {
             {/* Main Chart */}
             <ChartContainer
               data={data}
-              title="Transaction Overview"
-              description="Interactive visualization of platform activity over time"
+              title="Traffic Overview"
+              description="Interactive visualization of page views and interactions over time"
               defaultType="line"
               height={450}
               showExport={true}
@@ -162,8 +173,8 @@ export const AnalyticsDashboard: React.FC = () => {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               <ChartContainer
                 data={data}
-                title="Volume Analysis"
-                description="Financial volume trends"
+                title="Engagement"
+                description="User interaction trends"
                 defaultType="area"
                 height={350}
                 showExport={false}
@@ -171,8 +182,8 @@ export const AnalyticsDashboard: React.FC = () => {
 
               <ChartContainer
                 data={data}
-                title="User Activity"
-                description="Platform user engagement metrics"
+                title="User Growth"
+                description="Active user metrics"
                 defaultType="bar"
                 height={350}
                 showExport={false}
@@ -213,8 +224,7 @@ export const AnalyticsDashboard: React.FC = () => {
                 No Data Available
               </h3>
               <p className="text-muted-foreground mb-6">
-                Select a different date range or check back later for analytics
-                data.
+                Start navigating the site to generate analytics data.
               </p>
               <Button onClick={handleRefresh} variant="outline">
                 <RefreshCw className="w-4 h-4 mr-2" />

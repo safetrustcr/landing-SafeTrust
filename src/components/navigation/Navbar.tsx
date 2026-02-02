@@ -1,5 +1,5 @@
 
-"use client";
+'use client';
 
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
@@ -26,6 +26,7 @@ const navigationItems = [
   { href: "#how-it-works", label: "How It Works" },
   { href: "#pricing", label: "Pricing" },
   { href: "/dashboard", label: "Dashboard" },
+  { href: "/dashboard/analytics", label: "Analytics" },
   { href: "/icons", label: "Icons" },
   { href: "#support", label: "Support" },
 ];
@@ -363,7 +364,6 @@ const Navbar: React.FC = () => {
         <MobileMenu
           isOpen={isMobileMenuOpen}
           onClose={closeMobileMenu}
-          isTablet={screenSize === 'tablet'}
           activeSection={activeSection}
           setActiveSection={setActiveSection}
         />
