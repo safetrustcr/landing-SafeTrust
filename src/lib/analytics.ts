@@ -49,6 +49,11 @@ class SimpleTracker {
   track(eventName: string, payload?: AnalyticsPayload) {
     if (!this.enabled || typeof window === 'undefined') return;
 
+    const pagePath = path || window.location.pathname;
+
+  track(eventName: string, payload?: AnalyticsPayload) {
+    if (!this.enabled || typeof window === 'undefined') return;
+
     const event: AnalyticsEvent = {
       type: 'custom',
       name: eventName,
