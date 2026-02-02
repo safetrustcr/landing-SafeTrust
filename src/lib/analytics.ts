@@ -1,4 +1,16 @@
-import * as gtag from './analytics/gtag';
+
+type EventType = 'page_view' | 'button_click' | 'form_submit' | 'custom';
+
+type AnalyticsPayload = Record<string, unknown>;
+
+export interface AnalyticsEvent {
+  type: EventType;
+  name: string; // e.g. 'page_view', 'get_started', 'contact_form'
+  timestamp: number;
+  url: string;
+  visitorId: string;
+  payload?: AnalyticsPayload;
+}
 
 class SimpleTracker {
   private enabled = false;
@@ -39,13 +51,12 @@ class SimpleTracker {
 
     const pagePath = path || window.location.pathname;
 
-    // Track in GA4
-    gtag.pageview(pagePath);
+  track(eventName: string, payload?: AnalyticsPayload) {
+    if (!this.enabled || typeof window === 'undefined') return;
 
-    // Track in internal logger
-    this.log({
-      type: 'page_view',
-      path: pagePath,
+    const event: AnalyticsEvent = {
+      type: 'custom',
+      name: eventName,
       timestamp: Date.now(),
       url: window.location.href,
       visitorId: this.visitorId,
@@ -65,21 +76,12 @@ class SimpleTracker {
     this.track('page_view', { path: path || window.location.pathname });
   }
 
-  buttonClick(name: string, extra?: Record<string, unknown>) {
+  buttonClick(name: string, extra?: AnalyticsPayload) {
     if (!this.enabled || typeof window === 'undefined') return;
 
-    // Track in GA4
-    gtag.event({
-      action: 'button_click',
-      category: 'engagement',
-      label: name,
-      ...extra,
-    });
-
-    // Track in internal logger
-    this.log({
-      type: 'click',
-      element: name,
+    const event: AnalyticsEvent = {
+      type: 'button_click',
+      name: name,
       timestamp: Date.now(),
       url: window.location.href,
       visitorId: this.visitorId,
@@ -90,19 +92,10 @@ class SimpleTracker {
     this.log(event);
   }
 
-  formSubmit(formName: string, extra?: Record<string, unknown>) {
+  formSubmit(formName: string, extra?: AnalyticsPayload) {
     if (!this.enabled || typeof window === 'undefined') return;
 
-    // Track in GA4
-    gtag.event({
-      action: 'form_submit',
-      category: 'form',
-      label: formName,
-      ...extra,
-    });
-
-    // Track in internal logger
-    this.log({
+    const event: AnalyticsEvent = {
       type: 'form_submit',
       name: formName,
       timestamp: Date.now(),
@@ -115,27 +108,36 @@ class SimpleTracker {
     this.log(event);
   }
 
-  logEvent(eventName: string, extra?: Record<string, unknown>) {
-    if (!this.enabled || typeof window === 'undefined') return;
-
-    // Track in GA4
-    gtag.event({
-      action: eventName,
-      category: 'custom',
-      label: eventName,
-      ...extra,
-    });
-
-    // Track in internal logger
-    this.log({
-      type: 'custom',
-      event: eventName,
-      timestamp: Date.now(),
-      ...extra
-    });
+  logEvent(eventName: string, extra?: AnalyticsPayload) {
+    this.track(eventName, extra);
   }
 
-  private log(data: Record<string, unknown>) {
+  getHistory(): AnalyticsEvent[] {
+    if (typeof window === 'undefined') return [];
+    try {
+      const stored = localStorage.getItem(this.STORAGE_KEY);
+      return stored ? JSON.parse(stored) : [];
+    } catch (e) {
+      console.error('Failed to parse analytics history', e);
+      return [];
+    }
+  }
+
+  private saveEvent(event: AnalyticsEvent) {
+    try {
+      const history = this.getHistory();
+      history.push(event);
+      // Keep last 1000 events to prevent quota exceeded
+      if (history.length > 1000) {
+        history.shift();
+      }
+      localStorage.setItem(this.STORAGE_KEY, JSON.stringify(history));
+    } catch (e) {
+      console.error('Failed to save analytics event', e);
+    }
+  }
+
+  private log(data: AnalyticsEvent) {
     if (this.debug) {
       console.log('Analytics Event:', data);
     }
