@@ -34,17 +34,29 @@ class SimpleTracker {
     return id;
   }
 
-  track(eventName: string, payload?: AnalyticsPayload) {
+  private saveEvent(event: Record<string, unknown>) {
+    if (typeof window === 'undefined') return;
+    try {
+      const events = JSON.parse(localStorage.getItem(this.STORAGE_KEY) || '[]');
+      events.push(event);
+      // Keep only last 100 events to prevent quota issues
+      if (events.length > 100) events.shift();
+      localStorage.setItem(this.STORAGE_KEY, JSON.stringify(events));
+    } catch (e) {
+      console.warn('Failed to save analytics event', e);
+    }
+  }
+
+  track(eventName: string, payload?: any) {
     if (!this.enabled || typeof window === 'undefined') return;
 
-    const pagePath = path || window.location.pathname;
+    const pagePath = window.location.pathname;
 
     // Track in GA4
     gtag.pageview(pagePath);
 
-    // Track in internal logger
-    this.log({
-      type: 'page_view',
+    const event = {
+      type: eventName === 'page_view' ? 'page_view' : 'custom',
       path: pagePath,
       timestamp: Date.now(),
       url: window.location.href,
@@ -52,9 +64,6 @@ class SimpleTracker {
       payload
     };
 
-    // Infer type from eventName for standard events if not explicitly handled
-    if (eventName === 'page_view') event.type = 'page_view';
-    
     this.saveEvent(event);
     this.log(event);
   }
@@ -76,8 +85,7 @@ class SimpleTracker {
       ...extra,
     });
 
-    // Track in internal logger
-    this.log({
+    const event = {
       type: 'click',
       element: name,
       timestamp: Date.now(),
@@ -101,8 +109,7 @@ class SimpleTracker {
       ...extra,
     });
 
-    // Track in internal logger
-    this.log({
+    const event = {
       type: 'form_submit',
       name: formName,
       timestamp: Date.now(),
@@ -126,13 +133,16 @@ class SimpleTracker {
       ...extra,
     });
 
-    // Track in internal logger
-    this.log({
+    const event = {
       type: 'custom',
       event: eventName,
       timestamp: Date.now(),
       ...extra
-    });
+    };
+
+    // Track in internal logger
+    this.saveEvent(event);
+    this.log(event);
   }
 
   private log(data: Record<string, unknown>) {
