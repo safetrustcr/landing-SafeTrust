@@ -2,13 +2,13 @@ import React from "react";
 
 interface Props {
   size?: string;
-  color?: string; 
+  color?: string;
   className?: string;
 }
 
 const LoadingPulse: React.FC<Props> = ({
   size = "w-12 h-12",
-  color = "#3b82f6", 
+  color = "#3b82f6",
   className,
 }) => {
   const isTailwindColor = typeof color === "string" && color.startsWith("bg-");

@@ -20,7 +20,7 @@ export function AnimatedLogo({
 }: AnimatedLogoProps) {
   return (
     <motion.div
-      className={cn("inline-flex items-center justify-center", className)}
+      className={cn("relative inline-flex items-center justify-center", className)}
       initial={{ scale: 1, opacity: 1 }}
       whileHover={animated ? { scale: 1.04, y: -1 } : undefined}
       whileTap={animated ? { scale: 0.96, y: 0 } : undefined}

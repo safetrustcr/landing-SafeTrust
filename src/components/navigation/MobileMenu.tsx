@@ -8,7 +8,6 @@ import NavigationLink from "./NavigationLink";
 interface MobileMenuProps {
   isOpen: boolean;
   onClose: () => void;
-  isTablet?: boolean;
   activeSection: string;
   setActiveSection: (section: string) => void;
 }
@@ -18,7 +17,6 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
   onClose,
   activeSection,
   setActiveSection,
-  isTablet = false,
 }) => {
   const [screenSize, setScreenSize] = useState<
     "mobile" | "tablet" | "laptop" | "desktop"
@@ -111,6 +109,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
     { href: "#how-it-works", label: "How It Works" },
     { href: "#pricing", label: "Pricing" },
     { href: "/dashboard", label: "Dashboard" },
+    { href: "/dashboard/analytics", label: "Analytics" },
     { href: "/icons", label: "Icons" },
     { href: "#support", label: "Support" },
   ];

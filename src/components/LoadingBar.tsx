@@ -1,7 +1,7 @@
 import React from "react";
 
 interface Props {
-  size?: string; 
+  size?: string;
   color?: string;
   className?: string;
 }
@@ -32,9 +32,7 @@ const LoadingBar: React.FC<Props> = ({
       {/* --- Pure-CSS Loading Bar --- */}
       <div className={`${size} bg-gray-700 rounded-full overflow-hidden`}>
         <div
-          className={`h-full ${
-            isTailwindColor ? color : ""
-          } animate-progress`}
+          className={`h-full ${isTailwindColor ? color : ""} animate-progress`}
           style={!isTailwindColor ? { backgroundColor: color } : {}}
         ></div>
       </div>

@@ -1,4 +1,3 @@
-
 "use client";
 
 import React, { useRef, useEffect, useState } from "react";
@@ -63,7 +62,7 @@ const Particle: React.FC<ParticleProps> = ({ start, end, delay }) => (
     animate={{
       x: end.x - start.x,
       y: end.y - start.y,
-      opacity: [0, 1, 0]
+      opacity: [0, 1, 0],
     }}
     transition={{ duration: 2, delay, repeat: Infinity }}
   />
@@ -75,11 +74,7 @@ const Button: React.FC<{
   onClick?: () => void;
   disabled?: boolean;
 }> = ({ children, className, onClick, disabled = false }) => (
-  <button
-    className={className}
-    onClick={onClick}
-    disabled={disabled}
-  >
+  <button className={className} onClick={onClick} disabled={disabled}>
     {children}
   </button>
 );
@@ -89,30 +84,34 @@ const HeroSection: React.FC<HeroSectionProps> = () => {
   const svgRef = useRef<SVGSVGElement>(null);
   const [isVisible, setIsVisible] = useState(false);
   const [isWalletModalOpen, setIsWalletModalOpen] = useState(false);
-  const [lines, setLines] = useState<Array<{
-    id: number;
-    start: { x: number; y: number };
-    end: { x: number; y: number };
-    duration: number;
-    delay: number;
-  }>>([]);
-  const [particles, setParticles] = useState<Array<{
-    id: number;
-    start: { x: number; y: number };
-    end: { x: number; y: number };
-    delay: number;
-  }>>([]);
+  const [lines, setLines] = useState<
+    Array<{
+      id: number;
+      start: { x: number; y: number };
+      end: { x: number; y: number };
+      duration: number;
+      delay: number;
+    }>
+  >([]);
+  const [particles, setParticles] = useState<
+    Array<{
+      id: number;
+      start: { x: number; y: number };
+      end: { x: number; y: number };
+      delay: number;
+    }>
+  >([]);
 
   // Use wallet hook for connection state
   const { isConnected, isConnecting, account, error } = useWallet();
 
   // Debug wallet state changes
   useEffect(() => {
-    console.log('[HeroSection] Wallet state changed:', {
+    console.log("[HeroSection] Wallet state changed:", {
       isConnected,
       isConnecting,
       account,
-      error
+      error,
     });
   }, [isConnected, isConnecting, account, error]);
 
@@ -122,17 +121,17 @@ const HeroSection: React.FC<HeroSectionProps> = () => {
 
   // Open wallet modal
   const openWalletModal = () => {
-    console.log('[HeroSection] Opening wallet modal');
+    console.log("[HeroSection] Opening wallet modal");
     setIsWalletModalOpen(true);
     buttonClick("connect_wallet_button", {
       location: "hero_section",
-      currentState: { isConnected, isConnecting }
+      currentState: { isConnected, isConnecting },
     });
   };
 
   // Close wallet modal
   const closeWalletModal = () => {
-    console.log('[HeroSection] Closing wallet modal');
+    console.log("[HeroSection] Closing wallet modal");
     setIsWalletModalOpen(false);
   };
 
@@ -145,14 +144,14 @@ const HeroSection: React.FC<HeroSectionProps> = () => {
       start: { x: Math.random() * 300, y: Math.random() * 300 },
       end: { x: Math.random() * 300, y: Math.random() * 300 },
       duration: 2 + Math.random() * 2,
-      delay: Math.random() * 2
+      delay: Math.random() * 2,
     }));
 
     const sampleParticles = Array.from({ length: 3 }, (_, i) => ({
-      id: i,
+      id: i + 100,
       start: { x: Math.random() * 300, y: Math.random() * 300 },
       end: { x: Math.random() * 300, y: Math.random() * 300 },
-      delay: Math.random() * 3
+      delay: Math.random() * 3,
     }));
 
     setLines(sampleLines);
@@ -163,13 +162,13 @@ const HeroSection: React.FC<HeroSectionProps> = () => {
   const getMainButtonConfig = () => {
     if (isConnecting) {
       return {
-        text: 'Connecting...',
+        text: "Connecting...",
         className: `
           px-6 py-3 text-lg flex items-center gap-2 rounded-lg font-medium
           focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200
           bg-blue-400 text-white cursor-not-allowed opacity-75
         `,
-        disabled: true
+        disabled: true,
       };
     }
 
@@ -181,18 +180,18 @@ const HeroSection: React.FC<HeroSectionProps> = () => {
           focus:outline-none focus:ring-2 focus:ring-green-500 transition-all duration-200
           bg-green-600 hover:bg-green-700 text-white cursor-pointer
         `,
-        disabled: false
+        disabled: false,
       };
     }
 
     return {
-      text: 'Connect Wallet',
+      text: "Connect Wallet",
       className: `
         px-6 py-3 text-lg flex items-center gap-2 rounded-lg font-medium
         focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200
         bg-blue-600 hover:bg-blue-700 text-white cursor-pointer
       `,
-      disabled: false
+      disabled: false,
     };
   };
 
@@ -200,33 +199,33 @@ const HeroSection: React.FC<HeroSectionProps> = () => {
   const getSecondaryButtonConfig = () => {
     if (isConnecting) {
       return {
-        text: 'Connecting...',
+        text: "Connecting...",
         className: `
           group font-semibold py-4 px-8 rounded-xl transition-all duration-300 flex items-center gap-3 text-lg
           bg-purple-400 cursor-not-allowed opacity-75 text-white
         `,
-        disabled: true
+        disabled: true,
       };
     }
 
     if (isConnected) {
       return {
-        text: 'Wallet Connected',
+        text: "Wallet Connected",
         className: `
           group font-semibold py-4 px-8 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-xl flex items-center gap-3 text-lg
           bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 hover:shadow-green-500/25 text-white cursor-pointer
         `,
-        disabled: false
+        disabled: false,
       };
     }
 
     return {
-      text: 'Connect Wallet',
+      text: "Connect Wallet",
       className: `
         group font-semibold py-4 px-8 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-xl hover:shadow-purple-500/25 flex items-center gap-3 text-lg
         bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white cursor-pointer
       `,
-      disabled: false
+      disabled: false,
     };
   };
 
@@ -235,7 +234,10 @@ const HeroSection: React.FC<HeroSectionProps> = () => {
 
   return (
     <div className="min-h-screen bg-[#0a0a15] text-white overflow-hidden relative">
-      <a href="#main-content" className="skip-to-content sr-only focus:not-sr-only">
+      <a
+        href="#main-content"
+        className="skip-to-content sr-only focus:not-sr-only"
+      >
         Skip to main content
       </a>
 
@@ -305,9 +307,7 @@ const HeroSection: React.FC<HeroSectionProps> = () => {
               animate={{ opacity: 1, y: 0 }}
               className="p-3 bg-red-900/20 border border-red-600/30 rounded-lg"
             >
-              <p className="text-red-400 text-sm">
-                {error}
-              </p>
+              <p className="text-red-400 text-sm">{error}</p>
             </motion.div>
           )}
         </div>
@@ -383,10 +383,9 @@ const HeroSection: React.FC<HeroSectionProps> = () => {
         </h2>
 
         <p className="text-lg sm:text-xl lg:text-2xl text-gray-300 w-full max-w-5xl mx-auto leading-relaxed font-medium">
-          Experience the power of decentralized trust and seamless
-          blockchain transactions. Our blue-chip security standards ensure
-          your deposits are always protected in our revolutionary P2P
-          platform.
+          Experience the power of decentralized trust and seamless blockchain
+          transactions. Our blue-chip security standards ensure your deposits
+          are always protected in our revolutionary P2P platform.
         </p>
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-6 pt-8">
@@ -417,9 +416,7 @@ const HeroSection: React.FC<HeroSectionProps> = () => {
           </div>
           <div className="flex items-center gap-2 text-gray-400">
             <Lock className="w-5 h-5 text-blue-400" />
-            <span className="text-sm font-medium">
-              End-to-End Encrypted
-            </span>
+            <span className="text-sm font-medium">End-to-End Encrypted</span>
           </div>
           <div className="flex items-center gap-2 text-gray-400">
             <div className="w-5 h-5 bg-gradient-to-r from-yellow-400 to-orange-400 rounded-full flex items-center justify-center">
@@ -431,10 +428,7 @@ const HeroSection: React.FC<HeroSectionProps> = () => {
       </section>
 
       {/* Wallet Modal */}
-      <WalletModal
-        isOpen={isWalletModalOpen}
-        onClose={closeWalletModal}
-      />
+      <WalletModal isOpen={isWalletModalOpen} onClose={closeWalletModal} />
 
       <style jsx>{`
         .skip-to-content {

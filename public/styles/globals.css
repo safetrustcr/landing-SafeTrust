@@ -6,6 +6,31 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+/* Gradient Utilities */
+.bg-gradient-primary {
+  background: linear-gradient(135deg, #336ad9 0%, #8b5cf6 100%);
+}
+
+.bg-gradient-secondary {
+  background: linear-gradient(135deg, #8b5cf6 0%, #336ad9 100%);
+}
+
+.text-gradient-primary {
+  background: linear-gradient(135deg, #336ad9 0%, #8b5cf6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+.text-gradient-secondary {
+  background: linear-gradient(135deg, #8b5cf6 0%, #336ad9 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -67,6 +92,7 @@ body {
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground transition-colors duration-300;
   }
@@ -103,20 +129,25 @@ body {
   0% {
     opacity: 0.5;
   }
+
   50% {
     opacity: 1;
   }
+
   100% {
     opacity: 0.5;
   }
 }
+
 @keyframes progress {
   0% {
     transform: translateX(-100%);
   }
+
   50% {
     transform: translateX(0%);
   }
+
   100% {
     transform: translateX(100%);
   }
@@ -127,6 +158,7 @@ body {
     opacity: 0;
     transform: translateY(10px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -138,6 +170,7 @@ body {
     opacity: 0;
     transform: translateX(20px);
   }
+
   to {
     opacity: 1;
     transform: translateX(0);
@@ -185,6 +218,7 @@ body {
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
@@ -195,9 +229,11 @@ body {
   0% {
     transform: translateX(-100%);
   }
+
   50% {
     transform: translateX(0%);
   }
+
   100% {
     transform: translateX(100%);
   }
@@ -206,29 +242,6 @@ body {
 .animate-indeterminate-progress {
   animation: indeterminate-progress 1.5s ease-in-out infinite;
   width: 40%;
-}
-
-.btn-loading {
-  position: relative;
-  pointer-events: none;
-}
-
-.btn-loading::before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 16px;
-  height: 16px;
-  margin: -8px 0 0 -8px;
-  border: 2px solid transparent;
-  border-top: 2px solid currentColor;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-}
-
-.btn-loading > * {
-  opacity: 0;
 }
 
 /* Search Icon Animations */
@@ -261,9 +274,11 @@ body {
   0% {
     transform: rotate(0deg) scale(1);
   }
+
   50% {
     transform: rotate(22.5deg) scale(1.05);
   }
+
   100% {
     transform: rotate(45deg) scale(1.1);
   }
@@ -273,9 +288,11 @@ body {
   0% {
     transform: rotate(45deg) scale(1.1);
   }
+
   50% {
     transform: rotate(22.5deg) scale(1.05);
   }
+
   100% {
     transform: rotate(0deg) scale(1);
   }
@@ -296,7 +313,7 @@ body {
   }
 
   .btn-animate:active {
-    transform: scale(0.95);
+    transform: scale(0.98);
     transition-duration: 100ms;
   }
 
