@@ -3,6 +3,8 @@
 import dynamic from 'next/dynamic';
 import { HeroSection } from "@/components/Hero";
 import { LazySkeletonFallback } from "@/components/LazyWrapper";
+import SwipeNavigation from '@/components/SwipeNavigation';
+import PullToRefresh from "@/components/ui/PullToRefresh";
 
 const FaqSection = dynamic(() => import("@/components/FaqSection"), {
   loading: () => <LazySkeletonFallback height="400px" className="my-8" />,
@@ -34,16 +36,43 @@ const TestimonialSection = dynamic(() => import("@/components/TestimonialSection
 });
 
 export default function Home() {
+  const handleRefresh = async () => {
+    // Simulate refresh delay
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+    window.location.reload();
+  };
+
+  const sections = [
+    { id: "hero", title: "Hero", content: <HeroSection /> },
+    { id: "discover", title: "Discover", content: <Discover /> },
+    { id: "howItworks", title: "How It Works", content: <HowItWorksSection /> },
+    { id: "securitySection", title: "Security Section", content: <SecuritySection /> },
+    { id: "testimonialSection", title: "Testimonial Section", content: <TestimonialSection /> },
+    { id: "faqSection", title: "Faq Section", content: <FaqSection /> },
+    { id: "transactionTiers", title: "Transaction Tiers", content: <TransactionTiers /> },
+    { id: "footer", title: "Footer", content: <Footer /> },
+  ]
+
   return (
     <>
-      <HeroSection />
-      <Discover />
-      <HowItWorksSection />
-      <SecuritySection />
-      <TestimonialSection />
-      <FaqSection />
-      <TransactionTiers />
-      <Footer />
+      {/* Mobile Navigation */}
+      <PullToRefresh onRefresh={handleRefresh}>
+        <div className="block md:hidden h-[calc(100vh-70px)]">
+          <SwipeNavigation sections={sections} />
+        </div>
+      </PullToRefresh>
+
+      {/* Desktop Content */}
+      <main className="hidden md:block">
+        <HeroSection />
+        <Discover />
+        <HowItWorksSection />
+        <SecuritySection />
+        <TestimonialSection />
+        <FaqSection />
+        <TransactionTiers />
+        <Footer />
+      </main>
     </>
   );
 }
