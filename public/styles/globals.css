@@ -8,15 +8,15 @@ body {
 
 /* Gradient Utilities */
 .bg-gradient-primary {
-  background: linear-gradient(135deg, #336AD9 0%, #8B5CF6 100%);
+  background: linear-gradient(135deg, #336ad9 0%, #8b5cf6 100%);
 }
 
 .bg-gradient-secondary {
-  background: linear-gradient(135deg, #8B5CF6 0%, #336AD9 100%);
+  background: linear-gradient(135deg, #8b5cf6 0%, #336ad9 100%);
 }
 
 .text-gradient-primary {
-  background: linear-gradient(135deg, #336AD9 0%, #8B5CF6 100%);
+  background: linear-gradient(135deg, #336ad9 0%, #8b5cf6 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -24,7 +24,7 @@ body {
 }
 
 .text-gradient-secondary {
-  background: linear-gradient(135deg, #8B5CF6 0%, #336AD9 100%);
+  background: linear-gradient(135deg, #8b5cf6 0%, #336ad9 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -191,6 +191,12 @@ body {
   transition: all 150ms ease;
   transform-origin: center;
   will-change: transform;
+}
+
+.btn-animate-none:hover:not(:disabled),
+.btn-animate-none:active:not(:disabled) {
+  transform: none !important;
+  transition: none !important;
 }
 
 .btn-animate:hover:not(:disabled) {

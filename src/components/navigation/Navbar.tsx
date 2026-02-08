@@ -20,6 +20,7 @@ import {
   LogOut,
   Loader2
 } from 'lucide-react';
+import TouchFeedback from '../ui/TouchFeedback';
 
 const navigationItems = [
   { href: "#features", label: "Features" },
@@ -283,21 +284,23 @@ const Navbar: React.FC = () => {
     // Disconnected state
     return (
       <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-        <Button
-          variant="outline"
-          onClick={openWalletModal}
-          className={`
+        <TouchFeedback borderRadius="0.375rem">
+          <Button
+            variant="outline"
+            // onClick={openWalletModal}
+            className={`
             border-blue-600 dark:border-blue-400 text-blue-600 dark:text-blue-400 
             hover:bg-blue-600/10 dark:hover:bg-blue-400/10 hover:text-blue-700 dark:hover:text-blue-300 
             focus:outline-none focus:bg-blue-600/10 dark:focus:bg-blue-400/10 focus:text-blue-700 dark:focus:text-blue-300 
             focus:border-blue-500 dark:focus:border-blue-300 focus:shadow-lg focus:shadow-blue-500/25 dark:focus:shadow-blue-400/25 
-            transition-all duration-300 flex items-center gap-2
+            transition-all duration-300 flex items-center gap-2 !btn-animate-none btn-animate-none
             ${isMobile ? 'text-sm px-3 py-2' : ''}
           `}
-        >
-          <Wallet className={`${isMobile ? 'w-4 h-4' : 'w-5 h-5'}`} />
-          Connect Wallet
-        </Button>
+          >
+            <Wallet className={`${isMobile ? 'w-4 h-4' : 'w-5 h-5'}`} />
+            Connect Wallet
+          </Button>
+        </TouchFeedback>
       </motion.div>
     );
   };
@@ -370,9 +373,9 @@ const Navbar: React.FC = () => {
       )}
 
       {/* Wallet Modal */}
-      <WalletModal 
-        isOpen={isWalletModalOpen} 
-        onClose={closeWalletModal} 
+      <WalletModal
+        isOpen={isWalletModalOpen}
+        onClose={closeWalletModal}
       />
     </>
   );
