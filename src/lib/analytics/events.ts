@@ -156,6 +156,16 @@ export const trackTimeOnPage = (timeInSeconds: number, pageUrl?: string): void =
   });
 };
 
+// Newsletter signup tracking
+export const trackNewsletterSignup = (email?: string): void => {
+  event({
+    action: 'newsletter_signup',
+    category: 'conversion',
+    label: 'newsletter',
+    email: email,
+  });
+};
+
 // User signup/registration tracking
 export const trackSignup = (method: string, userId?: string): void => {
   event({

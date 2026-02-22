@@ -1,0 +1,66 @@
+.newsletterForm {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.newsletterFormCompact {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.successMessage {
+  text-align: center;
+  padding: 1.5rem;
+}
+
+.successMessage h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.successMessage p {
+  font-size: 0.875rem;
+  color: var(--muted-foreground, #6b7280);
+}
+
+.errorMessage {
+  padding: 0.75rem 1rem;
+  background-color: rgb(254 226 226);
+  border: 1px solid rgb(254 202 202);
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  color: rgb(153 27 27);
+}
+
+.errorMessageDark {
+  background-color: rgb(127 29 29 / 0.3);
+  border-color: rgb(185 28 28);
+  color: rgb(254 202 202);
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.inputGroupRow {
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.consentLabel {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  cursor: pointer;
+}
+
+.consentLabel input {
+  margin-top: 0.25rem;
+  flex-shrink: 0;
+}
