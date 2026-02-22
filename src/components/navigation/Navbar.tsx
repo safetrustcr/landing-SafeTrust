@@ -3,6 +3,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import HamburgerButton from '@/components/ui/hamburger-button';
 import MobileMenu from './MobileMenu';
@@ -315,9 +316,13 @@ const Navbar: React.FC = () => {
           whileTap={{ scale: 0.95 }}
           transition={{ duration: 0.2 }}
         >
-          <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center">
-            <span className="text-white font-bold text-sm">S</span>
-          </div>
+          <Image
+            src="/landing-logo.jpeg"
+            alt="SafeTrust"
+            width={32}
+            height={32}
+            className="rounded-lg object-cover"
+          />
           <span className="text-xl font-semibold bg-gradient-to-r from-blue-600 to-blue-400 dark:from-blue-400 dark:to-blue-200 bg-clip-text text-transparent transition-colors duration-300">
             SafeTrust
           </span>

@@ -1,5 +1,4 @@
 import * as React from "react"
-import { Slot } from "@radix-ui/react-slot"
 import { cva, type VariantProps } from "class-variance-authority"
 
 import { Loader2 } from "lucide-react"
@@ -46,22 +45,46 @@ export interface ButtonProps
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant, size, asChild = false, loading = false, disabled, children, ...props }, ref) => {
-    const Comp = asChild ? Slot : "button"
     const isDisabled = disabled || loading
+    const mergedClassName = cn(
+      buttonVariants({ variant, size }),
+      className
+    )
+
+    if (asChild) {
+      const childArray = React.Children.toArray(children)
+      const child = childArray[0]
+      if (!React.isValidElement(child)) {
+        return (
+          <button
+            className={mergedClassName}
+            ref={ref}
+            disabled={isDisabled}
+            {...props}
+          >
+            {children}
+          </button>
+        )
+      }
+      const { disabled: _disabled, ...restProps } = props
+      return React.cloneElement(child, {
+        ...restProps,
+        className: cn(mergedClassName, (child.props as { className?: string }).className),
+        ref: ref as React.Ref<unknown>,
+        ...(isDisabled && { "aria-disabled": isDisabled }),
+      } as Record<string, unknown>)
+    }
 
     return (
-      <Comp
-        className={cn(
-          buttonVariants({ variant, size }),
-          className
-        )}
+      <button
+        className={mergedClassName}
         ref={ref}
         disabled={isDisabled}
         {...props}
       >
         {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
         {children}
-      </Comp>
+      </button>
     )
   }
 )

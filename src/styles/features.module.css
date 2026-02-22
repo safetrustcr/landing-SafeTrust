@@ -1,0 +1,201 @@
+.featuresSection {
+  padding: 4rem 0;
+  background: hsl(var(--background));
+  color: hsl(var(--foreground));
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.featuresContainer {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.featuresHeader {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.featuresTitle {
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: 700;
+  color: hsl(var(--foreground));
+  margin-bottom: 0.5rem;
+}
+
+.featuresSubtitle {
+  font-size: 1.125rem;
+  color: hsl(var(--muted-foreground));
+}
+
+.tabsWrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.tab {
+  padding: 0.5rem 1rem;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  border-radius: 0.5rem;
+  border: 1px solid hsl(var(--border));
+  background: hsl(var(--card));
+  color: hsl(var(--foreground));
+  cursor: pointer;
+  transition: background-color 0.2s, border-color 0.2s, color 0.2s;
+}
+
+.tab:hover {
+  background: hsl(var(--accent));
+  border-color: hsl(var(--primary) / 0.3);
+}
+
+.tab:focus-visible {
+  outline: 2px solid hsl(var(--primary));
+  outline-offset: 2px;
+}
+
+.tabActive {
+  background: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+  border-color: hsl(var(--primary));
+}
+
+.featureGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.featureCard {
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+  border: 1px solid hsl(var(--border));
+  background: hsl(var(--card));
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+  cursor: default;
+}
+
+.featureCard:hover,
+.featureCard:focus-within {
+  border-color: hsl(var(--primary) / 0.4);
+  box-shadow: 0 8px 24px hsl(var(--foreground) / 0.08);
+}
+
+.featureCard:focus-visible {
+  outline: 2px solid hsl(var(--primary));
+  outline-offset: 2px;
+}
+
+.featureIconWrapper {
+  display: inline-flex;
+  margin-bottom: 1rem;
+  transition: transform 0.25s ease;
+}
+
+.featureCard:hover .featureIconWrapper,
+.featureCard:focus-within .featureIconWrapper {
+  transform: scale(1.1);
+}
+
+.featureIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 0.5rem;
+  background: hsl(var(--primary) / 0.12);
+  color: hsl(var(--primary));
+  transition: background-color 0.25s, color 0.25s;
+}
+
+.featureCard:hover .featureIcon,
+.featureCard:focus-within .featureIcon {
+  background: hsl(var(--primary) / 0.2);
+  color: hsl(var(--primary));
+}
+
+.featureTitle {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: hsl(var(--foreground));
+  margin: 0 0 0.5rem 0;
+}
+
+.featureDescription {
+  font-size: 0.9375rem;
+  color: hsl(var(--muted-foreground));
+  margin: 0 0 0.75rem 0;
+  line-height: 1.5;
+}
+
+.featureDetails {
+  overflow: hidden;
+}
+
+.featureDetailsText {
+  font-size: 0.875rem;
+  color: hsl(var(--muted-foreground));
+  line-height: 1.55;
+  margin: 0 0 0.75rem 0;
+}
+
+.featureCta {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: hsl(var(--primary));
+  text-decoration: none;
+  display: inline-block;
+  transition: color 0.2s, text-decoration 0.2s;
+}
+
+.featureCta:hover {
+  text-decoration: underline;
+}
+
+.featureCta:focus-visible {
+  outline: 2px solid hsl(var(--primary));
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+@media (min-width: 640px) {
+  .featureGrid {
+    gap: 1.75rem;
+  }
+
+  .featureCard {
+    padding: 1.75rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .featureGrid {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .featureCard {
+    min-height: 44px;
+    touch-action: manipulation;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .featureCard,
+  .featureIconWrapper,
+  .featureIcon {
+    transition: none;
+  }
+
+  .featureCard:hover .featureIconWrapper {
+    transform: none;
+  }
+}
