@@ -23,6 +23,10 @@ const Footer = dynamic(
   { loading: () => <LazySkeletonFallback height="200px" /> }
 );
 
+const FeaturesSection = dynamic(() => import("@/components/Features/FeaturesSection"), {
+  loading: () => <LazySkeletonFallback height="500px" className="my-8" />,
+});
+
 const HowItWorksSection = dynamic(() => import("@/components/HowItWorksSection"), {
   loading: () => <LazySkeletonFallback height="500px" className="my-8" />,
 });
@@ -45,6 +49,7 @@ export default function Home() {
   const sections = [
     { id: "hero", title: "Hero", content: <HeroSection /> },
     { id: "discover", title: "Discover", content: <Discover /> },
+    { id: "features", title: "Features", content: <FeaturesSection /> },
     { id: "howItworks", title: "How It Works", content: <HowItWorksSection /> },
     { id: "securitySection", title: "Security Section", content: <SecuritySection /> },
     { id: "testimonialSection", title: "Testimonial Section", content: <TestimonialSection /> },
@@ -66,6 +71,7 @@ export default function Home() {
       <main className="hidden md:block">
         <HeroSection />
         <Discover />
+        <FeaturesSection />
         <HowItWorksSection />
         <SecuritySection />
         <TestimonialSection />

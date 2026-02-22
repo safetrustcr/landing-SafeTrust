@@ -5,7 +5,8 @@ import { motion } from 'framer-motion'
 import ErrorPage from '@/components/error/ErrorPage'
 import { ServerCrash, RefreshCw, Home, Mail, Phone } from 'lucide-react'
 import Link from 'next/link'
-import { Button } from '@/components/ui/button'
+import { Button, buttonVariants } from '@/components/ui/button'
+import { cn } from '@/lib/utils'
 
 interface ErrorProps {
   error: Error & { digest?: string }
@@ -38,12 +39,13 @@ export default function Error({ reset }: ErrorProps) {
           <RefreshCw className="w-4 h-4 mr-2" />
           Try Again
         </Button>
-        <Button variant="outline" asChild className="flex-1">
-          <Link href="/">
-            <Home className="w-4 h-4 mr-2" />
-            Go Home
-          </Link>
-        </Button>
+        <Link
+          href="/"
+          className={cn(buttonVariants({ variant: 'outline' }), 'flex-1 inline-flex items-center justify-center gap-2')}
+        >
+          <Home className="w-4 h-4" />
+          Go Home
+        </Link>
       </div>
       
       {/* Contact Support Section */}
@@ -57,18 +59,20 @@ export default function Error({ reset }: ErrorProps) {
           Still having issues? Our support team is here to help.
         </p>
         <div className="flex flex-wrap justify-center gap-2">
-          <Button variant="ghost" size="sm" asChild>
-            <Link href="mailto:support@safetrust.com">
-              <Mail className="w-4 h-4 mr-2" />
-              Email Support
-            </Link>
-          </Button>
-          <Button variant="ghost" size="sm" asChild>
-            <Link href="tel:+1-800-SAFETRUST">
-              <Phone className="w-4 h-4 mr-2" />
-              Call Support
-            </Link>
-          </Button>
+          <Link
+            href="mailto:support@safetrust.com"
+            className={cn(buttonVariants({ variant: 'ghost', size: 'sm' }), 'inline-flex items-center gap-2')}
+          >
+            <Mail className="w-4 h-4" />
+            Email Support
+          </Link>
+          <Link
+            href="tel:+1-800-SAFETRUST"
+            className={cn(buttonVariants({ variant: 'ghost', size: 'sm' }), 'inline-flex items-center gap-2')}
+          >
+            <Phone className="w-4 h-4" />
+            Call Support
+          </Link>
         </div>
       </motion.div>
     </div>
