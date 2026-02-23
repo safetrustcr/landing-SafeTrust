@@ -17,7 +17,7 @@ export function Footer() {
       <div className="container mx-auto px-6 sm:px-8 lg:px-12 relative z-10">
         {/* Header area with logo and newsletter */}
         <div className="flex flex-col md:flex-row justify-between items-center mb-16">
-          <div className="flex items-center mb-6 md:mb-0">
+          <div className="flex items-center mb-6 md:mb-0" suppressHydrationWarning>
             <Image
               src="/landing-logo.jpeg"
               alt="SafeTrust"
