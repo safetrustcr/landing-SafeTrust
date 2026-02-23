@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import ReCAPTCHA from "../ReCAPTCHA ";
+import ReCAPTCHA from "../ReCAPTCHA";
 import { isValidEmail } from "@/lib/validation/email";
 import { trackFormSubmit, trackNewsletterSignup } from "@/lib/analytics/events";
 import { Loader2, AlertCircle } from "lucide-react";
@@ -160,6 +160,8 @@ export function NewsletterForm({ variant = "default", onSuccess }: NewsletterFor
           onChange={(e) => setFormData((prev) => ({ ...prev, agreedToNewsletter: e.target.checked }))}
           disabled={loading}
           required
+          aria-invalid={!!fieldErrors.consent}
+          aria-describedby={fieldErrors.consent ? "consent-error-id" : undefined}
         />
         <span>
           I agree to receive newsletter updates from SafeTrust{" "}
@@ -167,7 +169,9 @@ export function NewsletterForm({ variant = "default", onSuccess }: NewsletterFor
         </span>
       </label>
       {fieldErrors.consent && (
-        <p className="text-sm text-red-600">{fieldErrors.consent}</p>
+        <p id="consent-error-id" className="text-sm text-red-600" role="alert">
+          {fieldErrors.consent}
+        </p>
       )}
 
       {siteKey ? (

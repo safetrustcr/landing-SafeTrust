@@ -99,7 +99,6 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    console.error('Newsletter subscription error:', error);
     return NextResponse.json(
       { error: 'Subscription failed. Please try again later.' },
       { status: 500 }
