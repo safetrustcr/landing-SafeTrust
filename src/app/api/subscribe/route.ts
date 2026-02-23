@@ -13,10 +13,11 @@ async function verifyRecaptcha(token: string): Promise<boolean> {
   const secretKey = process.env.RECAPTCHA_SECRET_KEY;
   if (!secretKey) return false;
 
+  const params = new URLSearchParams({ secret: secretKey, response: token });
   const response = await fetch('https://www.google.com/recaptcha/api/siteverify', {
     method: 'POST',
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    body: `secret=${secretKey}&response=${token}`,
+    body: params.toString(),
   });
 
   const data = await response.json();
@@ -25,7 +26,15 @@ async function verifyRecaptcha(token: string): Promise<boolean> {
 
 export async function POST(request: NextRequest) {
   try {
-    const body: SubscribeBody = await request.json();
+    let body: SubscribeBody;
+    try {
+      body = await request.json();
+    } catch {
+      return NextResponse.json(
+        { error: 'Invalid request body' },
+        { status: 400 }
+      );
+    }
 
     const { email, name, agreedToNewsletter, recaptchaToken } = body;
 
@@ -71,12 +80,23 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     const message = error instanceof Error ? error.message : 'Subscription failed';
     const isMailchimpError = message.includes('already a list member') || message.includes('invalid');
-
+    const isAlreadySubscribed = message.includes('already a list member') ||
+      message.includes('Member Exists');
+    const isInvalidEmail = message.includes('looks fake or invalid');
     if (isMailchimpError) {
-      return NextResponse.json(
-        { error: 'This email is already subscribed.' },
-        { status: 409 }
-      );
+      if (isAlreadySubscribed) {
+        return NextResponse.json(
+          { error: 'This email is already subscribed.' },
+          { status: 409 }
+        );
+      }
+
+      if (isInvalidEmail) {
+        return NextResponse.json(
+          { error: 'This email address appears to be invalid.' },
+          { status: 400 }
+        );
+      }
     }
 
     console.error('Newsletter subscription error:', error);

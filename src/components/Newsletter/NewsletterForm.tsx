@@ -91,7 +91,7 @@ export function NewsletterForm({ variant = "default", onSuccess }: NewsletterFor
       setRecaptchaVerified(false);
 
       trackFormSubmit("newsletter", "newsletter_signup", true);
-      trackNewsletterSignup(formData.email);
+      trackNewsletterSignup();
       onSuccess?.();
     } catch (err) {
       const message = err instanceof Error ? err.message : "An error occurred";
@@ -130,7 +130,6 @@ export function NewsletterForm({ variant = "default", onSuccess }: NewsletterFor
           onChange={(e) => setFormData((prev) => ({ ...prev, email: e.target.value }))}
           className="bg-card border-border rounded-md text-muted-foreground pl-4 backdrop-blur-sm focus:border-primary focus:ring-primary/20 transition-colors duration-300"
           disabled={loading}
-          required
           aria-invalid={!!fieldErrors.email}
           aria-describedby={fieldErrors.email ? "email-error" : undefined}
         />

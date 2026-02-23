@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import Image from "next/image";
 import { NewsletterForm } from "@/components/Newsletter";
 
 export function Footer() {
