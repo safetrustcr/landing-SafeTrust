@@ -1,3 +1,4 @@
+![CodeRabbit Pull Request Reviews](https://img.shields.io/coderabbit/prs/github/safetrustcr/landing-SafeTrust?utm_source=oss&utm_medium=github&utm_campaign=safetrustcr%2Flanding-SafeTrust&labelColor=171717&color=FF570A&link=https%3A%2F%2Fcoderabbit.ai&label=CodeRabbit+Reviews)
 # 🌐 SafeTrust - Landing Page
 
 Welcome to **SafeTrust** – a modern, sleek, and interactive landing page designed to make secure transactions P2P effortless. With the latest web technologies, SafeTrust leverages **Next.js** for efficient server-side rendering and **React** for a smooth, component-based user experience.

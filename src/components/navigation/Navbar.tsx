@@ -4,6 +4,7 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import HamburgerButton from '@/components/ui/hamburger-button';
 import MobileMenu from './MobileMenu';
@@ -29,7 +30,6 @@ const navigationItems = [
   { href: "#pricing", label: "Pricing" },
   { href: "/dashboard", label: "Dashboard" },
   { href: "/dashboard/analytics", label: "Analytics" },
-  { href: "/icons", label: "Icons" },
   { href: "#support", label: "Support" },
 ];
 
@@ -317,11 +317,11 @@ const Navbar: React.FC = () => {
           transition={{ duration: 0.2 }}
         >
           <Image
-            src="/images/safetrust-logo.png"
+            src="/landing-logo.jpeg"
             alt="SafeTrust"
-            width={36}
-            height={36}
-            className="rounded-md"
+            width={32}
+            height={32}
+            className="rounded-lg object-cover"
           />
           <span className="text-xl font-semibold bg-gradient-to-r from-blue-600 to-blue-400 dark:from-blue-400 dark:to-blue-200 bg-clip-text text-transparent transition-colors duration-300">
             SafeTrust

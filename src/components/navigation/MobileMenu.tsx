@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import NavigationLink from "./NavigationLink";
 
@@ -110,7 +111,6 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
     { href: "#pricing", label: "Pricing" },
     { href: "/dashboard", label: "Dashboard" },
     { href: "/dashboard/analytics", label: "Analytics" },
-    { href: "/icons", label: "Icons" },
     { href: "#support", label: "Support" },
   ];
 
@@ -148,9 +148,13 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
               {/* Header */}
               <div className="flex items-center justify-between p-6 border-b border-border dark:border-border">
                 <div className="flex items-center gap-2">
-                  <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center">
-                    <span className="text-white font-bold text-sm">S</span>
-                  </div>
+                  <Image
+                    src="/landing-logo.jpeg"
+                    alt="SafeTrust"
+                    width={32}
+                    height={32}
+                    className="rounded-lg object-cover"
+                  />
                   <span className="text-xl font-semibold bg-gradient-to-r from-blue-600 to-blue-400 dark:from-blue-400 dark:to-blue-200 bg-clip-text text-transparent">
                     SafeTrust
                   </span>

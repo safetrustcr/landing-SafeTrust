@@ -5,7 +5,8 @@ import { motion } from 'framer-motion'
 import ErrorPage from '@/components/error/ErrorPage'
 import { FileX, Home, ArrowLeft } from 'lucide-react'
 import Link from 'next/link'
-import { Button } from '@/components/ui/button'
+import { buttonVariants } from '@/components/ui/button'
+import { cn } from '@/lib/utils'
 import { track404 } from '@/lib/analytics/events'
 
 export default function NotFound() {
@@ -35,18 +36,20 @@ export default function NotFound() {
 
   const customAction = (
     <div className="flex flex-col sm:flex-row gap-3 justify-center">
-      <Button asChild className="flex-1">
-        <Link href="/">
-          <Home className="w-4 h-4 mr-2" />
-          Go Home
-        </Link>
-      </Button>
-      <Button variant="outline" asChild className="flex-1">
-        <Link href="javascript:history.back()">
-          <ArrowLeft className="w-4 h-4 mr-2" />
-          Go Back
-        </Link>
-      </Button>
+      <Link
+        href="/"
+        className={cn(buttonVariants(), 'flex-1 inline-flex items-center justify-center gap-2')}
+      >
+        <Home className="w-4 h-4" />
+        Go Home
+      </Link>
+      <Link
+        href="javascript:history.back()"
+        className={cn(buttonVariants({ variant: 'outline' }), 'flex-1 inline-flex items-center justify-center gap-2')}
+      >
+        <ArrowLeft className="w-4 h-4" />
+        Go Back
+      </Link>
     </div>
   )
 
