@@ -51,6 +51,7 @@ export const WALLET_PROVIDERS: WalletProvider[] = [
     icon: "/images/wallets/metamask.svg",
     description: "Connect using MetaMask wallet",
     type: "browser",
+    downloadUrl: "https://metamask.io/download/",
     deepLink: {
       native: "metamask://dapp/",
       universal: "https://metamask.app.link/dapp/",
@@ -69,6 +70,7 @@ export const WALLET_PROVIDERS: WalletProvider[] = [
     icon: "/images/wallets/coinbase.svg",
     description: "Connect using Coinbase Wallet",
     type: "browser",
+    downloadUrl: "https://www.coinbase.com/wallet/downloads",
     deepLink: {
       native: "cbwallet://dapp",
       universal: "https://go.cb-w.com/dapp",
