@@ -15,7 +15,7 @@ import {
 import React, { useEffect, useState } from "react";
 import FormField from "./FormField";
 import FileUpload from "./FileUpload";
-import ReCAPTCHA from "../ReCAPTCHA ";
+import ReCAPTCHA from "../ReCAPTCHA";
 import { Button } from "../ui/button";
 
 declare global {
@@ -137,11 +137,10 @@ export const ContactForm: React.FC = () => {
 
           {submitStatus && (
             <div
-              className={`mb-6 p-4 rounded-lg flex items-start gap-3 ${
-                submitStatus.type === "success"
+              className={`mb-6 p-4 rounded-lg flex items-start gap-3 ${submitStatus.type === "success"
                   ? "bg-green-50 border border-green-200"
                   : "bg-red-50 border border-red-200"
-              }`}
+                }`}
             >
               {submitStatus.type === "success" ? (
                 <CheckCircle
@@ -155,11 +154,10 @@ export const ContactForm: React.FC = () => {
                 />
               )}
               <p
-                className={`text-sm font-medium ${
-                  submitStatus.type === "success"
+                className={`text-sm font-medium ${submitStatus.type === "success"
                     ? "text-green-800"
                     : "text-red-800"
-                }`}
+                  }`}
               >
                 {submitStatus.message}
               </p>

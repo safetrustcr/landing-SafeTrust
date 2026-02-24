@@ -1,8 +1,8 @@
+"use client";
 
 import * as React from "react";
 import Image from "next/image";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+import { NewsletterForm } from "@/components/Newsletter";
 
 export function Footer() {
   return (
@@ -46,16 +46,7 @@ export function Footer() {
                 SafeTrust
               </span>
             </div>
-            <div className="flex flex-col sm:flex-row w-full gap-2">
-              <Input
-                type="email"
-                placeholder="Enter your email"
-                className="bg-card border-border rounded-md w-full text-muted-foreground pl-4 backdrop-blur-sm focus:border-primary focus:ring-primary/20 transition-colors duration-300"
-              />
-              <Button className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-md px-6 mt-2 sm:mt-0 transition-all duration-300">
-                Subscribe
-              </Button>
-            </div>
+            <NewsletterForm variant="compact" />
           </div>
 
           {/* Product */}

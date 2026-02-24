@@ -156,6 +156,16 @@ export const trackTimeOnPage = (timeInSeconds: number, pageUrl?: string): void =
   });
 };
 
+// Newsletter signup tracking (no PII; optional anonymized user_hash from elsewhere)
+export const trackNewsletterSignup = (userHash?: string): void => {
+  event({
+    action: 'newsletter_signup',
+    category: 'conversion',
+    label: 'newsletter',
+    ...(userHash ? { user_hash: userHash } : {}),
+  });
+};
+
 // User signup/registration tracking
 export const trackSignup = (method: string, userId?: string): void => {
   event({

@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from "react";
 
 interface ReCAPTCHAProps {
   onVerify: (verified: boolean) => void;
+  onToken?: (token: string) => void;
   siteKey?: string;
 }
 
@@ -24,7 +25,7 @@ declare global {
   }
 }
 
-const ReCAPTCHA: React.FC<ReCAPTCHAProps> = ({ onVerify, siteKey }) => {
+const ReCAPTCHA: React.FC<ReCAPTCHAProps> = ({ onVerify, onToken, siteKey }) => {
   const recaptchaRef = useRef<HTMLDivElement>(null);
   const widgetIdRef = useRef<number | null>(null);
 
@@ -45,8 +46,8 @@ const ReCAPTCHA: React.FC<ReCAPTCHAProps> = ({ onVerify, siteKey }) => {
           widgetIdRef.current = window.grecaptcha.render(recaptchaRef.current, {
             sitekey: siteKey,
             callback: (token: string) => {
-              console.log("reCAPTCHA verified:", token);
               onVerify(true);
+              onToken?.(token);
             },
             "expired-callback": () => {
               console.log("reCAPTCHA expired");
@@ -71,7 +72,7 @@ const ReCAPTCHA: React.FC<ReCAPTCHAProps> = ({ onVerify, siteKey }) => {
         }
       }
     };
-  }, [siteKey, onVerify]);
+  }, [siteKey, onVerify, onToken]);
 
   return (
     <div className="flex flex-col items-start">
