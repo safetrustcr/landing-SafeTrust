@@ -44,8 +44,14 @@ export async function POST(request: NextRequest) {
     }
 
     const { email, name, agreedToNewsletter, recaptchaToken } = body;
-    const trimmedEmail = email?.trim();
-    if (!trimmedEmail || typeof email !== 'string') {
+    if (typeof email !== 'string') {
+      return NextResponse.json(
+        { error: 'Email is required' },
+        { status: 400 }
+      );
+    }
+    const trimmedEmail = email.trim();
+    if (!trimmedEmail) {
       return NextResponse.json(
         { error: 'Email is required' },
         { status: 400 }
