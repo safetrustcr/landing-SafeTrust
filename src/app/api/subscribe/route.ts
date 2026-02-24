@@ -11,17 +11,24 @@ interface SubscribeBody {
 
 async function verifyRecaptcha(token: string): Promise<boolean> {
   const secretKey = process.env.RECAPTCHA_SECRET_KEY;
-  if (!secretKey) return false;
+  if (!secretKey) {
+    console.error('RECAPTCHA_SECRET_KEY is not configured');
+    return false;
+  }
 
   const params = new URLSearchParams({ secret: secretKey, response: token });
-  const response = await fetch('https://www.google.com/recaptcha/api/siteverify', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    body: params.toString(),
-  });
-
-  const data = await response.json();
-  return data.success === true;
+  try {
+    const response = await fetch('https://www.google.com/recaptcha/api/siteverify', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: params.toString(),
+    });
+    const data = await response.json();
+    return data.success === true;
+  } catch (err) {
+    console.error('reCAPTCHA verification request failed:', err);
+    return false;
+  }
 }
 
 export async function POST(request: NextRequest) {
@@ -37,8 +44,8 @@ export async function POST(request: NextRequest) {
     }
 
     const { email, name, agreedToNewsletter, recaptchaToken } = body;
-
-    if (!email || typeof email !== 'string') {
+    const trimmedEmail = email?.trim();
+    if (!trimmedEmail || typeof email !== 'string') {
       return NextResponse.json(
         { error: 'Email is required' },
         { status: 400 }
@@ -52,7 +59,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    if (!isValidEmail(email)) {
+    if (!isValidEmail(trimmedEmail)) {
       return NextResponse.json(
         { error: 'Please enter a valid email address' },
         { status: 400 }
@@ -74,7 +81,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    await subscribeToNewsletter(email.trim(), name?.trim());
+    await subscribeToNewsletter(trimmedEmail, name?.trim());
 
     return NextResponse.json({ success: true });
   } catch (error) {
