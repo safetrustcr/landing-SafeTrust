@@ -53,19 +53,6 @@
   will-change: transform, opacity;
 }
 
-@media (min-width: 768px) {
-  .testimonialCard {
-    width: calc(50% - 1rem);
-    margin: 0 0.5rem;
-  }
-}
-
-@media (min-width: 1024px) {
-  .testimonialCard {
-    width: calc(33.333% - 1rem);
-  }
-}
-
 /* Quote Decoration */
 .quoteDecoration {
   font-family: Georgia, 'Times New Roman', serif;
