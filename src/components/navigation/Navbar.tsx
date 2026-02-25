@@ -1,17 +1,16 @@
+"use client";
 
-'use client';
-
-import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import Image from 'next/image';
-import { Button } from '@/components/ui/button';
-import HamburgerButton from '@/components/ui/hamburger-button';
-import MobileMenu from './MobileMenu';
-import NavigationLink from './NavigationLink';
-import { useActiveSection } from '@/hooks/use-active-section';
-import { ThemeToggle } from '../theme-toggle';
-import WalletModal from '../wallet/WalletModal';
-import { useWallet } from '../../hooks/use-wallet';
+import React, { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+import Image from "next/image";
+import { Button } from "@/components/ui/button";
+import HamburgerButton from "@/components/ui/hamburger-button";
+import MobileMenu from "./MobileMenu";
+import NavigationLink from "./NavigationLink";
+import { useActiveSection } from "@/hooks/use-active-section";
+import { ThemeToggle } from "../theme-toggle";
+import WalletModal from "../wallet/WalletModal";
+import { useWallet } from "../../hooks/use-wallet";
 import {
   Wallet,
   CheckCircle,
@@ -19,9 +18,9 @@ import {
   ChevronDown,
   Copy,
   LogOut,
-  Loader2
-} from 'lucide-react';
-import TouchFeedback from '../ui/TouchFeedback';
+  Loader2,
+} from "lucide-react";
+import TouchFeedback from "../ui/TouchFeedback";
 
 const navigationItems = [
   { href: "#features", label: "Features" },
@@ -41,7 +40,7 @@ const Navbar: React.FC = () => {
   >("laptop");
   const [isClient, setIsClient] = useState(false);
   const { activeSection, setActiveSection } = useActiveSection(
-    navigationItems[0].href
+    navigationItems[0].href,
   );
 
   // Wallet connection state
@@ -52,16 +51,16 @@ const Navbar: React.FC = () => {
     chainId,
     error,
     disconnect,
-    supportedNetworks
+    supportedNetworks,
   } = useWallet();
 
   // Debug wallet state changes in navbar
   useEffect(() => {
-    console.log('[Navbar] Wallet state changed:', {
+    console.log("[Navbar] Wallet state changed:", {
       isConnected,
       isConnecting,
       account,
-      error
+      error,
     });
   }, [isConnected, isConnecting, account, error]);
 
@@ -74,24 +73,24 @@ const Navbar: React.FC = () => {
   };
 
   const openWalletModal = () => {
-    console.log('[Navbar] Opening wallet modal');
+    console.log("[Navbar] Opening wallet modal");
     setIsWalletModalOpen(true);
     setIsWalletDropdownOpen(false);
   };
 
   const closeWalletModal = () => {
-    console.log('[Navbar] Closing wallet modal');
+    console.log("[Navbar] Closing wallet modal");
     setIsWalletModalOpen(false);
   };
 
   const handleDisconnect = async () => {
-    console.log('[Navbar] Disconnect initiated');
+    console.log("[Navbar] Disconnect initiated");
     try {
       await disconnect();
       setIsWalletDropdownOpen(false);
-      console.log('[Navbar] Disconnect completed');
+      console.log("[Navbar] Disconnect completed");
     } catch (error) {
-      console.error('[Navbar] Disconnect failed:', error);
+      console.error("[Navbar] Disconnect failed:", error);
     }
   };
 
@@ -99,11 +98,11 @@ const Navbar: React.FC = () => {
     if (account) {
       try {
         await navigator.clipboard.writeText(account);
-        console.log('[Navbar] Address copied to clipboard');
+        console.log("[Navbar] Address copied to clipboard");
         setIsWalletDropdownOpen(false);
         // You could show a toast notification here
       } catch (error) {
-        console.error('[Navbar] Failed to copy address:', error);
+        console.error("[Navbar] Failed to copy address:", error);
       }
     }
   };
@@ -147,8 +146,8 @@ const Navbar: React.FC = () => {
     };
 
     if (isWalletDropdownOpen) {
-      document.addEventListener('click', handleClickOutside);
-      return () => document.removeEventListener('click', handleClickOutside);
+      document.addEventListener("click", handleClickOutside);
+      return () => document.removeEventListener("click", handleClickOutside);
     }
   }, [isWalletDropdownOpen]);
 
@@ -163,10 +162,12 @@ const Navbar: React.FC = () => {
             flex items-center gap-2 px-4 py-2 rounded-lg border border-yellow-200 dark:border-yellow-700
             bg-yellow-50 dark:bg-yellow-900/20 text-yellow-700 dark:text-yellow-300
             cursor-not-allowed opacity-75 transition-all duration-200
-            ${isMobile ? 'text-sm' : ''}
+            ${isMobile ? "text-sm" : ""}
           `}
         >
-          <Loader2 className={`${isMobile ? 'w-4 h-4' : 'w-5 h-5'} animate-spin`} />
+          <Loader2
+            className={`${isMobile ? "w-4 h-4" : "w-5 h-5"} animate-spin`}
+          />
           <span className="font-medium">Connecting...</span>
         </motion.button>
       );
@@ -188,19 +189,21 @@ const Navbar: React.FC = () => {
               bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-300
               hover:bg-green-100 dark:hover:bg-green-900/30 transition-all duration-200
               focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2
-              ${isMobile ? 'text-sm' : ''}
+              ${isMobile ? "text-sm" : ""}
             `}
           >
             <div className="flex items-center gap-2">
               <div className="relative">
-                <CheckCircle className={`${isMobile ? 'w-4 h-4' : 'w-5 h-5'} text-green-600 dark:text-green-400`} />
+                <CheckCircle
+                  className={`${isMobile ? "w-4 h-4" : "w-5 h-5"} text-green-600 dark:text-green-400`}
+                />
                 <div className="absolute -top-1 -right-1 w-2 h-2 bg-green-500 rounded-full animate-pulse" />
               </div>
-              <span className="font-medium">
-                {formatAddress(account)}
-              </span>
+              <span className="font-medium">{formatAddress(account)}</span>
             </div>
-            <ChevronDown className={`${isMobile ? 'w-3 h-3' : 'w-4 h-4'} transition-transform ${isWalletDropdownOpen ? 'rotate-180' : ''}`} />
+            <ChevronDown
+              className={`${isMobile ? "w-3 h-3" : "w-4 h-4"} transition-transform ${isWalletDropdownOpen ? "rotate-180" : ""}`}
+            />
           </motion.button>
 
           {/* Dropdown menu */}
@@ -294,10 +297,10 @@ const Navbar: React.FC = () => {
             focus:outline-none focus:bg-blue-600/10 dark:focus:bg-blue-400/10 focus:text-blue-700 dark:focus:text-blue-300 
             focus:border-blue-500 dark:focus:border-blue-300 focus:shadow-lg focus:shadow-blue-500/25 dark:focus:shadow-blue-400/25 
             transition-all duration-300 flex items-center gap-2 !btn-animate-none btn-animate-none
-            ${isMobile ? 'text-sm px-3 py-2' : ''}
+            ${isMobile ? "text-sm px-3 py-2" : ""}
           `}
           >
-            <Wallet className={`${isMobile ? 'w-4 h-4' : 'w-5 h-5'}`} />
+            <Wallet className={`${isMobile ? "w-4 h-4" : "w-5 h-5"}`} />
             Connect Wallet
           </Button>
         </TouchFeedback>
@@ -377,10 +380,7 @@ const Navbar: React.FC = () => {
       )}
 
       {/* Wallet Modal */}
-      <WalletModal
-        isOpen={isWalletModalOpen}
-        onClose={closeWalletModal}
-      />
+      <WalletModal isOpen={isWalletModalOpen} onClose={closeWalletModal} />
     </>
   );
 };
