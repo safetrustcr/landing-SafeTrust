@@ -1,9 +1,15 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import Image from 'next/image';
-import { ExternalLink, Download, Smartphone, AlertCircle, RefreshCw } from 'lucide-react';
-import { WalletProvider } from '../../types/wallet';
-import { isWalletInstalled, isMobile } from '../../lib/wallet-config';
+import React from "react";
+import { motion } from "framer-motion";
+import Image from "next/image";
+import {
+  ExternalLink,
+  Download,
+  Smartphone,
+  AlertCircle,
+  RefreshCw,
+} from "lucide-react";
+import { WalletProvider } from "../../types/wallet";
+import { isWalletInstalled, isMobile } from "../../lib/wallet-config";
 
 interface WalletOptionProps {
   wallet: WalletProvider;
@@ -24,24 +30,33 @@ const WalletOption: React.FC<WalletOptionProps> = ({
 }) => {
   const installed = isWalletInstalled(wallet.id);
   const mobile = isMobile();
-  const isCurrentlyConnecting = isConnecting && connectingWalletId === wallet.id;
+  const isCurrentlyConnecting =
+    isConnecting && connectingWalletId === wallet.id;
   const hasError = error && connectingWalletId === wallet.id;
 
   // Determine what action to show
   const getWalletStatus = () => {
-    if (wallet.type === 'walletconnect') {
-      return { action: 'connect', canConnect: true, statusText: 'Scan QR Code' };
+    if (wallet.type === "walletconnect") {
+      return {
+        action: "connect",
+        canConnect: true,
+        statusText: "Scan QR Code",
+      };
     }
 
     if (mobile && wallet.deepLink) {
-      return { action: 'deeplink', canConnect: true, statusText: 'Open App' };
+      return { action: "deeplink", canConnect: true, statusText: "Open App" };
     }
 
-    if (wallet.type === 'browser' && !installed) {
-      return { action: 'install', canConnect: false, statusText: 'Install Required' };
+    if (wallet.type === "browser" && !installed) {
+      return {
+        action: "install",
+        canConnect: false,
+        statusText: "Install Required",
+      };
     }
 
-    return { action: 'connect', canConnect: true, statusText: 'Connect' };
+    return { action: "connect", canConnect: true, statusText: "Connect" };
   };
 
   const { action, canConnect, statusText } = getWalletStatus();
@@ -49,8 +64,8 @@ const WalletOption: React.FC<WalletOptionProps> = ({
   const handleClick = () => {
     if (!canConnect || isCurrentlyConnecting) return;
 
-    if (action === 'install' && wallet.downloadUrl) {
-      window.open(wallet.downloadUrl, '_blank', 'noopener,noreferrer');
+    if (action === "install" && wallet.downloadUrl) {
+      window.open(wallet.downloadUrl, "_blank", "noopener,noreferrer");
       return;
     }
 
@@ -70,32 +85,37 @@ const WalletOption: React.FC<WalletOptionProps> = ({
   const getIcon = () => {
     // In a real implementation, you'd import SVG icons or use an icon library
     const iconMap: Record<string, string> = {
-      metamask: '🦊',
-      coinbase: '🔷', 
-      walletconnect: '🔗',
-      trust: '🛡️',
+      metamask: "🦊",
+      coinbase: "🔷",
+      walletconnect: "🔗",
+      trust: "🛡️",
     };
 
-    return iconMap[wallet.id] || '👛';
+    return iconMap[wallet.id] || "👛";
   };
 
   const getStatusColor = () => {
-    if (hasError) return 'border-red-300 dark:border-red-600 bg-red-50 dark:bg-red-900/20';
-    if (isCurrentlyConnecting) return 'border-blue-300 dark:border-blue-600 bg-blue-50 dark:bg-blue-900/20';
-    if (canConnect) return 'border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/20';
-    return 'border-gray-200 dark:border-gray-700 opacity-60';
+    if (hasError)
+      return "border-red-300 dark:border-red-600 bg-red-50 dark:bg-red-900/20";
+    if (isCurrentlyConnecting)
+      return "border-blue-300 dark:border-blue-600 bg-blue-50 dark:bg-blue-900/20";
+    if (canConnect)
+      return "border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/20";
+    return "border-gray-200 dark:border-gray-700 opacity-60";
   };
 
   return (
     <motion.div
-      whileHover={canConnect && !isCurrentlyConnecting ? { scale: 1.02, y: -2 } : {}}
+      whileHover={
+        canConnect && !isCurrentlyConnecting ? { scale: 1.02, y: -2 } : {}
+      }
       whileTap={canConnect && !isCurrentlyConnecting ? { scale: 0.98 } : {}}
       transition={{ duration: 0.2 }}
       className={`
         w-full p-4 rounded-xl border-2 transition-all duration-200
         text-left flex flex-col gap-3 relative overflow-hidden
         ${getStatusColor()}
-        ${canConnect && !isCurrentlyConnecting ? 'cursor-pointer' : 'cursor-not-allowed'}
+        ${canConnect && !isCurrentlyConnecting ? "cursor-pointer" : "cursor-not-allowed"}
       `}
     >
       {/* Loading spinner overlay */}
@@ -107,7 +127,7 @@ const WalletOption: React.FC<WalletOptionProps> = ({
         >
           <motion.div
             animate={{ rotate: 360 }}
-            transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
+            transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
             className="w-8 h-8 border-3 border-blue-600 border-t-transparent rounded-full"
           />
         </motion.div>
@@ -116,20 +136,23 @@ const WalletOption: React.FC<WalletOptionProps> = ({
       {/* Main wallet info */}
       <div className="flex items-center gap-4">
         {/* Wallet Icon */}
-        <div className={`
+        <div
+          className={`
           flex-shrink-0 w-12 h-12 rounded-xl flex items-center justify-center text-2xl
-          ${canConnect 
-            ? 'bg-gray-100 dark:bg-gray-700 group-hover:bg-blue-100 dark:group-hover:bg-blue-800' 
-            : 'bg-gray-100 dark:bg-gray-700'
+          ${
+            canConnect
+              ? "bg-gray-100 dark:bg-gray-700 group-hover:bg-blue-100 dark:group-hover:bg-blue-800"
+              : "bg-gray-100 dark:bg-gray-700"
           }
           transition-colors duration-200
-        `}>
+        `}
+        >
           {wallet.icon ? (
             <Image
               src={wallet.icon}
               alt={`${wallet.name} icon`}
-              width={32}
-              height={32}
+              width={40}
+              height={40}
             />
           ) : (
             <span>{getIcon()}</span>
@@ -144,11 +167,11 @@ const WalletOption: React.FC<WalletOptionProps> = ({
             </h3>
 
             {/* Status indicators */}
-            {wallet.type === 'mobile' && (
+            {wallet.type === "mobile" && (
               <Smartphone className="w-4 h-4 text-gray-400 flex-shrink-0" />
             )}
 
-            {!installed && wallet.type === 'browser' && (
+            {!installed && wallet.type === "browser" && (
               <AlertCircle className="w-4 h-4 text-amber-500 flex-shrink-0" />
             )}
           </div>
@@ -163,12 +186,12 @@ const WalletOption: React.FC<WalletOptionProps> = ({
           {isCurrentlyConnecting ? (
             <motion.div
               animate={{ rotate: 360 }}
-              transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
+              transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
               className="w-5 h-5 border-2 border-blue-600 border-t-transparent rounded-full"
             />
-          ) : action === 'install' ? (
+          ) : action === "install" ? (
             <Download className="w-5 h-5 text-gray-400 hover:text-blue-600 transition-colors" />
-          ) : action === 'deeplink' ? (
+          ) : action === "deeplink" ? (
             <ExternalLink className="w-5 h-5 text-gray-400 hover:text-blue-600 transition-colors" />
           ) : (
             <motion.div
@@ -184,7 +207,7 @@ const WalletOption: React.FC<WalletOptionProps> = ({
       {hasError && (
         <motion.div
           initial={{ opacity: 0, height: 0 }}
-          animate={{ opacity: 1, height: 'auto' }}
+          animate={{ opacity: 1, height: "auto" }}
           className="border-t border-red-200 dark:border-red-800 pt-3"
         >
           <div className="flex items-start gap-2">
@@ -208,12 +231,12 @@ const WalletOption: React.FC<WalletOptionProps> = ({
       {/* Connection status text */}
       {!hasError && (
         <div className="text-xs text-gray-500 dark:text-gray-400 text-center">
-          {isCurrentlyConnecting ? 'Connecting...' : statusText}
+          {isCurrentlyConnecting ? "Connecting..." : statusText}
         </div>
       )}
 
       {/* Click handler */}
-      <div 
+      <div
         className="absolute inset-0 cursor-pointer"
         onClick={hasError ? handleRetry : handleClick}
         style={{ zIndex: isCurrentlyConnecting ? 0 : 5 }}
