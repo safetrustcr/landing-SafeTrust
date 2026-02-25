@@ -9,6 +9,7 @@ import { AnalyticsLogger } from "@/components/AnalyticsLogger";
 import '@/styles/touch.css';
 import { PerformanceInitializer } from "@/components/PerformanceInitializer";
 import { PageView } from "@/components/analytics/PageView";
+import { NewsletterModal } from "@/components/Newsletter";
 import { defaultMetadata, structuredData, generateJsonLd } from "@/config/seo";
 
 const geistSans = Geist({
@@ -77,6 +78,7 @@ export default function RootLayout({
           <PageView />
           <AnalyticsLogger />
           <PerformanceInitializer />
+          <NewsletterModal />
         </TrackerProvider>
       </body>
     </html>
