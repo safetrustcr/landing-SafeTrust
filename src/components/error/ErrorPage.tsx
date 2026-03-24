@@ -10,7 +10,7 @@ import {
     CardHeader,
     CardTitle,
 } from "@/components/ui/card";
-import { Home, Search, RefreshCw, AlertTriangle } from "lucide-react";
+import { Home, RefreshCw, AlertTriangle } from "lucide-react";
 import Link from "next/link";
 
 export interface ErrorPageProps {
@@ -19,7 +19,6 @@ export interface ErrorPageProps {
     statusCode: number;
     action?: React.ReactNode;
     illustration?: React.ReactNode;
-    showSearch?: boolean;
     className?: string;
 }
 
@@ -29,7 +28,6 @@ const ErrorPage: React.FC<ErrorPageProps> = ({
     statusCode,
     action,
     illustration,
-    showSearch = false,
     className = "",
 }) => {
     const defaultIllustration = (
