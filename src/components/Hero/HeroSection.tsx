@@ -155,7 +155,6 @@ function ScrollIndicator() {
       transition={{ duration: 0.6, delay: 1.5 }}
       aria-label="Scroll down to see more content"
     >
-      <span className="text-xs font-medium uppercase tracking-wider">Scroll</span>
       <motion.div
         animate={{ y: [0, 6, 0] }}
         transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
@@ -261,30 +260,7 @@ function SecondaryCTASection({ onConnectWallet, onLearnMore, isConnected, isConn
         </button>
       </motion.div>
 
-      <motion.div 
-        className="flex flex-wrap items-center justify-center gap-6 sm:gap-8 pt-12 opacity-70 max-w-5xl mx-auto"
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 0.7 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6, delay: 0.3 }}
-      >
-        <div className="flex items-center gap-2 text-muted-foreground">
-          <Shield className="w-5 h-5 text-green-400" />
-          <span className="text-sm font-medium">Bank-Grade Security</span>
-        </div>
-        <div className="flex items-center gap-2 text-muted-foreground">
-          <Lock className="w-5 h-5 text-blue-400" />
-          <span className="text-sm font-medium">
-            End-to-End Encrypted
-          </span>
-        </div>
-        <div className="flex items-center gap-2 text-muted-foreground">
-          <div className="w-5 h-5 bg-gradient-to-r from-yellow-400 to-orange-400 rounded-full flex items-center justify-center">
-            <span className="text-xs font-bold text-black">₮</span>
-          </div>
-          <span className="text-sm font-medium">USDT Protected</span>
-        </div>
-      </motion.div>
+
     </section>
   );
 }
