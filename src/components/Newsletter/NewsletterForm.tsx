@@ -180,11 +180,7 @@ export function NewsletterForm({ variant = "default", onSuccess }: NewsletterFor
           onVerify={setRecaptchaVerified}
           onToken={setRecaptchaToken}
         />
-      ) : (
-        <p className="text-sm text-amber-600">
-          Newsletter signup is not configured. Set NEXT_PUBLIC_RECAPTCHA_SITE_KEY.
-        </p>
-      )}
+      ) : null}
 
       <Button
         type="submit"

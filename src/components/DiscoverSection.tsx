@@ -51,10 +51,10 @@ const features = [
 ];
 
 export default function Discover() {
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [hoveredIndex] = useState<number | null>(null);
 
   return (
-    <div className="bg-[#0a0a15] transition-colors duration-300">
+    <div className="bg-background dark:bg-[#0a0a15] transition-colors duration-300">
       <section className="text-center pt-16 px-6 relative overflow-hidden">
         {/* Background glow effect */}
         <div className="absolute inset-0 bg-gradient-to-b from-primary/10 to-primary/5 pointer-events-none transition-colors duration-300"></div>

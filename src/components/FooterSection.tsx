@@ -34,18 +34,6 @@ export function Footer() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1fr_1fr] gap-x-8 gap-y-8 mb-12">
           {/* Newsletter */}
           <div className="sm:col-span-2 lg:col-span-1">
-            <div className="flex items-center mb-6">
-              <Image
-                src="/landing-logo.jpeg"
-                alt="SafeTrust"
-                width={24}
-                height={24}
-                className="rounded object-cover mr-2"
-              />
-              <span className="text-xl font-semibold bg-gradient-to-r from-blue-600 to-blue-400 dark:from-blue-400 dark:to-blue-200 bg-clip-text text-transparent">
-                SafeTrust
-              </span>
-            </div>
             <NewsletterForm variant="compact" />
           </div>
 
