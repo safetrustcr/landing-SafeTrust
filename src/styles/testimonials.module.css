@@ -13,17 +13,33 @@
 .backgroundOverlay {
   position: absolute;
   inset: 0;
-  background: 
-    radial-gradient(ellipse 80% 50% at 20% 20%, rgba(51, 106, 217, 0.08), transparent),
-    radial-gradient(ellipse 60% 40% at 80% 80%, rgba(51, 106, 217, 0.05), transparent);
+  background:
+    radial-gradient(
+      ellipse 80% 50% at 20% 20%,
+      rgba(51, 106, 217, 0.08),
+      transparent
+    ),
+    radial-gradient(
+      ellipse 60% 40% at 80% 80%,
+      rgba(51, 106, 217, 0.05),
+      transparent
+    );
   pointer-events: none;
   z-index: 0;
 }
 
 :global(.dark) .backgroundOverlay {
-  background: 
-    radial-gradient(ellipse 80% 50% at 20% 20%, rgba(51, 106, 217, 0.15), transparent),
-    radial-gradient(ellipse 60% 40% at 80% 80%, rgba(51, 106, 217, 0.08), transparent);
+  background:
+    radial-gradient(
+      ellipse 80% 50% at 20% 20%,
+      rgba(51, 106, 217, 0.15),
+      transparent
+    ),
+    radial-gradient(
+      ellipse 60% 40% at 80% 80%,
+      rgba(51, 106, 217, 0.08),
+      transparent
+    );
 }
 
 /* Carousel Container */
@@ -57,7 +73,7 @@
 
 /* Quote Decoration */
 .quoteDecoration {
-  font-family: Georgia, 'Times New Roman', serif;
+  font-family: Georgia, "Times New Roman", serif;
   transition: color 0.3s ease;
 }
 
@@ -256,12 +272,10 @@
 
 .fadeEdgeLeft {
   left: 0;
-  background: linear-gradient(to right, hsl(var(--background)), transparent);
 }
 
 .fadeEdgeRight {
   right: 0;
-  background: linear-gradient(to left, hsl(var(--background)), transparent);
 }
 
 @media (max-width: 640px) {
