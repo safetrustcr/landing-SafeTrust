@@ -122,6 +122,59 @@ describe("TestimonialCard", () => {
     expect(screen.getByText(mockTestimonial.name)).toBeInTheDocument();
   });
 
+  it("should not render Image component when avatar is null", () => {
+    const testimonialWithNullAvatar = {
+      ...mockTestimonial,
+      avatar: null as any,
+    };
+    const { container } = render(<TestimonialCard testimonial={testimonialWithNullAvatar} />);
+    // Component should still render
+    expect(screen.getByText(mockTestimonial.name)).toBeInTheDocument();
+    // Should not have an img element
+    const img = container.querySelector('img');
+    expect(img).toBeNull();
+    // Should show initials
+    expect(screen.getByText('TU')).toBeInTheDocument();
+  });
+
+  it("should not render Image component when avatar is undefined", () => {
+    const testimonialWithUndefinedAvatar = {
+      ...mockTestimonial,
+      avatar: undefined,
+    };
+    const { container } = render(<TestimonialCard testimonial={testimonialWithUndefinedAvatar} />);
+    // Component should still render
+    expect(screen.getByText(mockTestimonial.name)).toBeInTheDocument();
+    // Should not have an img element
+    const img = container.querySelector('img');
+    expect(img).toBeNull();
+    // Should show initials
+    expect(screen.getByText('TU')).toBeInTheDocument();
+  });
+
+  it("should not render Image component when avatar is empty string", () => {
+    const testimonialWithEmptyAvatar = {
+      ...mockTestimonial,
+      avatar: "",
+    };
+    const { container } = render(<TestimonialCard testimonial={testimonialWithEmptyAvatar} />);
+    // Component should still render
+    expect(screen.getByText(mockTestimonial.name)).toBeInTheDocument();
+    // Should not have an img element
+    const img = container.querySelector('img');
+    expect(img).toBeNull();
+    // Should show initials
+    expect(screen.getByText('TU')).toBeInTheDocument();
+  });
+
+  it("should render Image component when avatar is valid", () => {
+    const { container } = render(<TestimonialCard testimonial={mockTestimonial} />);
+    // Should have an img element
+    const img = container.querySelector('img');
+    expect(img).toBeInTheDocument();
+    expect(img).toHaveAttribute('alt', "Test User's profile picture");
+  });
+
   it("should apply active styles when isActive is true", () => {
     const { container } = render(
       <TestimonialCard testimonial={mockTestimonial} isActive={true} />

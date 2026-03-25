@@ -35,7 +35,7 @@ const Avatar = ({
   name,
   isActive,
 }: {
-  src: string;
+  src?: string;
   name: string;
   isActive?: boolean;
 }) => {
@@ -48,6 +48,9 @@ const Avatar = ({
 
   const [imageError, setImageError] = React.useState(false);
 
+  // Check if src is valid to prevent unnecessary network requests
+  const hasValidSrc = src && src.trim() !== '';
+
   return (
     <div
       className={cn(
@@ -57,7 +60,7 @@ const Avatar = ({
         isActive ? "ring-primary" : "ring-border"
       )}
     >
-      {!imageError ? (
+      {hasValidSrc && !imageError ? (
         <Image
           src={src}
           alt={`${name}'s profile picture`}
