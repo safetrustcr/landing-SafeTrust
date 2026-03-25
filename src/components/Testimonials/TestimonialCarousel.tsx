@@ -63,7 +63,7 @@ const TestimonialCarousel: React.FC<TestimonialCarouselProps> = ({
   const goToPrev = useCallback(() => {
     setDirection(-1);
     setCurrentIndex(
-      (prev) => (prev - 1 + testimonials.length) % testimonials.length
+      (prev) => (prev - 1 + testimonials.length) % testimonials.length,
     );
   }, [testimonials.length]);
 
@@ -72,7 +72,7 @@ const TestimonialCarousel: React.FC<TestimonialCarouselProps> = ({
       setDirection(index > currentIndex ? 1 : -1);
       setCurrentIndex(index);
     },
-    [currentIndex]
+    [currentIndex],
   );
 
   // Keyboard navigation
@@ -90,7 +90,10 @@ const TestimonialCarousel: React.FC<TestimonialCarouselProps> = ({
   }, [goToNext, goToPrev]);
 
   // Handle swipe gestures
-  const handleDragEnd = (_: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
+  const handleDragEnd = (
+    _: MouseEvent | TouchEvent | PointerEvent,
+    info: PanInfo,
+  ) => {
     const swipeThreshold = 50;
     if (info.offset.x > swipeThreshold) {
       goToPrev();
@@ -162,8 +165,8 @@ const TestimonialCarousel: React.FC<TestimonialCarouselProps> = ({
       </button>
 
       {/* Fade edges */}
-      <div className={cn(styles.fadeEdge, styles.fadeEdgeLeft)} />
-      <div className={cn(styles.fadeEdge, styles.fadeEdgeRight)} />
+      <div className={cn(styles.fadeEdge)} />
+      <div className={cn(styles.fadeEdge)} />
 
       {/* Carousel track */}
       <div className={styles.carouselWrapper}>
@@ -195,7 +198,7 @@ const TestimonialCarousel: React.FC<TestimonialCarouselProps> = ({
                     "flex-shrink-0",
                     visibleCount === 1 && "w-full",
                     visibleCount === 2 && "w-[calc(50%-0.5rem)]",
-                    visibleCount === 3 && "w-[calc(33.333%-0.667rem)]"
+                    visibleCount === 3 && "w-[calc(33.333%-0.667rem)]",
                   )}
                   role="group"
                   aria-roledescription="slide"
@@ -223,7 +226,7 @@ const TestimonialCarousel: React.FC<TestimonialCarouselProps> = ({
             key={index}
             className={cn(
               styles.dot,
-              index === currentIndex && styles.dotActive
+              index === currentIndex && styles.dotActive,
             )}
             onClick={() => goToIndex(index)}
             role="tab"

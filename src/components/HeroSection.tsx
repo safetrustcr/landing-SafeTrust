@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useRef, useEffect, useState } from "react";
-import { ArrowRight, Shield, Lock, Wallet } from "lucide-react";
+import { Wallet } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Navbar from "./navigation/Navbar";
 import WalletModal from "./wallet/WalletModal";
@@ -195,42 +195,7 @@ const HeroSection: React.FC<HeroSectionProps> = () => {
     };
   };
 
-  // Secondary button configuration based on wallet state
-  const getSecondaryButtonConfig = () => {
-    if (isConnecting) {
-      return {
-        text: "Connecting...",
-        className: `
-          group font-semibold py-4 px-8 rounded-xl transition-all duration-300 flex items-center gap-3 text-lg
-          bg-purple-400 cursor-not-allowed opacity-75 text-white
-        `,
-        disabled: true,
-      };
-    }
-
-    if (isConnected) {
-      return {
-        text: "Wallet Connected",
-        className: `
-          group font-semibold py-4 px-8 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-xl flex items-center gap-3 text-lg
-          bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 hover:shadow-green-500/25 text-white cursor-pointer
-        `,
-        disabled: false,
-      };
-    }
-
-    return {
-      text: "Connect Wallet",
-      className: `
-        group font-semibold py-4 px-8 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-xl hover:shadow-purple-500/25 flex items-center gap-3 text-lg
-        bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white cursor-pointer
-      `,
-      disabled: false,
-    };
-  };
-
   const mainButtonConfig = getMainButtonConfig();
-  const secondaryButtonConfig = getSecondaryButtonConfig();
 
   return (
     <div className="min-h-screen bg-[#0a0a15] text-white overflow-hidden relative">
@@ -376,56 +341,6 @@ const HeroSection: React.FC<HeroSectionProps> = () => {
           </div>
         </motion.div>
       </main>
-
-      <section className="w-full max-w-6xl mx-auto text-center space-y-8 px-4 sm:px-0 py-12">
-        <h2 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-white leading-tight">
-          Secure p2p transactions platform
-        </h2>
-
-        <p className="text-lg sm:text-xl lg:text-2xl text-gray-300 w-full max-w-5xl mx-auto leading-relaxed font-medium">
-          Experience the power of decentralized trust and seamless blockchain
-          transactions. Our blue-chip security standards ensure your deposits
-          are always protected in our revolutionary P2P platform.
-        </p>
-
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-6 pt-8">
-          <TouchFeedback borderRadius="0.75rem">
-            <button
-              onClick={secondaryButtonConfig.disabled ? undefined : openWalletModal}
-              disabled={secondaryButtonConfig.disabled}
-              className={secondaryButtonConfig.className}
-            >
-              <Lock className="w-5 h-5" />
-              {secondaryButtonConfig.text}
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
-            </button>
-          </TouchFeedback>
-
-          <TouchFeedback color="rgba(168, 85, 247, 0.4)" opacity={0.35} borderRadius="0.75rem">
-            <button className="group border-2 border-gray-600 hover:border-purple-500 text-white font-semibold py-4 px-8 rounded-xl transition-all duration-300 hover:bg-purple-500/10 flex items-center gap-3 text-lg">
-              Learn More
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
-            </button>
-          </TouchFeedback>
-        </div>
-
-        <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-8 pt-12 opacity-70 max-w-5xl mx-auto">
-          <div className="flex items-center gap-2 text-gray-400">
-            <Shield className="w-5 h-5 text-green-400" />
-            <span className="text-sm font-medium">Bank-Grade Security</span>
-          </div>
-          <div className="flex items-center gap-2 text-gray-400">
-            <Lock className="w-5 h-5 text-blue-400" />
-            <span className="text-sm font-medium">End-to-End Encrypted</span>
-          </div>
-          <div className="flex items-center gap-2 text-gray-400">
-            <div className="w-5 h-5 bg-gradient-to-r from-yellow-400 to-orange-400 rounded-full flex items-center justify-center">
-              <span className="text-xs font-bold text-black">₮</span>
-            </div>
-            <span className="text-sm font-medium">USDT Protected</span>
-          </div>
-        </div>
-      </section>
 
       {/* Wallet Modal */}
       <WalletModal isOpen={isWalletModalOpen} onClose={closeWalletModal} />
