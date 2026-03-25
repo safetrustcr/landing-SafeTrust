@@ -5,7 +5,7 @@ import "@/styles/card-animations.css";
 import ToastProvider from "@/components/ui/toast/toast-provider";
 import { ThemeProvider } from "@/lib/theme-provider";
 import { TrackerProvider } from "@/components/AnalyticsProvider";
-import { AnalyticsLogger } from "@/components/AnalyticsLogger";
+import { ContactBubble } from "@/components/ContactBubble";
 import '@/styles/touch.css';
 import { PerformanceInitializer } from "@/components/PerformanceInitializer";
 import { PageView } from "@/components/analytics/PageView";
@@ -76,7 +76,7 @@ export default function RootLayout({
             </ToastProvider>
           </ThemeProvider>
           <PageView />
-          <AnalyticsLogger />
+          <ContactBubble />
           <PerformanceInitializer />
           <NewsletterModal />
         </TrackerProvider>
