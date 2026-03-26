@@ -138,7 +138,7 @@ const ErrorPage: React.FC<ErrorPageProps> = ({
                                     <Link href="/#support">Support</Link>
                                 </Button>
                                 <Button variant="ghost" size="sm" asChild>
-                                    <Link href="/#faq">Faqs</Link>
+                                    <Link href="/#faqSection">Faqs</Link>
                                 </Button>
                                 <Button variant="ghost" size="sm" asChild>
                                     <Link href="/contact-us">Contact Us</Link>
