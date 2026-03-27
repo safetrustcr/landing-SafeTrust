@@ -8,6 +8,7 @@ import {
   AlertCircle,
   RefreshCw,
 } from "lucide-react";
+import { isValidImageUrl } from "@/utils/image-validation";
 import { WalletProvider } from "../../types/wallet";
 import { isWalletInstalled, isMobile } from "../../lib/wallet-config";
 
@@ -148,6 +149,7 @@ const WalletOption: React.FC<WalletOptionProps> = ({
         `}
         >
           {wallet.icon ? (
+          isValidImageUrl(wallet.icon) ? (
             <Image
               src={wallet.icon}
               alt={`${wallet.name} icon`}
@@ -156,7 +158,10 @@ const WalletOption: React.FC<WalletOptionProps> = ({
             />
           ) : (
             <span>{getIcon()}</span>
-          )}
+          )
+        ) : (
+          <span>{getIcon()}</span>
+        )}
         </div>
 
         {/* Wallet Info */}
