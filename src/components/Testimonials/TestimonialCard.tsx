@@ -5,6 +5,10 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { Star } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { 
+  isValidImageUrl, 
+  generateInitials 
+} from "@/utils/image-validation";
 import type { Testimonial } from "@/data/testimonials";
 import styles from "@/styles/testimonials.module.css";
 
@@ -35,18 +39,17 @@ const Avatar = ({
   name,
   isActive,
 }: {
-  src: string;
+  src?: string;
   name: string;
   isActive?: boolean;
 }) => {
-  const initials = name
-    .split(" ")
-    .map((n) => n[0])
-    .join("")
-    .toUpperCase()
-    .slice(0, 2);
+  // Use the centralized utility for generating initials
+  const initials = generateInitials(name, 2);
 
   const [imageError, setImageError] = React.useState(false);
+
+  // Use centralized validation to prevent unnecessary network requests
+  const hasValidSrc = isValidImageUrl(src);
 
   return (
     <div
@@ -57,7 +60,7 @@ const Avatar = ({
         isActive ? "ring-primary" : "ring-border"
       )}
     >
-      {!imageError ? (
+      {hasValidSrc && !imageError ? (
         <Image
           src={src}
           alt={`${name}'s profile picture`}
@@ -65,9 +68,13 @@ const Avatar = ({
           height={56}
           className="w-full h-full object-cover"
           onError={() => setImageError(true)}
+          unoptimized={false}
         />
       ) : (
-        <div className="w-full h-full flex items-center justify-center bg-primary/20 text-primary font-semibold text-lg">
+        <div 
+          className="w-full h-full flex items-center justify-center bg-primary/20 text-primary font-semibold text-lg"
+          title="User initials placeholder"
+        >
           {initials}
         </div>
       )}
