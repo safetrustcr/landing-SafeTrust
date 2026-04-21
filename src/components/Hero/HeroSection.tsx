@@ -215,32 +215,28 @@ function SecondaryCTASection({ onConnectWallet, onLearnMore, isConnected, isConn
   const buttonConfig = getButtonConfig();
 
   return (
-    <section className="w-full max-w-6xl mx-auto text-center space-y-8 px-4 sm:px-0 py-12 relative z-10">
-      <motion.h2 
-        className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-foreground leading-tight"
+    <section className="w-full max-w-4xl mx-auto text-center px-4 sm:px-6 py-6 relative z-10">
+      {/* Banner card with gradient background */}
+      <motion.div
+        className="rounded-2xl bg-gradient-to-br from-white/80 to-blue-50/60 dark:from-white/5 dark:to-[#2857B8]/10 backdrop-blur-sm border border-blue-100 dark:border-[#2857B8]/20 shadow-lg px-8 py-8 mb-6"
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
       >
-        Secure p2p transactions platform
-      </motion.h2>
+        <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#2857B8] mb-3">
+          Our promise
+        </p>
+        <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-foreground leading-tight tracking-tight">
+          Secure, transparent, trusted.
+        </h2>
+        <p className="mt-4 text-sm sm:text-base text-muted-foreground max-w-xl mx-auto leading-relaxed">
+          Decentralized escrow that holds every deposit until both parties confirm — no middlemen, no surprises.
+        </p>
+      </motion.div>
 
-      <motion.p 
-        className="text-lg sm:text-xl lg:text-2xl text-muted-foreground w-full max-w-5xl mx-auto leading-relaxed font-medium"
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6, delay: 0.1 }}
-      >
-        Experience the power of decentralized trust and seamless
-        blockchain transactions. Our blue-chip security standards ensure
-        your deposits are always protected in our revolutionary P2P
-        platform.
-      </motion.p>
-
-      <motion.div 
-        className="flex flex-col sm:flex-row items-center justify-center gap-6 pt-8"
+      <motion.div
+        className="flex flex-col sm:flex-row items-center justify-center gap-4"
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
@@ -351,7 +347,7 @@ export function HeroSection({ className = "" }: HeroSectionProps) {
             <AnimatedHeadline
               text="SafeTrust Secure Rentals"
               highlight="Secure"
-              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight tracking-tight text-foreground"
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-tight text-foreground"
               highlightClassName={styles.headlineHighlight}
             />
 

@@ -61,7 +61,7 @@ export default function Discover() {
         <div className="absolute -left-20 top-10 w-64 h-64 bg-primary/5 rounded-full blur-3xl pointer-events-none transition-colors duration-300"></div>
         <div className="absolute -right-20 top-40 w-64 h-64 bg-primary/5 rounded-full blur-3xl pointer-events-none transition-colors duration-300"></div>
 
-        <h2 className="text-4xl text-foreground font-bold relative z-10 transition-colors duration-300">
+        <h2 className="text-3xl text-foreground font-bold relative z-10 transition-colors duration-300">
           Discover the Power of <span className="text-primary">SafeTrust</span>
         </h2>
         <p className="text-muted-foreground mt-3 text-lg max-w-2xl mx-auto relative z-10 transition-colors duration-300">
