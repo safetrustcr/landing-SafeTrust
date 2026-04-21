@@ -1,323 +1,249 @@
 "use client";
 
-import React, { useEffect, useState, useRef } from 'react';
-import { motion, useAnimation, useInView as framerUseInView } from 'framer-motion';
-import { Shield, ArrowRight, CheckCircle, Clock, DollarSign, Lock } from 'lucide-react';
+import React, { useRef } from "react";
+import { motion, useInView } from "framer-motion";
+import { ArrowRight, Lock, ShieldCheck, CheckCircle, DollarSign } from "lucide-react";
 
-// Types for components
-interface StepCardProps {
-  icon: React.ReactNode;
-  title: string;
-  description: string;
+// ─── Data ──────────────────────────────────────────────────────────────────────
+
+const MAIN_STEPS = [
+  {
+    emoji: "🏨",
+    label: "Book & Deposit",
+    status: "working",
+    chipClass: "text-[#2857B8] border-[#2857B8]/40 bg-[#2857B8]/5",
+    Icon: Lock,
+    description: "Funds are locked into the smart-contract escrow on booking.",
+  },
+  {
+    emoji: "🔒",
+    label: "Stay in Progress",
+    status: "working",
+    chipClass: "text-[#2857B8] border-[#2857B8]/40 bg-[#2857B8]/5",
+    Icon: ShieldCheck,
+    description: "Funds are held on-chain securely while the stay is active.",
+  },
+  {
+    emoji: "✅",
+    label: "Check-out & Review",
+    status: "pendingRelease",
+    chipClass: "text-amber-600 border-amber-300 bg-amber-50",
+    Icon: CheckCircle,
+    description: "Both parties confirm checkout to trigger the release.",
+  },
+  {
+    emoji: "💸",
+    label: "Funds Released",
+    status: "released",
+    chipClass: "text-emerald-600 border-emerald-300 bg-emerald-50",
+    Icon: DollarSign,
+    description: "Smart contract releases funds to the host automatically.",
+  },
+];
+
+// All main-path node circles use SafeTrust blue
+const NODE = {
+  border: "border-[#2857B8]",
+  ring: "ring-[#2857B8]/20",
+} as const;
+
+// ─── Desktop: step node ────────────────────────────────────────────────────────
+
+function DesktopNode({
+  step,
+  index,
+}: {
+  step: (typeof MAIN_STEPS)[number];
   index: number;
-}
-
-interface AnimatedCircleProps {
-  delay: number;
-  size: number;
-  position: {
-    top: string | number;
-    left: string | number;
-  };
-  opacity: number;
-}
-
-interface ConnectingLineProps {
-  index: number;
-}
-
-interface BusinessBenefitProps {
-  title: string;
-  description: string;
-  icon: React.ReactNode;
-  index: number;
-}
-
-const StepCard: React.FC<StepCardProps> = ({ icon, title, description, index }) => {
-  const controls = useAnimation();
+}) {
   const ref = useRef(null);
-  const isInView = framerUseInView(ref, { once: true, amount: 0.1 });
-
-  useEffect(() => {
-    if (isInView) {
-      controls.start('visible');
-    }
-  }, [controls, isInView]);
-
-  const variants = {
-    hidden: { opacity: 0, y: 50 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.6,
-        delay: index * 0.2,
-      },
-    },
-  };
+  const inView = useInView(ref, { once: true, amount: 0.3 });
 
   return (
     <motion.div
       ref={ref}
-      initial="hidden"
-      animate={controls}
-      variants={variants}
-      className="bg-card backdrop-blur-sm border border-border rounded-lg p-6 transition-colors duration-300"
+      className="flex flex-col items-center"
+      initial={{ opacity: 0, y: 24 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.45, delay: index * 0.13 }}
     >
-      <div className="flex items-center justify-center w-12 h-12 rounded-full bg-primary/20 mb-4">
-        {icon}
+      <span className="text-[11px] font-semibold text-muted-foreground mb-2 tracking-widest uppercase">
+        Step {index + 1}
+      </span>
+
+      {/* Circle — always SafeTrust blue */}
+      <div
+        className={`w-[70px] h-[70px] rounded-full flex items-center justify-center text-[2rem]
+          bg-white border-2 ${NODE.border} ring-4 ${NODE.ring} shadow-md z-10`}
+      >
+        {step.emoji}
       </div>
-      <h3 className="text-xl font-semibold mb-3 text-foreground">{title}</h3>
-      <p className="text-muted-foreground">{description}</p>
+
+      {/* Status chip — color varies per on-chain state */}
+      <span
+        className={`mt-3 text-[11px] font-mono font-bold px-2.5 py-0.5 rounded-full border ${step.chipClass}`}
+      >
+        {step.status}
+      </span>
+
+      <h3 className="mt-2 text-sm font-bold text-foreground text-center leading-snug px-1">
+        {step.label}
+      </h3>
+      <p className="mt-1 text-xs text-muted-foreground text-center leading-relaxed max-w-[130px]">
+        {step.description}
+      </p>
     </motion.div>
   );
-};
+}
 
-// Animated circle that moves with scroll
-const AnimatedCircle: React.FC<AnimatedCircleProps> = ({ delay, size, position, opacity }) => {
-  return (
-    <motion.div
-      className={`absolute rounded-full bg-primary filter blur-xl pointer-events-none transition-colors duration-300`}
-      style={{
-        width: size,
-        height: size,
-        ...position,
-        opacity: 0,
-      }}
-      animate={{
-        opacity: [0, opacity, 0],
-        x: [position.left as number - 20, position.left as number + 20, position.left as number],
-        y: [position.top as number - 20, position.top as number + 20, position.top as number],
-      }}
-      transition={{
-        duration: 8,
-        delay,
-        repeat: Infinity,
-        repeatType: "reverse",
-      }}
-    />
-  );
-};
+// ─── Desktop: animated connector ──────────────────────────────────────────────
 
-// Animated connecting lines
-const ConnectingLine: React.FC<ConnectingLineProps> = ({ index }) => {
-  const controls = useAnimation();
+function HConnector({ index }: { index: number }) {
   const ref = useRef(null);
-  const isInView = framerUseInView(ref, { once: true, amount: 0.1 });
-
-  useEffect(() => {
-    if (isInView) {
-      controls.start({
-        width: "100%",
-        transition: { duration: 0.8, delay: index * 0.3 }
-      });
-    }
-  }, [controls, isInView, index]);
+  const inView = useInView(ref, { once: true, amount: 0.3 });
 
   return (
-    <div className="hidden md:flex items-center justify-center col-span-1">
+    <div ref={ref} className="flex items-start flex-shrink-0 w-10 pt-[48px]">
       <motion.div
-        ref={ref}
-        initial={{ width: 0 }}
-        animate={controls}
-        className="h-0.5 bg-gradient-to-r from-primary/30 to-primary/80 w-full transition-colors duration-300"
-      />
+        className="flex items-center w-full"
+        initial={{ opacity: 0, scaleX: 0 }}
+        animate={inView ? { opacity: 1, scaleX: 1 } : {}}
+        transition={{ duration: 0.35, delay: index * 0.13 + 0.2 }}
+        style={{ originX: 0 }}
+      >
+        <div className="flex-1 h-px bg-[#2857B8]/40" />
+        <ArrowRight className="w-3 h-3 text-[#2857B8]/50 -ml-1 flex-shrink-0" />
+      </motion.div>
     </div>
   );
-};
+}
 
-// Business benefits component
-const BusinessBenefit: React.FC<BusinessBenefitProps> = ({ title, description, icon, index }) => {
-  const controls = useAnimation();
+// ─── Mobile: step row ──────────────────────────────────────────────────────────
+
+function MobileStep({
+  step,
+  index,
+  isLast,
+}: {
+  step: (typeof MAIN_STEPS)[number];
+  index: number;
+  isLast: boolean;
+}) {
   const ref = useRef(null);
-  const isInView = framerUseInView(ref, { once: true, amount: 0.1 });
-
-  useEffect(() => {
-    if (isInView) {
-      controls.start('visible');
-    }
-  }, [controls, isInView]);
-
-  const variants = {
-    hidden: { opacity: 0, scale: 0.9 },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      transition: {
-        duration: 0.5,
-        delay: index * 0.15,
-      },
-    },
-  };
+  const inView = useInView(ref, { once: true, amount: 0.2 });
 
   return (
     <motion.div
       ref={ref}
-      initial="hidden"
-      animate={controls}
-      variants={variants}
-      className="flex flex-col items-center text-center p-4"
+      className="flex gap-4"
+      initial={{ opacity: 0, x: -18 }}
+      animate={inView ? { opacity: 1, x: 0 } : {}}
+      transition={{ duration: 0.4, delay: index * 0.11 }}
     >
-      <motion.div
-        className="mb-4 text-primary"
-        whileHover={{ scale: 1.1, rotate: 5 }}
-      >
-        {icon}
-      </motion.div>
-      <h3 className="text-lg font-medium text-foreground mb-2">{title}</h3>
-      <p className="text-muted-foreground text-sm">{description}</p>
+      {/* Left rail: circle + vertical line */}
+      <div className="flex flex-col items-center flex-shrink-0">
+        <div
+          className={`w-12 h-12 rounded-full flex items-center justify-center text-xl bg-white
+            border-2 ${NODE.border} ring-4 ${NODE.ring} shadow-md`}
+        >
+          {step.emoji}
+        </div>
+        {!isLast && (
+          <div className="w-px flex-1 mt-1 min-h-[2rem] bg-gradient-to-b from-[#2857B8]/40 to-[#2857B8]/10" />
+        )}
+      </div>
+
+      {/* Content */}
+      <div className="pt-0.5 pb-5">
+        <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-widest">
+          Step {index + 1}
+        </span>
+        <div className="flex flex-wrap items-center gap-2 mt-0.5">
+          <h3 className="text-sm font-bold text-foreground">{step.label}</h3>
+          <span
+            className={`text-[10px] font-mono font-bold px-2 py-0.5 rounded-full border ${step.chipClass}`}
+          >
+            {step.status}
+          </span>
+        </div>
+        <p className="mt-0.5 text-xs text-muted-foreground leading-relaxed max-w-xs">
+          {step.description}
+        </p>
+      </div>
     </motion.div>
   );
-};
+}
+
+// ─── Main section ──────────────────────────────────────────────────────────────
 
 const HowItWorksSection: React.FC = () => {
-  const [playAnimation, setPlayAnimation] = useState(false);
   const ref = useRef(null);
-  const isInView = framerUseInView(ref, { once: true, amount: 0.1 });
-
-  useEffect(() => {
-    if (isInView) {
-      setPlayAnimation(true);
-    }
-  }, [isInView]);
-
-  const steps = [
-    {
-      icon: <Shield className="w-6 h-6 text-primary" />,
-      title: "Create Security Deposit",
-      description: "Set up your escrow with customizable security parameters for your business transactions.",
-    },
-    {
-      icon: <Clock className="w-6 h-6 text-primary" />,
-      title: "Automated Hold Period",
-      description: "Funds are automatically held in secure smart contracts until conditions are met.",
-    },
-    {
-      icon: <CheckCircle className="w-6 h-6 text-primary" />,
-      title: "Verification Process",
-      description: "All transactions undergo our proprietary verification process to ensure legitimacy.",
-    },
-    {
-      icon: <DollarSign className="w-6 h-6 text-primary" />,
-      title: "Seamless Transfer",
-      description: "Upon successful completion, funds are instantly released to the appropriate party.",
-    },
-  ];
-
-  const benefits = [
-    {
-      icon: <Lock className="w-10 h-10" />,
-      title: "Reduced Risk",
-      description: "Eliminate payment disputes and fraud with our secure deposit system.",
-    },
-    {
-      icon: <Clock className="w-10 h-10" />,
-      title: "Save Time",
-      description: "Automate payment verification and release without manual intervention.",
-    },
-    {
-      icon: <DollarSign className="w-10 h-10" />,
-      title: "Increase Cash Flow",
-      description: "Guarantee payments and improve your business's financial predictability.",
-    },
-    {
-      icon: <CheckCircle className="w-10 h-10" />,
-      title: "Build Trust",
-      description: "Offer clients peace of mind with transparent, secure transaction processes.",
-    },
-  ];
+  const inView = useInView(ref, { once: true, amount: 0.05 });
 
   return (
-    <section 
-      id="how-it-works" 
-      className="min-h-screen bg-background py-24 px-6 md:px-16 relative overflow-hidden transition-colors duration-300"
+    <section
+      id="how-it-works"
+      className="bg-background py-20 px-6 md:px-16 overflow-hidden"
       ref={ref}
     >
-      {/* Background elements */}
-      <AnimatedCircle delay={0} size={100} position={{ top: "10%", left: "5%" }} opacity={0.1} />
-      <AnimatedCircle delay={3} size={150} position={{ top: "60%", left: "85%" }} opacity={0.08} />
-      <AnimatedCircle delay={5} size={80} position={{ top: "80%", left: "20%" }} opacity={0.07} />
-      <AnimatedCircle delay={2} size={120} position={{ top: "30%", left: "70%" }} opacity={0.05} />
-
-      <div className="container mx-auto z-10 relative">
-        <motion.div 
-          className="text-center mb-16"
+      <div className="container mx-auto max-w-5xl">
+        {/* Header */}
+        <motion.div
+          className="text-center mb-14"
           initial={{ opacity: 0, y: 20 }}
-          animate={playAnimation ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.55 }}
         >
-          <motion.h2 
-            className="text-3xl md:text-4xl font-bold mb-6 text-foreground"
-            initial={{ opacity: 0, y: 20 }}
-            animate={playAnimation ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.7, delay: 0.2 }}
-          >
-            How It <span className="text-primary">Works</span>
-          </motion.h2>
-          <motion.p 
-            className="text-muted-foreground max-w-2xl mx-auto text-lg"
-            initial={{ opacity: 0 }}
-            animate={playAnimation ? { opacity: 1 } : {}}
-            transition={{ duration: 0.7, delay: 0.4 }}
-          >
-            Our security deposit system simplifies transactions and protects your business 
-            with blockchain-powered escrow technology.
-          </motion.p>
+          <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-3">
+            How It <span className="text-[#2857B8]">Works</span>
+          </h2>
+          <p className="text-muted-foreground max-w-xl mx-auto text-sm sm:text-base">
+            Follow the escrow lifecycle — from booking to funds release —
+            secured by blockchain at every step.
+          </p>
         </motion.div>
 
-        {/* Process steps */}
-        <div className="grid grid-cols-1 md:grid-cols-7 gap-4 mb-20">
-          {steps.map((step, index) => (
-            <React.Fragment key={index}>
-              <StepCard 
-                icon={step.icon} 
-                title={step.title} 
-                description={step.description} 
-                index={index} 
-              />
-              {index < steps.length - 1 && <ConnectingLine index={index} />}
-            </React.Fragment>
+        {/* ── DESKTOP timeline ── */}
+        <div className="hidden md:block">
+          <div
+            className="grid items-start"
+            style={{ gridTemplateColumns: "1fr 40px 1fr 40px 1fr 40px 1fr" }}
+          >
+            {MAIN_STEPS.map((step, index) => (
+              <React.Fragment key={index}>
+                <DesktopNode step={step} index={index} />
+                {index < MAIN_STEPS.length - 1 && <HConnector index={index} />}
+              </React.Fragment>
+            ))}
+          </div>
+        </div>
+
+        {/* ── MOBILE timeline ── */}
+        <div className="md:hidden flex flex-col">
+          {MAIN_STEPS.map((step, index) => (
+            <MobileStep
+              key={index}
+              step={step}
+              index={index}
+              isLast={index === MAIN_STEPS.length - 1}
+            />
           ))}
         </div>
 
-        {/* Business Benefits */}
+        {/* CTA */}
         <motion.div
-          className="mt-24 text-center"
-          initial={{ opacity: 0 }}
-          animate={playAnimation ? { opacity: 1 } : {}}
-          transition={{ duration: 0.7, delay: 0.6 }}
+          className="mt-16 text-center"
+          initial={{ opacity: 0, y: 14 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.55, delay: 0.8 }}
         >
-          <h2 className="text-2xl md:text-3xl font-bold mb-10 text-foreground">
-            Making Your <span className="text-primary">Business Life Easier</span>
-          </h2>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-10">
-            {benefits.map((benefit, index) => (
-              <BusinessBenefit
-                key={index}
-                icon={benefit.icon}
-                title={benefit.title}
-                description={benefit.description}
-                index={index}
-              />
-            ))}
-          </div>
-        </motion.div>
-
-        {/* Call to action */}
-        <motion.div
-          className="mt-20 text-center"
-          initial={{ opacity: 0, y: 20 }}
-          animate={playAnimation ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7, delay: 0.8 }}
-        >
-          <h3 className="text-xl md:text-2xl font-medium mb-6 text-foreground">
-            Ready to secure your business transactions?
-          </h3>
+          <p className="text-base font-semibold text-foreground mb-4">
+            Ready to secure your transactions?
+          </p>
           <motion.button
-            className="bg-primary text-primary-foreground py-3 px-8 rounded-lg flex items-center gap-2 mx-auto hover:bg-primary/90 transition-colors duration-300"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+            className="bg-[#2857B8] text-white py-3 px-8 rounded-lg inline-flex items-center gap-2 hover:bg-[#1e45a0] transition-colors duration-200 font-medium"
+            whileHover={{ scale: 1.04 }}
+            whileTap={{ scale: 0.97 }}
           >
             Get Started <ArrowRight className="w-4 h-4" />
           </motion.button>
