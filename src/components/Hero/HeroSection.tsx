@@ -80,7 +80,6 @@ function SecurityVisual() {
           <div className={`${styles.orbitDot} ${styles.orbitDot3}`} />
         </motion.div>
         
-        {/* Central Logo */}
         <motion.div
           className={styles.shieldCore}
           initial={{ scale: 0, opacity: 0 }}
@@ -101,7 +100,6 @@ function SecurityVisual() {
           </div>
         </motion.div>
 
-        {/* Floating Cards */}
         <motion.div
           className={`${styles.floatingCard} ${styles.floatingCard1}`}
           initial={{ opacity: 0, x: 20 }}
