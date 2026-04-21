@@ -2,7 +2,8 @@
 
 import React, { useRef, useState } from "react";
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
-import { Shield, Lock, Wallet, ChevronDown, ArrowRight } from "lucide-react";
+import { Lock, Wallet, ChevronDown, ArrowRight } from "lucide-react";
+import Image from "next/image";
 import Navbar from "@/components/navigation/Navbar";
 import WalletModal from "@/components/wallet/WalletModal";
 import { useWallet } from "@/hooks/use-wallet";
@@ -79,23 +80,29 @@ function SecurityVisual() {
           <div className={`${styles.orbitDot} ${styles.orbitDot3}`} />
         </motion.div>
         
-        {/* Central Shield */}
-        <motion.div 
+        {/* Central Logo */}
+        <motion.div
           className={styles.shieldCore}
           initial={{ scale: 0, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.5, type: "spring" }}
         >
           <div className="relative">
-            <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-blue-600/20 rounded-3xl blur-xl" />
-            <div className="relative bg-gradient-to-br from-primary to-blue-600 p-8 rounded-3xl shadow-2xl shadow-primary/30">
-              <Shield className="w-20 h-20 text-white" strokeWidth={1.5} />
+            <div className="absolute inset-0 bg-white/20 rounded-3xl blur-xl" />
+            <div className="relative bg-white/90 backdrop-blur-sm p-8 rounded-3xl shadow-2xl shadow-blue-100/50 border border-blue-100">
+              <Image
+                src="/images/landing-logo.jpeg"
+                alt="SafeTrust Logo"
+                width={80}
+                height={80}
+                className="rounded-xl"
+              />
             </div>
           </div>
         </motion.div>
-        
+
         {/* Floating Cards */}
-        <motion.div 
+        <motion.div
           className={`${styles.floatingCard} ${styles.floatingCard1}`}
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
@@ -103,11 +110,11 @@ function SecurityVisual() {
         >
           <div className="flex items-center gap-2">
             <Lock className="w-4 h-4 text-green-500" />
-            <span className="text-sm font-medium text-foreground">Encrypted</span>
+            <span className="text-sm font-medium text-foreground">Secure</span>
           </div>
         </motion.div>
-        
-        <motion.div 
+
+        <motion.div
           className={`${styles.floatingCard} ${styles.floatingCard2}`}
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
@@ -115,11 +122,11 @@ function SecurityVisual() {
         >
           <div className="flex items-center gap-2">
             <Wallet className="w-4 h-4 text-blue-500" />
-            <span className="text-sm font-medium text-foreground">$2.5M Secured</span>
+            <span className="text-sm font-medium text-foreground">Transparent</span>
           </div>
         </motion.div>
-        
-        <motion.div 
+
+        <motion.div
           className={`${styles.floatingCard} ${styles.floatingCard3}`}
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
@@ -127,7 +134,7 @@ function SecurityVisual() {
         >
           <div className="flex items-center gap-2">
             <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-            <span className="text-sm font-medium text-foreground">Live Protection</span>
+            <span className="text-sm font-medium text-foreground">Trusted</span>
           </div>
         </motion.div>
       </div>
