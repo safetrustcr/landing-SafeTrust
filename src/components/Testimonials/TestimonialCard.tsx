@@ -57,7 +57,7 @@ const Avatar = ({
         isActive ? "ring-primary" : "ring-border"
       )}
     >
-      {!imageError ? (
+      {src && !imageError ? (
         <Image
           src={src}
           alt={`${name}'s profile picture`}
