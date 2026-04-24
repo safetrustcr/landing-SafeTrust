@@ -40,12 +40,12 @@ export const useAnalyticsData = ({
     for(let i = 0; i < days; i++) {
        const d = new Date(today);
        d.setDate(d.getDate() - i);
-       const dateStr = d.toISOString().split('T')[0];
+       const dateStr = (d.toISOString() || "").split('T')[0];
        dataMap.set(dateStr, { pageViews: 0, clicks: 0, users: new Set() });
     }
 
     events.forEach(event => {
-       const dateStr = new Date(event.timestamp).toISOString().split('T')[0];
+       const dateStr = (new Date(event.timestamp).toISOString() || "").split('T')[0];
        // Only process events that fall within our initialized range
        if (dataMap.has(dateStr)) {
           const entry = dataMap.get(dateStr)!;

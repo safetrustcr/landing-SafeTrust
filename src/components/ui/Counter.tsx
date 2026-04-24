@@ -44,7 +44,7 @@ export const Counter: React.FC<CounterProps> = ({
     const formatNumber = (num: number): string => {
         if (!separator) return num.toString();
 
-        const parts = num.toString().split(".");
+        const parts = (num?.toString() || "").split(".");
         parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         return parts.join(".");
     };

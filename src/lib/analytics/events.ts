@@ -151,7 +151,7 @@ export const trackTimeOnPage = (timeInSeconds: number, pageUrl?: string): void =
     action: 'time_on_page',
     category: 'engagement',
     value: timeInSeconds,
-    label: pageUrl || window.location.pathname,
+    label: pageUrl || (typeof window !== 'undefined' ? window.location.pathname : ''),
     time_in_seconds: timeInSeconds,
   });
 };

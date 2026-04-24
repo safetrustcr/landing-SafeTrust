@@ -30,7 +30,8 @@ const ReCAPTCHA: React.FC<ReCAPTCHAProps> = ({ onVerify, onToken, siteKey }) => 
   const widgetIdRef = useRef<number | null>(null);
 
   if (!siteKey) {
-    throw new Error("siteKey is required for ReCAPTCHA");
+    console.warn("siteKey is missing for ReCAPTCHA");
+    return null;
   }
 
   useEffect(() => {

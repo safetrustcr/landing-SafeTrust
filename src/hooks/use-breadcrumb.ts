@@ -17,7 +17,7 @@ export function useBreadcrumb(options: UseBreadcrumbOptions = {}): BreadcrumbIte
   const pathname = usePathname()
   const { excludeSegments = [], customLabels = {} } = options
 
-  const segments = pathname
+  const segments = (pathname || "")
     .split('/')
     .filter(Boolean)
     .filter(segment => !excludeSegments.includes(segment))
@@ -35,7 +35,7 @@ export function useBreadcrumb(options: UseBreadcrumbOptions = {}): BreadcrumbIte
   return segments.map((segment: string, index: number) => {
     const label =
       customLabels[segment] ||
-      segment
+      (segment || "")
         .split('-')
         .map((word: string) => word.charAt(0).toUpperCase() + word.slice(1))
         .join(' ')
