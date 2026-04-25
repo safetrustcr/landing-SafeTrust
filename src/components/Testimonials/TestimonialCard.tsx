@@ -39,7 +39,7 @@ const Avatar = ({
   name: string;
   isActive?: boolean;
 }) => {
-  const initials = name
+  const initials = (name || "")
     .split(" ")
     .map((n) => n[0])
     .join("")

@@ -39,7 +39,7 @@ export const generateMockData = (days: number = 30): AnalyticsData[] => {
     const baseUsers = 50 + (i * 3) + Math.random() * 20;
 
     data.push({
-      date: date.toISOString().split('T')[0],
+      date: (date.toISOString() || "").split('T')[0],
       pageViews: Math.floor(basePageViews),
       clicks: Math.floor(baseClicks),
       users: Math.floor(baseUsers),

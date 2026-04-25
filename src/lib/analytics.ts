@@ -1,5 +1,14 @@
 import * as gtag from './analytics/gtag';
 
+export interface AnalyticsEvent {
+  type: string;
+  path: string;
+  timestamp: number;
+  url: string;
+  visitorId: string;
+  payload?: any;
+}
+
 class SimpleTracker {
   private enabled = false;
   private debug = false;
@@ -47,6 +56,7 @@ class SimpleTracker {
     }
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   track(eventName: string, payload?: any) {
     if (!this.enabled || typeof window === 'undefined') return;
 
@@ -143,6 +153,16 @@ class SimpleTracker {
     // Track in internal logger
     this.saveEvent(event);
     this.log(event);
+  }
+
+  getHistory(): AnalyticsEvent[] {
+    if (typeof window === 'undefined') return [];
+    try {
+      return JSON.parse(localStorage.getItem(this.STORAGE_KEY) || '[]');
+    } catch (e) {
+      console.warn('Failed to get analytics history', e);
+      return [];
+    }
   }
 
   private log(data: Record<string, unknown>) {
