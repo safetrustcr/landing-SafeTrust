@@ -8,7 +8,7 @@ import { ArrowRight, Lock, ShieldCheck, CheckCircle, DollarSign } from "lucide-r
 
 const MAIN_STEPS = [
   {
-    emoji: "🏨",
+    emoji: "🔏",
     label: "Book & Deposit",
     status: "working",
     chipClass: "text-[#2857B8] border-[#2857B8]/40 bg-[#2857B8]/5",
@@ -16,7 +16,7 @@ const MAIN_STEPS = [
     description: "Funds are locked into the smart-contract escrow on booking.",
   },
   {
-    emoji: "🔒",
+    emoji: "⛓️",
     label: "Stay in Progress",
     status: "working",
     chipClass: "text-[#2857B8] border-[#2857B8]/40 bg-[#2857B8]/5",
@@ -24,7 +24,7 @@ const MAIN_STEPS = [
     description: "Funds are held on-chain securely while the stay is active.",
   },
   {
-    emoji: "✅",
+    emoji: "🤝",
     label: "Check-out & Review",
     status: "pendingRelease",
     chipClass: "text-amber-600 border-amber-300 bg-amber-50",
@@ -76,7 +76,9 @@ function DesktopNode({
         className={`w-[70px] h-[70px] rounded-full flex items-center justify-center text-[2rem]
           bg-white border-2 ${NODE.border} ring-4 ${NODE.ring} shadow-md z-10`}
       >
-        {step.emoji}
+        <span aria-hidden="true" suppressHydrationWarning>
+          {step.emoji}
+        </span>
       </div>
 
       {/* Status chip — color varies per on-chain state */}
@@ -146,7 +148,9 @@ function MobileStep({
           className={`w-12 h-12 rounded-full flex items-center justify-center text-xl bg-white
             border-2 ${NODE.border} ring-4 ${NODE.ring} shadow-md`}
         >
-          {step.emoji}
+          <span aria-hidden="true" suppressHydrationWarning>
+            {step.emoji}
+          </span>
         </div>
         {!isLast && (
           <div className="w-px flex-1 mt-1 min-h-[2rem] bg-gradient-to-b from-[#2857B8]/40 to-[#2857B8]/10" />
