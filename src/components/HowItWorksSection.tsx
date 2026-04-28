@@ -1,260 +1,515 @@
 "use client";
 
-import React, { useRef } from "react";
-import { motion, useInView } from "framer-motion";
-import { ArrowRight, Lock, ShieldCheck, CheckCircle, DollarSign } from "lucide-react";
+import { useEffect, useRef } from "react";
+import { animate, stagger, inView, hover, scroll, spring } from "motion";
 
-// ─── Data ──────────────────────────────────────────────────────────────────────
+// ─── Step data ────────────────────────────────────────────────────────────────
 
-const MAIN_STEPS = [
+type StepStatus = "working" | "pendingRelease" | "released";
+
+interface Step {
+  id: number;
+  stepLabel: string;
+  title: string;
+  description: string;
+  status: StepStatus;
+  icon: string;
+}
+
+const STEPS: Step[] = [
   {
-    emoji: "🔏",
-    label: "Book & Deposit",
-    status: "working",
-    chipClass: "text-[#2857B8] border-[#2857B8]/40 bg-[#2857B8]/5",
-    Icon: Lock,
+    id: 1,
+    stepLabel: "STEP 1",
+    title: "Book & Deposit",
     description: "Funds are locked into the smart-contract escrow on booking.",
-  },
-  {
-    emoji: "⛓️",
-    label: "Stay in Progress",
     status: "working",
-    chipClass: "text-[#2857B8] border-[#2857B8]/40 bg-[#2857B8]/5",
-    Icon: ShieldCheck,
-    description: "Funds are held on-chain securely while the stay is active.",
+    icon: "🔒",
   },
   {
-    emoji: "🤝",
-    label: "Check-out & Review",
+    id: 2,
+    stepLabel: "STEP 2",
+    title: "Stay in Progress",
+    description:
+      "Funds are held on-chain securely while the stay is active.",
+    status: "working",
+    icon: "⚙️",
+  },
+  {
+    id: 3,
+    stepLabel: "STEP 3",
+    title: "Check-out & Review",
+    description:
+      "Both parties confirm checkout to trigger the release.",
     status: "pendingRelease",
-    chipClass: "text-amber-600 border-amber-300 bg-amber-50",
-    Icon: CheckCircle,
-    description: "Both parties confirm checkout to trigger the release.",
+    icon: "🤝",
   },
   {
-    emoji: "💸",
-    label: "Funds Released",
+    id: 4,
+    stepLabel: "STEP 4",
+    title: "Funds Released",
+    description:
+      "Smart contract releases funds to the host automatically.",
     status: "released",
-    chipClass: "text-emerald-600 border-emerald-300 bg-emerald-50",
-    Icon: DollarSign,
-    description: "Smart contract releases funds to the host automatically.",
+    icon: "💎",
   },
 ];
 
-// All main-path node circles use SafeTrust blue
-const NODE = {
-  border: "border-[#2857B8]",
-  ring: "ring-[#2857B8]/20",
-} as const;
+// ─── Status chip config ───────────────────────────────────────────────────────
 
-// ─── Desktop: step node ────────────────────────────────────────────────────────
+const STATUS_CONFIG: Record<
+  StepStatus,
+  { label: string; bg: string; text: string; pulse: string; ring: string }
+> = {
+  working: {
+    label: "working",
+    bg: "rgba(219,234,254,1)",
+    text: "#1d4ed8",
+    pulse: "rgba(59,130,246,0.45)",
+    ring: "#3b82f6",
+  },
+  pendingRelease: {
+    label: "pendingRelease",
+    bg: "rgba(254,243,199,1)",
+    text: "#b45309",
+    pulse: "rgba(245,158,11,0.45)",
+    ring: "#f59e0b",
+  },
+  released: {
+    label: "released",
+    bg: "rgba(209,250,229,1)",
+    text: "#065f46",
+    pulse: "rgba(16,185,129,0.45)",
+    ring: "#10b981",
+  },
+};
 
-function DesktopNode({
-  step,
-  index,
-}: {
-  step: (typeof MAIN_STEPS)[number];
-  index: number;
-}) {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, amount: 0.3 });
+// ─── Component ────────────────────────────────────────────────────────────────
 
-  return (
-    <motion.div
-      ref={ref}
-      className="flex flex-col items-center"
-      initial={{ opacity: 0, y: 24 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.45, delay: index * 0.13 }}
-    >
-      <span className="text-[11px] font-semibold text-muted-foreground mb-2 tracking-widest uppercase">
-        Step {index + 1}
-      </span>
+export default function HowItWorksSection() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const progressBarRef = useRef<HTMLDivElement>(null);
+  const cleanupRefs = useRef<Array<() => void>>([]);
 
-      {/* Circle — always SafeTrust blue */}
-      <div
-        className={`w-[70px] h-[70px] rounded-full flex items-center justify-center text-[2rem]
-          bg-white border-2 ${NODE.border} ring-4 ${NODE.ring} shadow-md z-10`}
-      >
-        <span aria-hidden="true" suppressHydrationWarning>
-          {step.emoji}
-        </span>
-      </div>
+  useEffect(() => {
+    const section = sectionRef.current;
+    const progressBar = progressBarRef.current;
+    if (!section || !progressBar) return;
 
-      {/* Status chip — color varies per on-chain state */}
-      <span
-        className={`mt-3 text-[11px] font-mono font-bold px-2.5 py-0.5 rounded-full border ${step.chipClass}`}
-      >
-        {step.status}
-      </span>
+    // Pre-set initial states
+    const nodes = Array.from(
+      section.querySelectorAll<HTMLElement>(".step-node")
+    );
+    const connectors = Array.from(
+      section.querySelectorAll<HTMLElement>(".h-connector")
+    );
+    const header = section.querySelector<HTMLElement>(".section-header");
+    const chips = Array.from(
+      section.querySelectorAll<HTMLElement>(".status-chip")
+    );
 
-      <h3 className="mt-2 text-sm font-bold text-foreground text-center leading-snug px-1">
-        {step.label}
-      </h3>
-      <p className="mt-1 text-xs text-muted-foreground text-center leading-relaxed max-w-[130px]">
-        {step.description}
-      </p>
-    </motion.div>
-  );
-}
+    // Reset to invisible before animation
+    nodes.forEach((n) => {
+      n.style.opacity = "0";
+      n.style.transform = "translateY(24px)";
+    });
+    connectors.forEach((c) => {
+      const isVertical = c.classList.contains("v-connector");
+      c.style.transform = isVertical ? "scaleY(0)" : "scaleX(0)";
+      c.style.transformOrigin = isVertical ? "top center" : "left center";
+    });
+    if (header) {
+      header.style.opacity = "0";
+      header.style.transform = "translateY(-12px)";
+    }
 
-// ─── Desktop: animated connector ──────────────────────────────────────────────
+    // ── 5. Scroll-driven progress bar ──────────────────────────────────────
+    progressBar.style.transformOrigin = "left center";
+    const cancelScroll = scroll(
+      animate(
+        progressBar,
+        { scaleX: [0, 1] },
+        { ease: "linear" }
+      ),
+      {
+        target: section,
+        offset: ["start end", "end start"],
+      }
+    );
+    cleanupRefs.current.push(cancelScroll);
 
-function HConnector({ index }: { index: number }) {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, amount: 0.3 });
+    // ── Main inView trigger ─────────────────────────────────────────────────
+    const stopInView = inView(
+      section,
+      () => {
+        const STEP_DUR = 0.5;
+        const STEP_STAGGER = 0.35;
+        const CONNECTOR_DUR = 0.45;
 
-  return (
-    <div ref={ref} className="flex items-start flex-shrink-0 w-10 pt-[48px]">
-      <motion.div
-        className="flex items-center w-full"
-        initial={{ opacity: 0, scaleX: 0 }}
-        animate={inView ? { opacity: 1, scaleX: 1 } : {}}
-        transition={{ duration: 0.35, delay: index * 0.13 + 0.2 }}
-        style={{ originX: 0 }}
-      >
-        <div className="flex-1 h-px bg-[#2857B8]/40" />
-        <ArrowRight className="w-3 h-3 text-[#2857B8]/50 -ml-1 flex-shrink-0" />
-      </motion.div>
-    </div>
-  );
-}
+        // ── 1. Header fade in ────────────────────────────────────────────────
+        if (header) {
+          animate(
+            header as any,
+            { opacity: [0, 1], transform: ["translateY(-12px)", "translateY(0px)"] },
+            { duration: 0.5, ease: "ease-out" } as any
+          );
+        }
 
-// ─── Mobile: step row ──────────────────────────────────────────────────────────
+        // ── 2. Staggered sequential node reveal ──────────────────────────────
+        animate(
+          nodes as any,
+          { opacity: [0, 1], transform: ["translateY(24px)", "translateY(0px)"] },
+          {
+            delay: (i: number) => 0.25 + i * STEP_STAGGER,
+            duration: STEP_DUR,
+            ease: "ease-out",
+          } as any
+        );
 
-function MobileStep({
-  step,
-  index,
-  isLast,
-}: {
-  step: (typeof MAIN_STEPS)[number];
-  index: number;
-  isLast: boolean;
-}) {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, amount: 0.2 });
+        // ── 3. Connector drawing — fires after each preceding node ───────────
+        connectors.forEach((connector, i) => {
+          const isVertical = connector.classList.contains("v-connector");
+          const startAt = 0.25 + (i + 1) * STEP_STAGGER;
+          
+          animate(
+            connector as any,
+            { transform: isVertical ? ["scaleY(0)", "scaleY(1)"] : ["scaleX(0)", "scaleX(1)"] },
+            {
+              delay: startAt,
+              duration: CONNECTOR_DUR,
+              ease: "ease-in-out",
+            } as any
+          );
 
-  return (
-    <motion.div
-      ref={ref}
-      className="flex gap-4"
-      initial={{ opacity: 0, x: -18 }}
-      animate={inView ? { opacity: 1, x: 0 } : {}}
-      transition={{ duration: 0.4, delay: index * 0.11 }}
-    >
-      {/* Left rail: circle + vertical line */}
-      <div className="flex flex-col items-center flex-shrink-0">
-        <div
-          className={`w-12 h-12 rounded-full flex items-center justify-center text-xl bg-white
-            border-2 ${NODE.border} ring-4 ${NODE.ring} shadow-md`}
-        >
-          <span aria-hidden="true" suppressHydrationWarning>
-            {step.emoji}
-          </span>
-        </div>
-        {!isLast && (
-          <div className="w-px flex-1 mt-1 min-h-[2rem] bg-gradient-to-b from-[#2857B8]/40 to-[#2857B8]/10" />
-        )}
-      </div>
+          const glow = connector.querySelector<HTMLElement>(".connector-glow");
+          if (glow) {
+            animate(
+              glow as any,
+              { 
+                opacity: [0, 0.8, 0], 
+                transform: isVertical 
+                  ? ["translateY(-100%)", "translateY(100%)"] 
+                  : ["translateX(-100%)", "translateX(100%)"] 
+              },
+              {
+                delay: startAt,
+                duration: CONNECTOR_DUR,
+                ease: "ease-in-out",
+              } as any
+            );
+          }
+        });
 
-      {/* Content */}
-      <div className="pt-0.5 pb-5">
-        <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-widest">
-          Step {index + 1}
-        </span>
-        <div className="flex flex-wrap items-center gap-2 mt-0.5">
-          <h3 className="text-sm font-bold text-foreground">{step.label}</h3>
-          <span
-            className={`text-[10px] font-mono font-bold px-2 py-0.5 rounded-full border ${step.chipClass}`}
-          >
-            {step.status}
-          </span>
-        </div>
-        <p className="mt-0.5 text-xs text-muted-foreground leading-relaxed max-w-xs">
-          {step.description}
-        </p>
-      </div>
-    </motion.div>
-  );
-}
+        // ── 4. Status chip pulse — looping ──────────────────────────────────
+        const chipDelay = 0.25 + STEPS.length * STEP_STAGGER;
+        chips.forEach((chip) => {
+          const status = chip.dataset.status as StepStatus;
+          const cfg = STATUS_CONFIG[status];
+          const timer = setTimeout(() => {
+            const a = animate(
+              chip as any,
+              {
+                boxShadow: [
+                  `0 0 0 0px ${cfg.pulse}`,
+                  `0 0 0 6px ${cfg.pulse}`,
+                  `0 0 0 0px ${cfg.pulse}`,
+                ],
+              },
+              {
+                duration: 1.8,
+                repeat: Infinity,
+                ease: "ease-in-out",
+              } as any
+            );
+            cleanupRefs.current.push(() => a.stop());
+          }, chipDelay * 1000);
+          
+          cleanupRefs.current.push(() => clearTimeout(timer));
+        });
 
-// ─── Main section ──────────────────────────────────────────────────────────────
+        // ── 5. Hover micro-interactions ──────────────────────────────────────
+        nodes.forEach((node) => {
+          const circle = node.querySelector<HTMLElement>(".node-circle");
+          const icon = node.querySelector<HTMLElement>(".node-icon");
 
-const HowItWorksSection: React.FC = () => {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, amount: 0.05 });
+          if (!circle) return;
+
+          const cancelHover = hover(node, () => {
+            animate(
+              circle,
+              { scale: 1.08 },
+              { type: spring, stiffness: 300, damping: 15 }
+            );
+            if (icon) {
+              animate(
+                icon,
+                { rotate: 6 },
+                { type: spring, stiffness: 300, damping: 15 }
+              );
+            }
+            return () => {
+              animate(
+                circle,
+                { scale: 1 },
+                { type: spring, stiffness: 300, damping: 20 }
+              );
+              if (icon) {
+                animate(
+                  icon,
+                  { rotate: 0 },
+                  { type: spring, stiffness: 300, damping: 20 }
+                );
+              }
+            };
+          });
+          cleanupRefs.current.push(cancelHover);
+        });
+      },
+      { amount: 0.25, once: true }
+    );
+
+    cleanupRefs.current.push(stopInView);
+
+    return () => {
+      cleanupRefs.current.forEach((fn) => fn());
+      cleanupRefs.current = [];
+    };
+  }, []);
 
   return (
     <section
-      id="how-it-works"
-      className="bg-background py-20 px-6 md:px-16 overflow-hidden"
-      ref={ref}
+      ref={sectionRef}
+      id="how-it-works-section"
+      className="relative overflow-hidden bg-white dark:bg-gray-950 py-20 px-4"
     >
-      <div className="container mx-auto max-w-5xl">
-        {/* Header */}
-        <motion.div
-          className="text-center mb-14"
-          initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.55 }}
-        >
-          <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-3">
-            How It <span className="text-[#2857B8]">Works</span>
+      {/* ── Scroll-driven progress bar ── */}
+      <div
+        ref={progressBarRef}
+        className="absolute top-0 left-0 h-[3px] w-full origin-left"
+        style={{ backgroundColor: "#2857B8", transformOrigin: "left center" }}
+        aria-hidden="true"
+      />
+
+      <div className="mx-auto max-w-5xl">
+        {/* ── Section Header ── */}
+        <div className="section-header mb-14 text-center">
+          <h2 className="text-3xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-4xl">
+            How It{" "}
+            <span style={{ color: "#2857B8" }} className="dark:text-blue-400">
+              Works
+            </span>
           </h2>
-          <p className="text-muted-foreground max-w-xl mx-auto text-sm sm:text-base">
+          <p className="mt-3 text-base text-gray-500 dark:text-gray-400 max-w-xl mx-auto">
             Follow the escrow lifecycle — from booking to funds release —
             secured by blockchain at every step.
           </p>
-        </motion.div>
-
-        {/* ── DESKTOP timeline ── */}
-        <div className="hidden md:block">
-          <div
-            className="grid items-start"
-            style={{ gridTemplateColumns: "1fr 40px 1fr 40px 1fr 40px 1fr" }}
-          >
-            {MAIN_STEPS.map((step, index) => (
-              <React.Fragment key={index}>
-                <DesktopNode step={step} index={index} />
-                {index < MAIN_STEPS.length - 1 && <HConnector index={index} />}
-              </React.Fragment>
-            ))}
-          </div>
         </div>
 
-        {/* ── MOBILE timeline ── */}
-        <div className="md:hidden flex flex-col">
-          {MAIN_STEPS.map((step, index) => (
-            <MobileStep
-              key={index}
-              step={step}
-              index={index}
-              isLast={index === MAIN_STEPS.length - 1}
-            />
-          ))}
+        {/* ── Desktop Timeline ── */}
+        <div className="hidden md:flex items-start justify-center gap-0">
+          {STEPS.map((step, index) => {
+            const cfg = STATUS_CONFIG[step.status];
+            return (
+              <div key={step.id} className="flex items-center">
+                {/* Step Node */}
+                <div
+                  className="step-node flex flex-col items-center text-center"
+                  style={{ width: 160 }}
+                >
+                  {/* Step label */}
+                  <p className="mb-3 text-xs font-semibold tracking-widest text-gray-400 dark:text-gray-500 uppercase">
+                    {step.stepLabel}
+                  </p>
+
+                  {/* Circle */}
+                  <div
+                    className="node-circle relative flex items-center justify-center rounded-full border-2 mb-3"
+                    style={{
+                      width: 72,
+                      height: 72,
+                      borderColor: "#2857B8",
+                      backgroundColor: "rgba(40,87,184,0.06)",
+                    }}
+                  >
+                    <span
+                      className="node-icon text-3xl select-none"
+                      aria-hidden="true"
+                    >
+                      {step.icon}
+                    </span>
+                  </div>
+
+                  {/* Status chip */}
+                  <span
+                    className="status-chip mb-2 inline-block rounded-full px-3 py-0.5 text-xs font-semibold"
+                    data-status={step.status}
+                    style={{
+                      backgroundColor: cfg.bg,
+                      color: cfg.text,
+                      border: `1px solid ${cfg.ring}`,
+                    }}
+                  >
+                    {cfg.label}
+                  </span>
+
+                  {/* Title */}
+                  <p className="text-sm font-bold text-gray-900 dark:text-white">
+                    {step.title}
+                  </p>
+
+                  {/* Description */}
+                  <p className="mt-1 text-xs leading-relaxed text-gray-500 dark:text-gray-400 max-w-[130px]">
+                    {step.description}
+                  </p>
+                </div>
+
+                {/* Connector arrow (not after last step) */}
+                {index < STEPS.length - 1 && (
+                  <div
+                    className="h-connector relative flex items-center mx-1"
+                    style={{
+                      width: 48,
+                      height: 2,
+                      backgroundColor: "#d1d5db",
+                      flexShrink: 0,
+                      transformOrigin: "left center",
+                      marginTop: -60, // align with circle centers
+                    }}
+                  >
+                    {/* Glow overlay */}
+                    <div
+                      className="connector-glow absolute inset-0 rounded-full opacity-0"
+                      style={{
+                        background:
+                          "linear-gradient(90deg, transparent, #2857B8, transparent)",
+                      }}
+                    />
+                    {/* Arrow head */}
+                    <svg
+                      className="absolute -right-3 top-1/2 -translate-y-1/2"
+                      width="12"
+                      height="12"
+                      viewBox="0 0 12 12"
+                      fill="none"
+                      aria-hidden="true"
+                    >
+                      <path
+                        d="M1 6h10M7 2l4 4-4 4"
+                        stroke="#9ca3af"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </div>
+                )}
+              </div>
+            );
+          })}
         </div>
 
-        {/* CTA */}
-        <motion.div
-          className="mt-16 text-center"
-          initial={{ opacity: 0, y: 14 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.55, delay: 0.8 }}
-        >
-          <p className="text-base font-semibold text-foreground mb-4">
+        {/* ── Mobile Timeline ── */}
+        <div className="flex flex-col items-center gap-0 md:hidden">
+          {STEPS.map((step, index) => {
+            const cfg = STATUS_CONFIG[step.status];
+            return (
+              <div key={step.id} className="flex flex-col items-center w-full">
+                {/* Step Node */}
+                <div className="step-node flex items-center gap-4 w-full max-w-sm px-2">
+                  {/* Circle */}
+                  <div
+                    className="node-circle flex-shrink-0 flex items-center justify-center rounded-full border-2"
+                    style={{
+                      width: 60,
+                      height: 60,
+                      borderColor: "#2857B8",
+                      backgroundColor: "rgba(40,87,184,0.06)",
+                    }}
+                  >
+                    <span className="node-icon text-2xl" aria-hidden="true">
+                      {step.icon}
+                    </span>
+                  </div>
+
+                  {/* Content */}
+                  <div className="flex flex-col">
+                    <span className="text-[10px] font-semibold tracking-widest text-gray-400 uppercase mb-0.5">
+                      {step.stepLabel}
+                    </span>
+                    <span
+                      className="status-chip mb-1 self-start rounded-full px-2 py-0.5 text-[10px] font-semibold"
+                      data-status={step.status}
+                      style={{
+                        backgroundColor: cfg.bg,
+                        color: cfg.text,
+                        border: `1px solid ${cfg.ring}`,
+                      }}
+                    >
+                      {cfg.label}
+                    </span>
+                    <p className="text-sm font-bold text-gray-900 dark:text-white">
+                      {step.title}
+                    </p>
+                    <p className="text-xs leading-relaxed text-gray-500 dark:text-gray-400">
+                      {step.description}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Vertical connector */}
+                {index < STEPS.length - 1 && (
+                  <div
+                    className="h-connector v-connector relative my-2"
+                    style={{
+                      width: 2,
+                      height: 36,
+                      backgroundColor: "#d1d5db",
+                      transformOrigin: "top center",
+                    }}
+                  >
+                    <div
+                      className="connector-glow absolute inset-0 rounded-full opacity-0"
+                      style={{
+                        background:
+                          "linear-gradient(180deg, transparent, #2857B8, transparent)",
+                      }}
+                    />
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+
+        {/* ── CTA ── */}
+        <div className="mt-16 flex flex-col items-center gap-3">
+          <p className="text-base font-semibold text-gray-900 dark:text-white">
             Ready to secure your transactions?
           </p>
-          <motion.button
-            className="bg-[#2857B8] text-white py-3 px-8 rounded-lg inline-flex items-center gap-2 hover:bg-[#1e45a0] transition-colors duration-200 font-medium"
-            whileHover={{ scale: 1.04 }}
-            whileTap={{ scale: 0.97 }}
+          <a
+            href="/register"
+            id="how-it-works-cta"
+            className="inline-flex items-center gap-2 rounded-lg px-6 py-3 text-sm font-semibold text-white transition-opacity hover:opacity-90 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
+            style={{ backgroundColor: "#2857B8" }}
           >
-            Get Started <ArrowRight className="w-4 h-4" />
-          </motion.button>
-        </motion.div>
+            Get Started
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 16 16"
+              fill="none"
+              aria-hidden="true"
+            >
+              <path
+                d="M3 8h10M9 4l4 4-4 4"
+                stroke="currentColor"
+                strokeWidth="1.8"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </a>
+        </div>
       </div>
     </section>
   );
-};
-
-export default HowItWorksSection;
+}
