@@ -3,8 +3,6 @@
 import dynamic from "next/dynamic";
 import { HeroSection } from "@/components/Hero";
 import { LazySkeletonFallback } from "@/components/LazyWrapper";
-import SwipeNavigation from "@/components/SwipeNavigation";
-import PullToRefresh from "@/components/ui/PullToRefresh";
 
 const FaqSection = dynamic(() => import("@/components/FaqSection"), {
     loading: () => <LazySkeletonFallback height="400px" className="my-8" />,
@@ -44,6 +42,13 @@ const SecuritySection = dynamic(() => import("@/components/SecuritySection"), {
     loading: () => <LazySkeletonFallback height="400px" className="my-8" />,
 });
 
+const TransactionPreviewSection = dynamic(
+    () => import("@/components/TransactionPreviewSection"),
+    {
+        loading: () => <LazySkeletonFallback height="360px" className="my-8" />,
+    },
+);
+
 const TestimonialSection = dynamic(
     () => import("@/components/TestimonialSection"),
     {
@@ -52,40 +57,6 @@ const TestimonialSection = dynamic(
 );
 
 export default function Home() {
-    const handleRefresh = async () => {
-        // Simulate refresh delay
-        await new Promise((resolve) => setTimeout(resolve, 2000));
-        window.location.reload();
-    };
-
-    const sections = [
-        { id: "hero", title: "Hero", content: <HeroSection /> },
-        { id: "discover", title: "Discover", content: <Discover /> },
-        { id: "features", title: "Features", content: <FeaturesSection /> },
-        {
-            id: "howItworks",
-            title: "How It Works",
-            content: <HowItWorksSection />,
-        },
-        {
-            id: "securitySection",
-            title: "Security Section",
-            content: <SecuritySection />,
-        },
-        {
-            id: "testimonialSection",
-            title: "Testimonial Section",
-            content: <TestimonialSection />,
-        },
-        { id: "faqSection", title: "Faq Section", content: <FaqSection /> },
-        {
-            id: "transactionTiers",
-            title: "Transaction Tiers",
-            content: <TransactionTiers />,
-        },
-        { id: "footer", title: "Footer", content: <Footer /> },
-    ];
-
     return (
         <>
             {/* Desktop Content */}
@@ -95,6 +66,7 @@ export default function Home() {
                 <FeaturesSection />
                 <HowItWorksSection />
                 <SecuritySection />
+                <TransactionPreviewSection />
                 <TestimonialSection />
                 <FaqSection />
                 <TransactionTiers />
