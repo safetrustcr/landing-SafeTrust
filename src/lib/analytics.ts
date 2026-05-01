@@ -1,15 +1,16 @@
-import * as gtag from './analytics/gtag';
+import * as gtag from "./analytics/gtag";
+
 
 class SimpleTracker {
   private enabled = false;
   private debug = false;
-  private readonly STORAGE_KEY = 'safetrust_analytics_events';
-  private readonly VISITOR_KEY = 'safetrust_visitor_id';
-  private visitorId: string = '';
+  private readonly STORAGE_KEY = "safetrust_analytics_events";
+  private readonly VISITOR_KEY = "safetrust_visitor_id";
+  private visitorId: string = "";
 
   constructor() {
-    if (typeof window !== 'undefined') {
-      this.enabled = process.env.NEXT_PUBLIC_ANALYTICS_ENABLED === 'true';
+    if (typeof window !== "undefined") {
+      this.enabled = process.env.NEXT_PUBLIC_ANALYTICS_ENABLED === "true";
       this.visitorId = this.getVisitorId();
     }
   }
@@ -19,13 +20,13 @@ class SimpleTracker {
     if (options.debug !== undefined) this.debug = options.debug;
 
     // Initialize Google Analytics
-    if (this.enabled && typeof window !== 'undefined') {
+    if (this.enabled && typeof window !== "undefined") {
       gtag.initGA();
     }
   }
 
   private getVisitorId(): string {
-    if (typeof window === 'undefined') return '';
+    if (typeof window === "undefined") return "";
     let id = localStorage.getItem(this.VISITOR_KEY);
     if (!id) {
       id = Math.random().toString(36).substring(2) + Date.now().toString(36);
@@ -34,34 +35,49 @@ class SimpleTracker {
     return id;
   }
 
-  private saveEvent(event: Record<string, unknown>) {
-    if (typeof window === 'undefined') return;
+  getHistory(): AnalyticsEvent[] {
+    if (typeof window === "undefined") return [];
+
     try {
-      const events = JSON.parse(localStorage.getItem(this.STORAGE_KEY) || '[]');
-      events.push(event);
-      // Keep only last 100 events to prevent quota issues
-      if (events.length > 100) events.shift();
-      localStorage.setItem(this.STORAGE_KEY, JSON.stringify(events));
+      return JSON.parse(localStorage.getItem(this.STORAGE_KEY) || "[]");
     } catch (e) {
-      console.warn('Failed to save analytics event', e);
+      console.warn("Failed to read analytics history", e);
+      return [];
     }
   }
 
-  track(eventName: string, payload?: any) {
-    if (!this.enabled || typeof window === 'undefined') return;
+  private saveEvent(event: Record<string, unknown>) {
+    if (typeof window === "undefined") return;
+    try {
+      const parsed = JSON.parse(localStorage.getItem(this.STORAGE_KEY) || "[]");
+      const events: Record<string, unknown>[] = Array.isArray(parsed) ? parsed : [];
+      events.push(event);
+      // Keep only last 100 events to prevent quota issues
+      const trimmed = events.slice(-100);
+      localStorage.setItem(this.STORAGE_KEY, JSON.stringify(trimmed));
+    } catch (e) {
+      console.warn("Failed to save analytics event", e);
+    }
+  }
+
+  track(eventName: string, payload?: Record<string, unknown>) {
+    if (!this.enabled || typeof window === "undefined") return;
 
     const pagePath = window.location.pathname;
 
     // Track in GA4
-    gtag.pageview(pagePath);
+    if (eventName === "page_view") {
+      gtag.pageview(pagePath);
+    }
 
-    const event = {
-      type: eventName === 'page_view' ? 'page_view' : 'custom',
+    const event: AnalyticsEvent = {
+      type: eventName === "page_view" ? "page_view" : "custom",
+      name: eventName,
       path: pagePath,
       timestamp: Date.now(),
       url: window.location.href,
       visitorId: this.visitorId,
-      payload
+      payload: eventName === "page_view" ? payload : { eventName, ...payload },
     };
 
     this.saveEvent(event);
@@ -70,28 +86,30 @@ class SimpleTracker {
 
   // Legacy/Specific methods mapped to track
   visitPage(path?: string) {
-    if (typeof window === 'undefined') return;
-    this.track('page_view', { path: path || window.location.pathname });
+    if (typeof window === "undefined") return;
+    this.track("page_view", { path: path || window.location.pathname });
   }
 
   buttonClick(name: string, extra?: Record<string, unknown>) {
-    if (!this.enabled || typeof window === 'undefined') return;
+    if (!this.enabled || typeof window === "undefined") return;
 
     // Track in GA4
     gtag.event({
-      action: 'button_click',
-      category: 'engagement',
+      action: "button_click",
+      category: "engagement",
       label: name,
       ...extra,
     });
 
-    const event = {
-      type: 'click',
-      element: name,
+    const event: AnalyticsEvent = {
+      type: "button_click",
       timestamp: Date.now(),
       url: window.location.href,
       visitorId: this.visitorId,
-      payload: extra
+      payload: {
+        element: name,
+        ...extra,
+      },
     };
 
     this.saveEvent(event);
@@ -99,23 +117,25 @@ class SimpleTracker {
   }
 
   formSubmit(formName: string, extra?: Record<string, unknown>) {
-    if (!this.enabled || typeof window === 'undefined') return;
+    if (!this.enabled || typeof window === "undefined") return;
 
     // Track in GA4
     gtag.event({
-      action: 'form_submit',
-      category: 'form',
+      action: "form_submit",
+      category: "form",
       label: formName,
       ...extra,
     });
 
-    const event = {
-      type: 'form_submit',
-      name: formName,
+    const event: AnalyticsEvent = {
+      type: "form_submit",
       timestamp: Date.now(),
       url: window.location.href,
       visitorId: this.visitorId,
-      payload: extra
+      payload: {
+        formName,
+        ...extra,
+      },
     };
 
     this.saveEvent(event);
@@ -123,21 +143,24 @@ class SimpleTracker {
   }
 
   logEvent(eventName: string, extra?: Record<string, unknown>) {
-    if (!this.enabled || typeof window === 'undefined') return;
+    if (!this.enabled || typeof window === "undefined") return;
 
     // Track in GA4
     gtag.event({
       action: eventName,
-      category: 'custom',
+      category: "custom",
       label: eventName,
       ...extra,
     });
 
-    const event = {
-      type: 'custom',
-      event: eventName,
+    const event: AnalyticsEvent = {
+      type: "custom",
       timestamp: Date.now(),
-      ...extra
+      visitorId: this.visitorId,
+      payload: {
+        eventName,
+        ...extra,
+      },
     };
 
     // Track in internal logger
@@ -147,11 +170,15 @@ class SimpleTracker {
 
   private log(data: Record<string, unknown>) {
     if (this.debug) {
-      console.log('Analytics Event:', data);
+      console.log("Analytics Event:", data);
     }
 
-    if (typeof window !== 'undefined') {
-      window.dispatchEvent(new CustomEvent('analytics-event', { detail: data }));
+     if (typeof window !== 'undefined') {
+      window.dispatchEvent(
+        new CustomEvent('analytics-event', {
+          detail: data,
+        })
+      );
     }
   }
 }
