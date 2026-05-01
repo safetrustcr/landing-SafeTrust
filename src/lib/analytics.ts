@@ -1,14 +1,5 @@
 import * as gtag from "./analytics/gtag";
 
-const event: AnalyticsEvent = {
-  type: eventName === "page_view" ? "page_view" : "custom",
-  name: eventName,
-  path: pagePath,
-  timestamp: Date.now(),
-  url: window.location.href,
-  visitorId: this.visitorId,
-  payload: eventName === "page_view" ? payload : { eventName, ...payload },
-};
 
 class SimpleTracker {
   private enabled = false;
@@ -58,11 +49,12 @@ class SimpleTracker {
   private saveEvent(event: Record<string, unknown>) {
     if (typeof window === "undefined") return;
     try {
-      const events = JSON.parse(localStorage.getItem(this.STORAGE_KEY) || "[]");
+      const parsed = JSON.parse(localStorage.getItem(this.STORAGE_KEY) || "[]");
+      const events: Record<string, unknown>[] = Array.isArray(parsed) ? parsed : [];
       events.push(event);
       // Keep only last 100 events to prevent quota issues
-      if (events.length > 100) events.shift();
-      localStorage.setItem(this.STORAGE_KEY, JSON.stringify(events));
+      const trimmed = events.slice(-100);
+      localStorage.setItem(this.STORAGE_KEY, JSON.stringify(trimmed));
     } catch (e) {
       console.warn("Failed to save analytics event", e);
     }
