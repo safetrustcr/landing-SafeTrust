@@ -1,14 +1,14 @@
 import * as gtag from "./analytics/gtag";
 
-export interface AnalyticsEvent {
-  type: string;
-  timestamp: number;
-  visitorId: string;
-  url?: string;
-  path?: string;
-  payload?: Record<string, unknown>;
-  [key: string]: unknown;
-}
+const event: AnalyticsEvent = {
+  type: eventName === "page_view" ? "page_view" : "custom",
+  name: eventName,
+  path: pagePath,
+  timestamp: Date.now(),
+  url: window.location.href,
+  visitorId: this.visitorId,
+  payload: eventName === "page_view" ? payload : { eventName, ...payload },
+};
 
 class SimpleTracker {
   private enabled = false;
