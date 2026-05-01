@@ -80,11 +80,12 @@ class SimpleTracker {
 
     const event: AnalyticsEvent = {
       type: eventName === "page_view" ? "page_view" : "custom",
+      name: eventName,
       path: pagePath,
       timestamp: Date.now(),
       url: window.location.href,
       visitorId: this.visitorId,
-      payload,
+      payload: eventName === "page_view" ? payload : { eventName, ...payload },
     };
 
     this.saveEvent(event);
