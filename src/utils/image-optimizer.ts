@@ -90,7 +90,7 @@ export function addImageParams(src: string, params: ImageParams): string {
       if (params.format) transforms.push(`f_${params.format}`);
       
       if (transforms.length > 0) {
-        const pathParts = url.pathname.split('/upload/');
+        const pathParts = (url.pathname || "").split('/upload/');
         if (pathParts.length === 2) {
           url.pathname = `${pathParts[0]}/upload/${transforms.join(',')}/${pathParts[1]}`;
         }
@@ -173,7 +173,7 @@ export function getImageLoader(src: string): ImageLoader | undefined {
       return ({ src: imgSrc, width, quality }) => {
         const transforms = [`w_${width}`, `q_${quality || 75}`, 'f_auto'];
         const srcUrl = new URL(imgSrc);
-        const pathParts = srcUrl.pathname.split('/upload/');
+        const pathParts = (srcUrl.pathname || "").split('/upload/');
         if (pathParts.length === 2) {
           srcUrl.pathname = `${pathParts[0]}/upload/${transforms.join(',')}/${pathParts[1]}`;
         }
