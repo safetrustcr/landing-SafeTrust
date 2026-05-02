@@ -29,12 +29,8 @@ const ReCAPTCHA: React.FC<ReCAPTCHAProps> = ({ onVerify, onToken, siteKey }) => 
   const recaptchaRef = useRef<HTMLDivElement>(null);
   const widgetIdRef = useRef<number | null>(null);
 
-  if (!siteKey) {
-    console.warn("siteKey is missing for ReCAPTCHA");
-    return null;
-  }
-
   useEffect(() => {
+    if (!siteKey) return;
     const script = document.createElement("script");
     script.src = "https://www.google.com/recaptcha/api.js?render=explicit";
     script.async = true;
@@ -74,6 +70,11 @@ const ReCAPTCHA: React.FC<ReCAPTCHAProps> = ({ onVerify, onToken, siteKey }) => 
       }
     };
   }, [siteKey, onVerify, onToken]);
+
+  if (!siteKey) {
+    console.warn("siteKey is missing for ReCAPTCHA");
+    return null;
+  }
 
   return (
     <div className="flex flex-col items-start">
