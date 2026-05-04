@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { animate, stagger, inView, hover, scroll, spring } from "motion";
 
 // ─── Step data ────────────────────────────────────────────────────────────────
@@ -137,7 +138,7 @@ export default function HowItWorksSection() {
     );
     cleanupRefs.current.push(cancelScroll);
 
-    // ── Main inView trigger ─────────────────────────────────────────────────
+// ── Main inView trigger ─────────────────────────────────────────────────
     const stopInView = inView(
       section,
       () => {
@@ -148,21 +149,21 @@ export default function HowItWorksSection() {
         // ── 1. Header fade in ────────────────────────────────────────────────
         if (header) {
           animate(
-            header as any,
+            header as never,
             { opacity: [0, 1], transform: ["translateY(-12px)", "translateY(0px)"] },
-            { duration: 0.5, ease: "ease-out" } as any
+            { duration: 0.5, ease: [0, 0, 0.58, 1] } as never
           );
         }
 
         // ── 2. Staggered sequential node reveal ──────────────────────────────
         animate(
-          nodes as any,
+          nodes as never,
           { opacity: [0, 1], transform: ["translateY(24px)", "translateY(0px)"] },
           {
             delay: (i: number) => 0.25 + i * STEP_STAGGER,
             duration: STEP_DUR,
-            ease: "ease-out",
-          } as any
+            ease: [0, 0, 0.58, 1],
+          } as never
         );
 
         // ── 3. Connector drawing — fires after each preceding node ───────────
@@ -171,19 +172,19 @@ export default function HowItWorksSection() {
           const startAt = 0.25 + (i + 1) * STEP_STAGGER;
           
           animate(
-            connector as any,
+            connector as never,
             { transform: isVertical ? ["scaleY(0)", "scaleY(1)"] : ["scaleX(0)", "scaleX(1)"] },
             {
               delay: startAt,
               duration: CONNECTOR_DUR,
-              ease: "ease-in-out",
-            } as any
+              ease: [0.42, 0, 0.58, 1],
+            } as never
           );
 
           const glow = connector.querySelector<HTMLElement>(".connector-glow");
           if (glow) {
             animate(
-              glow as any,
+              glow as never,
               { 
                 opacity: [0, 0.8, 0], 
                 transform: isVertical 
@@ -193,12 +194,13 @@ export default function HowItWorksSection() {
               {
                 delay: startAt,
                 duration: CONNECTOR_DUR,
-                ease: "ease-in-out",
-              } as any
+                ease: [0.42, 0, 0.58, 1],
+              } as never
             );
           }
         });
 
+      
         // ── 4. Status chip pulse — looping ──────────────────────────────────
         const chipDelay = 0.25 + STEPS.length * STEP_STAGGER;
         chips.forEach((chip) => {
@@ -206,7 +208,7 @@ export default function HowItWorksSection() {
           const cfg = STATUS_CONFIG[status];
           const timer = setTimeout(() => {
             const a = animate(
-              chip as any,
+              chip as never,
               {
                 boxShadow: [
                   `0 0 0 0px ${cfg.pulse}`,
@@ -217,8 +219,8 @@ export default function HowItWorksSection() {
               {
                 duration: 1.8,
                 repeat: Infinity,
-                ease: "ease-in-out",
-              } as any
+                ease: [0.42, 0, 0.58, 1],
+              } as never
             );
             cleanupRefs.current.push(() => a.stop());
           }, chipDelay * 1000);
@@ -237,13 +239,13 @@ export default function HowItWorksSection() {
             animate(
               circle,
               { scale: 1.08 },
-              { type: spring, stiffness: 300, damping: 15 }
+              { type: spring, stiffness: 300, damping: 15 } as never
             );
             if (icon) {
               animate(
                 icon,
                 { rotate: 6 },
-                { type: spring, stiffness: 300, damping: 15 }
+                { type: spring, stiffness: 300, damping: 15 } as never
               );
             }
             return () => {
@@ -264,7 +266,7 @@ export default function HowItWorksSection() {
           cleanupRefs.current.push(cancelHover);
         });
       },
-      { amount: 0.25, once: true }
+      { amount: 0.25 }
     );
 
     cleanupRefs.current.push(stopInView);

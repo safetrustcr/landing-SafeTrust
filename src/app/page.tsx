@@ -3,6 +3,8 @@
 import dynamic from "next/dynamic";
 import { HeroSection } from "@/components/Hero";
 import { LazySkeletonFallback } from "@/components/LazyWrapper";
+// import HowItWorksSection from "@/components/HowItWorksSection";
+
 
 const FaqSection = dynamic(() => import("@/components/FaqSection"), {
     loading: () => <LazySkeletonFallback height="400px" className="my-8" />,
