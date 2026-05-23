@@ -145,7 +145,7 @@ export function isScrollable(element: HTMLElement | null): boolean {
   if (!element) return false;
 
   const hasScrollableContent = element.scrollHeight > element.clientHeight;
-  const overflowYStyle = window.getComputedStyle(element).overflowY;
+  const overflowYStyle = typeof window !== 'undefined' ? window.getComputedStyle(element).overflowY : "";
   const isOverflowHidden = overflowYStyle.indexOf("hidden") !== -1;
 
   return hasScrollableContent && !isOverflowHidden;

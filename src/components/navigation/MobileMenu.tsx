@@ -109,7 +109,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
     { href: "#features", label: "Features" },
     { href: "#how-it-works", label: "How It Works" },
     { href: "#pricing", label: "Pricing" },
-    { href: "/dashboard", label: "Dashboard" },
+    { href: "#transaction-preview", label: "Dashboard" },
     { href: "/dashboard/analytics", label: "Analytics" },
     { href: "#support", label: "Support" },
   ];

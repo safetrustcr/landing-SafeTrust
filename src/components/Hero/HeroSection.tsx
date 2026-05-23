@@ -345,8 +345,8 @@ export function HeroSection({ className = "" }: HeroSectionProps) {
           <HeroAnimation>
             {/* Headline */}
             <AnimatedHeadline
-              text="SafeTrust Secure Rentals"
-              highlight="Secure"
+              text="Secure Deposits. Zero Intermediaries - P2P Escrow You Can Actually Trust."
+              highlight="Trust."
               className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-tight text-foreground"
               highlightClassName={styles.headlineHighlight}
             />
@@ -356,8 +356,8 @@ export function HeroSection({ className = "" }: HeroSectionProps) {
               className="text-lg sm:text-xl md:text-2xl text-muted-foreground max-w-2xl leading-relaxed"
               delay={0.4}
             >
-              Blockchain-powered trust for every transaction. Experience the power of 
-              decentralized security with our revolutionary P2P escrow platform.
+              SafeTrust holds your funds in tamper-proof blockchain escrow on Stellar — 
+              automatically released when both parties agree. No banks, no middlemen, no risk.
             </AnimatedSubheading>
 
             {/* CTA Buttons */}

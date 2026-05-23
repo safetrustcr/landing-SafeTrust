@@ -23,14 +23,14 @@ SafeTrust is built using:
 Clone the repository and navigate to the project directory:
 
 ```bash
-git clone https://github.com/yourusername/safetrust-landing.git
-cd safetrust-landing
+git clone https://github.com/yourusername/landing-safetrust.git
+cd landing-safetrust
 ```
 
 ## 2️⃣ Add Upstream Repository
 
 ```bash
-git remote add upstream https://github.com/safetrustcr/safetrust-landing.git
+git remote add upstream https://github.com/safetrustcr/landing-safetrust.git
 ```
 
 ## 3️⃣ Install Dependencies

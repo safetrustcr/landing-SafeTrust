@@ -225,7 +225,7 @@ class SearchEngine {
    * Tokenize search query into individual terms
    */
   private tokenizeQuery(query: string): string[] {
-    return query
+    return (query || "")
       .toLowerCase()
       .split(/\s+/)
       .filter((term) => term.length > 0)

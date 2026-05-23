@@ -103,7 +103,7 @@ export function AnimatedHeadline({
   const isInView = useInView(ref, { once: true });
 
   // Split text to identify highlight word
-  const words = text.split(" ");
+  const words = (text || "").split(" ");
   const highlightIndex = highlight ? words.findIndex(w => w.toLowerCase() === highlight.toLowerCase()) : -1;
 
   if (prefersReducedMotion) {
