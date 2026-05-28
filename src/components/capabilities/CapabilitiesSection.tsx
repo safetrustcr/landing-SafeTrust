@@ -65,17 +65,14 @@ const itemVariants = {
 
 function CapabilityCard({
   capability,
-  index,
 }: {
   capability: (typeof capabilities)[0];
-  index: number;
 }) {
   const Icon = capability.icon;
   return (
     <motion.article
       variants={itemVariants}
       className="group relative overflow-hidden rounded-2xl border border-border bg-card p-6 transition-all duration-300 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5"
-      tabIndex={0}
       role="article"
       aria-label={capability.title}
     >
@@ -185,8 +182,8 @@ export default function CapabilitiesSection() {
           <div className="lg:col-span-1 lg:row-span-2">
             <FeaturedCard />
           </div>
-          {capabilities.map((capability, i) => (
-            <CapabilityCard key={capability.index} capability={capability} index={i} />
+          {capabilities.map((capability) => (
+            <CapabilityCard key={capability.index} capability={capability} />
           ))}
         </motion.div>
       </div>
