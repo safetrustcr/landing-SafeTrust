@@ -1,18 +1,65 @@
 ---
-import Hello from '../components/Hello.jsx';
+// index.astro
+import Stepper from '../components/Stepper.jsx';
+import SecuritySection from '../components/SecuritySection.astro';
+import '../../main.css';
 ---
 
 <!doctype html>
-<html lang="es">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ST Landing Page</title>
+    <title>SafeTrust Escrow — Four steps. Zero middlemen.</title>
+    <meta name="description" content="SafeTrust secure digital escrow. From booking to release, every transaction follows a transparent on-chain flow with top-tier security certifications." />
+    
+    <!-- Google Fonts: Plus Jakarta Sans & Playfair Display -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
   </head>
   <body>
     <main>
-      <h1>ST Landing Page</h1>
-      <Hello client:load />
+      <!-- "How It Works" Section -->
+      <section class="how-it-works-section" id="how-it-works">
+        <!-- Eyebrow Pill -->
+        <span class="eyebrow-pill">How It Works</span>
+        
+        <!-- Headline -->
+        <h1 class="section-title">
+          Four steps. <span class="italic-accent">Zero middlemen.</span>
+        </h1>
+        
+        <!-- Subheading -->
+        <p class="section-subtitle">
+          From booking to release — every escrow follows the same transparent flow.
+        </p>
+
+        <!-- React progress stepper island -->
+        <Stepper client:load />
+      </section>
+
+      <!-- Static Astro Security Features Section -->
+      <SecuritySection />
     </main>
   </body>
 </html>
+
+<style is:global>
+  /* Base page resets & background configuration */
+  html, body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    background-color: var(--bg-page, #F6F5FB);
+    color: var(--brand-navy, #10193F);
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    scroll-behavior: smooth;
+  }
+
+  main {
+    padding: 2rem 0;
+  }
+</style>

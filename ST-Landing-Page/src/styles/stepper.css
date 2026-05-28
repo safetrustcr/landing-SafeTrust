@@ -1,0 +1,312 @@
+/* ============================================================
+   SafeTrust · Stepper Styling
+   ============================================================ */
+
+.how-it-works-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 4rem 1.5rem 2rem;
+  box-sizing: border-box;
+}
+
+/* Eyebrow Pill */
+.eyebrow-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 1.25rem;
+  background-color: var(--brand-tint, #E8EDFA);
+  color: var(--brand-primary, #1E3A8A);
+  border-radius: 9999px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 2px 8px rgba(30, 58, 138, 0.04);
+}
+
+/* Headings */
+.section-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 2.75rem;
+  font-weight: 700;
+  color: var(--brand-navy, #10193F);
+  text-align: center;
+  margin: 0 0 1rem;
+  line-height: 1.2;
+}
+
+.section-title .italic-accent {
+  font-style: italic;
+  color: var(--brand-accent, #1D4ED8);
+  position: relative;
+}
+
+.section-subtitle {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 1.125rem;
+  color: #4B5563;
+  text-align: center;
+  margin: 0 0 3rem;
+  max-width: 600px;
+  line-height: 1.5;
+}
+
+/* Stepper Container Card */
+.stepper-card {
+  background-color: #ffffff;
+  border: 1px solid #E2E8F0;
+  border-radius: 24px;
+  padding: 3rem 2.5rem;
+  width: 100%;
+  box-shadow: 0 10px 30px -10px rgba(30, 58, 138, 0.05), 0 1px 3px rgba(0, 0, 0, 0.01);
+  box-sizing: border-box;
+  position: relative;
+}
+
+/* Stepper Inner List */
+.stepper-list {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  position: relative;
+  width: 100%;
+  gap: 1rem;
+}
+
+/* Connection Lines (Desktop) */
+.stepper-line-bg {
+  position: absolute;
+  top: 22px;
+  left: 12.5%;
+  right: 12.5%;
+  height: 4px;
+  background-color: #E5E7EB;
+  z-index: 1;
+  border-radius: 2px;
+}
+
+.stepper-line-active {
+  position: absolute;
+  top: 22px;
+  left: 12.5%;
+  height: 4px;
+  width: var(--progress-ratio, 0%);
+  background-color: var(--brand-primary, #1E3A8A);
+  z-index: 2;
+  border-radius: 2px;
+  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Step Column */
+.step-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  z-index: 3;
+  cursor: pointer;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 0.2s ease;
+}
+
+.step-item:hover .step-circle-container {
+  transform: scale(1.05);
+}
+
+.step-item:focus-visible {
+  outline: 2px solid var(--brand-accent, #1D4ED8);
+  outline-offset: 4px;
+  border-radius: 8px;
+}
+
+/* Circle Indicator Container */
+.step-circle-container {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-sizing: border-box;
+}
+
+/* Circle States */
+.step-circle-container.completed {
+  background-color: var(--brand-primary, #1E3A8A);
+  border: 2px solid var(--brand-primary, #1E3A8A);
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(30, 58, 138, 0.15);
+}
+
+.step-circle-container.in-progress {
+  background-color: #ffffff;
+  border: 2px solid var(--brand-accent, #1D4ED8);
+  color: var(--brand-primary, #1E3A8A);
+  box-shadow: 0 0 0 4px rgba(29, 78, 216, 0.12);
+}
+
+.step-circle-container.pending {
+  background-color: #ffffff;
+  border: 2px solid #D1D5DB;
+  color: #9CA3AF;
+}
+
+/* Icon Styles inside Circle */
+.step-check-icon {
+  width: 18px;
+  height: 18px;
+  stroke: currentColor;
+  stroke-width: 3;
+  fill: none;
+}
+
+/* Step Content */
+.step-info {
+  margin-top: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 220px;
+}
+
+.step-name {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--brand-navy, #10193F);
+  margin: 0 0 0.5rem 0;
+  line-height: 1.3;
+}
+
+.step-desc {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.875rem;
+  color: #6B7280;
+  margin: 0 0 1rem 0;
+  line-height: 1.45;
+}
+
+/* Status Badges */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: all 0.3s ease;
+}
+
+.status-badge.completed {
+  background-color: var(--success-tint, #DCFCE7);
+  color: var(--success, #16A34A);
+}
+
+.status-badge.in-progress {
+  background-color: var(--brand-tint, #E8EDFA);
+  color: var(--brand-primary, #1E3A8A);
+}
+
+.status-badge.pending {
+  background-color: #F3F4F6;
+  color: #6B7280;
+}
+
+/* ============================================================
+   Stepper Responsiveness (Mobile & Tablet)
+   ============================================================ */
+
+@media (max-width: 768px) {
+  .section-title {
+    font-size: 2.25rem;
+  }
+  
+  .section-subtitle {
+    font-size: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .stepper-card {
+    padding: 2.5rem 1.5rem;
+    border-radius: 20px;
+  }
+
+  .stepper-list {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 2.5rem;
+    padding-left: 0.75rem;
+    box-sizing: border-box;
+  }
+
+  /* Vertical Connector Line */
+  .stepper-line-bg {
+    left: 29px; /* centered relative to 44px circle + padding */
+    top: 22px;
+    bottom: 22px;
+    width: 4px;
+    height: auto;
+    right: auto;
+  }
+
+  .stepper-line-active {
+    left: 29px;
+    top: 22px;
+    width: 4px;
+    height: var(--progress-ratio, 0%);
+    right: auto;
+    transition: height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Step Column as Horizontal Row on Mobile */
+  .step-item {
+    flex-direction: row;
+    align-items: flex-start;
+    text-align: left;
+    width: 100%;
+    gap: 1.25rem;
+  }
+
+  .step-item:hover .step-circle-container {
+    transform: none; /* disable hover scale on mobile tap */
+  }
+
+  .step-circle-container {
+    flex-shrink: 0;
+    margin-top: 0.25rem;
+  }
+
+  .step-info {
+    margin-top: 0;
+    align-items: flex-start;
+    max-width: 100%;
+    text-align: left;
+  }
+
+  .step-name {
+    font-size: 1.05rem;
+    margin-bottom: 0.35rem;
+  }
+
+  .step-desc {
+    margin-bottom: 0.75rem;
+  }
+}
