@@ -2,7 +2,7 @@
 
 import React, { useRef, useState } from "react";
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
-import { Lock, Wallet, ChevronDown, ArrowRight, Star } from "lucide-react";
+import { Lock, ChevronDown, ArrowRight, Star } from "lucide-react";
 import Image from "next/image";
 import Navbar from "@/components/navigation/Navbar";
 import WalletModal from "@/components/wallet/WalletModal";
