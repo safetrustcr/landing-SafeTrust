@@ -2,7 +2,7 @@
 
 import React, { useRef, useState } from "react";
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
-import { Lock, Wallet, ChevronDown, ArrowRight } from "lucide-react";
+import { Lock, ChevronDown, ArrowRight, Star } from "lucide-react";
 import Image from "next/image";
 import Navbar from "@/components/navigation/Navbar";
 import WalletModal from "@/components/wallet/WalletModal";
@@ -16,6 +16,7 @@ import {
 } from "./HeroAnimation";
 import { CTAButtons } from "./CTAButtons";
 import { TrustBadges, TrustBadgesCompact } from "./TrustBadges";
+import { EscrowCard } from "./EscrowCard";
 import styles from "@/styles/hero.module.css";
 
 export interface HeroSectionProps {
@@ -45,97 +46,11 @@ function BackgroundVisual() {
   );
 }
 
-// Security Visual Component (Right side illustration)
-function SecurityVisual() {
-  const prefersReducedMotion = useReducedMotion();
-
+// Escrow Card Visual Component (Right side interactive card)
+function EscrowCardVisual() {
   return (
-    <div className={styles.securityVisual} aria-hidden="true">
-      <div className={styles.shieldContainer}>
-        {/* Glow effect */}
-        <div className={styles.shieldGlow} />
-        
-        {/* Orbit rings */}
-        <motion.div 
-          className={`${styles.orbitRing} ${styles.orbitRing1}`}
-          animate={prefersReducedMotion ? {} : { rotate: 360 }}
-          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-        >
-          <div className={`${styles.orbitDot} ${styles.orbitDot1}`} />
-        </motion.div>
-        
-        <motion.div 
-          className={`${styles.orbitRing} ${styles.orbitRing2}`}
-          animate={prefersReducedMotion ? {} : { rotate: -360 }}
-          transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-        >
-          <div className={`${styles.orbitDot} ${styles.orbitDot2}`} />
-        </motion.div>
-        
-        <motion.div 
-          className={`${styles.orbitRing} ${styles.orbitRing3}`}
-          animate={prefersReducedMotion ? {} : { rotate: 360 }}
-          transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
-        >
-          <div className={`${styles.orbitDot} ${styles.orbitDot3}`} />
-        </motion.div>
-        
-        <motion.div
-          className={styles.shieldCore}
-          initial={{ scale: 0, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.5, type: "spring" }}
-        >
-          <div className="relative">
-            <div className="absolute inset-0 bg-white/20 rounded-3xl blur-xl" />
-            <div className="relative bg-white/90 backdrop-blur-sm p-8 rounded-3xl shadow-2xl shadow-blue-100/50 border border-blue-100">
-              <Image
-                src="/images/landing-logo.jpeg"
-                alt="SafeTrust Logo"
-                width={80}
-                height={80}
-                className="rounded-xl"
-              />
-            </div>
-          </div>
-        </motion.div>
-
-        <motion.div
-          className={`${styles.floatingCard} ${styles.floatingCard1}`}
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.6, delay: 1 }}
-        >
-          <div className="flex items-center gap-2">
-            <Lock className="w-4 h-4 text-green-500" />
-            <span className="text-sm font-medium text-foreground">Secure</span>
-          </div>
-        </motion.div>
-
-        <motion.div
-          className={`${styles.floatingCard} ${styles.floatingCard2}`}
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.6, delay: 1.2 }}
-        >
-          <div className="flex items-center gap-2">
-            <Wallet className="w-4 h-4 text-blue-500" />
-            <span className="text-sm font-medium text-foreground">Transparent</span>
-          </div>
-        </motion.div>
-
-        <motion.div
-          className={`${styles.floatingCard} ${styles.floatingCard3}`}
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.6, delay: 1.4 }}
-        >
-          <div className="flex items-center gap-2">
-            <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-            <span className="text-sm font-medium text-foreground">Trusted</span>
-          </div>
-        </motion.div>
-      </div>
+    <div className={styles.escrowCardContainer} aria-hidden="true">
+      <EscrowCard />
     </div>
   );
 }
@@ -343,12 +258,25 @@ export function HeroSection({ className = "" }: HeroSectionProps) {
       >
         <div className={styles.heroContent}>
           <HeroAnimation>
-            {/* Headline */}
+            {/* Stellar Mainnet Badge */}
+            <motion.div
+              className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-50 to-cyan-50 dark:from-blue-900/20 dark:to-cyan-900/20 border border-blue-200 dark:border-cyan-700/50 rounded-full mb-6"
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              <Star className="w-4 h-4 text-cyan-600 dark:text-cyan-400 fill-cyan-600 dark:fill-cyan-400" />
+              <span className="text-sm font-semibold text-cyan-700 dark:text-cyan-300">
+                Live on Stellar mainnet
+              </span>
+            </motion.div>
+
+            {/* Headline with italic accent */}
             <AnimatedHeadline
-              text="Secure Deposits. Zero Intermediaries - P2P Escrow You Can Actually Trust."
-              highlight="Trust."
+              text="Secure deposits. Zero intermediaries. P2P escrow you can "
+              highlight="actually trust."
               className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-tight text-foreground"
-              highlightClassName={styles.headlineHighlight}
+              highlightClassName={`${styles.headlineHighlight} italic`}
             />
 
             {/* Subheading */}
@@ -384,8 +312,8 @@ export function HeroSection({ className = "" }: HeroSectionProps) {
           )}
         </div>
 
-        {/* Security Visual */}
-        <SecurityVisual />
+        {/* Escrow Card Visual */}
+        <EscrowCardVisual />
       </motion.main>
 
       {/* Secondary CTA Section (like the original hero) */}
