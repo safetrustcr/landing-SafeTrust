@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useRef } from "react";
 import {
   Accordion,
   AccordionContent,
@@ -108,9 +108,26 @@ export default function FAQ() {
   const [selectedCategory, setSelectedCategory] = useState("All categories");
   const [expandedItems, setExpandedItems] = useState<string[]>(["item-1"]);
   const [mounted, setMounted] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setMounted(true);
+  }, []);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setIsDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   // Get unique categories
@@ -144,6 +161,7 @@ export default function FAQ() {
 
   const handleCategoryChange = (category: string) => {
     setSelectedCategory(category);
+    setIsDropdownOpen(false);
   };
 
   const handleAccordionChange = (value: string[]) => {
@@ -211,34 +229,38 @@ export default function FAQ() {
           </div>
 
           {/* Category Dropdown */}
-          <div className="relative inline-block w-full">
+          <div className="relative inline-block w-full" ref={dropdownRef}>
             <div className="relative">
               <button
                 className="w-full px-4 py-3 rounded-lg border border-border bg-background/50 backdrop-blur-sm text-foreground text-left flex items-center justify-between hover:border-primary/50 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all duration-200"
-                onClick={() => {
-                  // Toggle dropdown - you can enhance this with a proper dropdown component
-                }}
+                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
               >
                 <span className="text-sm font-medium">{selectedCategory}</span>
-                <ChevronDown className="w-5 h-5 text-muted-foreground" />
+                <ChevronDown
+                  className={`w-5 h-5 text-muted-foreground transition-transform duration-200 ${
+                    isDropdownOpen ? "rotate-180" : ""
+                  }`}
+                />
               </button>
 
               {/* Dropdown Menu */}
-              <div className="absolute top-full left-0 right-0 mt-2 rounded-lg border border-border bg-background/95 backdrop-blur-sm shadow-lg z-50 overflow-hidden">
-                {categories.map((category) => (
-                  <button
-                    key={category}
-                    onClick={() => handleCategoryChange(category)}
-                    className={`w-full px-4 py-3 text-left text-sm font-medium transition-colors duration-200 ${
-                      selectedCategory === category
-                        ? "bg-primary/10 text-primary"
-                        : "text-foreground hover:bg-primary/5"
-                    }`}
-                  >
-                    {category}
-                  </button>
-                ))}
-              </div>
+              {isDropdownOpen && (
+                <div className="absolute top-full left-0 right-0 mt-2 rounded-lg border border-border bg-background/95 backdrop-blur-sm shadow-lg z-50 overflow-hidden">
+                  {categories.map((category) => (
+                    <button
+                      key={category}
+                      onClick={() => handleCategoryChange(category)}
+                      className={`w-full px-4 py-3 text-left text-sm font-medium transition-colors duration-200 ${
+                        selectedCategory === category
+                          ? "bg-primary/10 text-primary"
+                          : "text-foreground hover:bg-primary/5"
+                      }`}
+                    >
+                      {category}
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
 
