@@ -1,18 +1,26 @@
 ---
-import Hello from '../components/Hello.jsx';
+import Navbar from '../components/navigation/Navbar.astro';
+// import KeyBenefits from '../components/Features/KeyBenefits.astro';
+
+// Base styling or standard global style tokens can be imported here if needed
 ---
 
 <!doctype html>
-<html lang="es">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ST Landing Page</title>
   </head>
   <body>
+    <!-- The Navigation block -->
+    <Navbar />
+    
     <main>
-      <h1>ST Landing Page</h1>
-      <Hello client:load />
+      <!-- Your existing sections or hero code goes here -->
+      
+      <!-- The interactive key benefits layout we finished earlier -->
+      <!-- <KeyBenefits /> -->
     </main>
   </body>
 </html>
