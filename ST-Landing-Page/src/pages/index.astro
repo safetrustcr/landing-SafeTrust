@@ -1,18 +1,23 @@
 ---
-import Hello from '../components/Hello.jsx';
+import '../../main.css';
+import KeyBenefits from '../components/Features/KeyBenefits.astro';
 ---
 
 <!doctype html>
-<html lang="es">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ST Landing Page</title>
+    <meta
+      name="description"
+      content="SafeTrust — secure decentralized escrow. Funds held in smart contracts until both parties confirm."
+    />
+    <title>SafeTrust — Key Benefits</title>
   </head>
   <body>
     <main>
-      <h1>ST Landing Page</h1>
-      <Hello client:load />
+      <!-- Key Benefits UI Component with Category Tabs Island -->
+      <KeyBenefits />
     </main>
   </body>
 </html>
