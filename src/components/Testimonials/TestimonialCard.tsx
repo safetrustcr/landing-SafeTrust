@@ -51,25 +51,22 @@ const Avatar = ({
   return (
     <div
       className={cn(
-        "relative w-14 h-14 rounded-full overflow-hidden flex-shrink-0",
-        "bg-gradient-to-br from-primary/20 to-primary/40",
-        "ring-2 ring-offset-2 ring-offset-background transition-all duration-300",
-        isActive ? "ring-primary" : "ring-border"
+        "relative w-12 h-12 rounded-full overflow-hidden flex-shrink-0 flex items-center justify-center font-bold text-sm transition-all duration-300",
+        "bg-primary text-white shadow-sm shadow-primary/20",
+        isActive ? "ring-2 ring-primary ring-offset-2 ring-offset-[#0b1739]" : "ring-2 ring-primary/20 ring-offset-2 ring-offset-background"
       )}
     >
-      {!imageError ? (
+      {!imageError && src ? (
         <Image
           src={src}
           alt={`${name}'s profile picture`}
-          width={56}
-          height={56}
+          width={48}
+          height={48}
           className="w-full h-full object-cover"
           onError={() => setImageError(true)}
         />
       ) : (
-        <div className="w-full h-full flex items-center justify-center bg-primary/20 text-primary font-semibold text-lg">
-          {initials}
-        </div>
+        <span>{initials}</span>
       )}
     </div>
   );
@@ -85,23 +82,20 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({
     <motion.div
       className={cn(
         styles.testimonialCard,
-        "relative flex flex-col h-full p-6 rounded-2xl",
-        "bg-card border border-border",
-        "transition-all duration-300",
+        "relative flex flex-col h-full p-6 rounded-2xl border transition-all duration-500 ease-in-out",
         isActive
-          ? "shadow-xl shadow-primary/10 scale-100"
-          : "shadow-md scale-95 opacity-80"
+          ? "bg-[#0b1739] text-white border-transparent shadow-xl shadow-primary/10 scale-100 z-10"
+          : "bg-card text-foreground border-border shadow-sm scale-95 opacity-60 hover:opacity-100 hover:scale-[0.98]"
       )}
       initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: isActive ? 1 : 0.8, y: 0 }}
-      transition={{ duration: 0.4 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
     >
       {/* Decorative quotation mark */}
       <div
         className={cn(
-          styles.quoteDecoration,
-          "absolute top-4 left-4 text-6xl font-serif leading-none",
-          "text-primary/20 select-none pointer-events-none"
+          "absolute top-4 left-4 text-6xl font-serif leading-none select-none pointer-events-none transition-colors duration-500",
+          isActive ? "text-primary" : "text-primary/50"
         )}
         aria-hidden="true"
       >
@@ -109,40 +103,43 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({
       </div>
 
       {/* Quote content */}
-      <blockquote className="relative z-10 flex-1 pt-8 pb-4">
-        <p className="text-foreground text-base md:text-lg leading-relaxed">
+      <blockquote className="relative z-10 flex-1 pt-8 pb-6">
+        <p className={cn(
+          "text-base md:text-lg leading-relaxed font-normal transition-colors duration-500",
+          isActive ? "text-white" : "text-slate-700 dark:text-slate-300"
+        )}>
           {quote}
         </p>
       </blockquote>
 
-      {/* Closing quotation mark */}
-      <div
-        className={cn(
-          styles.quoteDecoration,
-          "absolute bottom-16 right-4 text-6xl font-serif leading-none",
-          "text-primary/20 select-none pointer-events-none rotate-180"
-        )}
-        aria-hidden="true"
-      >
-        &ldquo;
-      </div>
-
       {/* User info section */}
-      <div className="relative z-10 flex items-center gap-4 pt-4 border-t border-border">
+      <div className={cn(
+        "relative z-10 flex items-center gap-4 pt-4 border-t transition-colors duration-500 mt-auto",
+        isActive ? "border-slate-800" : "border-border"
+      )}>
         <Avatar src={avatar} name={name} isActive={isActive} />
 
         <div className="flex-1 min-w-0">
           <div className="flex items-center justify-between gap-2 flex-wrap">
-            <h4 className="font-semibold text-foreground truncate">{name}</h4>
+            <h4 className={cn(
+              "font-semibold truncate transition-colors duration-500",
+              isActive ? "text-white" : "text-slate-900 dark:text-slate-100"
+            )}>{name}</h4>
             <StarRating rating={rating} />
           </div>
-          <p className="text-sm text-muted-foreground truncate">
+          <p className={cn(
+            "text-sm truncate transition-colors duration-500",
+            isActive ? "text-slate-400" : "text-slate-500 dark:text-slate-400"
+          )}>
             {role}
             {company && (
               <span className="hidden sm:inline"> at {company}</span>
             )}
           </p>
-          <p className="text-xs text-muted-foreground/70 mt-1">{date}</p>
+          <p className={cn(
+            "text-xs mt-1 transition-colors duration-500",
+            isActive ? "text-slate-500" : "text-slate-400 dark:text-slate-500"
+          )}>{date}</p>
         </div>
       </div>
     </motion.div>
