@@ -1,8 +1,6 @@
 ---
-import Navbar from '../components/navigation/Navbar.astro';
-// import KeyBenefits from '../components/Features/KeyBenefits.astro';
-
-// Base styling or standard global style tokens can be imported here if needed
+import '../../main.css';
+import KeyBenefits from '../components/Features/KeyBenefits.astro';
 ---
 
 <!doctype html>
@@ -10,17 +8,19 @@ import Navbar from '../components/navigation/Navbar.astro';
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ST Landing Page</title>
+    <meta
+      name="description"
+      content="SafeTrust — secure decentralized escrow. Funds held in smart contracts until both parties confirm."
+    />
+    <title>SafeTrust — Key Benefits</title>
   </head>
   <body>
     <!-- The Navigation block -->
     <Navbar />
     
     <main>
-      <!-- Your existing sections or hero code goes here -->
-      
-      <!-- The interactive key benefits layout we finished earlier -->
-      <!-- <KeyBenefits /> -->
+      <!-- Key Benefits UI Component with Category Tabs Island -->
+      <KeyBenefits />
     </main>
   </body>
 </html>
