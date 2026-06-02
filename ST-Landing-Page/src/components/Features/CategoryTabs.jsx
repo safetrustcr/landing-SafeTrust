@@ -126,7 +126,7 @@ export default function InteractiveFeatures() {
           >
             <div className="card-top-bar">
               <div className="icon-box">{feature.icon}</div>
-              <span class="card-number">{feature.num}</span>
+              <span className="card-number">{feature.num}</span>
             </div>
 
             <div className="card-body">
