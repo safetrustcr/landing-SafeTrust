@@ -60,6 +60,13 @@ const TestimonialSection = dynamic(
     },
 );
 
+const FinalCTASection = dynamic(
+    () => import("@/components/FinalCTASection"),
+    {
+        loading: () => <LazySkeletonFallback height="400px" className="my-8" />,
+    },
+);
+
 export default function Home() {
     return (
         <>
@@ -74,6 +81,7 @@ export default function Home() {
                 <TestimonialSection />
                 <FaqSection />
                 <TransactionTiers />
+                <FinalCTASection />
                 <Footer />
             </main>
         </>
