@@ -1,7 +1,12 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 type EthereumProvider = {
   request: (args: { method: string; params?: unknown[] }) => Promise<unknown>;
+};
+
+type ProviderRpcError = {
+  code?: number | string;
+  message?: string;
 };
 
 declare global {
@@ -10,11 +15,42 @@ declare global {
   }
 }
 
+function walletErrorMessage(err: unknown): string {
+  if (typeof err === 'object' && err !== null && 'code' in err) {
+    const code = (err as ProviderRpcError).code;
+    if (code === 4001 || code === '4001') {
+      return 'Connection rejected. Please try again.';
+    }
+  }
+  if (err instanceof Error) {
+    return err.message;
+  }
+  return 'Connection failed';
+}
+
 export default function ConnectWalletCTA() {
   const [modalOpen, setModalOpen] = useState(false);
   const [connecting, setConnecting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [account, setAccount] = useState<string | null>(null);
+  const walletButtonRef = useRef<HTMLButtonElement | null>(null);
+
+  useEffect(() => {
+    if (!modalOpen) {
+      return;
+    }
+
+    walletButtonRef.current?.focus();
+
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setModalOpen(false);
+      }
+    };
+
+    document.addEventListener('keydown', onKeyDown);
+    return () => document.removeEventListener('keydown', onKeyDown);
+  }, [modalOpen]);
 
   const connectMetaMask = useCallback(async () => {
     setConnecting(true);
@@ -38,12 +74,7 @@ export default function ConnectWalletCTA() {
       setAccount(accounts[0]);
       setModalOpen(false);
     } catch (err) {
-      const message = err instanceof Error ? err.message : 'Connection failed';
-      if (message.toLowerCase().includes('reject')) {
-        setError('Connection rejected. Please try again.');
-      } else {
-        setError(message);
-      }
+      setError(walletErrorMessage(err));
     } finally {
       setConnecting(false);
     }
@@ -88,6 +119,7 @@ export default function ConnectWalletCTA() {
             {error && <p className="connect-wallet-modal__error">{error}</p>}
             <div className="connect-wallet-modal__actions">
               <button
+                ref={walletButtonRef}
                 type="button"
                 className="connect-wallet-modal__wallet"
                 onClick={connectMetaMask}

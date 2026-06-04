@@ -1,7 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital@1&display=swap');
+@import 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital@1&display=swap';
 
 .our-promise {
-  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-family: Inter, system-ui, -apple-system, sans-serif;
   background: #ffffff;
   padding: 4.5rem 1.25rem;
 }
@@ -102,6 +102,14 @@
 .our-promise__learn-more:hover {
   background: var(--brand-tint);
   border-color: var(--brand-accent);
+}
+
+.our-promise__learn-more:focus-visible,
+.connect-wallet-btn:focus-visible,
+.connect-wallet-modal__wallet:focus-visible,
+.connect-wallet-modal__close:focus-visible {
+  outline: 2px solid var(--brand-accent);
+  outline-offset: 2px;
 }
 
 .our-promise__trust-pills {
@@ -366,4 +374,17 @@
   color: var(--success);
   font-size: 0.875rem;
   font-weight: 500;
+}
+
+.how-it-works {
+  min-height: 40vh;
+  padding: 4rem 1.25rem;
+  background: var(--bg-page);
+}
+
+.how-it-works__inner {
+  max-width: 48rem;
+  margin: 0 auto;
+  text-align: center;
+  color: #64748b;
 }
