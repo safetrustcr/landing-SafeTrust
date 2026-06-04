@@ -12,3 +12,4 @@ export {
 } from "./HeroAnimation";
 export { CTAButtons, CTAButton } from "./CTAButtons";
 export { TrustBadges, TrustBadgesCompact, StatsBadges } from "./TrustBadges";
+export { EscrowCard } from "./EscrowCard";

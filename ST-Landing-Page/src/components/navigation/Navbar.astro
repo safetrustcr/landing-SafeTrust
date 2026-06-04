@@ -1,0 +1,54 @@
+---
+import NavbarControllers from './NavbarControllers.jsx';
+import "../../styles/Navbar.css";
+
+// Retrieve current pathname context string to assign underlines
+const currentPath = Astro.url.pathname;
+---
+
+<header class="site-navigation-header-bar">
+  <div class="navbar-inner-bounds-container">
+    
+    <!-- SafeTrust Custom Vector Branding Element Matching safe-trust-navbar.png -->
+    <a href="/" class="brand-identity-anchor-group" aria-label="SafeTrust Homepage Link Engine">
+      <div class="brand-square-tile-icon">
+        <span class="brand-logo-character-glyph">S</span>
+      </div>
+      <h1 class="brand-wordmark-title-string">
+        Safe <span class="brand-accent-color-span">Trust</span>
+      </h1>
+    </a>
+
+    <!-- Desktop Center Nav List Selection Structure -->
+    <nav class="desktop-navigation-links-row" aria-label="Primary core layout tracking navigation links row">
+      <a 
+        href="#how-it-works" 
+        class={`nav-inline-link-element ${currentPath === "/" || currentPath.includes("how-it-works") ? "active-route-link" : ""}`}
+      >
+        How it works
+      </a>
+      <a 
+        href="#security" 
+        class="nav-inline-link-element"
+      >
+        Security
+      </a>
+      <a 
+        href="#pricing" 
+        class="nav-inline-link-element"
+      >
+        Pricing
+      </a>
+      <a 
+        href="/docs" 
+        class="nav-inline-link-element"
+      >
+        Docs
+      </a>
+    </nav>
+
+    <!-- Hydrated Client Interactions Layer Island Wrapper -->
+    <NavbarControllers client:load />
+
+  </div>
+</header>

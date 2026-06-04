@@ -3,7 +3,6 @@
 import dynamic from "next/dynamic";
 import { HeroSection } from "@/components/Hero";
 import { LazySkeletonFallback } from "@/components/LazyWrapper";
-// import HowItWorksSection from "@/components/HowItWorksSection";
 
 
 const FaqSection = dynamic(() => import("@/components/FaqSection"), {
@@ -14,9 +13,12 @@ const TransactionTiers = dynamic(() => import("@/components/PriceSection"), {
     loading: () => <LazySkeletonFallback height="500px" className="my-8" />,
 });
 
-const Discover = dynamic(() => import("@/components/DiscoverSection"), {
-    loading: () => <LazySkeletonFallback height="400px" className="my-8" />,
-});
+const CapabilitiesSection = dynamic(
+    () => import("@/components/capabilities/CapabilitiesSection"),
+    {
+        loading: () => <LazySkeletonFallback height="600px" className="my-8" />,
+    },
+);
 
 const Footer = dynamic(
     () =>
@@ -58,13 +60,20 @@ const TestimonialSection = dynamic(
     },
 );
 
+const FinalCTASection = dynamic(
+    () => import("@/components/FinalCTASection"),
+    {
+        loading: () => <LazySkeletonFallback height="400px" className="my-8" />,
+    },
+);
+
 export default function Home() {
     return (
         <>
             {/* Desktop Content */}
             <main className="block ">
                 <HeroSection />
-                <Discover />
+                <CapabilitiesSection />
                 <FeaturesSection />
                 <HowItWorksSection />
                 <SecuritySection />
@@ -72,6 +81,7 @@ export default function Home() {
                 <TestimonialSection />
                 <FaqSection />
                 <TransactionTiers />
+                <FinalCTASection />
                 <Footer />
             </main>
         </>
