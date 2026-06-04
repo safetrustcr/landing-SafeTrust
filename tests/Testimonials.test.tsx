@@ -28,21 +28,28 @@ import testimonials from "../src/data/testimonials";
 import type { Testimonial } from "../src/data/testimonials";
 
 // Mock framer-motion to avoid animation issues in tests
-jest.mock("framer-motion", () => ({
-  motion: {
-    div: ({ children, ...props }: React.PropsWithChildren<Record<string, unknown>>) => (
-      <div {...props}>{children}</div>
-    ),
-    button: ({ children, ...props }: React.PropsWithChildren<Record<string, unknown>>) => (
-      <button {...props}>{children}</button>
-    ),
-  },
-  AnimatePresence: ({ children }: React.PropsWithChildren) => <>{children}</>,
-  useAnimation: () => ({
-    start: jest.fn(),
-  }),
-  useInView: () => true,
-}));
+vi.mock("framer-motion", () => {
+  const motionProxy = new Proxy(
+    {},
+    {
+      get: (target, prop) => {
+        return ({ children, ...props }: React.PropsWithChildren<Record<string, any>>) => {
+          const Tag = prop as any;
+          const { animate, initial, variants, transition, ...domProps } = props;
+          return <Tag {...domProps}>{children}</Tag>;
+        };
+      },
+    }
+  );
+  return {
+    motion: motionProxy,
+    AnimatePresence: ({ children }: React.PropsWithChildren) => <>{children}</>,
+    useAnimation: () => ({
+      start: vi.fn(),
+    }),
+    useInView: () => true,
+  };
+});
 
 describe("Testimonials Data", () => {
   it("should have at least 8 testimonials", () => {
@@ -133,11 +140,11 @@ describe("TestimonialCard", () => {
 
 describe("TestimonialCarousel", () => {
   beforeEach(() => {
-    jest.useFakeTimers();
+    vi.useFakeTimers();
   });
 
   afterEach(() => {
-    jest.useRealTimers();
+    vi.useRealTimers();
   });
 
   it("should render navigation buttons", () => {
@@ -146,39 +153,39 @@ describe("TestimonialCarousel", () => {
     expect(screen.getByLabelText("Next testimonial")).toBeInTheDocument();
   });
 
-  it("should render dot indicators for each testimonial", () => {
+  it("should render dot indicators for each slide position", () => {
     render(<TestimonialCarousel testimonials={testimonials} />);
     const dots = screen.getAllByRole("tab");
-    expect(dots.length).toBe(testimonials.length);
+    expect(dots.length).toBe(testimonials.length - 3 + 1); // 8 dots on desktop (visibleCount = 3)
   });
 
-  it("should navigate to next testimonial when next button is clicked", async () => {
+  it("should navigate to next testimonial when next button is clicked", () => {
     render(<TestimonialCarousel testimonials={testimonials} />);
     const nextButton = screen.getByLabelText("Next testimonial");
 
-    await userEvent.click(nextButton);
+    fireEvent.click(nextButton);
 
     // Second dot should now be active
     const dots = screen.getAllByRole("tab");
     expect(dots[1]).toHaveAttribute("aria-selected", "true");
   });
 
-  it("should navigate to previous testimonial when prev button is clicked", async () => {
+  it("should navigate to previous testimonial when prev button is clicked", () => {
     render(<TestimonialCarousel testimonials={testimonials} />);
     const prevButton = screen.getByLabelText("Previous testimonial");
 
-    await userEvent.click(prevButton);
+    fireEvent.click(prevButton);
 
     // Last dot should be active (circular navigation)
     const dots = screen.getAllByRole("tab");
     expect(dots[dots.length - 1]).toHaveAttribute("aria-selected", "true");
   });
 
-  it("should navigate to specific testimonial when dot is clicked", async () => {
+  it("should navigate to specific testimonial when dot is clicked", () => {
     render(<TestimonialCarousel testimonials={testimonials} />);
     const dots = screen.getAllByRole("tab");
 
-    await userEvent.click(dots[3]);
+    fireEvent.click(dots[3]);
 
     expect(dots[3]).toHaveAttribute("aria-selected", "true");
   });
@@ -187,7 +194,7 @@ describe("TestimonialCarousel", () => {
     render(<TestimonialCarousel testimonials={testimonials} autoPlayInterval={5000} />);
 
     act(() => {
-      jest.advanceTimersByTime(5000);
+      vi.advanceTimersByTime(5000);
     });
 
     const dots = screen.getAllByRole("tab");
@@ -203,7 +210,7 @@ describe("TestimonialCarousel", () => {
     fireEvent.mouseEnter(container.firstChild as Element);
 
     act(() => {
-      jest.advanceTimersByTime(5000);
+      vi.advanceTimersByTime(5000);
     });
 
     // Should still be on first slide
@@ -220,7 +227,7 @@ describe("TestimonialCarousel", () => {
     fireEvent.mouseLeave(container.firstChild as Element);
 
     act(() => {
-      jest.advanceTimersByTime(5000);
+      vi.advanceTimersByTime(5000);
     });
 
     const dots = screen.getAllByRole("tab");

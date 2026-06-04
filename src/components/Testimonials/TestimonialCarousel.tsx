@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useCallback, useRef } from "react";
-import { motion, AnimatePresence, PanInfo } from "framer-motion";
+import { motion, PanInfo } from "framer-motion";
 import { ChevronLeft, ChevronRight, Pause } from "lucide-react";
 import { cn } from "@/lib/utils";
 import TestimonialCard from "./TestimonialCard";
@@ -19,8 +19,7 @@ const TestimonialCarousel: React.FC<TestimonialCarouselProps> = ({
 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
-  const [direction, setDirection] = useState(0);
-  const [visibleCount, setVisibleCount] = useState(1);
+  const [visibleCount, setVisibleCount] = useState(3);
   const containerRef = useRef<HTMLDivElement>(null);
 
   // Determine how many cards to show based on screen size
@@ -42,37 +41,33 @@ const TestimonialCarousel: React.FC<TestimonialCarouselProps> = ({
     return () => window.removeEventListener("resize", updateVisibleCount);
   }, []);
 
+  const maxIndex = Math.max(0, testimonials.length - visibleCount);
+
   // Auto-rotation
   useEffect(() => {
     if (isPaused) return;
 
     const timer = setInterval(() => {
-      setDirection(1);
-      setCurrentIndex((prev) => (prev + 1) % testimonials.length);
+      setCurrentIndex((prev) => (prev >= maxIndex ? 0 : prev + 1));
     }, autoPlayInterval);
 
     return () => clearInterval(timer);
-  }, [isPaused, autoPlayInterval, testimonials.length]);
+  }, [isPaused, autoPlayInterval, maxIndex]);
 
   // Navigation functions
   const goToNext = useCallback(() => {
-    setDirection(1);
-    setCurrentIndex((prev) => (prev + 1) % testimonials.length);
-  }, [testimonials.length]);
+    setCurrentIndex((prev) => (prev >= maxIndex ? 0 : prev + 1));
+  }, [maxIndex]);
 
   const goToPrev = useCallback(() => {
-    setDirection(-1);
-    setCurrentIndex(
-      (prev) => (prev - 1 + testimonials.length) % testimonials.length,
-    );
-  }, [testimonials.length]);
+    setCurrentIndex((prev) => (prev <= 0 ? maxIndex : prev - 1));
+  }, [maxIndex]);
 
   const goToIndex = useCallback(
     (index: number) => {
-      setDirection(index > currentIndex ? 1 : -1);
-      setCurrentIndex(index);
+      setCurrentIndex(Math.min(index, maxIndex));
     },
-    [currentIndex],
+    [maxIndex],
   );
 
   // Keyboard navigation
@@ -102,35 +97,12 @@ const TestimonialCarousel: React.FC<TestimonialCarouselProps> = ({
     }
   };
 
-  // Get visible testimonials (circular)
-  const getVisibleTestimonials = () => {
-    const visible: { testimonial: Testimonial; index: number }[] = [];
-    for (let i = 0; i < visibleCount; i++) {
-      const index = (currentIndex + i) % testimonials.length;
-      visible.push({ testimonial: testimonials[index], index });
-    }
-    return visible;
-  };
-
-  const slideVariants = {
-    enter: (direction: number) => ({
-      x: direction > 0 ? 300 : -300,
-      opacity: 0,
-    }),
-    center: {
-      x: 0,
-      opacity: 1,
-    },
-    exit: (direction: number) => ({
-      x: direction > 0 ? -300 : 300,
-      opacity: 0,
-    }),
-  };
+  const dotCount = maxIndex + 1;
 
   return (
     <div
       ref={containerRef}
-      className={styles.carouselContainer}
+      className={cn(styles.carouselContainer, "relative px-4 sm:px-8")}
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
       onFocus={() => setIsPaused(true)}
@@ -164,54 +136,39 @@ const TestimonialCarousel: React.FC<TestimonialCarouselProps> = ({
         <ChevronRight className="w-6 h-6" />
       </button>
 
-      {/* Fade edges */}
-      <div className={cn(styles.fadeEdge)} />
-      <div className={cn(styles.fadeEdge)} />
-
       {/* Carousel track */}
-      <div className={styles.carouselWrapper}>
+      <div className={cn(styles.carouselWrapper, "overflow-hidden py-6")}>
         <motion.div
-          className="flex gap-4 px-8"
+          className="flex cursor-grab active:cursor-grabbing w-full"
+          animate={{ x: `-${currentIndex * (100 / visibleCount)}%` }}
+          transition={{ type: "spring", stiffness: 180, damping: 22 }}
           drag="x"
           dragConstraints={{ left: 0, right: 0 }}
           dragElastic={0.2}
           onDragEnd={handleDragEnd}
         >
-          <AnimatePresence initial={false} custom={direction} mode="popLayout">
-            <motion.div
-              key={currentIndex}
-              custom={direction}
-              variants={slideVariants}
-              initial="enter"
-              animate="center"
-              exit="exit"
-              transition={{
-                x: { type: "spring", stiffness: 300, damping: 30 },
-                opacity: { duration: 0.2 },
-              }}
-              className="flex gap-4 w-full"
-            >
-              {getVisibleTestimonials().map(({ testimonial, index }, i) => (
-                <div
-                  key={testimonial.id}
-                  className={cn(
-                    "flex-shrink-0",
-                    visibleCount === 1 && "w-full",
-                    visibleCount === 2 && "w-[calc(50%-0.5rem)]",
-                    visibleCount === 3 && "w-[calc(33.333%-0.667rem)]",
-                  )}
-                  role="group"
-                  aria-roledescription="slide"
-                  aria-label={`${index + 1} of ${testimonials.length}`}
-                >
-                  <TestimonialCard
-                    testimonial={testimonial}
-                    isActive={i === 0}
-                  />
-                </div>
-              ))}
-            </motion.div>
-          </AnimatePresence>
+          {testimonials.map((testimonial, idx) => {
+            const isActive = idx === currentIndex;
+            return (
+              <div
+                key={testimonial.id}
+                className={cn(
+                  "flex-shrink-0 px-3 transition-all duration-500 select-none",
+                  visibleCount === 1 && "w-full",
+                  visibleCount === 2 && "w-1/2",
+                  visibleCount === 3 && "w-1/3",
+                )}
+                role="group"
+                aria-roledescription="slide"
+                aria-label={`${idx + 1} of ${testimonials.length}`}
+              >
+                <TestimonialCard
+                  testimonial={testimonial}
+                  isActive={isActive}
+                />
+              </div>
+            );
+          })}
         </motion.div>
       </div>
 
@@ -221,7 +178,7 @@ const TestimonialCarousel: React.FC<TestimonialCarouselProps> = ({
         role="tablist"
         aria-label="Testimonial navigation"
       >
-        {testimonials.map((_, index) => (
+        {Array.from({ length: dotCount }).map((_, index) => (
           <button
             key={index}
             className={cn(
@@ -231,7 +188,7 @@ const TestimonialCarousel: React.FC<TestimonialCarouselProps> = ({
             onClick={() => goToIndex(index)}
             role="tab"
             aria-selected={index === currentIndex}
-            aria-label={`Go to testimonial ${index + 1}`}
+            aria-label={`Go to slide ${index + 1}`}
           />
         ))}
       </div>
