@@ -1,18 +1,27 @@
 ---
-import Hello from '../components/Hello.jsx';
+import OurPromise from '../components/OurPromise.astro';
+import '../../main.css';
 ---
 
 <!doctype html>
-<html lang="es">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ST Landing Page</title>
+    <meta
+      name="description"
+      content="SafeTrust — secure decentralized escrow. Funds held in smart contracts until both parties confirm."
+    />
+    <title>SafeTrust — Our Promise</title>
   </head>
   <body>
     <main>
-      <h1>ST Landing Page</h1>
-      <Hello client:load />
+      <OurPromise />
+      <section id="how-it-works" style="min-height: 40vh; padding: 4rem 1.25rem; background: var(--bg-page);">
+        <div style="max-width: 48rem; margin: 0 auto; text-align: center; color: #64748b;">
+          <p>Additional landing sections continue below.</p>
+        </div>
+      </section>
     </main>
   </body>
 </html>
