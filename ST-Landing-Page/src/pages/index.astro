@@ -3,8 +3,8 @@
 import Stepper from '../components/Stepper.jsx';
 import SecuritySection from '../components/SecuritySection.astro';
 import '../../main.css';
-import '../../main.css';
 import KeyBenefits from '../components/Features/KeyBenefits.astro';
+import Navbar from '../components/navigation/Navbar.astro';
 ---
 
 <!doctype html>
@@ -19,11 +19,6 @@ import KeyBenefits from '../components/Features/KeyBenefits.astro';
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
-    <meta
-      name="description"
-      content="SafeTrust — secure decentralized escrow. Funds held in smart contracts until both parties confirm."
-    />
-    <title>SafeTrust — Key Benefits</title>
   </head>
   <body>
     <!-- The Navigation block -->
@@ -51,6 +46,9 @@ import KeyBenefits from '../components/Features/KeyBenefits.astro';
 
       <!-- Static Astro Security Features Section -->
       <SecuritySection />
+
+      <!-- Key Benefits UI Component with Category Tabs Island -->
+      <KeyBenefits />
     </main>
   </body>
 </html>
@@ -73,8 +71,3 @@ import KeyBenefits from '../components/Features/KeyBenefits.astro';
     padding: 2rem 0;
   }
 </style>
-      <!-- Key Benefits UI Component with Category Tabs Island -->
-      <KeyBenefits />
-    </main>
-  </body>
-</html>

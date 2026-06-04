@@ -97,7 +97,7 @@
   top: 22px;
   left: 12.5%;
   height: 4px;
-  width: var(--progress-ratio, 0%);
+  width: calc((100% - 25%) * (var(--progress-ratio, 0%) / 100%));
   background-color: var(--brand-primary, #1E3A8A);
   z-index: 2;
   border-radius: 2px;
@@ -169,7 +169,7 @@
 .step-check-icon {
   width: 18px;
   height: 18px;
-  stroke: currentColor;
+  stroke: currentcolor;
   stroke-width: 3;
   fill: none;
 }
@@ -271,7 +271,7 @@
     left: 29px;
     top: 22px;
     width: 4px;
-    height: var(--progress-ratio, 0%);
+    height: calc((100% - 44px) * (var(--progress-ratio, 0%) / 100%));
     right: auto;
     transition: height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   }
