@@ -1,5 +1,5 @@
 ---
-// index.astro
+import OurPromise from '../components/OurPromise.astro';
 import Stepper from '../components/Stepper.jsx';
 import SecuritySection from '../components/SecuritySection.astro';
 import '../../main.css';
@@ -14,7 +14,7 @@ import Navbar from '../components/navigation/Navbar.astro';
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SafeTrust Escrow — Four steps. Zero middlemen.</title>
     <meta name="description" content="SafeTrust secure digital escrow. From booking to release, every transaction follows a transparent on-chain flow with top-tier security certifications." />
-    
+
     <!-- Google Fonts: Plus Jakarta Sans & Playfair Display -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -22,36 +22,31 @@ import Navbar from '../components/navigation/Navbar.astro';
   </head>
   <body>
     <main>
+      <OurPromise />
+
       <!-- "How It Works" Section -->
       <section class="how-it-works-section" id="how-it-works">
-        <!-- Eyebrow Pill -->
         <span class="eyebrow-pill">How It Works</span>
-        
-        <!-- Headline -->
+
         <h1 class="section-title">
           Four steps. <span class="italic-accent">Zero middlemen.</span>
         </h1>
-        
-        <!-- Subheading -->
+
         <p class="section-subtitle">
           From booking to release — every escrow follows the same transparent flow.
         </p>
 
-        <!-- React progress stepper island -->
         <Stepper client:load />
       </section>
 
-      <!-- Static Astro Security Features Section -->
       <SecuritySection />
 
-      <!-- Key Benefits UI Component with Category Tabs Island -->
       <KeyBenefits />
     </main>
   </body>
 </html>
 
 <style is:global>
-  /* Base page resets & background configuration */
   html, body {
     margin: 0;
     padding: 0;
