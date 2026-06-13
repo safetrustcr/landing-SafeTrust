@@ -1,32 +1,31 @@
-# ST-Landing-Page
+![CodeRabbit Pull Request Reviews](https://img.shields.io/coderabbit/prs/github/safetrustcr/landing-SafeTrust?utm_source=oss&utm_medium=github&utm_campaign=safetrustcr%2Flanding-SafeTrust&labelColor=171717&color=FF570A&link=https%3A%2F%2Fcoderabbit.ai&label=CodeRabbit+Reviews)
 
-Instrucciones para ejecutar y desarrollar la landing page de ejemplo basada en Astro + React.
+# 🌐 SafeTrust - Landing Page (Astro)
 
-Requisitos
-- Node.js (recomendado >= 18)
+This is the new version of the **SafeTrust** landing page, rebuilt with **Astro** for better performance, smaller bundle sizes, and easier component-level migration from the previous Next.js implementation.
 
-Instalación (desde el directorio del proyecto)
+## 🛠️ Technology Stack
 
-```bash
-cd ST-Landing-Page
+- **Astro** – fast, content-focused static site framework with island architecture
+- **React** – used for interactive components via `@astrojs/react`
+- **CSS** – component-scoped stylesheets
 
-# ST-Landing-Page
+## 🚀 Getting Started
 
-Instructions to run and develop the example landing page using Astro + React.
+### Prerequisites
+- Node.js >= 18
 
-Prerequisites
-- Node.js (recommended >= 18)
-
-Installation (run from project directory)
+### Installation
 
 ```bash
 cd ST-Landing-Page
 npm install
+
 # Install the React integration (if not already installed)
 npm install @astrojs/react react react-dom
 ```
 
-Development
+### Development
 
 ```bash
 # Start the dev server (default: http://localhost:4321)
@@ -36,18 +35,60 @@ npm run dev
 npm run dev -- --port 3000
 ```
 
-Build and preview
+### Build & Preview
 
 ```bash
 npm run build
 npm run preview
 ```
 
-Important files
-- [astro.config.mjs](astro.config.mjs) — Astro configuration and integrations.
-- [src/pages/index.astro](src/pages/index.astro) — Example main page.
-- [src/components/Hello.jsx](src/components/Hello.jsx) — Example React component.
+## 📁 Project Structure
 
-Notes
-- The `package.json` in this directory was created exactly as requested.
-- If you want me to commit these changes or open the page in your browser, tell me and I will do it.
+```
+src/
+├── components/
+│   ├── ConnectWalletCTA.tsx
+│   ├── Features/
+│   │   ├── CategoryTabs.jsx
+│   │   └── KeyBenefits.astro
+│   ├── OurPromise.astro
+│   ├── SecurityCard.astro
+│   ├── SecuritySection.astro
+│   └── Stepper.jsx
+├── pages/
+│   └── index.astro
+└── styles/
+    ├── KeyBenefits.css
+    ├── our-promise.css
+    ├── security.css
+    └── stepper.css
+```
+
+## 🔄 Migration Notes
+
+This project is an in-progress migration of the original Next.js landing page to Astro. Components are being ported incrementally:
+
+- Static/presentational sections → `.astro` components (e.g. `OurPromise`, `SecuritySection`, `SecurityCard`)
+- Interactive elements → React components hydrated as islands (e.g. `ConnectWalletCTA`, `Stepper`, `CategoryTabs`)
+
+## 🔍 About SafeTrust
+
+**SafeTrust** is a decentralized P2P escrow platform that brings security and transparency to booking and rental transactions. Built on the **Stellar blockchain** via the **TrustlessWork API**, SafeTrust protects both parties in a transaction without relying on intermediaries.
+
+### 🔒 How It Works
+
+1. **Secure Deposits** – Funds are held in a smart contract-based escrow until agreed conditions are met.
+2. **Transaction Safety** – Once conditions are verified (no disputes, terms fulfilled), funds are released transparently through SafeTrust.
+3. **Dispute Resolution** – Transparent, predefined rules govern dispute handling for fair outcomes.
+
+### 🌟 Why SafeTrust?
+
+- **🔐 Security** – Blockchain-backed escrow ensures funds are tamper-proof.
+- **🌈 Transparency** – Every transaction is verifiable on-chain.
+- **🌍 Decentralized Trust** – No intermediaries required.
+- **⚙️ Automation** – From deposits to releases, the process is automated end-to-end.
+
+## 📜 License
+
+© 2026 SafeTrust. Released under the [MIT License](https://opensource.org/license/MIT).
+
