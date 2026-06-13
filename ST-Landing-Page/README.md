@@ -88,6 +88,9 @@ This project is an in-progress migration of the original Next.js landing page to
 - **🌍 Decentralized Trust** – No intermediaries required.
 - **⚙️ Automation** – From deposits to releases, the process is automated end-to-end.
 
+### 🌠 Astro Docs:
+Docs: https://astro.build/
+
 ## 📜 License
 
 © 2026 SafeTrust. Released under the [MIT License](https://opensource.org/license/MIT).
