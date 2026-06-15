@@ -13,47 +13,6 @@ Welcome to the **SafeTrust** landing page repository. This repo contains two lan
 
 ---
 
-## 🗂️ Repository Structure
-
-landing-SafeTrust/
-├── ST-Landing-Page/          ← ✅ New Astro landing page (active development)
-│   ├── public/
-│   │   └── landing-logo.jpeg
-│   └── src/
-│       ├── components/
-│       │   ├── Hero/
-│       │   │   ├── HeroSection.astro
-│       │   │   ├── EscrowCard.tsx       (React island)
-│       │   │   ├── CTAButtons.astro
-│       │   │   └── TrustBadges.astro
-│       │   ├── Features/
-│       │   │   ├── DiscoverSafeTrust.astro
-│       │   │   ├── CategoryTabs.jsx     (React island)
-│       │   │   └── KeyBenefits.astro
-│       │   ├── HowItWorks/
-│       │   │   ├── HowItWorksSection.astro
-│       │   │   └── Stepper.jsx          (React island)
-│       │   ├── Navbar.astro
-│       │   ├── OurPromise.astro
-│       │   ├── ConnectWalletCTA.tsx     (React island)
-│       │   ├── SecurityCard.astro
-│       │   ├── SecuritySection.astro
-│       │   ├── FinalCTA.astro
-│       │   └── Footer.astro
-│       ├── pages/
-│       │   └── index.astro
-│       └── styles/
-│           ├── escrow-card.css
-│           ├── hero.css
-│           ├── KeyBenefits.css
-│           ├── our-promise.css
-│           ├── security.css
-│           └── stepper.css
-└── (legacy Next.js files)    ← original implementation, kept for reference
-
-
----
-
 ## 🛠️ Technology Stack
 
 ### New Astro Landing Page (`ST-Landing-Page/`)
