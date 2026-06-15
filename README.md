@@ -6,6 +6,8 @@ Welcome to the **SafeTrust** landing page repository. This repo contains two lan
 
 - **Root directory** — the original Next.js landing page (legacy, kept for reference)
 - **`ST-Landing-Page/`** — the new Astro-based landing page, currently under active development
+- https://github.com/safetrustcr/landing-SafeTrust/tree/new-lp/ST-Landing-Page
+
 
 > 🚧 **Migration in progress:** All sections and components from the original Next.js landing page are being rebuilt and migrated into the new Astro implementation under `ST-Landing-Page/`. The Astro version will become the canonical landing page once the migration is complete.
 
