@@ -34,7 +34,7 @@
     ".next/types/**/*.ts",
     "next-env.d.ts",
     "./.next/types/**/*.ts"
-  ],
+, "ST-Landing-Page(new one)/src/components/HowItWorks/HowItWorksSection.astro"  ],
   "exclude": [
     "node_modules",
     "tests"

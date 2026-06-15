@@ -1,0 +1,87 @@
+---
+import ConnectWalletCTA from "./ConnectWalletCTA.tsx";
+
+const guarantees = [
+  { title: "Funds held in smart contract", tag: "soroban", desc: "Not in our database. Not in a bank. In code." },
+  { title: "Released only on dual consent", tag: "2/2 sig", desc: "Both buyer and seller must confirm. No exceptions." },
+  { title: "Transparent arbitration", tag: "on-chain", desc: "Disputes resolved with verifiable evidence." },
+];
+---
+
+<section class="our-promise">
+  <div class="promise-grid">
+    <div class="promise-text">
+      <p class="eyebrow">— Our promise</p>
+      <h2>Secure, transparent, <em>trusted.</em></h2>
+      <p class="description">
+        Decentralized escrow that holds every deposit until both parties confirm —
+        no middlemen, no surprises — just code you can verify yourself.
+      </p>
+
+      <ConnectWalletCTA client:visible />
+
+      <div class="mini-badges">
+        <span>✓ Bank-grade security</span>
+        <span>🔒 End-to-end encrypted</span>
+        <span>⭐ USDT protected</span>
+      </div>
+    </div>
+
+    <div class="guarantees-card">
+      <span class="verified-badge">VERIFIED ON-CHAIN<br/><small>v2.4 mainnet</small></span>
+      <p class="guarantees-eyebrow">SAFETRUST GUARANTEES</p>
+      {guarantees.map((g) => (
+        <div class="guarantee-row">
+          <strong>{g.title}</strong> <span class="tag">{g.tag}</span>
+          <p>{g.desc}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .our-promise { padding: 4rem 2rem; max-width: 1280px; margin: 0 auto; }
+  .promise-grid {
+    display: grid; gap: 2rem;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 1024px) {
+    .promise-grid { grid-template-columns: 1fr 1fr; align-items: start; }
+  }
+  .eyebrow {
+    font-size: 0.75rem; font-weight: 700; letter-spacing: 0.2em;
+    text-transform: uppercase; color: #2857B8; margin-bottom: 0.75rem;
+  }
+  h2 { font-size: clamp(1.75rem, 4vw, 3rem); font-weight: 800; line-height: 1.15; }
+  h2 em { color: #7c3aed; font-style: italic; }
+  .description { margin-top: 1rem; color: var(--muted-foreground, #6b7280); max-width: 36rem; line-height: 1.6; }
+  .mini-badges { display: flex; gap: 1rem; margin-top: 1.5rem; font-size: 0.875rem; flex-wrap: wrap; }
+
+  .guarantees-card {
+    position: relative;
+    border: 1px solid var(--border, #e5e7eb);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    box-shadow: 0 10px 30px -10px rgba(0,0,0,0.08);
+  }
+  .verified-badge {
+    position: absolute; top: -1rem; right: 1rem;
+    background: #1e1b4b; color: #fff;
+    font-size: 0.7rem; font-weight: 700;
+    padding: 0.5rem 0.75rem; border-radius: 0.5rem;
+    text-align: center;
+  }
+  .guarantees-eyebrow {
+    font-size: 0.7rem; font-weight: 700; letter-spacing: 0.15em;
+    color: var(--muted-foreground, #9ca3af); margin-bottom: 1rem;
+  }
+  .guarantee-row { padding: 0.75rem 0; border-top: 1px solid var(--border, #f3f4f6); }
+  .guarantee-row:first-of-type { border-top: none; }
+  .tag {
+    font-size: 0.7rem; font-weight: 600;
+    background: #ede9fe; color: #6d28d9;
+    padding: 0.1rem 0.5rem; border-radius: 999px;
+  }
+  .guarantee-row p { font-size: 0.875rem; color: var(--muted-foreground, #6b7280); margin-top: 0.25rem; }
+</style>
