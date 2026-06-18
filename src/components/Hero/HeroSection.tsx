@@ -17,6 +17,7 @@ import {
 import { CTAButtons } from "./CTAButtons";
 import { TrustBadges, TrustBadgesCompact } from "./TrustBadges";
 import styles from "@/styles/hero.module.css";
+import EscrowCard from "./EscrowCard";
 
 export interface HeroSectionProps {
   className?: string;
@@ -384,8 +385,10 @@ export function HeroSection({ className = "" }: HeroSectionProps) {
           )}
         </div>
 
-        {/* Security Visual */}
-        <SecurityVisual />
+        {/* Escrow Card Visual */}
+        <div className="flex-1 hidden lg:flex items-center justify-center relative max-w-[600px]">
+          <EscrowCard />
+        </div>
       </motion.main>
 
       {/* Secondary CTA Section (like the original hero) */}
