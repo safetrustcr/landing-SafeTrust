@@ -1,0 +1,317 @@
+---
+const productLinks = [
+  { label: "About", href: "/about" },
+  { label: "Features", href: "/features" },
+  { label: "Pricing", href: "/pricing" },
+  { label: "Integrations", href: "/integrations" },
+  { label: "FAQs", href: "/faqs" },
+];
+
+const companyLinks = [
+  { label: "Our Story", href: "/our-story" },
+  { label: "Team", href: "/team" },
+  { label: "Careers", href: "/careers" },
+  { label: "Press", href: "/press" },
+  { label: "Contact Us", href: "/contact-us" },
+];
+
+const resourceLinks = [
+  { label: "Blog", href: "/blog" },
+  { label: "Documentation", href: "/documentation" },
+  { label: "Help Center", href: "/help-center" },
+  { label: "Security", href: "/security" },
+  { label: "API", href: "/api" },
+];
+
+const legalLinks = [
+  { label: "Terms of Service", href: "/terms" },
+  { label: "Privacy Policy", href: "/privacy" },
+  { label: "Cookie Policy", href: "/cookie" },
+  { label: "Acceptable Use", href: "/acceptable-use" },
+  { label: "Refund Policy", href: "/refund" },
+];
+---
+
+<footer class="footer">
+  <div class="footer-glow footer-glow--bottom-left"></div>
+  <div class="footer-glow footer-glow--top-right"></div>
+  <div class="footer-overlay"></div>
+
+  <div class="footer-container">
+    <div class="footer-top">
+      <a href="/" class="footer-brand">
+        <img src="/landing-logo.jpeg" alt="SafeTrust" width="32" height="32" />
+        <span>SafeTrust</span>
+      </a>
+    </div>
+
+    <div class="footer-grid">
+      <div class="footer-newsletter">
+        <h3 class="footer-col-title">Stay Updated</h3>
+        <p class="footer-newsletter-desc">Subscribe to get the latest news and updates from SafeTrust.</p>
+        <form class="footer-form" action="#" method="post">
+          <div class="footer-input-row">
+            <input
+              type="email"
+              name="email"
+              placeholder="Enter your email"
+              required
+              class="footer-input"
+            />
+            <button type="submit" class="footer-subscribe-btn">Subscribe</button>
+          </div>
+          <label class="footer-consent">
+            <input type="checkbox" name="consent" required />
+            <span>I agree to receive marketing emails from SafeTrust.</span>
+          </label>
+        </form>
+      </div>
+
+      <div class="footer-col">
+        <h3 class="footer-col-title">Product</h3>
+        <ul class="footer-links">
+          {productLinks.map((link) => (
+            <li><a href={link.href}>{link.label}</a></li>
+          ))}
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h3 class="footer-col-title">Company</h3>
+        <ul class="footer-links">
+          {companyLinks.map((link) => (
+            <li><a href={link.href}>{link.label}</a></li>
+          ))}
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h3 class="footer-col-title">Resources</h3>
+        <ul class="footer-links">
+          {resourceLinks.map((link) => (
+            <li><a href={link.href}>{link.label}</a></li>
+          ))}
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h3 class="footer-col-title">Legal</h3>
+        <ul class="footer-links">
+          {legalLinks.map((link) => (
+            <li><a href={link.href}>{link.label}</a></li>
+          ))}
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; 2026 SafeTrust. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    position: relative;
+    overflow: hidden;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    background: var(--brand-navy, #10193F);
+    color: #e2e8f0;
+    padding: 3rem 0 0;
+  }
+
+  .footer-glow {
+    position: absolute;
+    width: 20rem;
+    height: 20rem;
+    border-radius: 50%;
+    pointer-events: none;
+    filter: blur(80px);
+    opacity: 0.15;
+  }
+
+  .footer-glow--bottom-left {
+    bottom: 0;
+    left: 25%;
+    background: var(--brand-accent, #1D4ED8);
+  }
+
+  .footer-glow--top-right {
+    top: 33%;
+    right: 25%;
+    background: var(--brand-accent, #1D4ED8);
+  }
+
+  .footer-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, transparent, rgba(16, 25, 63, 0.3));
+    pointer-events: none;
+  }
+
+  .footer-container {
+    position: relative;
+    z-index: 1;
+    max-width: 72rem;
+    margin: 0 auto;
+    padding: 0 1.5rem 3rem;
+  }
+
+  .footer-top {
+    margin-bottom: 2.5rem;
+  }
+
+  .footer-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.625rem;
+    text-decoration: none;
+  }
+
+  .footer-brand img {
+    border-radius: 6px;
+    object-fit: cover;
+  }
+
+  .footer-brand span {
+    font-size: 1.25rem;
+    font-weight: 700;
+    background: linear-gradient(to right, #60a5fa, #93c5fd);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem 2rem;
+    margin-bottom: 3rem;
+  }
+
+  @media (min-width: 640px) {
+    .footer-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .footer-grid {
+      grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+    }
+
+    .footer-newsletter {
+      grid-column: span 1;
+    }
+  }
+
+  .footer-col-title {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: #f1f5f9;
+    margin: 0 0 1rem;
+  }
+
+  .footer-links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+  }
+
+  .footer-links a {
+    color: #94a3b8;
+    text-decoration: none;
+    font-size: 0.9375rem;
+    transition: color 0.2s ease;
+  }
+
+  .footer-links a:hover {
+    color: #60a5fa;
+  }
+
+  .footer-newsletter-desc {
+    font-size: 0.875rem;
+    color: #94a3b8;
+    margin: 0 0 1rem;
+    line-height: 1.5;
+  }
+
+  .footer-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .footer-input-row {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .footer-input {
+    flex: 1;
+    padding: 0.5rem 0.75rem;
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.06);
+    color: #e2e8f0;
+    font-size: 0.875rem;
+    outline: none;
+    transition: border-color 0.2s;
+    min-width: 0;
+  }
+
+  .footer-input::placeholder {
+    color: #64748b;
+  }
+
+  .footer-input:focus {
+    border-color: #3b82f6;
+  }
+
+  .footer-subscribe-btn {
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    border: none;
+    background: var(--brand-accent, #1D4ED8);
+    color: #fff;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.2s ease;
+  }
+
+  .footer-subscribe-btn:hover {
+    background: var(--brand-primary, #1E3A8A);
+  }
+
+  .footer-consent {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+    color: #64748b;
+    cursor: pointer;
+    line-height: 1.4;
+  }
+
+  .footer-consent input[type="checkbox"] {
+    margin-top: 0.125rem;
+    flex-shrink: 0;
+    accent-color: #3b82f6;
+  }
+
+  .footer-bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    padding-top: 1.5rem;
+  }
+
+  .footer-bottom p {
+    font-size: 0.875rem;
+    color: #64748b;
+    margin: 0;
+  }
+</style>
