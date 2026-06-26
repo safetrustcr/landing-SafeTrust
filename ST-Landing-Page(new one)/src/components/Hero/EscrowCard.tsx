@@ -1,8 +1,11 @@
 // src/components/Hero/EscrowCard.tsx
 import { useEffect, useState } from "react";
+import { CheckCircle, Clock } from "lucide-react";
 import "../../styles/escrow-card.css";
 
 type StepState = "done" | "pending" | "idle";
+
+type StepKey = "deposit" | "escrow" | "confirmed";
 
 export default function EscrowCard() {
   const [progress, setProgress] = useState(38);
@@ -14,7 +17,7 @@ export default function EscrowCard() {
     return () => clearInterval(interval);
   }, []);
 
-  const getStepState = (step: "deposit" | "escrow" | "confirmed"): StepState => {
+  const getStepState = (step: StepKey): StepState => {
     if (step === "deposit") {
       return progress <= 33 ? "pending" : "done";
     }
@@ -29,25 +32,45 @@ export default function EscrowCard() {
     return "idle";
   };
 
-  const renderTimelineItem = (
-    step: "deposit" | "escrow" | "confirmed",
-    title: string
-  ) => {
-    const state = getStepState(step);
-    let icon = "○";
-    let subText = "";
-
+  const getTimelineMeta = (step: StepKey, state: StepState) => {
     if (state === "done") {
-      icon = "✓";
-      subText = "Complete";
-    } else if (state === "pending") {
-      icon = "◐";
-      subText = "In progress...";
+      return {
+        icon: <CheckCircle size={18} />,
+        statusClass: "done",
+        subText: "Complete",
+      };
     }
+
+    if (state === "pending") {
+      if (step === "confirmed") {
+        return {
+          icon: <CheckCircle size={18} />,
+          statusClass: "idle",
+          subText: "In progress...",
+        };
+      }
+
+      return {
+        icon: <Clock size={18} />,
+        statusClass: "pending",
+        subText: "In progress...",
+      };
+    }
+
+    return {
+      icon: <CheckCircle size={18} />,
+      statusClass: "idle",
+      subText: "",
+    };
+  };
+
+  const renderTimelineItem = (step: StepKey, title: string) => {
+    const state = getStepState(step);
+    const { icon, statusClass, subText } = getTimelineMeta(step, state);
 
     return (
       <div className="timeline-item">
-        <span className={`icon ${state}`}>{icon}</span>
+        <span className={`icon ${statusClass}`}>{icon}</span>
         <div>
           <p>{title}</p>
           {subText && <span className="sub">{subText}</span>}
