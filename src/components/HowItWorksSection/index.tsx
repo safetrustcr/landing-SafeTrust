@@ -307,7 +307,7 @@ export default function HowItWorksSection() {
         </div>
 
         {/* ── Desktop Timeline ── */}
-        <div className="hidden md:grid md:grid-cols-[160px_48px_160px_48px_160px_48px_160px] md:items-start md:justify-center">
+        <div className="hidden lg:grid lg:grid-cols-[160px_48px_160px_48px_160px_48px_160px] lg:items-start lg:justify-center">
           {STEPS.map((step, index) => {
             const cfg = STATUS_CONFIG[step.status];
             return (
@@ -371,23 +371,26 @@ export default function HowItWorksSection() {
                     style={{
                       width: 48,
                       height: 2,
-                      backgroundColor: "#d1d5db",
                       flexShrink: 0,
                       transformOrigin: "left center",
                       alignSelf: "start",
                       marginTop: 107,
-                      overflow: "hidden",
                     }}
                     aria-hidden="true"
                   >
-                    {/* Glow overlay */}
                     <div
-                      className="connector-glow absolute inset-0 rounded-full opacity-0"
-                      style={{
-                        background:
-                          "linear-gradient(90deg, transparent, #2857B8, transparent)",
-                      }}
-                    />
+                      className="absolute inset-0 overflow-hidden rounded-full"
+                      style={{ backgroundColor: "#d1d5db" }}
+                    >
+                      {/* Glow overlay */}
+                      <div
+                        className="connector-glow absolute inset-0 rounded-full opacity-0"
+                        style={{
+                          background:
+                            "linear-gradient(90deg, transparent, #2857B8, transparent)",
+                        }}
+                      />
+                    </div>
                     {/* Arrow head */}
                     <svg
                       className="absolute -right-3 top-1/2 -translate-y-1/2"
@@ -413,7 +416,7 @@ export default function HowItWorksSection() {
         </div>
 
         {/* ── Mobile Timeline ── */}
-        <div className="flex flex-col items-center gap-0 md:hidden">
+        <div className="flex flex-col items-center gap-0 lg:hidden">
           {STEPS.map((step, index) => {
             const cfg = STATUS_CONFIG[step.status];
             return (
