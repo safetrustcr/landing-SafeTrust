@@ -21,6 +21,7 @@ export default defineConfig({
           "globe",
           "clock",
           "scale",
+          "users",
           "wallet",
           "shield-check",
           "coins",
