@@ -1,0 +1,22 @@
+{
+  "name": "hl-landingpage",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/react": "^5.0.7",
+    "@iconify-json/lucide": "^1.2.111",
+    "@stellar/freighter-api": "^6.0.1",
+    "astro": "^5.7.0",
+    "astro-icon": "^1.1.5",
+    "lucide-react": "^1.17.0",
+    "motion": "^12.42.0",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7"
+  }
+}

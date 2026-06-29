@@ -1,0 +1,146 @@
+/* src/styles/escrow-card.css */
+
+.escrow-card {
+  background: var(--card-bg, #ffffff);
+  border: 1px solid var(--border, #e5e7eb);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  width: 100%;
+  max-width: 360px;
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.1);
+  font-family: inherit;
+}
+
+.escrow-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.escrow-header h3 {
+  font-size: 1.125rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.status-active {
+  color: #10b981;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.label {
+  color: #9ca3af;
+  font-size: 0.875rem;
+  margin-top: 1rem;
+  margin-bottom: 0;
+}
+
+.amount {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-top: 0.25rem;
+  margin-bottom: 0;
+}
+
+.currency {
+  font-size: 0.875rem;
+  color: #9ca3af;
+  font-weight: 500;
+}
+
+.progress-section {
+  margin-top: 1.25rem;
+}
+
+.progress-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  color: #6b7280;
+  margin-bottom: 0.4rem;
+}
+
+.progress-track {
+  height: 6px;
+  border-radius: 999px;
+  background: #e5e7eb;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(to right, #2857b8, #7c3aed);
+  border-radius: 999px;
+  transition: width 0.15s linear;
+}
+
+.timeline {
+  margin-top: 1.5rem;
+}
+
+.timeline-label {
+  font-size: 0.75rem;
+  color: #9ca3af;
+  margin-bottom: 0.75rem;
+}
+
+.timeline-item {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+  padding: 0.4rem 0;
+  font-size: 0.875rem;
+}
+
+.timeline-item p {
+  font-weight: 600;
+  margin: 0;
+}
+
+.timeline-item .sub {
+  font-size: 0.75rem;
+  color: #9ca3af;
+}
+
+.icon {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background: rgba(229, 231, 235, 0.45);
+}
+
+.icon svg {
+  width: 18px;
+  height: 18px;
+}
+
+.icon.done {
+  background: rgba(16, 185, 129, 0.15);
+  color: #10b981;
+}
+
+.icon.pending {
+  background: rgba(59, 130, 246, 0.15);
+  color: #3b82f6;
+}
+
+.icon.idle {
+  background: rgba(107, 114, 128, 0.1);
+  color: #6b7280;
+  .escrow-card {
+    background: #111827;
+    border-color: #1f2937;
+    color: #f9fafb;
+  }
+  .progress-track {
+    background: #1f2937;
+  }
+  .footer {
+    border-top-color: #1f2937;
+  }
+}

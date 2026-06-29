@@ -1,0 +1,82 @@
+---
+const features = [
+  { num: "01", title: "Smart Escrow", tag: "Security", desc: "Automated contract execution with multi-signature protection for every transaction." },
+  { num: "02", title: "Multi-Chain", tag: "Compatibility", desc: "Seamless interoperability across Stellar and other major networks." },
+  { num: "03", title: "Real-Time", tag: "Speed", desc: "Instant settlement with on-chain verification and zero intermediaries." },
+  { num: "04", title: "Audit Ready", tag: "Compliance", desc: "Fully transparent transaction history with verifiable audit trails." },
+];
+---
+
+<section id="features" class="discover">
+  <p class="eyebrow-pill">Capabilities</p>
+  <h2>Discover the power of <em>SafeTrust</em></h2>
+  <p class="lead">
+    Enterprise-grade infrastructure built for the next generation of decentralized
+    transactions. Secure, transparent, and verifiable.
+  </p>
+
+  <div class="discover-grid">
+    <div class="scale-card">
+      <span class="live-badge">● Live Network</span>
+      <h3>Platform Scale</h3>
+      <p class="muted">Real-time metrics from the SafeTrust network</p>
+      <div class="stats">
+        <!-- TODO: wire to live backend metrics in Batch N -->
+        <div><span class="stat-label">CONTRACTS/24H</span><strong>2,847</strong></div>
+        <div><span class="stat-label">AVG SETTLEMENT</span><strong>0.8s</strong></div>
+      </div>
+    </div>
+
+    {features.map((f) => (
+      <div class="feature-card">
+        <span class="num">{f.num}</span>
+        <h3>{f.title}</h3>
+        <p>{f.desc}</p>
+        <span class="tag">{f.tag}</span>
+      </div>
+    ))}
+  </div>
+</section>
+
+<style>
+  .discover { padding: 4rem 2rem; max-width: 1280px; margin: 0 auto; text-align: center; }
+  .eyebrow-pill {
+    display: inline-block; font-size: 0.75rem; font-weight: 700;
+    background: #ede9fe; color: #6d28d9;
+    padding: 0.3rem 1rem; border-radius: 999px; margin-bottom: 1rem;
+  }
+  h2 { font-size: clamp(1.75rem, 4vw, 2.75rem); font-weight: 800; }
+  h2 em { color: #7c3aed; font-style: italic; }
+  .lead { color: var(--muted-foreground, #6b7280); max-width: 40rem; margin: 1rem auto 2.5rem; }
+  .discover-grid {
+    display: grid; gap: 1.5rem; text-align: left;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 768px) {
+    .discover-grid { grid-template-columns: 1.3fr 1fr 1fr; }
+  }
+  .scale-card {
+    background: #1e1b4b; color: #fff;
+    border-radius: 1rem; padding: 1.5rem;
+    grid-row: span 2;
+  }
+  .live-badge { font-size: 0.75rem; color: #34d399; font-weight: 600; }
+  .scale-card h3 { margin-top: 1rem; font-size: 1.5rem; }
+  .muted { color: #a5b4fc; font-size: 0.875rem; }
+  .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 2rem; }
+  .stat-label { display: block; font-size: 0.7rem; color: #a5b4fc; margin-bottom: 0.25rem; }
+  .stats strong { font-size: 1.5rem; }
+  .feature-card {
+    border: 1px solid var(--border, #e5e7eb);
+    border-radius: 1rem; padding: 1.5rem; position: relative;
+  }
+  .feature-card .num { position: absolute; top: 1rem; right: 1.25rem; color: var(--muted-foreground, #d1d5db); font-size: 0.875rem; }
+  .feature-card h3 { margin-top: 1rem; font-size: 1.125rem; }
+  .feature-card p { color: var(--muted-foreground, #6b7280); font-size: 0.875rem; margin-top: 0.5rem; }
+  .feature-card .tag {
+    display: inline-block; margin-top: 0.75rem;
+    font-size: 0.7rem; font-weight: 600;
+    background: #ede9fe; color: #6d28d9;
+    padding: 0.1rem 0.5rem; border-radius: 999px;
+  }
+</style>
