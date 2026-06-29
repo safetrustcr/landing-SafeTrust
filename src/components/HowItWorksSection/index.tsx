@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { Fragment, useEffect, useRef } from "react";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { animate, stagger, inView, hover, scroll, spring } from "motion";
 
@@ -150,7 +150,7 @@ export default function HowItWorksSection() {
         if (header) {
           animate(
             header as never,
-            { opacity: [0, 1], transform: ["translateY(-12px)", "translateY(0px)"] },
+            { opacity: [0, 1], y: [-12, 0] },
             { duration: 0.5, ease: [0, 0, 0.58, 1] } as never
           );
         }
@@ -158,7 +158,7 @@ export default function HowItWorksSection() {
         // ── 2. Staggered sequential node reveal ──────────────────────────────
         animate(
           nodes as never,
-          { opacity: [0, 1], transform: ["translateY(24px)", "translateY(0px)"] },
+          { opacity: [0, 1], y: [24, 0] },
           {
             delay: (i: number) => 0.25 + i * STEP_STAGGER,
             duration: STEP_DUR,
@@ -173,7 +173,7 @@ export default function HowItWorksSection() {
           
           animate(
             connector as never,
-            { transform: isVertical ? ["scaleY(0)", "scaleY(1)"] : ["scaleX(0)", "scaleX(1)"] },
+            isVertical ? { scaleY: [0, 1] } : { scaleX: [0, 1] },
             {
               delay: startAt,
               duration: CONNECTOR_DUR,
@@ -187,9 +187,9 @@ export default function HowItWorksSection() {
               glow as never,
               { 
                 opacity: [0, 0.8, 0], 
-                transform: isVertical 
-                  ? ["translateY(-100%)", "translateY(100%)"] 
-                  : ["translateX(-100%)", "translateX(100%)"] 
+                ...(isVertical
+                  ? { y: ["-100%", "100%"] }
+                  : { x: ["-100%", "100%"] }),
               },
               {
                 delay: startAt,
@@ -307,11 +307,11 @@ export default function HowItWorksSection() {
         </div>
 
         {/* ── Desktop Timeline ── */}
-        <div className="hidden md:flex items-start justify-center gap-0">
+        <div className="hidden lg:grid lg:grid-cols-[160px_48px_160px_48px_160px_48px_160px] lg:items-start lg:justify-center">
           {STEPS.map((step, index) => {
             const cfg = STATUS_CONFIG[step.status];
             return (
-              <div key={step.id} className="flex items-center">
+              <Fragment key={step.id}>
                 {/* Step Node */}
                 <div
                   className="step-node flex flex-col items-center text-center"
@@ -371,20 +371,26 @@ export default function HowItWorksSection() {
                     style={{
                       width: 48,
                       height: 2,
-                      backgroundColor: "#d1d5db",
                       flexShrink: 0,
                       transformOrigin: "left center",
-                      marginTop: -60, // align with circle centers
+                      alignSelf: "start",
+                      marginTop: 107,
                     }}
+                    aria-hidden="true"
                   >
-                    {/* Glow overlay */}
                     <div
-                      className="connector-glow absolute inset-0 rounded-full opacity-0"
-                      style={{
-                        background:
-                          "linear-gradient(90deg, transparent, #2857B8, transparent)",
-                      }}
-                    />
+                      className="absolute inset-0 overflow-hidden rounded-full"
+                      style={{ backgroundColor: "#d1d5db" }}
+                    >
+                      {/* Glow overlay */}
+                      <div
+                        className="connector-glow absolute inset-0 rounded-full opacity-0"
+                        style={{
+                          background:
+                            "linear-gradient(90deg, transparent, #2857B8, transparent)",
+                        }}
+                      />
+                    </div>
                     {/* Arrow head */}
                     <svg
                       className="absolute -right-3 top-1/2 -translate-y-1/2"
@@ -404,13 +410,13 @@ export default function HowItWorksSection() {
                     </svg>
                   </div>
                 )}
-              </div>
+              </Fragment>
             );
           })}
         </div>
 
         {/* ── Mobile Timeline ── */}
-        <div className="flex flex-col items-center gap-0 md:hidden">
+        <div className="flex flex-col items-center gap-0 lg:hidden">
           {STEPS.map((step, index) => {
             const cfg = STATUS_CONFIG[step.status];
             return (
@@ -466,7 +472,9 @@ export default function HowItWorksSection() {
                       height: 36,
                       backgroundColor: "#d1d5db",
                       transformOrigin: "top center",
+                      overflow: "hidden",
                     }}
+                    aria-hidden="true"
                   >
                     <div
                       className="connector-glow absolute inset-0 rounded-full opacity-0"
