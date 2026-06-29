@@ -105,31 +105,33 @@
 
 .icon {
   flex-shrink: 0;
-  line-height: 1.4;
+  width: 32px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background: rgba(229, 231, 235, 0.45);
+}
+
+.icon svg {
+  width: 18px;
+  height: 18px;
 }
 
 .icon.done {
+  background: rgba(16, 185, 129, 0.15);
   color: #10b981;
 }
 
 .icon.pending {
-  color: #f59e0b;
+  background: rgba(59, 130, 246, 0.15);
+  color: #3b82f6;
 }
 
 .icon.idle {
-  color: #d1d5db;
-}
-
-.footer {
-  margin-top: 1.25rem;
-  padding-top: 0.75rem;
-  border-top: 1px solid #f3f4f6;
-  font-size: 0.75rem;
-  color: #9ca3af;
-}
-
-/* Dark mode support */
-@media (prefers-color-scheme: dark) {
+  background: rgba(107, 114, 128, 0.1);
+  color: #6b7280;
   .escrow-card {
     background: #111827;
     border-color: #1f2937;
