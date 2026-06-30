@@ -19,3 +19,7 @@
   --rating:         #F5A623;
   --bg-page:        #F6F5FB;
 }
+
+html.dark body {
+  background: #020617;
+}
