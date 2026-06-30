@@ -89,18 +89,19 @@ const navLinks = [
   transition: all 0.2s ease; /* Smooth transitions for hover states */
 }
 
-/* Hover state for both modes */
+/* Light mode hover state */
 .navbar-cta:hover {
+  color: #111827; /* Pins the text to dark gray on hover */
   transform: scale(1.03);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
 }
 
-/* Dark mode override */
-:global(.dark) .navbar-cta {
-  background: transparent;
-  color: #ffffff;
-  border: 1.5px solid rgba(255, 255, 255, 0.7);
-  box-shadow: none;
+/* Dark mode hover state */
+:global(.dark) .navbar-cta:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff; /* Pins the text to white on hover */
+  transform: scale(1.03);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
 }
 
 /* Dark mode hover state */
