@@ -3,14 +3,6 @@ import react from "@astrojs/react";
 import icon from "astro-icon";
 
 export default defineConfig({
-  integrations: [react()],
-  vite: {
-    css: {
-      postcss: {
-        plugins: [],
-      },
-    },
-  },
   integrations: [
     react(),
     icon({
@@ -25,8 +17,16 @@ export default defineConfig({
           "wallet",
           "shield-check",
           "coins",
+          "eye",
         ],
       },
     }),
   ],
+  vite: {
+    css: {
+      postcss: {
+        plugins: [],
+      },
+    },
+  },
 });

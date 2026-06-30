@@ -25,14 +25,6 @@ const navLinks = [
     ))}
     <a href="/register" class="navbar-cta">Connect Wallet</a>
   </div>
-
-  <div class="navbar-actions">
-    <button type="button" class="theme-toggle" data-theme-toggle aria-label="Toggle color theme" aria-pressed="false">
-      <span class="theme-toggle__icon" aria-hidden="true">☀︎</span>
-      <span class="theme-toggle__label">Theme</span>
-    </button>
-    <a href="/register" class="navbar-cta">Connect Wallet</a>
-  </div>
 </nav>
 
 <style>
@@ -45,7 +37,6 @@ const navLinks = [
     justify-content: space-between;
     gap: 1rem;
     padding: 1rem 2rem;
-    gap: 1rem;
     backdrop-filter: blur(16px);
     background: rgba(255, 255, 255, 0.88);
     border-bottom: 1px solid rgba(15, 23, 42, 0.08);
@@ -82,23 +73,6 @@ const navLinks = [
 
   .navbar-links a:hover {
     color: #2857B8;
-  }
-  .navbar-actions {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-  }
-  .theme-toggle {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.35rem;
-    border: 1px solid var(--border, #e2e8f0);
-    background: var(--bg-surface, #fff);
-    color: var(--text-primary, #0f172a);
-    padding: 0.55rem 0.85rem;
-    border-radius: 999px;
-    font-weight: 600;
-    cursor: pointer;
   }
 
   .navbar-cta {
@@ -187,43 +161,4 @@ const navLinks = [
       pointer-events: auto;
     }
   }
-
-  @media (max-width: 768px) {
-    .navbar {
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-    .navbar-links {
-      order: 3;
-      width: 100%;
-      justify-content: center;
-    }
-  }
-</style>
-
-<script>
-  const toggle = document.querySelector('[data-theme-toggle]');
-  const root = document.documentElement;
-  const storageKey = 'safetrust-theme';
-
-  const setTheme = (theme) => {
-    root.classList.toggle('dark', theme === 'dark');
-    root.setAttribute('data-theme', theme);
-    if (toggle) {
-      toggle.setAttribute('aria-pressed', String(theme === 'dark'));
-      const icon = toggle.querySelector('.theme-toggle__icon');
-      if (icon) icon.textContent = theme === 'dark' ? '☾' : '☀︎';
-    }
-    window.localStorage.setItem(storageKey, theme);
-  };
-
-  const storedTheme = window.localStorage.getItem(storageKey);
-  const preferredTheme = storedTheme || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-  setTheme(preferredTheme);
-
-  toggle?.addEventListener('click', () => {
-    const nextTheme = root.classList.contains('dark') ? 'light' : 'dark';
-    setTheme(nextTheme);
-  });
-</script>
 </style>

@@ -100,15 +100,6 @@ const miniBadges = [
 
 <style>
   .our-promise {
-    padding: 4rem 2rem;
-    max-width: 1280px;
-    margin: 0 auto;
-    background: var(--bg-page, #f6f5fb);
-    color: var(--text-primary, #0f172a);
-  }
-  .promise-grid {
-    display: grid; gap: 2rem;
-    grid-template-columns: 1fr;
     position: relative;
     isolation: isolate;
     overflow: hidden;
@@ -316,14 +307,6 @@ const miniBadges = [
     font-size: 0.78rem;
     color: #bfdbfe;
   }
-  .eyebrow {
-    font-size: 0.75rem; font-weight: 700; letter-spacing: 0.2em;
-    text-transform: uppercase; color: var(--brand-primary, #2857B8); margin-bottom: 0.75rem;
-  }
-  h2 { font-size: clamp(1.75rem, 4vw, 3rem); font-weight: 800; line-height: 1.15; }
-  h2 em { color: #7c3aed; font-style: italic; }
-  .description { margin-top: 1rem; color: var(--text-secondary, #6b7280); max-width: 36rem; line-height: 1.6; }
-  .mini-badges { display: flex; gap: 1rem; margin-top: 1.5rem; font-size: 0.875rem; flex-wrap: wrap; color: var(--text-secondary, #6b7280); }
 
   .our-promise__live-dot {
     width: 0.55rem;
@@ -336,32 +319,6 @@ const miniBadges = [
 
   .our-promise__card {
     position: relative;
-    border: 1px solid var(--border, #e2e8f0);
-    border-radius: 1rem;
-    padding: 1.5rem;
-    background: var(--card-bg, #fff);
-    box-shadow: 0 10px 30px -10px var(--shadow-color, rgba(0,0,0,0.08));
-  }
-  .verified-badge {
-    position: absolute; top: -1rem; right: 1rem;
-    background: #1e1b4b; color: #fff;
-    font-size: 0.7rem; font-weight: 700;
-    padding: 0.5rem 0.75rem; border-radius: 0.5rem;
-    text-align: center;
-  }
-  .guarantees-eyebrow {
-    font-size: 0.7rem; font-weight: 700; letter-spacing: 0.15em;
-    color: var(--text-subtle, #9ca3af); margin-bottom: 1rem;
-  }
-  .guarantee-row { padding: 0.75rem 0; border-top: 1px solid var(--border, #f3f4f6); }
-  .guarantee-row:first-of-type { border-top: none; }
-  .tag {
-    font-size: 0.7rem; font-weight: 600;
-    background: var(--brand-tint, #ede9fe); color: var(--brand-accent, #6d28d9);
-    padding: 0.1rem 0.5rem; border-radius: 999px;
-  }
-  .guarantee-row p { font-size: 0.875rem; color: var(--text-secondary, #6b7280); margin-top: 0.25rem; }
-</style>
     overflow: hidden;
     padding: 2rem 1.5rem 1.5rem;
     border: 1px solid rgba(40, 87, 184, 0.15);

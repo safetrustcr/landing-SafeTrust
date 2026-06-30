@@ -1,0 +1,42 @@
+.escrow-card {
+  background: var(--card-bg, #fff);
+  border: 1px solid var(--border, #e5e7eb);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  width: 100%;
+  max-width: 360px;
+  box-shadow: 0 10px 30px -10px rgba(0,0,0,0.1);
+}
+.escrow-header { display: flex; justify-content: space-between; align-items: center; }
+.escrow-header h3 { font-size: 1.125rem; font-weight: 700; }
+.status-active { color: #10b981; font-size: 0.875rem; font-weight: 600; }
+
+.label { color: #9ca3af; font-size: 0.875rem; margin-top: 1rem; }
+.amount { font-size: 1.75rem; font-weight: 700; margin-top: 0.25rem; }
+.currency { font-size: 0.875rem; color: #9ca3af; font-weight: 500; }
+
+.progress-section { margin-top: 1.25rem; }
+.progress-label {
+  display: flex; justify-content: space-between;
+  font-size: 0.75rem; color: #6b7280; margin-bottom: 0.4rem;
+}
+.progress-track { height: 6px; border-radius: 999px; background: #e5e7eb; overflow: hidden; }
+.progress-fill {
+  height: 100%; background: linear-gradient(to right, #2857B8, #7c3aed);
+  border-radius: 999px; transition: width 0.15s linear;
+}
+
+.timeline { margin-top: 1.5rem; }
+.timeline-label { font-size: 0.75rem; color: #9ca3af; margin-bottom: 0.75rem; }
+.timeline-item { display: flex; gap: 0.75rem; align-items: flex-start; padding: 0.4rem 0; font-size: 0.875rem; }
+.timeline-item p { font-weight: 600; }
+.timeline-item .sub { font-size: 0.75rem; color: #9ca3af; }
+.icon.done { color: #10b981; }
+.icon.pending { color: #f59e0b; }
+.icon.idle { color: #d1d5db; }
+
+.footer {
+  margin-top: 1.25rem; padding-top: 0.75rem;
+  border-top: 1px solid #f3f4f6;
+  font-size: 0.75rem; color: #9ca3af;
+}

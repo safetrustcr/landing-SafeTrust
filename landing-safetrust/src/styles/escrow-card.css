@@ -130,39 +130,6 @@
 }
 
 .icon.idle {
-  color: #d1d5db;
-}
-
-.footer {
-  margin-top: 1.25rem;
-  padding-top: 0.75rem;
-  border-top: 1px solid #f3f4f6;
-  font-size: 0.75rem;
-  color: #9ca3af;
-}
-
-/* Dark mode support */
-html.dark .escrow-card {
-  background: var(--card-bg, #111827);
-  border-color: var(--border, #1f2937);
-  color: var(--text-primary, #f9fafb);
-}
-
-html.dark .progress-track {
-  background: var(--surface-muted, #1f2937);
-}
-
-html.dark .footer {
-  border-top-color: var(--border, #1f2937);
-}
-
-html.dark .label,
-html.dark .currency,
-html.dark .timeline-label,
-html.dark .timeline-item .sub,
-html.dark .progress-label,
-html.dark .footer {
-  color: var(--text-secondary, #9ca3af);
   background: rgba(107, 114, 128, 0.1);
   color: #6b7280;
   .escrow-card {
