@@ -8,7 +8,6 @@ import EscrowCard from "./EscrowCard.tsx";
 <section id="hero" class="hero-section" aria-label="Hero section - SafeTrust secure P2P transactions platform">
   <div class="background-visual" aria-hidden="true">
     <div class="gradient-mesh"></div>
-    <div class="grid-pattern"></div>
   </div>
 
   <Navbar />
@@ -49,13 +48,27 @@ import EscrowCard from "./EscrowCard.tsx";
   .background-visual { position: absolute; inset: 0; z-index: -1; }
   .gradient-mesh {
     position: absolute; inset: 0;
-    background: radial-gradient(circle at 70% 30%, rgba(40,87,184,0.15), transparent 60%);
+    background:
+      radial-gradient(ellipse 80% 60% at 70% 10%, rgba(40, 87, 184, 0.13) 0%, transparent 70%),
+      radial-gradient(ellipse 60% 50% at 10% 80%, rgba(124, 58, 237, 0.10) 0%, transparent 65%),
+      radial-gradient(ellipse 50% 40% at 90% 85%, rgba(6, 182, 212, 0.07) 0%, transparent 60%),
+      linear-gradient(160deg, #f8faff 0%, #f3f0ff 50%, #f0f7ff 100%);
   }
-  .grid-pattern {
-    position: absolute; inset: 0;
-    background-image: linear-gradient(rgba(0,0,0,0.03) 1px, transparent 1px),
-                       linear-gradient(90deg, rgba(0,0,0,0.03) 1px, transparent 1px);
-    background-size: 40px 40px;
+  .gradient-mesh::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    opacity: 0.03;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    background-size: 256px 256px;
+    pointer-events: none;
+  }
+  :global(.dark .gradient-mesh) {
+    background:
+      radial-gradient(ellipse 80% 60% at 70% 10%, rgba(40, 87, 184, 0.20) 0%, transparent 70%),
+      radial-gradient(ellipse 60% 50% at 10% 80%, rgba(124, 58, 237, 0.15) 0%, transparent 65%),
+      radial-gradient(ellipse 50% 40% at 90% 85%, rgba(6, 182, 212, 0.10) 0%, transparent 60%),
+      linear-gradient(160deg, #0f172a 0%, #0f172a 100%);
   }
   .hero-container {
     display: grid;
