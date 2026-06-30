@@ -67,8 +67,9 @@ const STATUS_CONFIG = {
   .progress-bar {
     position: absolute; top: 0; left: 0; height: 3px; width: 100%;
     background: #2857B8; transform-origin: left center; transform: scaleX(0);
+    transition: transform 0.6s ease;
   }
-  .section-header { text-align: center; margin-bottom: 3.5rem; }
+  .section-header { text-align: center; margin-bottom: 3.5rem; opacity: 0; transform: translateY(12px); transition: opacity 0.5s ease, transform 0.5s ease; }
   .section-header h2 { font-size: clamp(1.75rem, 4vw, 2.5rem); font-weight: 800; }
   .highlight { color: #2857B8; }
   .section-header p { color: var(--muted-foreground, #6b7280); max-width: 36rem; margin: 0.75rem auto 0; }
@@ -78,7 +79,7 @@ const STATUS_CONFIG = {
     flex-wrap: wrap; gap: 0;
     max-width: 1024px; margin: 0 auto;
   }
-  .step-node { display: flex; flex-direction: column; align-items: center; text-align: center; }
+  .step-node { display: flex; flex-direction: column; align-items: center; text-align: center; opacity: 0; transform: translateY(24px); transition: opacity 0.45s ease, transform 0.45s ease; }
   .step-label { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: #9ca3af; margin-bottom: 0.75rem; }
   .node-circle {
     width: 72px; height: 72px; border-radius: 999px;
@@ -95,11 +96,16 @@ const STATUS_CONFIG = {
     width: 48px; height: 2px; background: #d1d5db; margin: 36px 4px 0;
     position: relative; flex-shrink: 0;
     transform-origin: left center; transform: scaleX(0);
+    transition: transform 0.45s ease;
   }
   .connector-glow {
     position: absolute; inset: 0; opacity: 0;
     background: linear-gradient(90deg, transparent, #2857B8, transparent);
   }
+  .how-it-works.is-visible .progress-bar { transform: scaleX(1); }
+  .how-it-works.is-visible .section-header { opacity: 1; transform: translateY(0); }
+  .how-it-works.is-visible .step-node { opacity: 1; transform: translateY(0); }
+  .how-it-works.is-visible .connector { transform: scaleX(1); }
 
   @media (max-width: 767px) {
     .timeline { flex-direction: column; align-items: center; }
