@@ -1,8 +1,10 @@
-import { isConnected, requestAccess } from "@stellar/freighter-api";
+import pkg from '@stellar/freighter-api';
 import { ArrowRight, CheckCircle2, Lock } from "lucide-react";
 import { useState } from "react";
 
 export default function ConnectWalletCTA() {
+  const { isConnected, requestAccess } = pkg;
+
   const [state, setState] = useState<"idle" | "connecting" | "connected">("idle");
 
   const handleClick = async () => {
