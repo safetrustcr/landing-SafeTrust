@@ -11,6 +11,8 @@
   margin: 0 auto;
   padding: 4rem 1.5rem 6rem;
   box-sizing: border-box;
+  background: var(--bg-page, #f6f5fb);
+  color: var(--text-primary, #0f172a);
 }
 
 /* Headings */
@@ -18,7 +20,7 @@
   font-family: 'Playfair Display', Georgia, serif;
   font-size: 2.5rem;
   font-weight: 700;
-  color: var(--brand-navy, #10193F);
+  color: var(--text-primary, #10193F);
   text-align: center;
   margin: 0 0 1rem;
   line-height: 1.25;
@@ -27,7 +29,7 @@
 .security-subtitle {
   font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 1.125rem;
-  color: #4B5563;
+  color: var(--text-secondary, #4B5563);
   text-align: center;
   margin: 0 0 3.5rem;
   max-width: 600px;
@@ -45,12 +47,12 @@
 
 /* Security Card Styling */
 .security-card {
-  background-color: #ffffff;
-  border: 1px solid #E2E8F0;
+  background-color: var(--card-bg, #ffffff);
+  border: 1px solid var(--border, #E2E8F0);
   border-radius: 16px;
   padding: 2.25rem 2rem;
   box-sizing: border-box;
-  box-shadow: 0 4px 20px -2px rgba(30, 58, 138, 0.02), 0 1px 2px rgba(0, 0, 0, 0.01);
+  box-shadow: 0 4px 20px -2px var(--shadow-color, rgba(30, 58, 138, 0.02)), 0 1px 2px rgba(0, 0, 0, 0.01);
   display: flex;
   flex-direction: column;
   position: relative;
@@ -61,7 +63,7 @@
 /* Hover Accent animations */
 .security-card:hover {
   transform: translateY(-8px);
-  box-shadow: 0 16px 36px -8px rgba(30, 58, 138, 0.08), 0 1px 3px rgba(0, 0, 0, 0.02);
+  box-shadow: 0 16px 36px -8px var(--shadow-color, rgba(30, 58, 138, 0.08)), 0 1px 3px rgba(0, 0, 0, 0.02);
 }
 
 /* Border Accent styles */
@@ -119,7 +121,7 @@
   font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 1.25rem;
   font-weight: 700;
-  color: var(--brand-navy, #10193F);
+  color: var(--text-primary, #10193F);
   margin: 1.5rem 0 0.5rem;
   line-height: 1.35;
 }
@@ -127,16 +129,16 @@
 .security-card-desc {
   font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 0.95rem;
-  color: #6B7280;
+  color: var(--text-secondary, #6B7280);
   margin: 0 0 2rem;
   line-height: 1.5;
-  min-height: 48px; /* keeps text aligned vertically across cards */
+  min-height: 48px;
 }
 
 /* Dotted Divider */
 .security-dotted-divider {
   border: 0;
-  border-top: 1px dotted #D1D5DB;
+  border-top: 1px dotted var(--border-strong, #D1D5DB);
   margin: 0 0 1.25rem 0;
   width: 100%;
 }
@@ -145,7 +147,7 @@
 .security-score-footer {
   display: flex;
   flex-direction: column;
-  margin-top: auto; /* aligns footer to bottom of card */
+  margin-top: auto;
 }
 
 .security-score-row {
@@ -159,7 +161,7 @@
   font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 0.75rem;
   font-weight: 700;
-  color: #9CA3AF;
+  color: var(--text-subtle, #9CA3AF);
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
@@ -183,7 +185,7 @@
   font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 0.75rem;
   font-weight: 500;
-  color: #9CA3AF;
+  color: var(--text-subtle, #9CA3AF);
   text-align: right;
   margin-top: 0.35rem;
   letter-spacing: 0.02em;
@@ -217,7 +219,7 @@
 
   .security-card {
     padding: 2rem 1.5rem;
-  }
+  }}
 
   .security-card-desc {
     min-height: auto; /* fluid on mobile */

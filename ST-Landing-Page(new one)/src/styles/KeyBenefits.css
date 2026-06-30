@@ -1,6 +1,7 @@
 .benefits-section {
   padding: 80px 24px;
-  background-color: #ffffff;
+  background-color: var(--bg-page, #ffffff);
+  color: var(--text-primary, #111827);
   display: flex;
   justify-content: center;
   font-family:
@@ -27,9 +28,9 @@
   font-size: 15px;
   font-weight: 700;
   letter-spacing: 0.05em;
-  color: #2563eb;
-  border: 1.5px solid #e2e8f0;
-  background-color: #ffffff;
+  color: var(--brand-primary, #2563eb);
+  border: 1.5px solid var(--border, #e2e8f0);
+  background-color: var(--bg-surface, #ffffff);
   padding: 6px 16px;
   border-radius: 9999px;
   margin-bottom: 24px;
@@ -38,20 +39,20 @@
 .benefits-title {
   font-size: 44px;
   font-weight: 700;
-  color: #111827;
+  color: var(--text-primary, #111827);
   letter-spacing: -0.02em;
   margin: 0 0 16px 0;
   line-height: 1.2;
 }
 
 .italic-accent {
-  color: #2563eb;
+  color: var(--brand-primary, #2563eb);
   font-style: italic;
 }
 
 .benefits-subtitle {
   font-size: 16px;
-  color: #4b5563;
+  color: var(--text-secondary, #4b5563);
   margin: 0;
   max-width: 600px;
   line-height: 1.5;
@@ -67,7 +68,7 @@
 /* Tab Layout Engine */
 .tabs-wrapper {
   display: inline-flex;
-  background-color: #f1f5f9;
+  background-color: var(--surface-muted, #f1f5f9);
   padding: 6px;
   border-radius: 12px;
   margin-bottom: 48px;
@@ -80,14 +81,14 @@
   padding: 10px 28px;
   font-size: 14px;
   font-weight: 500;
-  color: #64748b;
+  color: var(--text-muted, #64748b);
   cursor: pointer;
   border-radius: 8px;
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .tab-active {
-  background-color: #1e3a8a;
+  background-color: var(--brand-primary, #1e3a8a);
   color: #ffffff;
   font-weight: 600;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
@@ -102,8 +103,8 @@
 }
 
 .benefit-card {
-  background-color: #ffffff;
-  border: 1px solid #e2e8f0;
+  background-color: var(--card-bg, #ffffff);
+  border: 1px solid var(--border, #e2e8f0);
   border-radius: 20px;
   padding: 28px;
   display: flex;
@@ -123,8 +124,8 @@
 }
 
 .icon-box {
-  background-color: #eff6ff;
-  color: #2563eb;
+  background-color: var(--brand-tint, #eff6ff);
+  color: var(--brand-primary, #2563eb);
   padding: 12px;
   border-radius: 12px;
   display: inline-flex;
@@ -139,21 +140,21 @@
 
 .card-number {
   font-size: 13px;
-  color: #94a3b8;
+  color: var(--text-subtle, #94a3b8);
   font-weight: 500;
 }
 
 .card-title {
   font-size: 18px;
   font-weight: 600;
-  color: #0f172a;
+  color: var(--text-primary, #0f172a);
   margin: 0 0 12px 0;
   line-height: 1.4;
 }
 
 .card-desc {
   font-size: 14px;
-  color: #64748b;
+  color: var(--text-secondary, #64748b);
   margin: 0;
   line-height: 1.6;
 }
@@ -161,24 +162,24 @@
 /* Lead Feature Structural Modifier */
 .lead-card {
   grid-column: span 2;
-  background-color: #eff6ff;
+  background-color: var(--card-bg-alt, #eff6ff);
   border-color: transparent;
 }
 
 .lead-card .icon-box {
-  background-color: #1e3a8a;
+  background-color: var(--brand-primary, #1e3a8a);
   color: #ffffff;
 }
 
 .lead-card .card-title {
   font-size: 28px;
-  color: #0f172a;
+  color: var(--text-primary, #0f172a);
   letter-spacing: -0.01em;
   font-weight: 700;
 }
 
 .lead-card .card-desc {
-  color: #334155;
+  color: var(--text-secondary, #334155);
   font-size: 15px;
 }
 
@@ -188,7 +189,7 @@
 }
 
 .divider-line {
-  border-top: 1px dashed #bfdbfe;
+  border-top: 1px dashed var(--border-strong, #bfdbfe);
   margin-bottom: 16px;
 }
 
@@ -201,14 +202,14 @@
 .metrics-label {
   font-size: 12px;
   font-weight: 700;
-  color: #1e3a8a;
+  color: var(--brand-primary, #1e3a8a);
   letter-spacing: 0.05em;
 }
 
 .metrics-value {
   font-size: 26px;
   font-weight: 700;
-  color: #1e3a8a;
+  color: var(--brand-primary, #1e3a8a);
   font-style: italic;
 }
 

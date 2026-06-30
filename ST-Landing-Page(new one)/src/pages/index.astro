@@ -7,6 +7,7 @@ import HowItWorksSection from "../components/HowItWorks/HowItWorksSection.astro"
 import SecuritySection from "../components/SecuritySection.astro";
 import FinalCTA from "../components/FinalCTA.astro";
 import Footer from "../components/Footer.astro";
+import "../../main.css";
 ---
 
 <html lang="en">
@@ -15,6 +16,14 @@ import Footer from "../components/Footer.astro";
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" href="/landing-logo.jpeg" />
     <title>SafeTrust — Secure P2P Escrow on Stellar</title>
+    <script is:inline>
+      const root = document.documentElement;
+      const savedTheme = window.localStorage.getItem('safetrust-theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const theme = savedTheme || (prefersDark ? 'dark' : 'light');
+      root.classList.toggle('dark', theme === 'dark');
+      root.setAttribute('data-theme', theme);
+    </script>
   </head>
   <body>
     <HeroSection />

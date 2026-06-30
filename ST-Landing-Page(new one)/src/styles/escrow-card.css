@@ -129,16 +129,25 @@
 }
 
 /* Dark mode support */
-@media (prefers-color-scheme: dark) {
-  .escrow-card {
-    background: #111827;
-    border-color: #1f2937;
-    color: #f9fafb;
-  }
-  .progress-track {
-    background: #1f2937;
-  }
-  .footer {
-    border-top-color: #1f2937;
-  }
+html.dark .escrow-card {
+  background: var(--card-bg, #111827);
+  border-color: var(--border, #1f2937);
+  color: var(--text-primary, #f9fafb);
+}
+
+html.dark .progress-track {
+  background: var(--surface-muted, #1f2937);
+}
+
+html.dark .footer {
+  border-top-color: var(--border, #1f2937);
+}
+
+html.dark .label,
+html.dark .currency,
+html.dark .timeline-label,
+html.dark .timeline-item .sub,
+html.dark .progress-label,
+html.dark .footer {
+  color: var(--text-secondary, #9ca3af);
 }
