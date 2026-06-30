@@ -48,16 +48,18 @@ const CIRCLE_CONFIG = {
                 {step.status === "completed" ? "✓" : step.id}
               </span>
             </div>
-            <span
-              class="status-chip"
-              data-status-chip
-              data-status={step.status}
-              style={`background-color:${cfg.bg}; color:${cfg.text}; border:1px solid ${cfg.border}`}
-            >
-              {cfg.label}
-            </span>
-            <p class="step-title">{step.title}</p>
-            <p class="step-desc">{step.description}</p>
+            <div class="step-content">
+              <span
+                class="status-chip"
+                data-status-chip
+                data-status={step.status}
+                style={`background-color:${cfg.bg}; color:${cfg.text}; border:1px solid ${cfg.border}`}
+              >
+                {cfg.label}
+              </span>
+              <p class="step-title">{step.title}</p>
+              <p class="step-desc">{step.description}</p>
+            </div>
           </div>
         );
       })}
@@ -133,9 +135,10 @@ const CIRCLE_CONFIG = {
   }
 
   @media (max-width: 767px) {
-    .timeline { flex-direction: column; align-items: center; }
-    .connector { width: 2px; height: 32px; flex: 0 0 32px; margin: 0; transform-origin: top center; transform: scaleY(0); }
-    .step-node { width: 100%; max-width: 320px; flex: 0 0 auto; flex-direction: row; text-align: left; gap: 1rem; }
+    .timeline { flex-direction: column; align-items: flex-start; }
+    .connector { width: 2px; height: 32px; flex: 0 0 32px; margin: 0 0 0 31px; transform-origin: top center; transform: scaleY(0); }
+    .step-node { width: 100%; max-width: 320px; flex: 0 0 auto; flex-direction: row; align-items: flex-start; text-align: left; gap: 1rem; }
+    .step-content { display: flex; flex-direction: column; }
     .step-desc { max-width: none; }
   }
 
