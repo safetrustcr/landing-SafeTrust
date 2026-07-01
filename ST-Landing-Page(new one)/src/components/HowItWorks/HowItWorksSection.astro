@@ -3,16 +3,22 @@
 import Stepper from "./Stepper.jsx";
 
 const STEPS = [
-  { id: 1, stepLabel: "STEP 1", title: "Book & Deposit", description: "Funds are locked into the smart-contract escrow on booking.", status: "working", icon: "🔒" },
-  { id: 2, stepLabel: "STEP 2", title: "Stay in Progress", description: "Funds are held on-chain securely while the stay is active.", status: "working", icon: "⚙️" },
-  { id: 3, stepLabel: "STEP 3", title: "Check-out & Review", description: "Both parties confirm checkout to trigger the release.", status: "pendingRelease", icon: "🤝" },
-  { id: 4, stepLabel: "STEP 4", title: "Funds Released", description: "Smart contract releases funds to the host automatically.", status: "released", icon: "💎" },
+  { id: 1, title: "Funds locked", description: "Funds locked into the escrow on booking.", status: "completed" },
+  { id: 2, title: "Held on-chain", description: "Held on-chain securely while active.", status: "completed" },
+  { id: 3, title: "Both confirm", description: "Both parties confirm to trigger release.", status: "in-progress" },
+  { id: 4, title: "Auto-released", description: "Smart contract releases funds automatically.", status: "pending" },
 ];
 
 const STATUS_CONFIG = {
-  working: { label: "working", bg: "rgba(219,234,254,1)", text: "#1d4ed8", ring: "#3b82f6" },
-  pendingRelease: { label: "pendingRelease", bg: "rgba(254,243,199,1)", text: "#b45309", ring: "#f59e0b" },
-  released: { label: "released", bg: "rgba(209,250,229,1)", text: "#065f46", ring: "#10b981" },
+  completed: { label: "COMPLETED", bg: "#dcfce7", text: "#15803d", border: "#bbf7d0" },
+  "in-progress": { label: "IN PROGRESS", bg: "#dbeafe", text: "#1d4ed8", border: "#bfdbfe" },
+  pending: { label: "PENDING", bg: "#f3f4f6", text: "#6b7280", border: "#e5e7eb" },
+};
+
+const CIRCLE_CONFIG = {
+  completed: { filled: true, color: "#1e1b4b" },
+  "in-progress": { filled: false, color: "#1e1b4b" },
+  pending: { filled: false, color: "#d1d5db" },
 };
 ---
 
@@ -20,38 +26,58 @@ const STATUS_CONFIG = {
   <div class="progress-bar" data-progress-bar></div>
 
   <div class="section-header" data-header>
-    <h2>How It <span class="highlight">Works</span></h2>
-    <p>Follow the escrow lifecycle — from booking to funds release — secured by blockchain at every step.</p>
+    <p class="eyebrow-pill">HOW IT WORKS</p>
+    <h2>Four steps. <em>Zero middlemen.</em></h2>
+    <p class="subtitle">From booking to release — every escrow follows the same transparent flow.</p>
   </div>
 
-  <div class="timeline">
-    {STEPS.map((step) => {
-      const cfg = STATUS_CONFIG[step.status];
-      return (
-        <div class="step-node" data-step-node style="width: 160px;">
-          <p class="step-label">{step.stepLabel}</p>
-          <div class="node-circle" data-node-circle>
-            <span class="node-icon" data-node-icon>{step.icon}</span>
+  <div class="stepper-card">
+    <div class="timeline">
+      {STEPS.map((step, i) => {
+        const circle = CIRCLE_CONFIG[step.status];
+        const cfg = STATUS_CONFIG[step.status];
+        return (
+          <div class="step-node" data-step-node style={`order: ${i * 2};`}>
+            <div
+              class="node-circle"
+              data-node-circle
+              data-status={step.status}
+              style={`background:${circle.filled ? circle.color : "#fff"}; border-color:${circle.color};`}
+            >
+              <span class="node-icon" data-node-icon style={`color:${circle.filled ? "#fff" : circle.color};`}>
+                {step.status === "completed" ? "✓" : step.id}
+              </span>
+            </div>
+            <div class="step-content">
+              <span
+                class="status-chip"
+                data-status-chip
+                data-status={step.status}
+                style={`background-color:${cfg.bg}; color:${cfg.text}; border:1px solid ${cfg.border}`}
+              >
+                {cfg.label}
+              </span>
+              <p class="step-title">{step.title}</p>
+              <p class="step-desc">{step.description}</p>
+            </div>
           </div>
-          <span
-            class="status-chip"
-            data-status-chip
-            data-status={step.status}
-            style={`background-color:${cfg.bg}; color:${cfg.text}; border:1px solid ${cfg.ring}`}
-          >
-            {cfg.label}
-          </span>
-          <p class="step-title">{step.title}</p>
-          <p class="step-desc">{step.description}</p>
-        </div>
-      );
-    })}
+        );
+      })}
 
-    {STEPS.slice(0, -1).map(() => (
-      <div class="connector" data-connector>
-        <div class="connector-glow" data-connector-glow></div>
-      </div>
-    ))}
+      {STEPS.slice(0, -1).map((step, i) => {
+        const next = STEPS[i + 1];
+        const isFilled = step.status === "completed" && next.status === "completed";
+        return (
+          <div
+            class="connector"
+            data-connector
+            style={`order: ${i * 2 + 1}; background:${isFilled ? "#1e1b4b" : "#d1d5db"};`}
+          >
+            <div class="connector-glow" data-connector-glow></div>
+          </div>
+        );
+      })}
+    </div>
   </div>
 
   <div class="cta">
@@ -60,7 +86,7 @@ const STATUS_CONFIG = {
   </div>
 </section>
 
-<Stepper client:visible />
+<Stepper client:load />
 
 <style>
   .how-it-works { position: relative; padding: 5rem 1rem; }
@@ -68,43 +94,51 @@ const STATUS_CONFIG = {
     position: absolute; top: 0; left: 0; height: 3px; width: 100%;
     background: #2857B8; transform-origin: left center; transform: scaleX(0);
   }
-  .section-header { text-align: center; margin-bottom: 3.5rem; }
+  .section-header { text-align: center; margin-bottom: 3rem; }
+  .eyebrow-pill {
+    display: inline-block; font-size: 0.75rem; font-weight: 700;
+    background: #ede9fe; color: #6d28d9;
+    padding: 0.3rem 1rem; border-radius: 999px; margin-bottom: 1rem;
+  }
   .section-header h2 { font-size: clamp(1.75rem, 4vw, 2.5rem); font-weight: 800; }
-  .highlight { color: #2857B8; }
-  .section-header p { color: var(--muted-foreground, #6b7280); max-width: 36rem; margin: 0.75rem auto 0; }
+  .section-header h2 em { color: #7c3aed; font-style: italic; }
+  .subtitle { color: var(--muted-foreground, #6b7280); max-width: 36rem; margin: 0.75rem auto 0; }
 
-  .timeline {
-    display: flex; align-items: flex-start; justify-content: center;
-    flex-wrap: wrap; gap: 0;
+  .stepper-card {
+    background: #fff; border: 1px solid #e5e7eb; border-radius: 1rem;
+    padding: 2rem; box-shadow: 0 4px 24px -6px rgba(0,0,0,0.07);
     max-width: 1024px; margin: 0 auto;
   }
-  .step-node { display: flex; flex-direction: column; align-items: center; text-align: center; }
-  .step-label { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: #9ca3af; margin-bottom: 0.75rem; }
+
+  .timeline {
+    display: flex; align-items: flex-start;
+  }
+  .step-node { display: flex; flex-direction: column; align-items: center; text-align: center; flex: 0 0 140px; }
   .node-circle {
-    width: 72px; height: 72px; border-radius: 999px;
-    border: 2px solid #2857B8; background: rgba(40,87,184,0.06);
-    display: flex; align-items: center; justify-content: center;
+    width: 64px; height: 64px; border-radius: 999px;
+    border: 2px solid; display: flex; align-items: center; justify-content: center;
     margin-bottom: 0.75rem;
   }
-  .node-icon { font-size: 1.75rem; }
-  .status-chip { display: inline-block; border-radius: 999px; padding: 0.1rem 0.75rem; font-size: 0.75rem; font-weight: 600; margin-bottom: 0.5rem; }
+  .node-icon { font-size: 1.5rem; font-weight: 700; }
+  .status-chip { display: inline-block; border-radius: 999px; padding: 0.1rem 0.75rem; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.03em; margin-bottom: 0.5rem; }
   .step-title { font-weight: 700; font-size: 0.875rem; }
   .step-desc { font-size: 0.75rem; color: #6b7280; max-width: 130px; margin-top: 0.25rem; line-height: 1.5; }
 
   .connector {
-    width: 48px; height: 2px; background: #d1d5db; margin: 36px 4px 0;
-    position: relative; flex-shrink: 0;
+    flex: 1 1 auto; height: 2px; margin: 31px 4px 0;
+    position: relative;
     transform-origin: left center; transform: scaleX(0);
   }
   .connector-glow {
     position: absolute; inset: 0; opacity: 0;
-    background: linear-gradient(90deg, transparent, #2857B8, transparent);
+    background: linear-gradient(90deg, transparent, #7c3aed, transparent);
   }
 
   @media (max-width: 767px) {
-    .timeline { flex-direction: column; align-items: center; }
-    .connector { width: 2px; height: 36px; margin: 0; transform-origin: top center; transform: scaleY(0); }
-    .step-node { width: 100% !important; max-width: 320px; flex-direction: row; text-align: left; gap: 1rem; }
+    .timeline { flex-direction: column; align-items: flex-start; }
+    .connector { width: 2px; height: 32px; flex: 0 0 32px; margin: 0 0 0 31px; transform-origin: top center; transform: scaleY(0); }
+    .step-node { width: 100%; max-width: 320px; flex: 0 0 auto; flex-direction: row; align-items: flex-start; text-align: left; gap: 1rem; }
+    .step-content { display: flex; flex-direction: column; }
     .step-desc { max-width: none; }
   }
 
