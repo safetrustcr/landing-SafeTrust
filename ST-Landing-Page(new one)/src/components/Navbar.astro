@@ -1,4 +1,6 @@
 ﻿---
+import ThemeToggle from "./ThemeToggle.astro";
+
 const navLinks = [
   { label: "Features", href: "#features" },
   { label: "How It Works", href: "#how-it-works" },
@@ -23,6 +25,7 @@ const navLinks = [
     {navLinks.map((link) => (
       <a href={link.href}>{link.label}</a>
     ))}
+    <ThemeToggle />
     <a href="/register" class="navbar-cta">Connect Wallet</a>
   </div>
 </nav>
@@ -175,6 +178,29 @@ const navLinks = [
       max-height: 420px;
       opacity: 1;
       pointer-events: auto;
+    }
+  }
+
+  :global(.dark) .navbar {
+    background: rgba(15, 23, 42, 0.9);
+    border-bottom-color: rgba(255, 255, 255, 0.08);
+  }
+
+  :global(.dark) .navbar-links a {
+    color: #e2e8f0;
+  }
+
+  :global(.dark) .navbar-links a:hover {
+    color: #60a5fa;
+  }
+
+  :global(.dark) .navbar-toggle span {
+    background: #e2e8f0;
+  }
+
+  @media (max-width: 768px) {
+    :global(.dark) .navbar-links {
+      background: rgba(15, 23, 42, 0.96);
     }
   }
 </style>

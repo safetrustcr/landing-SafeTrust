@@ -15,6 +15,13 @@ import Footer from "../components/Footer.astro";
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" href="/landing-logo.jpeg" />
     <title>SafeTrust — Secure P2P Escrow on Stellar</title>
+    <script is:inline>
+      (() => {
+        const stored = localStorage.getItem("theme");
+        const dark = stored === "dark" || (stored !== "light" && matchMedia("(prefers-color-scheme: dark)").matches);
+        document.documentElement.classList.toggle("dark", dark);
+      })();
+    </script>
   </head>
   <body>
     <HeroSection />
