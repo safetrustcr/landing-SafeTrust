@@ -75,25 +75,41 @@ const navLinks = [
     color: #2857B8;
   }
 
-  .navbar-cta {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    background: #2857B8;
-    color: #fff;
-    padding: 0.75rem 1.4rem;
-    border-radius: 10px;
-    font-weight: 600;
-    text-decoration: none;
-    box-shadow: 0 10px 24px rgba(40, 87, 184, 0.12);
-    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
-  }
+  /* Updated Connect Wallet Button Styles */
+.navbar-cta {
+  display: inline-block;
+  background: #ffffff;
+  color: #111827;
+  padding: 0.6rem 1.25rem;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 10px; /* Increased to 10px for pill-like appearance */
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+  transition: all 0.2s ease; /* Smooth transitions for hover states */
+}
 
-  .navbar-cta:hover {
-    transform: translateY(-1px) scale(1.02);
-    box-shadow: 0 18px 30px rgba(40, 87, 184, 0.18);
-    background: #1f4cb6;
-  }
+/* Light mode hover state */
+.navbar-cta:hover {
+  color: #111827; /* Pins the text to dark gray on hover */
+  transform: scale(1.03);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+/* Dark mode hover state */
+:global(.dark) .navbar-cta:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff; /* Pins the text to white on hover */
+  transform: scale(1.03);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+}
+
+/* Dark mode hover state */
+:global(.dark) .navbar-cta:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: scale(1.03);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+}
 
   .navbar-checkbox {
     display: none;
