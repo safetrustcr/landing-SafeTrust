@@ -41,7 +41,7 @@ const guarantees = [
 </section>
 
 <style>
-  .our-promise { padding: 4rem 2rem; max-width: 1280px; margin: 0 auto; }
+  .our-promise { padding: 4rem 2rem; max-width: 1280px; margin: 0 auto; background: var(--background); }
   .promise-grid {
     display: grid; gap: 2rem;
     grid-template-columns: 1fr;
@@ -51,37 +51,38 @@ const guarantees = [
   }
   .eyebrow {
     font-size: 0.75rem; font-weight: 700; letter-spacing: 0.2em;
-    text-transform: uppercase; color: #2857B8; margin-bottom: 0.75rem;
+    text-transform: uppercase; color: var(--brand-primary); margin-bottom: 0.75rem;
   }
-  h2 { font-size: clamp(1.75rem, 4vw, 3rem); font-weight: 800; line-height: 1.15; }
-  h2 em { color: #7c3aed; font-style: italic; }
-  .description { margin-top: 1rem; color: var(--muted-foreground, #6b7280); max-width: 36rem; line-height: 1.6; }
-  .mini-badges { display: flex; gap: 1rem; margin-top: 1.5rem; font-size: 0.875rem; flex-wrap: wrap; }
+  h2 { font-size: clamp(1.75rem, 4vw, 3rem); font-weight: 800; line-height: 1.15; color: var(--foreground); }
+  h2 em { color: var(--brand-accent); font-style: italic; }
+  .description { margin-top: 1rem; color: var(--muted-foreground); max-width: 36rem; line-height: 1.6; }
+  .mini-badges { display: flex; gap: 1rem; margin-top: 1.5rem; font-size: 0.875rem; flex-wrap: wrap; color: var(--foreground); }
 
   .guarantees-card {
     position: relative;
-    border: 1px solid var(--border, #e5e7eb);
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
     border-radius: 1rem;
     padding: 1.5rem;
-    box-shadow: 0 10px 30px -10px rgba(0,0,0,0.08);
+    box-shadow: 0 10px 30px -10px var(--shadow-color);
   }
   .verified-badge {
     position: absolute; top: -1rem; right: 1rem;
-    background: #1e1b4b; color: #fff;
+    background: var(--brand-navy); color: #fff;
     font-size: 0.7rem; font-weight: 700;
     padding: 0.5rem 0.75rem; border-radius: 0.5rem;
     text-align: center;
   }
   .guarantees-eyebrow {
     font-size: 0.7rem; font-weight: 700; letter-spacing: 0.15em;
-    color: var(--muted-foreground, #9ca3af); margin-bottom: 1rem;
+    color: var(--muted-foreground); margin-bottom: 1rem;
   }
-  .guarantee-row { padding: 0.75rem 0; border-top: 1px solid var(--border, #f3f4f6); }
+  .guarantee-row { padding: 0.75rem 0; border-top: 1px solid var(--card-border); }
   .guarantee-row:first-of-type { border-top: none; }
   .tag {
     font-size: 0.7rem; font-weight: 600;
-    background: #ede9fe; color: #6d28d9;
+    background: var(--brand-tint); color: var(--brand-accent);
     padding: 0.1rem 0.5rem; border-radius: 999px;
   }
-  .guarantee-row p { font-size: 0.875rem; color: var(--muted-foreground, #6b7280); margin-top: 0.25rem; }
+  .guarantee-row p { font-size: 0.875rem; color: var(--muted-foreground); margin-top: 0.25rem; }
 </style>

@@ -18,7 +18,10 @@ const navLinks = [
     ))}
   </div>
 
-  <a href="/register" class="navbar-cta">Connect Wallet</a>
+  <div class="navbar-actions">
+    <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle color theme" aria-pressed="false">🌙</button>
+    <a href="/register" class="navbar-cta">Connect Wallet</a>
+  </div>
 </nav>
 
 <style>
@@ -27,6 +30,7 @@ const navLinks = [
     align-items: center;
     justify-content: space-between;
     padding: 1rem 2rem;
+    gap: 1rem;
   }
   .navbar-brand {
     display: flex;
@@ -34,7 +38,7 @@ const navLinks = [
     gap: 0.5rem;
     font-weight: 700;
     font-size: 1.25rem;
-    color: inherit;
+    color: var(--foreground);
     text-decoration: none;
   }
   .navbar-brand img {
@@ -45,12 +49,30 @@ const navLinks = [
     gap: 1.5rem;
   }
   .navbar-links a {
-    color: inherit;
+    color: var(--foreground);
     text-decoration: none;
     font-weight: 500;
   }
+  .navbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .theme-toggle {
+    border: 1px solid var(--card-border);
+    background: var(--card-bg);
+    color: var(--foreground);
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 999px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px var(--shadow-color);
+  }
   .navbar-cta {
-    background: #2857B8;
+    background: var(--brand-primary);
     color: #fff;
     padding: 0.6rem 1.25rem;
     border-radius: 8px;

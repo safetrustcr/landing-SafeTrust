@@ -7,6 +7,7 @@ import HowItWorksSection from "../components/HowItWorks/HowItWorksSection.astro"
 import SecuritySection from "../components/SecuritySection.astro";
 import FinalCTA from "../components/FinalCTA.astro";
 import Footer from "../components/Footer.astro";
+import "../styles/theme.css";
 ---
 
 <html lang="en">
@@ -25,5 +26,30 @@ import Footer from "../components/Footer.astro";
     <SecuritySection />
     <FinalCTA />
     <Footer />
+
+    <script is:inline>
+      const themeToggle = document.getElementById("theme-toggle");
+      const storedTheme = window.localStorage.getItem("safeTrust-theme");
+      const systemPrefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      const isDark = storedTheme ? storedTheme === "dark" : systemPrefersDark;
+
+      document.documentElement.classList.toggle("dark", isDark);
+
+      const updateToggle = () => {
+        if (!themeToggle) return;
+        const darkEnabled = document.documentElement.classList.contains("dark");
+        themeToggle.setAttribute("aria-pressed", String(darkEnabled));
+        themeToggle.title = darkEnabled ? "Switch to light mode" : "Switch to dark mode";
+        themeToggle.textContent = darkEnabled ? "☀️" : "🌙";
+      };
+
+      updateToggle();
+
+      themeToggle?.addEventListener("click", () => {
+        const darkEnabled = document.documentElement.classList.toggle("dark");
+        window.localStorage.setItem("safeTrust-theme", darkEnabled ? "dark" : "light");
+        updateToggle();
+      });
+    </script>
   </body>
 </html>
