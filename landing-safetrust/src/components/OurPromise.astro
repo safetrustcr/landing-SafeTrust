@@ -99,10 +99,6 @@ const miniBadges = [
 </section>
 
 <style>
-  .our-promise { padding: 4rem 2rem; max-width: 1280px; margin: 0 auto; background: var(--background); }
-  .promise-grid {
-    display: grid; gap: 2rem;
-    grid-template-columns: 1fr;
   .our-promise {
     position: relative;
     isolation: isolate;
@@ -311,14 +307,6 @@ const miniBadges = [
     font-size: 0.78rem;
     color: #bfdbfe;
   }
-  .eyebrow {
-    font-size: 0.75rem; font-weight: 700; letter-spacing: 0.2em;
-    text-transform: uppercase; color: var(--brand-primary); margin-bottom: 0.75rem;
-  }
-  h2 { font-size: clamp(1.75rem, 4vw, 3rem); font-weight: 800; line-height: 1.15; color: var(--foreground); }
-  h2 em { color: var(--brand-accent); font-style: italic; }
-  .description { margin-top: 1rem; color: var(--muted-foreground); max-width: 36rem; line-height: 1.6; }
-  .mini-badges { display: flex; gap: 1rem; margin-top: 1.5rem; font-size: 0.875rem; flex-wrap: wrap; color: var(--foreground); }
 
   .our-promise__live-dot {
     width: 0.55rem;
@@ -331,32 +319,6 @@ const miniBadges = [
 
   .our-promise__card {
     position: relative;
-    background: var(--card-bg);
-    border: 1px solid var(--card-border);
-    border-radius: 1rem;
-    padding: 1.5rem;
-    box-shadow: 0 10px 30px -10px var(--shadow-color);
-  }
-  .verified-badge {
-    position: absolute; top: -1rem; right: 1rem;
-    background: var(--brand-navy); color: #fff;
-    font-size: 0.7rem; font-weight: 700;
-    padding: 0.5rem 0.75rem; border-radius: 0.5rem;
-    text-align: center;
-  }
-  .guarantees-eyebrow {
-    font-size: 0.7rem; font-weight: 700; letter-spacing: 0.15em;
-    color: var(--muted-foreground); margin-bottom: 1rem;
-  }
-  .guarantee-row { padding: 0.75rem 0; border-top: 1px solid var(--card-border); }
-  .guarantee-row:first-of-type { border-top: none; }
-  .tag {
-    font-size: 0.7rem; font-weight: 600;
-    background: var(--brand-tint); color: var(--brand-accent);
-    padding: 0.1rem 0.5rem; border-radius: 999px;
-  }
-  .guarantee-row p { font-size: 0.875rem; color: var(--muted-foreground); margin-top: 0.25rem; }
-</style>
     overflow: hidden;
     padding: 2rem 1.5rem 1.5rem;
     border: 1px solid rgba(40, 87, 184, 0.15);

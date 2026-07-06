@@ -1,23 +1,33 @@
 ---
+import { Icon } from "astro-icon/components";
+
 const badges = [
-  { label: "Secure Escrow", icon: "🛡️" },
-  { label: "Decentralized", icon: "🌐" },
-  { label: "Transparent", icon: "👁️" },
-  { label: "Lightning Fast", icon: "⚡" },
-];
+  { label: "Secure Escrow", icon: "lucide:shield-check", tone: "green" },
+  { label: "Decentralized", icon: "lucide:globe", tone: "blue" },
+  { label: "Transparent", icon: "lucide:eye", tone: "purple" },
+  { label: "Lightning Fast", icon: "lucide:zap", tone: "amber" },
+] as const;
 ---
 
-<div class="trust-badges">
+<div class="trust-badges" role="list" aria-label="Trust indicators">
   {badges.map((b) => (
-    <span class="badge-pill">
-      <span class="icon">{b.icon}</span>
-      {b.label}
+    <span class={`badge-pill badge-pill--${b.tone}`} role="listitem">
+      <span class="badge-pill__icon" aria-hidden="true">
+        <Icon name={b.icon} width="16" height="16" />
+      </span>
+      <span class="badge-pill__label">{b.label}</span>
     </span>
   ))}
 </div>
 
 <style>
-  .trust-badges { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 2rem; }
+  .trust-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 2rem;
+  }
+
   .badge-pill {
     display: inline-flex; align-items: center; gap: 0.4rem;
     padding: 0.4rem 0.9rem; border-radius: 999px;
