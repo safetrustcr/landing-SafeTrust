@@ -89,49 +89,42 @@ const CIRCLE_CONFIG = {
 <Stepper client:load />
 
 <style>
-  .how-it-works { position: relative; padding: 5rem 1rem; }
+  .how-it-works { position: relative; padding: 5rem 1rem; background: var(--background); color: var(--foreground); }
   .progress-bar {
     position: absolute; top: 0; left: 0; height: 3px; width: 100%;
-    background: #2857B8; transform-origin: left center; transform: scaleX(0);
+    background: var(--brand-primary); transform-origin: left center; transform: scaleX(0);
   }
-  .section-header { text-align: center; margin-bottom: 3rem; }
-  .eyebrow-pill {
-    display: inline-block; font-size: 0.75rem; font-weight: 700;
-    background: #ede9fe; color: #6d28d9;
-    padding: 0.3rem 1rem; border-radius: 999px; margin-bottom: 1rem;
-  }
-  .section-header h2 { font-size: clamp(1.75rem, 4vw, 2.5rem); font-weight: 800; }
-  .section-header h2 em { color: #7c3aed; font-style: italic; }
-  .subtitle { color: var(--muted-foreground, #6b7280); max-width: 36rem; margin: 0.75rem auto 0; }
+  .section-header { text-align: center; margin-bottom: 3.5rem; }
+  .section-header h2 { font-size: clamp(1.75rem, 4vw, 2.5rem); font-weight: 800; color: var(--foreground); }
+  .highlight { color: var(--brand-primary); }
+  .section-header p { color: var(--muted-foreground); max-width: 36rem; margin: 0.75rem auto 0; }
 
   .stepper-card {
     background: #fff; border: 1px solid #e5e7eb; border-radius: 1rem;
     padding: 2rem; box-shadow: 0 4px 24px -6px rgba(0,0,0,0.07);
     max-width: 1024px; margin: 0 auto;
   }
-
-  .timeline {
-    display: flex; align-items: flex-start;
-  }
-  .step-node { display: flex; flex-direction: column; align-items: center; text-align: center; flex: 0 0 140px; }
+  .step-node { display: flex; flex-direction: column; align-items: center; text-align: center; }
+  .step-label { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted-foreground); margin-bottom: 0.75rem; }
   .node-circle {
-    width: 64px; height: 64px; border-radius: 999px;
-    border: 2px solid; display: flex; align-items: center; justify-content: center;
+    width: 72px; height: 72px; border-radius: 999px;
+    border: 2px solid var(--brand-primary); background: rgba(40,87,184,0.06);
+    display: flex; align-items: center; justify-content: center;
     margin-bottom: 0.75rem;
   }
-  .node-icon { font-size: 1.5rem; font-weight: 700; }
-  .status-chip { display: inline-block; border-radius: 999px; padding: 0.1rem 0.75rem; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.03em; margin-bottom: 0.5rem; }
-  .step-title { font-weight: 700; font-size: 0.875rem; }
-  .step-desc { font-size: 0.75rem; color: #6b7280; max-width: 130px; margin-top: 0.25rem; line-height: 1.5; }
+  .node-icon { font-size: 1.75rem; }
+  .status-chip { display: inline-block; border-radius: 999px; padding: 0.1rem 0.75rem; font-size: 0.75rem; font-weight: 600; margin-bottom: 0.5rem; }
+  .step-title { font-weight: 700; font-size: 0.875rem; color: var(--foreground); }
+  .step-desc { font-size: 0.75rem; color: var(--muted-foreground); max-width: 130px; margin-top: 0.25rem; line-height: 1.5; }
 
   .connector {
-    flex: 1 1 auto; height: 2px; margin: 31px 4px 0;
-    position: relative;
+    width: 48px; height: 2px; background: var(--card-border); margin: 36px 4px 0;
+    position: relative; flex-shrink: 0;
     transform-origin: left center; transform: scaleX(0);
   }
   .connector-glow {
     position: absolute; inset: 0; opacity: 0;
-    background: linear-gradient(90deg, transparent, #7c3aed, transparent);
+    background: linear-gradient(90deg, transparent, var(--brand-primary), transparent);
   }
 
   @media (max-width: 767px) {
@@ -143,10 +136,10 @@ const CIRCLE_CONFIG = {
   }
 
   .cta { text-align: center; margin-top: 4rem; }
-  .cta p { font-weight: 600; margin-bottom: 0.75rem; }
+  .cta p { font-weight: 600; margin-bottom: 0.75rem; color: var(--foreground); }
   .cta-btn {
     display: inline-flex; align-items: center; gap: 0.5rem;
-    background: #2857B8; color: #fff; font-weight: 600;
+    background: var(--brand-primary); color: #fff; font-weight: 600;
     padding: 0.75rem 1.5rem; border-radius: 0.5rem; text-decoration: none;
   }
 </style>
