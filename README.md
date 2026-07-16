@@ -1,5 +1,3 @@
-![CodeRabbit Pull Request Reviews](https://img.shields.io/coderabbit/prs/github/safetrustcr/landing-SafeTrust?utm_source=oss&utm_medium=github&utm_campaign=safetrustcr%2Flanding-SafeTrust&labelColor=171717&color=FF570A&link=https%3A%2F%2Fcoderabbit.ai&label=CodeRabbit+Reviews)
-
 #  🪐🚀 SafeTrust - Landing Page (Astro) 
 
 This is the new version of the **SafeTrust** landing page, rebuilt with **Astro** for better performance, smaller bundle sizes, and easier component-level migration from the previous Next.js implementation.
