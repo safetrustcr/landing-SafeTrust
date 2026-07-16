@@ -1,127 +1,97 @@
 ![CodeRabbit Pull Request Reviews](https://img.shields.io/coderabbit/prs/github/safetrustcr/landing-SafeTrust?utm_source=oss&utm_medium=github&utm_campaign=safetrustcr%2Flanding-SafeTrust&labelColor=171717&color=FF570A&link=https%3A%2F%2Fcoderabbit.ai&label=CodeRabbit+Reviews)
 
-# 🌐 SafeTrust - Landing Page
+#  🪐🚀 SafeTrust - Landing Page (Astro) 
 
-Welcome to the **SafeTrust** landing page repository. This repo contains two landing page implementations:
-
-- **Root directory** — the original Next.js landing page (legacy, kept for reference)
-- **`ST-Landing-Page/`** — the new Astro-based landing page, currently under active development
-- https://github.com/safetrustcr/landing-SafeTrust/tree/new-lp/ST-Landing-Page(new%20one)
-
-
-> 🚧 **Migration in progress:** All sections and components from the original Next.js landing page are being rebuilt and migrated into the new Astro implementation under `ST-Landing-Page/`. The Astro version will become the canonical landing page once the migration is complete.
-
----
+This is the new version of the **SafeTrust** landing page, rebuilt with **Astro** for better performance, smaller bundle sizes, and easier component-level migration from the previous Next.js implementation.
 
 ## 🛠️ Technology Stack
 
-### New Astro Landing Page (`ST-Landing-Page/`)
+- **Astro** – fast, content-focused static site framework with island architecture
+- **React** – used for interactive components via `@astrojs/react`
+- **CSS** – component-scoped stylesheets
 
-- **Astro** v5 — static-first framework with island architecture; most content is server-rendered HTML with zero JS by default
-- **React** — used only for interactive islands (`client:visible` / `client:load`) such as the wallet CTA, escrow card, and animated stepper
-- **Motion** — scroll-driven and inView animations for the How It Works stepper
-- **astro-icon** + **Lucide** — icon system
-- **TypeScript** — type safety across `.tsx` islands
-- **CSS** — component-scoped stylesheets (no Tailwind in the Astro version)
-
-### Original Next.js Landing Page (legacy)
-
-- **Next.js** v14.2.15, **React** v18.3.1, **Tailwind CSS** v3.4.14, **TypeScript** v5.6.3
-
----
-
-## 🚀 Getting Started — Astro Landing Page
+## 🚀 Getting Started
 
 ### Prerequisites
 - Node.js >= 18
 
-### 1️⃣ Clone the Repository
+### Installation
 
 ```bash
-git clone https://github.com/safetrustcr/landing-SafeTrust.git
-cd landing-SafeTrust
-```
-
-### 2️⃣ Add Upstream Remote
-
-```bash
-git remote add upstream https://github.com/safetrustcr/landing-SafeTrust.git
-```
-
-### 3️⃣ Switch to the active branch
-
-```bash
-git checkout new-lp
 cd ST-Landing-Page
-```
-
-### 4️⃣ Install Dependencies
-
-```bash
 npm install
+
+# Install the React integration (if not already installed)
+npm install @astrojs/react react react-dom
 ```
 
-### 5️⃣ Start the Development Server
+### Development
 
 ```bash
-# Local only
+# Start the dev server (default: http://localhost:4321)
 npm run dev
 
-# Expose on local network (for mobile testing)
-npm run dev -- --host
+# To use a different port:
+npm run dev -- --port 3000
 ```
 
-Dev server runs at `http://localhost:4321/`.
-
-### 6️⃣ Build & Preview
+### Build & Preview
 
 ```bash
 npm run build
 npm run preview
 ```
 
----
+## 📁 Project Structure
 
-## 🔄 Migration Status
+```
+src/
+├── components/
+│   ├── ConnectWalletCTA.tsx
+│   ├── Features/
+│   │   ├── CategoryTabs.jsx
+│   │   └── KeyBenefits.astro
+│   ├── OurPromise.astro
+│   ├── SecurityCard.astro
+│   ├── SecuritySection.astro
+│   └── Stepper.jsx
+├── pages/
+│   └── index.astro
+└── styles/
+    ├── KeyBenefits.css
+    ├── our-promise.css
+    ├── security.css
+    └── stepper.css
+```
 
-The table below tracks which sections have been ported from the original Next.js landing to the new Astro implementation.
+## 🔄 Migration Notes
 
-| Section | Original (Next.js) | Astro Status |
-|---|---|---|
-| Navbar | ✅ | ✅ Migrated |
-| Hero Section | ✅ | ✅ Migrated |
-| Live Escrow Card | ✅ | ✅ Migrated (React island) |
-| Our Promise | ✅ | ✅ Migrated |
-| Connect Wallet CTA | ✅ | ✅ Migrated (React island) |
-| Discover SafeTrust | ✅ | ✅ Migrated |
-| Key Benefits + Category Tabs | ✅ | ✅ Migrated (React island) |
-| How It Works Stepper | ✅ | ✅ Migrated (React island) |
-| Security Section | ✅ | ✅ Migrated |
-| Final CTA | ✅ | ✅ Migrated |
-| Footer | ✅ | ✅ Migrated |
-| Analytics Dashboard | ✅ | ⛔ Removed — moved to `dApp-SafeTrust` |
+This project is an in-progress migration of the original Next.js landing page to Astro. Components are being ported incrementally:
 
----
+- Static/presentational sections → `.astro` components (e.g. `OurPromise`, `SecuritySection`, `SecurityCard`)
+- Interactive elements → React components hydrated as islands (e.g. `ConnectWalletCTA`, `Stepper`, `CategoryTabs`)
 
 ## 🔍 About SafeTrust
 
-**SafeTrust** is a decentralized P2P escrow platform built on the **Stellar blockchain** via the **TrustlessWork API**, targeting the tourism and hospitality sector. It brings security and transparency to booking and rental transactions without relying on intermediaries.
+**SafeTrust** is a decentralized P2P escrow platform that brings security and transparency to booking and rental transactions. Built on the **Stellar blockchain** via the **TrustlessWork API**, SafeTrust protects both parties in a transaction without relying on intermediaries.
 
 ### 🔒 How It Works
 
-1. **Secure Deposits** — Funds are locked into a smart-contract escrow on booking. Not in a database, not in a bank — in code.
-2. **Transaction Safety** — Funds are held on-chain while the stay or service is active. Released only on dual consent (2/2 signature).
-3. **Dispute Resolution** — Transparent, on-chain arbitration with verifiable evidence ensures fair outcomes.
+1. **Secure Deposits** – Funds are held in a smart contract-based escrow until agreed conditions are met.
+2. **Transaction Safety** – Once conditions are verified (no disputes, terms fulfilled), funds are released transparently through SafeTrust.
+3. **Dispute Resolution** – Transparent, predefined rules govern dispute handling for fair outcomes.
 
 ### 🌟 Why SafeTrust?
 
-- **🔐 Security** — Soroban smart contracts on Stellar mainnet; tamper-proof and immutable.
-- **🌈 Transparency** — Every transaction is verifiable on-chain.
-- **🌍 Decentralized Trust** — No intermediaries required.
-- **⚙️ Automation** — From deposit to release, the escrow lifecycle is fully automated.
+- **🔐 Security** – Blockchain-backed escrow ensures funds are tamper-proof.
+- **🌈 Transparency** – Every transaction is verifiable on-chain.
+- **🌍 Decentralized Trust** – No intermediaries required.
+- **⚙️ Automation** – From deposits to releases, the process is automated end-to-end.
 
----
+### 🌠 Astro Docs:
+Docs: https://astro.build/
 
 ## 📜 License
 
 © 2026 SafeTrust. Released under the [MIT License](https://opensource.org/license/MIT).
+
