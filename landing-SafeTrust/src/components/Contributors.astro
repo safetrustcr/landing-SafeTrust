@@ -1,0 +1,164 @@
+---
+// Contributors.astro
+import "../styles/contributors.css";
+
+interface Contributor {
+  login: string;
+  avatar_url: string;
+  html_url: string;
+  contributions: number;
+}
+
+const REPO_URL = "https://github.com/safetrustcr/landing-SafeTrust";
+
+let contributors: Contributor[] = [];
+try {
+  const headers: Record<string, string> = {
+    Accept: "application/vnd.github+json",
+  };
+  if (import.meta.env.GITHUB_TOKEN) {
+    headers.Authorization = `Bearer ${import.meta.env.GITHUB_TOKEN}`;
+  }
+  const res = await fetch(
+    "https://api.github.com/repos/safetrustcr/landing-SafeTrust/contributors?per_page=12",
+    { headers }
+  );
+  if (res.ok) {
+    const data = await res.json();
+    if (Array.isArray(data)) {
+      contributors = data.map(
+        ({ login, avatar_url, html_url, contributions }: Contributor) => ({
+          login,
+          avatar_url,
+          html_url,
+          contributions,
+        })
+      );
+    }
+  }
+} catch (error) {
+  // API unreachable at build time — placeholder cards render below
+  console.warn("Contributors: failed to fetch GitHub contributors", error);
+}
+
+const usePlaceholders = contributors.length === 0;
+const placeholders = Array.from({ length: 8 });
+const contributorCount = usePlaceholders
+  ? placeholders.length
+  : contributors.length;
+---
+
+<section class="contributors-section">
+  <div class="contributors-inner">
+    <span class="contributors-eyebrow">Contributors</span>
+    <h2 class="contributors-title">Meet the visionaries building SafeTrust</h2>
+    <p class="contributors-subtitle">
+      Celebrating the incredible developers bringing security and trust to P2P
+      transactions. A vibrant community of {contributorCount} contributors.
+    </p>
+
+    <div class="contributors-layout">
+      <div class="contributors-grid">
+        {
+          usePlaceholders
+            ? placeholders.map(() => (
+                <article class="contributor-card">
+                  <span class="contributor-avatar contributor-avatar-placeholder">
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.75"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                    >
+                      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                      <circle cx="12" cy="7" r="4" />
+                    </svg>
+                  </span>
+                  <h3 class="contributor-login">Contributor</h3>
+                  <span class="contributor-commits">
+                    <svg
+                      class="contributor-git-icon"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                    >
+                      <line x1="6" y1="3" x2="6" y2="15" />
+                      <circle cx="18" cy="6" r="3" />
+                      <circle cx="6" cy="18" r="3" />
+                      <path d="M18 9a9 9 0 0 1-9 9" />
+                    </svg>
+                    Commits
+                  </span>
+                  <a
+                    class="contributor-profile-btn"
+                    href={`${REPO_URL}/graphs/contributors`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Profile
+                  </a>
+                </article>
+              ))
+            : contributors.map((contributor) => (
+                <article class="contributor-card">
+                  <img
+                    class="contributor-avatar"
+                    src={contributor.avatar_url}
+                    alt={`GitHub avatar of ${contributor.login}`}
+                    width="80"
+                    height="80"
+                    loading="lazy"
+                  />
+                  <h3 class="contributor-login">{contributor.login}</h3>
+                  <span class="contributor-commits">
+                    <svg
+                      class="contributor-git-icon"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                    >
+                      <line x1="6" y1="3" x2="6" y2="15" />
+                      <circle cx="18" cy="6" r="3" />
+                      <circle cx="6" cy="18" r="3" />
+                      <path d="M18 9a9 9 0 0 1-9 9" />
+                    </svg>
+                    {contributor.contributions} Commits
+                  </span>
+                  <a
+                    class="contributor-profile-btn"
+                    href={contributor.html_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Profile
+                  </a>
+                </article>
+              ))
+        }
+      </div>
+
+      <aside class="contributors-logo">
+        <img
+          src="/landing-logo-Photoroom.png"
+          alt="SafeTrust logo"
+          width="120"
+          loading="lazy"
+        />
+        <span class="contributors-logo-label">
+          Safetrustcr logo &amp; security escrows
+        </span>
+      </aside>
+    </div>
+  </div>
+</section>

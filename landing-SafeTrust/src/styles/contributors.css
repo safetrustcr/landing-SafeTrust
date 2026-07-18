@@ -1,0 +1,242 @@
+/* ============================================================
+   SafeTrust · Contributors Section Styling
+   ============================================================ */
+
+.contributors-section {
+  position: relative;
+  width: 100%;
+  padding: 5rem 1.5rem 6rem;
+  background: linear-gradient(135deg, #060818, #0d1230, #060818);
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+/* Star-like dot overlay */
+.contributors-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(1.5px 1.5px at 22px 34px, rgba(255, 255, 255, 0.8), transparent),
+    radial-gradient(1px 1px at 78px 118px, rgba(255, 255, 255, 0.55), transparent),
+    radial-gradient(1.5px 1.5px at 145px 62px, rgba(255, 255, 255, 0.65), transparent),
+    radial-gradient(1px 1px at 190px 154px, rgba(255, 255, 255, 0.45), transparent),
+    radial-gradient(1px 1px at 55px 195px, rgba(255, 255, 255, 0.5), transparent),
+    radial-gradient(1.5px 1.5px at 120px 210px, rgba(255, 255, 255, 0.35), transparent);
+  background-repeat: repeat;
+  background-size: 230px 230px;
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+.contributors-inner {
+  position: relative;
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Eyebrow pill */
+.contributors-eyebrow {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: #c4b5fd;
+  background: rgba(124, 58, 237, 0.18);
+  border: 1px solid rgba(139, 92, 246, 0.4);
+  border-radius: 999px;
+  padding: 0.4rem 1.1rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Headings */
+.contributors-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #ffffff;
+  text-align: center;
+  margin: 0 0 1rem;
+  line-height: 1.25;
+}
+
+.contributors-subtitle {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 1.125rem;
+  color: #a5b0d0;
+  text-align: center;
+  margin: 0 0 3.5rem;
+  max-width: 640px;
+  line-height: 1.6;
+}
+
+/* Layout: card grid + logo aside */
+.contributors-layout {
+  display: flex;
+  align-items: flex-start;
+  gap: 3rem;
+  width: 100%;
+}
+
+.contributors-grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 1.5rem;
+}
+
+/* Contributor card */
+.contributor-card {
+  background: #ffffff;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  box-shadow: 0 8px 24px -8px rgba(2, 6, 23, 0.5);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease;
+}
+
+.contributor-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 32px -8px rgba(2, 6, 23, 0.6);
+}
+
+.contributor-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #ede9fe;
+}
+
+.contributor-avatar-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ede9fe;
+  color: #7c3aed;
+}
+
+.contributor-avatar-placeholder svg {
+  width: 40px;
+  height: 40px;
+}
+
+.contributor-login {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: #10193f;
+  margin: 1rem 0 0.75rem;
+  overflow-wrap: anywhere;
+}
+
+/* Commit count chip */
+.contributor-commits {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #6d28d9;
+  background: #f3f0ff;
+  border-radius: 999px;
+  padding: 0.3rem 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.contributor-git-icon {
+  width: 12px;
+  height: 12px;
+}
+
+/* Profile button */
+.contributor-profile-btn {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #ffffff;
+  background: #7c3aed;
+  border-radius: 6px;
+  padding: 0.5rem 1.25rem;
+  text-decoration: none;
+  transition: background 0.2s ease;
+}
+
+.contributor-profile-btn:hover {
+  background: #6d28d9;
+}
+
+/* Logo aside */
+.contributors-logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  flex-shrink: 0;
+  width: 160px;
+  padding-top: 1rem;
+}
+
+.contributors-logo img {
+  width: 120px;
+  height: auto;
+}
+
+.contributors-logo-label {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #8b93b3;
+  text-align: center;
+  line-height: 1.6;
+}
+
+/* ============================================================
+   Contributors Responsiveness (Mobile & Tablet)
+   ============================================================ */
+
+@media (max-width: 992px) {
+  .contributors-layout {
+    flex-direction: column-reverse;
+    align-items: center;
+  }
+
+  .contributors-grid {
+    width: 100%;
+  }
+
+  .contributors-logo {
+    padding-top: 0;
+    margin-bottom: 1rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .contributors-section {
+    padding: 4rem 1.25rem 4.5rem;
+  }
+
+  .contributors-title {
+    font-size: 2.125rem;
+  }
+
+  .contributors-subtitle {
+    font-size: 1rem;
+    margin-bottom: 2.5rem;
+  }
+}
