@@ -33,46 +33,48 @@ const CIRCLE_CONFIG = {
 
   <div class="stepper-card">
     <div class="timeline">
-      {STEPS.map((step, i) => {
-        const circle = CIRCLE_CONFIG[step.status];
-        const cfg = STATUS_CONFIG[step.status];
-        return (
-          <div class="step-node" data-step-node style={`order: ${i * 2};`}>
-            <div
-              class="node-circle"
-              data-node-circle
-              data-status={step.status}
-              style={`background:${circle.filled ? circle.color : "#fff"}; border-color:${circle.color};`}
-            >
-              <span class="node-icon" data-node-icon style={`color:${circle.filled ? "#fff" : circle.color};`}>
-                {step.status === "completed" ? "✓" : step.id}
-              </span>
-            </div>
-            <div class="step-content">
-              <span
-                class="status-chip"
-                data-status-chip
+      {Array.from({ length: STEPS.length * 2 - 1 }).map((_, i) => {
+        // Even indices are step nodes, odd indices are connectors — a single
+        // flat array interleaving [node]-[connector]-[node]-[connector]-[node]
+        // as actual flex siblings, so the layout works without relying on order.
+        if (i % 2 === 0) {
+          const step = STEPS[i / 2];
+          const circle = CIRCLE_CONFIG[step.status];
+          const cfg = STATUS_CONFIG[step.status];
+          return (
+            <div class="step-node" data-step-node>
+              <div
+                class="node-circle"
+                data-node-circle
                 data-status={step.status}
-                style={`background-color:${cfg.bg}; color:${cfg.text}; border:1px solid ${cfg.border}`}
+                style={`background:${circle.filled ? circle.color : "#fff"}; border-color:${circle.color};`}
               >
-                {cfg.label}
-              </span>
-              <p class="step-title">{step.title}</p>
-              <p class="step-desc">{step.description}</p>
+                <span class="node-icon" data-node-icon style={`color:${circle.filled ? "#fff" : circle.color};`}>
+                  {step.status === "completed" ? "✓" : step.id}
+                </span>
+              </div>
+              <div class="step-content">
+                <span
+                  class="status-chip"
+                  data-status-chip
+                  data-status={step.status}
+                  style={`background-color:${cfg.bg}; color:${cfg.text}; border:1px solid ${cfg.border}`}
+                >
+                  {cfg.label}
+                </span>
+                <p class="step-title">{step.title}</p>
+                <p class="step-desc">{step.description}</p>
+              </div>
             </div>
-          </div>
-        );
-      })}
+          );
+        }
 
-      {STEPS.slice(0, -1).map((step, i) => {
-        const next = STEPS[i + 1];
+        const connectorIndex = (i - 1) / 2;
+        const step = STEPS[connectorIndex];
+        const next = STEPS[connectorIndex + 1];
         const isFilled = step.status === "completed" && next.status === "completed";
         return (
-          <div
-            class="connector"
-            data-connector
-            style={`order: ${i * 2 + 1}; background:${isFilled ? "#1e1b4b" : "#d1d5db"};`}
-          >
+          <div class="connector" data-connector style={`background:${isFilled ? "#1e1b4b" : "#d1d5db"};`}>
             <div class="connector-glow" data-connector-glow></div>
           </div>
         );
@@ -94,17 +96,19 @@ const CIRCLE_CONFIG = {
     position: absolute; top: 0; left: 0; height: 3px; width: 100%;
     background: var(--brand-primary); transform-origin: left center; transform: scaleX(0);
   }
-  .section-header { text-align: center; margin-bottom: 3.5rem; }
+  .section-header { text-align: center; margin-bottom: 3.5rem; opacity: 0; }
   .section-header h2 { font-size: clamp(1.75rem, 4vw, 2.5rem); font-weight: 800; color: var(--foreground); }
   .highlight { color: var(--brand-primary); }
   .section-header p { color: var(--muted-foreground); max-width: 36rem; margin: 0.75rem auto 0; }
 
   .stepper-card {
-    background: #fff; border: 1px solid #e5e7eb; border-radius: 1rem;
+    background: linear-gradient(180deg, #ffffff, #f8faff);
+    border: 1px solid #e5e7eb; border-top: 2px solid rgba(40,87,184,0.12); border-radius: 1rem;
     padding: 2rem; box-shadow: 0 4px 24px -6px rgba(0,0,0,0.07);
     max-width: 1024px; margin: 0 auto;
   }
-  .step-node { display: flex; flex-direction: column; align-items: center; text-align: center; }
+  .timeline { display: flex; flex-direction: row; align-items: flex-start; }
+  .step-node { display: flex; flex-direction: column; align-items: center; text-align: center; opacity: 0; }
   .step-label { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted-foreground); margin-bottom: 0.75rem; }
   .node-circle {
     width: 72px; height: 72px; border-radius: 999px;
@@ -112,23 +116,27 @@ const CIRCLE_CONFIG = {
     display: flex; align-items: center; justify-content: center;
     margin-bottom: 0.75rem;
   }
+  .node-circle[data-status="completed"] {
+    box-shadow: 0 4px 16px -4px rgba(40,87,184,0.25);
+  }
   .node-icon { font-size: 1.75rem; }
   .status-chip { display: inline-block; border-radius: 999px; padding: 0.1rem 0.75rem; font-size: 0.75rem; font-weight: 600; margin-bottom: 0.5rem; }
   .step-title { font-weight: 700; font-size: 0.875rem; color: var(--foreground); }
   .step-desc { font-size: 0.75rem; color: var(--muted-foreground); max-width: 130px; margin-top: 0.25rem; line-height: 1.5; }
 
   .connector {
-    width: 48px; height: 2px; background: var(--card-border); margin: 36px 4px 0;
+    width: 48px; height: 3px; border-radius: 999px; margin: 36px 4px 0;
+    background: linear-gradient(90deg, #1e1b4b, #2857b8);
     position: relative; flex-shrink: 0;
     transform-origin: left center; transform: scaleX(0);
   }
   .connector-glow {
     position: absolute; inset: 0; opacity: 0;
-    background: linear-gradient(90deg, transparent, var(--brand-primary), transparent);
+    background: linear-gradient(90deg, transparent, #2857b8, transparent);
   }
 
   @media (max-width: 767px) {
-    .timeline { flex-direction: column; align-items: flex-start; }
+    .timeline { flex-direction: column; align-items: flex-start; display: flex; }
     .connector { width: 2px; height: 32px; flex: 0 0 32px; margin: 0 0 0 31px; transform-origin: top center; transform: scaleY(0); }
     .step-node { width: 100%; max-width: 320px; flex: 0 0 auto; flex-direction: row; align-items: flex-start; text-align: left; gap: 1rem; }
     .step-content { display: flex; flex-direction: column; }
