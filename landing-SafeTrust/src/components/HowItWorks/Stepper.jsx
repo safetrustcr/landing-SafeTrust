@@ -29,7 +29,11 @@ export default function Stepper() {
       });
 
       connectors.forEach((connector, i) => {
-        const isVertical = connector.classList.contains("v-connector");
+        // Orientation is driven by the CSS media query (mobile stacks connectors
+        // vertically), so derive it from the rendered box rather than a class
+        // that's never applied in the markup.
+        const rect = connector.getBoundingClientRect();
+        const isVertical = rect.height > rect.width;
         const startAt = 0.25 + (i + 1) * STEP_STAGGER;
         animate(connector, { transform: isVertical ? ["scaleY(0)", "scaleY(1)"] : ["scaleX(0)", "scaleX(1)"] }, { delay: startAt, duration: 0.45 });
 
