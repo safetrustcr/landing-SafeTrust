@@ -25,12 +25,10 @@ const navLinks = [
     {navLinks.map((link) => (
       <a href={link.href}>{link.label}</a>
     ))}
-    <ThemeToggle />
-    <a href="/register" class="navbar-cta">Connect Wallet</a>
   </div>
 
   <div class="navbar-actions">
-    <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle color theme" aria-pressed="false">🌙</button>
+    <ThemeToggle />
     <a href="/register" class="navbar-cta">Connect Wallet</a>
   </div>
 </nav>
@@ -104,6 +102,7 @@ const navLinks = [
     border-radius: 8px;
     font-weight: 600;
     text-decoration: none;
+  }
 
   .navbar-links a:hover {
     color: #2857B8;
@@ -232,6 +231,10 @@ const navLinks = [
   @media (max-width: 768px) {
     :global(.dark) .navbar-links {
       background: rgba(15, 23, 42, 0.96);
+    }
+
+    .navbar-actions {
+      display: none;
     }
   }
 </style>
