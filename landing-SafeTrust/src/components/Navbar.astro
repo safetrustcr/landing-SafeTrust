@@ -25,6 +25,10 @@ const navLinks = [
     {navLinks.map((link) => (
       <a href={link.href}>{link.label}</a>
     ))}
+
+    <a href="/register" class="navbar-cta mobile-cta">
+      Connect Wallet
+    </a>
   </div>
 
   <div class="navbar-actions">
@@ -43,7 +47,6 @@ const navLinks = [
     justify-content: space-between;
     gap: 1rem;
     padding: 1rem 2rem;
-    gap: 1rem;
     backdrop-filter: blur(16px);
     background: rgba(255, 255, 255, 0.88);
     border-bottom: 1px solid rgba(15, 23, 42, 0.08);
@@ -108,60 +111,60 @@ const navLinks = [
     color: #2857B8;
   }
 
-  /* Updated Connect Wallet Button Styles */
-.navbar-cta {
-  display: inline-block;
-  background: #ffffff;
-  color: #111827;
-  padding: 0.6rem 1.25rem;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  border-radius: 10px; /* Increased to 10px for pill-like appearance */
-  font-weight: 600;
-  text-decoration: none;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
-  transition: all 0.2s ease; /* Smooth transitions for hover states */
-}
+  .navbar-cta {
+    display: inline-block;
+    background: #ffffff;
+    color: #111827;
+    padding: 0.6rem 1.25rem;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    font-weight: 600;
+    text-decoration: none;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+    transition: all 0.2s ease;
+  }
 
-/* Light mode hover state */
-.navbar-cta:hover {
-  color: #111827; /* Pins the text to dark gray on hover */
-  transform: scale(1.03);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
-}
+  .navbar-cta:hover {
+    color: #111827;
+    transform: scale(1.03);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  }
 
-/* Dark mode hover state */
-:global(.dark) .navbar-cta:hover {
-  background: rgba(255, 255, 255, 0.1);
-  color: #ffffff; /* Pins the text to white on hover */
-  transform: scale(1.03);
-  box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
-}
+  :global(.dark) .navbar-cta {
+    background: #111827;
+    color: #ffffff;
+    border-color: rgba(255, 255, 255, 0.15);
+  }
 
-/* Dark mode hover state */
-:global(.dark) .navbar-cta:hover {
-  background: rgba(255, 255, 255, 0.1);
-  transform: scale(1.03);
-  box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
-}
+  :global(.dark) .navbar-cta:hover {
+    background: transparent;
+    color: #ffffff;
+    transform: scale(1.03);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+  }
 
   .navbar-checkbox {
     display: none;
   }
 
+  /* CAMBIO: flex-direction column para que los spans se apilen como hamburguesa real,
+     gap en vez de margin para un espaciado más predecible */
   .navbar-toggle {
     display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
     cursor: pointer;
     background: transparent;
     border: none;
     padding: 0.5rem;
-    margin-left: auto;
   }
 
   .navbar-toggle span {
     display: block;
-    width: 1.6rem;
+    width: 1.5rem;
     height: 2px;
-    margin: 0.35rem 0;
     background: #111827;
     border-radius: 999px;
     transition: transform 0.2s ease, opacity 0.2s ease;
@@ -173,7 +176,21 @@ const navLinks = [
     }
 
     .navbar-toggle {
-      display: inline-flex;
+      display: flex;
+      /* CAMBIO: se ubica después de navbar-actions para quedar a la derecha del ThemeToggle */
+      order: 3;
+    }
+
+    /* CAMBIO: en vez de ocultar navbar-actions completo, se muestra solo el ThemeToggle
+       y se reordena para que aparezca a la izquierda del botón hamburguesa */
+    .navbar-actions {
+      display: flex;
+      order: 2;
+      margin-left: auto;
+    }
+
+    .navbar-actions .navbar-cta {
+      display: none;
     }
 
     .navbar-links {
@@ -193,6 +210,14 @@ const navLinks = [
       opacity: 0;
       pointer-events: none;
       transition: max-height 0.25s ease, opacity 0.25s ease;
+      text-align: center;
+    }
+
+    .navbar-links .navbar-cta {
+      color: #111827;
+      box-sizing: border-box;
+      padding: 0.85rem 1.75rem;
+      text-align: center;
     }
 
     .navbar-links a {
@@ -209,6 +234,10 @@ const navLinks = [
       opacity: 1;
       pointer-events: auto;
     }
+  }
+
+  .mobile-cta {
+    display: none;
   }
 
   :global(.dark) .navbar {
@@ -228,13 +257,17 @@ const navLinks = [
     background: #e2e8f0;
   }
 
+  :global(.dark) .navbar-links .navbar-cta {
+    color: #ffffff;
+  }
+
   @media (max-width: 768px) {
     :global(.dark) .navbar-links {
       background: rgba(15, 23, 42, 0.96);
     }
 
-    .navbar-actions {
-      display: none;
+    .mobile-cta {
+      display: block;
     }
   }
 </style>
