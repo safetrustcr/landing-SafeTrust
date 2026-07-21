@@ -98,14 +98,6 @@ const navLinks = [
     justify-content: center;
     box-shadow: 0 4px 12px var(--shadow-color);
   }
-  .navbar-cta {
-    background: var(--brand-primary);
-    color: #fff;
-    padding: 0.6rem 1.25rem;
-    border-radius: 8px;
-    font-weight: 600;
-    text-decoration: none;
-  }
 
   .navbar-links a:hover {
     color: #2857B8;
@@ -131,8 +123,8 @@ const navLinks = [
   }
 
   :global(.dark) .navbar-cta {
-    background: #111827;
-    color: #ffffff;
+    background: #ffffff;
+    color: #111827;
     border-color: rgba(255, 255, 255, 0.15);
   }
 
@@ -258,9 +250,8 @@ const navLinks = [
   }
 
   :global(.dark) .navbar-links .navbar-cta {
-    color: #ffffff;
+    color: #111827;
   }
-
   @media (max-width: 768px) {
     :global(.dark) .navbar-links {
       background: rgba(15, 23, 42, 0.96);
