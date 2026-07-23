@@ -132,15 +132,35 @@
 .icon.idle {
   background: rgba(107, 114, 128, 0.1);
   color: #6b7280;
-  .escrow-card {
-    background: #111827;
-    border-color: #1f2937;
-    color: #f9fafb;
-  }
-  .progress-track {
-    background: #1f2937;
-  }
-  .footer {
-    border-top-color: #1f2937;
-  }
+}
+
+.footer {
+  margin-top: 1.25rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid #f3f4f6;
+  font-size: 0.75rem;
+  color: #9ca3af;
+}
+
+.dark .escrow-card {
+  background: #1e293b;
+  border-color: #334155;
+  color: #f1f5f9;
+}
+
+.dark .label {
+  color: #94a3b8;
+}
+
+.dark .progress-track {
+  background: #334155;
+}
+
+.dark .timeline-label {
+  color: #64748b;
+}
+
+.dark .footer {
+  border-top-color: #334155;
+  color: #64748b;
 }
