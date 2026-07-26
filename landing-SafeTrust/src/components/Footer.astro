@@ -116,15 +116,14 @@ const legalLinks = [
     overflow: hidden;
     border-top: 1px solid #e2e8f0;
     background: #f8faff;
-    color: #475569;
+    color: #0f172a;
     padding: 3rem 0 0;
-    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
   }
 
-  :global(.dark) .footer {
-    background: #0a0f1e;
+  :global(html.dark) .footer {
     border-top: 1px solid rgba(255, 255, 255, 0.08);
-    color: #cbd5e1;
+    background: #0a0f1e;
+    color: #e2e8f0;
   }
 
   .footer-glow {
@@ -194,10 +193,9 @@ const legalLinks = [
     font-size: 1.25rem;
     font-weight: 700;
     color: #2857b8;
-    transition: color 0.2s ease;
   }
 
-  :global(.dark) .footer-brand span {
+  :global(html.dark) .footer-brand span {
     color: #60a5fa;
   }
 
@@ -226,7 +224,7 @@ const legalLinks = [
 
   .footer-col-title {
     font-size: 0.9375rem;
-    font-weight: 700;
+    font-weight: 600;
     color: #0f172a;
     margin: 0 0 1rem;
     transition: color 0.2s ease;
@@ -234,6 +232,11 @@ const legalLinks = [
 
   :global(.dark) .footer-col-title {
     color: #f1f5f9;
+  }
+
+  :global(html.dark) .footer-col-title {
+    color: #f1f5f9;
+    font-weight: 700;
   }
 
   .footer-links {
@@ -256,11 +259,11 @@ const legalLinks = [
     color: #2857b8;
   }
 
-  :global(.dark) .footer-links a {
+  :global(html.dark) .footer-links a {
     color: #94a3b8;
   }
 
-  :global(.dark) .footer-links a:hover {
+  :global(html.dark) .footer-links a:hover {
     color: #60a5fa;
   }
 
@@ -273,6 +276,10 @@ const legalLinks = [
   }
 
   :global(.dark) .footer-newsletter-desc {
+    color: #94a3b8;
+  }
+
+  :global(html.dark) .footer-newsletter-desc {
     color: #94a3b8;
   }
 
@@ -305,7 +312,21 @@ const legalLinks = [
   }
 
   .footer-input:focus {
-    border-color: #3b82f6;
+    border-color: #2857b8;
+  }
+
+  :global(html.dark) .footer-input {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: #f1f5f9;
+  }
+
+  :global(html.dark) .footer-input::placeholder {
+    color: rgba(255, 255, 255, 0.35);
+  }
+
+  :global(html.dark) .footer-input:focus {
+    border-color: #60a5fa;
   }
 
   :global(.dark) .footer-input {
@@ -326,7 +347,7 @@ const legalLinks = [
     padding: 0.5rem 1rem;
     border-radius: 6px;
     border: none;
-    background: var(--brand-primary, #1e3a8a);
+    background: var(--brand-primary, #1E3A8A);
     color: #fff;
     font-size: 0.875rem;
     font-weight: 600;
@@ -336,7 +357,7 @@ const legalLinks = [
   }
 
   .footer-subscribe-btn:hover {
-    background: var(--brand-accent, #1d4ed8);
+    background: var(--brand-accent, #1D4ED8);
   }
 
   .footer-consent {
@@ -354,10 +375,18 @@ const legalLinks = [
     color: #94a3b8;
   }
 
+  :global(html.dark) .footer-consent {
+    color: #94a3b8;
+  }
+
   .footer-consent input[type="checkbox"] {
     margin-top: 0.125rem;
     flex-shrink: 0;
-    accent-color: #3b82f6;
+    accent-color: #2857b8;
+  }
+
+  :global(html.dark) .footer-consent input[type="checkbox"] {
+    accent-color: #60a5fa;
   }
 
   :global(.dark) .footer-consent input[type="checkbox"] {
@@ -374,6 +403,10 @@ const legalLinks = [
     border-top: 1px solid rgba(255, 255, 255, 0.08);
   }
 
+  :global(html.dark) .footer-bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
   .footer-bottom p {
     font-size: 0.875rem;
     color: #64748b;
@@ -382,6 +415,10 @@ const legalLinks = [
   }
 
   :global(.dark) .footer-bottom p {
+    color: rgba(255, 255, 255, 0.35);
+  }
+
+  :global(html.dark) .footer-bottom p {
     color: rgba(255, 255, 255, 0.35);
   }
 </style>

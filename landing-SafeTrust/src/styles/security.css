@@ -224,3 +224,64 @@
     margin-bottom: 1.5rem;
   }
 }
+
+/* ============================================================
+   Dark mode
+   ============================================================ */
+
+html.dark .security-title {
+  color: #f1f5f9;
+}
+
+html.dark .security-subtitle {
+  color: #94a3b8;
+}
+
+html.dark .security-card {
+  background: rgba(30, 41, 59, 0.8);
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.35), 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+html.dark .security-card:hover {
+  box-shadow: 0 16px 36px -8px rgba(0, 0, 0, 0.45), 0 1px 3px rgba(0, 0, 0, 0.25);
+}
+
+html.dark .security-card-title {
+  color: #f1f5f9;
+}
+
+html.dark .security-card-desc {
+  color: #94a3b8;
+}
+
+html.dark .security-dotted-divider {
+  border-top-color: rgba(255, 255, 255, 0.12);
+}
+
+html.dark .score-label {
+  color: #94a3b8;
+}
+
+html.dark .score-value.color-green {
+  color: #4ade80;
+}
+
+html.dark .score-value.color-blue {
+  color: #60a5fa;
+}
+
+html.dark .certs-label {
+  color: #94a3b8;
+}
+
+html.dark .security-icon-badge.theme-green {
+  background-color: #12311e;
+  color: #4ade80;
+}
+
+html.dark .security-icon-badge.theme-blue,
+html.dark .security-icon-badge.theme-navy {
+  background-color: #162338;
+  color: #93c5fd;
+}
