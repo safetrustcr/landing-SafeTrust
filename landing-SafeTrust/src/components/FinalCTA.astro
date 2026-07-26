@@ -14,7 +14,7 @@
 
     <h2 class="cta-heading">
       Ready to secure your<br/>
-      <span class="italic text-purple-accent">with transactions?</span>
+      <span class="italic text-purple-accent">transactions?</span>
     </h2>
 
     <p class="cta-description">
@@ -65,11 +65,32 @@
     }
   }
 
+  .final-cta-section {
+    border-radius: 1.5rem;
+    margin: 0 1.5rem;
+  }
+  @media (min-width: 768px) {
+    .final-cta-section {
+      margin: 0 2rem;
+    }
+  }
+
+  :global(html.dark) .final-cta-section {
+    border-radius: 0;
+    margin: 0;
+    box-shadow: 0 0 80px rgba(124, 58, 237, 0.2);
+  }
+
   .cta-bg-gradient {
     position: absolute;
     inset: 0;
     background: linear-gradient(to bottom right, #111827, #1e3a8a, #000000);
     z-index: 1;
+    border-radius: inherit;
+  }
+
+  :global(html.dark) .cta-bg-gradient {
+    opacity: 0.85;
   }
 
   .cta-bg-overlay {
@@ -77,6 +98,7 @@
     inset: 0;
     background: linear-gradient(to top, rgba(0,0,0,0.5), transparent);
     z-index: 2;
+    border-radius: inherit;
   }
 
   .cta-content {
@@ -174,7 +196,7 @@
   .btn-secondary {
     background: transparent;
     color: white;
-    border: 2px solid rgba(255, 255, 255, 0.2);
+    border: 2px solid rgba(255, 255, 255, 0.5);
   }
   .btn-secondary:hover {
     border-color: rgba(59, 130, 246, 0.5);
@@ -189,7 +211,7 @@
     justify-content: center;
     gap: 1.5rem;
     margin-top: 3rem;
-    color: #9ca3af;
+    color: rgba(255, 255, 255, 0.75);
     font-size: 0.875rem;
   }
 

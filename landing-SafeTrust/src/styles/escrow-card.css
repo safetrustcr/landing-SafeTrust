@@ -135,11 +135,11 @@
 }
 
 .footer {
-  margin-top: 1.25rem;
-  padding-top: 0.75rem;
-  border-top: 1px solid #f3f4f6;
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e5e7eb;
   font-size: 0.75rem;
-  color: #9ca3af;
+  color: #6b7280;
 }
 
 .dark .escrow-card {
@@ -148,19 +148,7 @@
   color: #f1f5f9;
 }
 
-.dark .label {
-  color: #94a3b8;
-}
-
-.dark .progress-track {
-  background: #334155;
-}
-
-.dark .timeline-label {
-  color: #64748b;
-}
-
-.dark .footer {
-  border-top-color: #334155;
-  color: #64748b;
-}
+.dark .label { color: #94a3b8; }
+.dark .progress-track { background: #334155; }
+.dark .timeline-label { color: #64748b; }
+.dark .footer { border-top-color: #334155; color: #64748b; }
