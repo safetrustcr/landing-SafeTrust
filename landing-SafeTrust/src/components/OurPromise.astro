@@ -523,4 +523,84 @@ const miniBadges = [
     70% { box-shadow: 0 0 0 10px rgba(34, 197, 94, 0); }
     100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
   }
+
+  /* Dark mode — keep glassmorphism without near-white surfaces */
+  :global(.dark) .our-promise {
+    background: linear-gradient(135deg, rgba(40, 87, 184, 0.08), rgba(124, 58, 237, 0.08));
+  }
+
+  :global(.dark) .our-promise::before {
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  }
+
+  :global(.dark) .our-promise__glow--left {
+    background: rgba(96, 165, 250, 0.18);
+    opacity: 0.7;
+  }
+
+  :global(.dark) .our-promise__glow--right {
+    background: rgba(167, 139, 250, 0.16);
+    opacity: 0.7;
+  }
+
+  :global(.dark) .our-promise__headline {
+    color: #f1f5f9;
+  }
+
+  :global(.dark) .our-promise__description {
+    color: #94a3b8;
+  }
+
+  :global(.dark) .our-promise__badge {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.1);
+    color: #e2e8f0;
+    box-shadow: 0 10px 24px -18px rgba(0, 0, 0, 0.55);
+  }
+
+  :global(.dark) .our-promise__card {
+    background: linear-gradient(180deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.85));
+    border-color: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.4);
+  }
+
+  :global(.dark) .our-promise__card::after {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.06), transparent 42%);
+  }
+
+  :global(.dark) .our-promise__card-eyebrow {
+    color: #94a3b8;
+  }
+
+  :global(.dark) .our-promise__guarantee {
+    border-top-color: rgba(255, 255, 255, 0.07);
+  }
+
+  :global(.dark) .our-promise__guarantee-copy strong {
+    color: #f1f5f9;
+  }
+
+  :global(.dark) .our-promise__guarantee-copy p {
+    color: #94a3b8;
+  }
+
+  :global(.dark) .our-promise__tag {
+    background: rgba(167, 139, 250, 0.14);
+    border-color: rgba(167, 139, 250, 0.28);
+    color: #c4b5fd;
+  }
+
+  :global(.dark) .connect-wallet-cta__action--secondary {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.12);
+    color: #93c5fd;
+    box-shadow: none;
+  }
+
+  :global(.dark) .connect-wallet-cta__action--secondary:hover {
+    border-color: rgba(167, 139, 250, 0.4);
+    color: #c4b5fd;
+  }
 </style>
