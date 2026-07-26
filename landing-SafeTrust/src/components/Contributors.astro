@@ -48,7 +48,9 @@ const contributorCount = usePlaceholders
   : contributors.length;
 ---
 
-<section class="contributors-section">
+<!-- Contributors section intentionally keeps its dark “cosmic” background in both themes.
+     Only the contributor card surfaces adapt for dark mode. -->
+<section id="contributors" class="contributors-section">
   <div class="contributors-inner">
     <span class="contributors-eyebrow">Contributors</span>
     <h2 class="contributors-title">Meet the visionaries building SafeTrust</h2>

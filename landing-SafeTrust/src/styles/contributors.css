@@ -77,14 +77,15 @@
 
 /* Layout: card grid + logo aside */
 .contributors-layout {
-  display: flex;
-  align-items: flex-start;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: start;
   gap: 3rem;
   width: 100%;
+  justify-items: start;
 }
 
 .contributors-grid {
-  flex: 1;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
   gap: 1.5rem;
@@ -168,7 +169,7 @@
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: #ffffff;
-  background: #7c3aed;
+  background: var(--brand-primary);
   border-radius: 6px;
   padding: 0.5rem 1.25rem;
   text-decoration: none;
@@ -176,7 +177,23 @@
 }
 
 .contributor-profile-btn:hover {
-  background: #6d28d9;
+  background: var(--brand-accent);
+}
+
+:global(.dark) .contributor-card {
+  background: rgba(30, 41, 59, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+}
+
+:global(.dark) .contributor-login {
+  color: #f1f5f9;
+}
+
+:global(.dark) .contributor-commits {
+  background: rgba(124, 58, 237, 0.2);
+  color: #c4b5fd;
+  border-color: rgba(124, 58, 237, 0.3);
 }
 
 /* Logo aside */
@@ -184,9 +201,10 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: 1rem;
   flex-shrink: 0;
-  width: 160px;
+  min-width: 160px;
   padding-top: 1rem;
 }
 
