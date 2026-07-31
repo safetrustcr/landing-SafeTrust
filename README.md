@@ -62,13 +62,6 @@ src/
     └── stepper.css
 ```
 
-## 🔄 Migration Notes
-
-This project is an in-progress migration of the original Next.js landing page to Astro. Components are being ported incrementally:
-
-- Static/presentational sections → `.astro` components (e.g. `OurPromise`, `SecuritySection`, `SecurityCard`)
-- Interactive elements → React components hydrated as islands (e.g. `ConnectWalletCTA`, `Stepper`, `CategoryTabs`)
-
 ## 🔍 About SafeTrust
 
 **SafeTrust** is a decentralized P2P escrow platform that brings security and transparency to booking and rental transactions. Built on the **Stellar blockchain** via the **TrustlessWork API**, SafeTrust protects both parties in a transaction without relying on intermediaries.
