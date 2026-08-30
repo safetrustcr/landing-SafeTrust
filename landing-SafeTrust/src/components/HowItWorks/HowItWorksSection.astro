@@ -34,7 +34,7 @@ const STATUS_CONFIG = {
           const step = STEPS[stepIndex];
           const cfg = STATUS_CONFIG[step.status];
           return (
-            <div class="step-node" data-step-node data-step-index={stepIndex}>
+            <div class="step-node" data-step-node>
               <div
                 class={`node-circle ${step.status}`}
                 data-node-circle
@@ -75,14 +75,9 @@ const STATUS_CONFIG = {
           );
         }
 
-        const connectorIndex = (i - 1) / 2;
         return (
-          <div
-            class="connector"
-            data-connector
-            data-connector-index={connectorIndex}
-          >
-            <div class="connector-fill step-line-fill" data-connector-fill></div>
+          <div class="connector" data-connector>
+            <div class="connector-fill" data-connector-fill></div>
             <div class="connector-glow" data-connector-glow></div>
           </div>
         );

@@ -19,6 +19,7 @@ import "../styles/theme.css";
     <title>SafeTrust — Secure P2P Escrow on Stellar</title>
     <script is:inline>
       (() => {
+        document.documentElement.classList.add("js");
         const stored = localStorage.getItem("theme");
         const dark = stored === "dark" || (stored !== "light" && matchMedia("(prefers-color-scheme: dark)").matches);
         document.documentElement.classList.toggle("dark", dark);

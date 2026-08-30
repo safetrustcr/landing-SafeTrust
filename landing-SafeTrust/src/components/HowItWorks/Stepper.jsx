@@ -22,6 +22,7 @@ export default function Stepper() {
     }
 
     let hasAnimated = false;
+    const hoverCleanups = [];
 
     const stopInView = inView(
       section,
@@ -82,6 +83,8 @@ export default function Stepper() {
 
           // Checkmark draw-in for completed steps
           if (checkmark && status === "completed") {
+            checkmark.style.strokeDashoffset = "28";
+            checkmark.style.opacity = "0";
             animate(
               checkmark,
               {
@@ -145,7 +148,7 @@ export default function Stepper() {
           const icon = node.querySelector("[data-node-icon]");
           if (!circle) return;
 
-          hover(node, () => {
+          const stopHover = hover(node, () => {
             animate(circle, { scale: 1.08 }, { type: spring, stiffness: 320, damping: 18 });
             if (icon) animate(icon, { rotate: 6 }, { type: spring, stiffness: 320, damping: 18 });
             return () => {
@@ -153,6 +156,8 @@ export default function Stepper() {
               if (icon) animate(icon, { rotate: 0 }, { type: spring, stiffness: 320, damping: 20 });
             };
           });
+
+          hoverCleanups.push(stopHover);
         });
       },
       { amount: 0.2 }
@@ -161,6 +166,7 @@ export default function Stepper() {
     return () => {
       cancelScroll();
       stopInView();
+      hoverCleanups.forEach((cleanup) => cleanup && cleanup());
     };
   }, []);
 
