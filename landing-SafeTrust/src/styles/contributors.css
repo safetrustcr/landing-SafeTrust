@@ -75,20 +75,21 @@
   line-height: 1.6;
 }
 
-/* Layout: card grid + logo aside */
+/* Layout: full-width grid with logo above cards */
 .contributors-layout {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  align-items: start;
-  gap: 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
   width: 100%;
-  justify-items: start;
 }
 
 .contributors-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-  gap: 1.5rem;
+  width: 100%;
+  max-width: 1100px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.25rem 1.5rem;
 }
 
 /* Contributor card */
@@ -96,7 +97,7 @@
   background: var(--card-bg, #ffffff);
   border: 1px solid var(--card-border, #e5e7eb);
   border-radius: 1rem;
-  padding: 1.5rem;
+  padding: 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -111,8 +112,8 @@
 }
 
 .contributor-avatar {
-  width: 80px;
-  height: 80px;
+  width: 64px;
+  height: 64px;
   border-radius: 50%;
   object-fit: cover;
   border: 3px solid var(--surface-subtle, #ede9fe);
@@ -127,16 +128,16 @@
 }
 
 .contributor-avatar-placeholder svg {
-  width: 40px;
-  height: 40px;
+  width: 34px;
+  height: 34px;
 }
 
 .contributor-login {
   font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 0.875rem;
+  font-size: 0.8125rem;
   font-weight: 700;
   color: var(--foreground, #10193f);
-  margin: 1rem 0 0.75rem;
+  margin: 0.875rem 0 0.75rem;
   overflow-wrap: anywhere;
 }
 
@@ -146,15 +147,15 @@
   align-items: center;
   gap: 0.35rem;
   font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 0.6875rem;
+  font-size: 0.625rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.06em;
   color: var(--brand-accent, #6d28d9);
   background: var(--brand-tint, #f3f0ff);
   border-radius: 999px;
-  padding: 0.3rem 0.75rem;
-  margin-bottom: 1rem;
+  padding: 0.25rem 0.625rem;
+  margin-bottom: 0.875rem;
 }
 
 .contributor-git-icon {
@@ -165,14 +166,14 @@
 /* Profile button */
 .contributor-profile-btn {
   font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 0.75rem;
+  font-size: 0.6875rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: #ffffff;
   background: var(--brand-primary);
   border-radius: 6px;
-  padding: 0.5rem 1.25rem;
+  padding: 0.5rem 0.9rem;
   text-decoration: none;
   transition: background 0.2s ease;
 }
@@ -203,14 +204,13 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 1rem;
-  flex-shrink: 0;
-  min-width: 160px;
-  padding-top: 1rem;
+  gap: 0.75rem;
+  width: min(100%, 280px);
+  margin: 0 auto;
 }
 
 .contributors-logo img {
-  width: 120px;
+  width: clamp(90px, 11vw, 120px);
   height: auto;
 }
 
@@ -231,17 +231,11 @@
 
 @media (max-width: 992px) {
   .contributors-layout {
-    flex-direction: column-reverse;
-    align-items: center;
+    gap: 1.5rem;
   }
 
   .contributors-grid {
-    width: 100%;
-  }
-
-  .contributors-logo {
-    padding-top: 0;
-    margin-bottom: 1rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
@@ -251,8 +245,12 @@
   }
 
   .contributors-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr;
     gap: 1rem;
+  }
+
+  .contributor-card {
+    padding: 0.875rem;
   }
 
   .contributors-title {
