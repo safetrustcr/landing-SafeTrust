@@ -1,312 +1,463 @@
 /* ============================================================
-   SafeTrust · Stepper Styling
+   SafeTrust · Stepper Styling (How It Works)
    ============================================================ */
 
-.how-it-works-section {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 4rem 1.5rem 2rem;
-  box-sizing: border-box;
+.how-it-works {
+  position: relative;
+  padding: 5rem 1.5rem;
+  background: var(--background);
+  color: var(--foreground);
+  overflow: hidden;
 }
 
-/* Eyebrow Pill */
+.progress-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 3px;
+  width: 100%;
+  background: linear-gradient(90deg, var(--brand-primary), var(--brand-accent));
+  transform-origin: left center;
+  transform: scaleX(0);
+  z-index: 10;
+}
+
+/* Section Header */
+.section-header {
+  text-align: center;
+  margin-bottom: 3.5rem;
+  opacity: 1;
+  transform: none;
+}
+
+html.js .section-header {
+  opacity: 0;
+  transform: translateY(-12px);
+}
+
 .eyebrow-pill {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  padding: 0.5rem 1.25rem;
-  background-color: var(--brand-tint, #E8EDFA);
-  color: var(--brand-primary, #1E3A8A);
+  gap: 0.5rem;
+  padding: 0.45rem 1.15rem;
+  background: color-mix(in srgb, var(--brand-accent) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--brand-accent) 25%, transparent);
   border-radius: 9999px;
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  color: var(--brand-accent);
   font-size: 0.75rem;
   font-weight: 700;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
-  margin-bottom: 1.5rem;
-  box-shadow: 0 2px 8px rgba(30, 58, 138, 0.04);
+  margin-bottom: 1.25rem;
 }
 
-/* Headings */
-.section-title {
-  font-family: 'Playfair Display', Georgia, serif;
-  font-size: 2.75rem;
-  font-weight: 700;
-  color: var(--brand-navy, #10193F);
-  text-align: center;
+.section-header h2 {
+  font-size: clamp(2rem, 4.5vw, 2.75rem);
+  font-weight: 800;
+  color: var(--foreground);
   margin: 0 0 1rem;
   line-height: 1.2;
 }
 
-.section-title .italic-accent {
+.section-header h2 em {
   font-style: italic;
-  color: var(--brand-accent, #1D4ED8);
-  position: relative;
+  background: linear-gradient(90deg, #6d28d9, #8b5cf6 55%, var(--brand-accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-.section-subtitle {
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 1.125rem;
-  color: #4B5563;
-  text-align: center;
-  margin: 0 0 3rem;
-  max-width: 600px;
-  line-height: 1.5;
+.section-header .subtitle {
+  color: var(--muted-foreground);
+  max-width: 38rem;
+  margin: 0 auto;
+  font-size: 1.05rem;
+  line-height: 1.6;
 }
 
 /* Stepper Container Card */
 .stepper-card {
-  background-color: #ffffff;
-  border: 1px solid #E2E8F0;
-  border-radius: 24px;
-  padding: 3rem 2.5rem;
-  width: 100%;
-  box-shadow: 0 10px 30px -10px rgba(30, 58, 138, 0.05), 0 1px 3px rgba(0, 0, 0, 0.01);
-  box-sizing: border-box;
+  background: linear-gradient(180deg, var(--card-bg, #ffffff), color-mix(in srgb, var(--card-bg, #ffffff) 90%, var(--brand-tint, #f8faff)));
+  border: 1px solid var(--card-border, #e5e7eb);
+  border-top: 2px solid color-mix(in srgb, var(--brand-primary) 30%, transparent);
+  border-radius: 1.5rem;
+  padding: 3rem 2rem;
+  box-shadow: 0 12px 36px -10px var(--shadow-color, rgba(15, 23, 42, 0.08));
+  max-width: 1060px;
+  margin: 0 auto;
   position: relative;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
-/* Stepper Inner List */
-.stepper-list {
+html.dark .stepper-card {
+  background: linear-gradient(180deg, rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.65));
+  border-color: rgba(255, 255, 255, 0.08);
+  border-top-color: color-mix(in srgb, var(--brand-primary) 50%, transparent);
+  box-shadow: 0 16px 48px -12px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(12px);
+}
+
+/* Timeline Layout */
+.timeline {
   display: flex;
-  justify-content: space-between;
+  flex-direction: row;
   align-items: flex-start;
+  justify-content: space-between;
   position: relative;
   width: 100%;
-  gap: 1rem;
 }
 
-/* Connection Lines (Desktop) */
-.stepper-line-bg {
-  position: absolute;
-  top: 22px;
-  left: 12.5%;
-  right: 12.5%;
-  height: 4px;
-  background-color: #E5E7EB;
-  z-index: 1;
-  border-radius: 2px;
-}
-
-.stepper-line-active {
-  position: absolute;
-  top: 22px;
-  left: 12.5%;
-  height: 4px;
-  width: calc((100% - 25%) * (var(--progress-ratio, 0%) / 100%));
-  background-color: var(--brand-primary, #1E3A8A);
-  z-index: 2;
-  border-radius: 2px;
-  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* Step Column */
-.step-item {
-  flex: 1;
+/* Step Node */
+.step-node {
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
+  opacity: 1;
+  transform: none;
+  flex: 1;
   position: relative;
-  z-index: 3;
+  z-index: 2;
   cursor: pointer;
-  outline: none;
-  -webkit-tap-highlight-color: transparent;
-  transition: transform 0.2s ease;
 }
 
-.step-item:hover .step-circle-container {
-  transform: scale(1.05);
+html.js .step-node {
+  opacity: 0;
+  transform: translateY(24px);
 }
 
-.step-item:focus-visible {
-  outline: 2px solid var(--brand-accent, #1D4ED8);
-  outline-offset: 4px;
-  border-radius: 8px;
-}
-
-/* Circle Indicator Container */
-.step-circle-container {
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
+/* Step Circle */
+.node-circle {
+  width: 72px;
+  height: 72px;
+  border-radius: 9999px;
+  border: 2px solid var(--card-border, #d1d5db);
+  background: var(--card-bg, #ffffff);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 1rem;
-  font-weight: 700;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  margin-bottom: 1rem;
+  position: relative;
   box-sizing: border-box;
+  transition: transform 0.25s ease, border-color 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+  will-change: transform, box-shadow;
 }
 
-/* Circle States */
-.step-circle-container.completed {
-  background-color: var(--brand-primary, #1E3A8A);
-  border: 2px solid var(--brand-primary, #1E3A8A);
+/* State: Completed */
+.node-circle.completed,
+.node-circle[data-status="completed"] {
+  background: linear-gradient(135deg, #10193f, var(--brand-primary, #1e3a8a));
+  border-color: var(--brand-primary, #1e3a8a);
   color: #ffffff;
-  box-shadow: 0 4px 12px rgba(30, 58, 138, 0.15);
+  box-shadow: 0 6px 20px -4px rgba(30, 58, 138, 0.35);
 }
 
-.step-circle-container.in-progress {
-  background-color: #ffffff;
-  border: 2px solid var(--brand-accent, #1D4ED8);
-  color: var(--brand-primary, #1E3A8A);
-  box-shadow: 0 0 0 4px rgba(29, 78, 216, 0.12);
+html.dark .node-circle.completed,
+html.dark .node-circle[data-status="completed"] {
+  background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+  border-color: #60a5fa;
+  box-shadow: 0 6px 24px -4px rgba(59, 130, 246, 0.45);
 }
 
-.step-circle-container.pending {
-  background-color: #ffffff;
-  border: 2px solid #D1D5DB;
-  color: #9CA3AF;
+/* State: In-Progress (Active) */
+.node-circle.in-progress,
+.node-circle[data-status="in-progress"] {
+  background: var(--card-bg, #ffffff);
+  border: 2.5px solid var(--brand-accent, #1d4ed8);
+  color: var(--brand-accent, #1d4ed8);
+  box-shadow: 0 0 0 4px rgba(29, 78, 216, 0.15);
+  animation: pulse 2s ease-in-out infinite;
 }
 
-/* Icon Styles inside Circle */
-.step-check-icon {
-  width: 18px;
-  height: 18px;
+html.dark .node-circle.in-progress,
+html.dark .node-circle[data-status="in-progress"] {
+  background: var(--card-bg, #0f172a);
+  border-color: #60a5fa;
+  color: #93c5fd;
+  animation: pulse-dark 2s ease-in-out infinite;
+}
+
+/* State: Pending */
+.node-circle.pending,
+.node-circle[data-status="pending"] {
+  background: var(--card-bg, #ffffff);
+  border: 2px solid var(--card-border, #d1d5db);
+  color: var(--muted-foreground, #9ca3af);
+}
+
+html.dark .node-circle.pending,
+html.dark .node-circle[data-status="pending"] {
+  background: rgba(15, 23, 42, 0.6);
+  border-color: var(--card-border, #334155);
+  color: #64748b;
+}
+
+/* Circle Icons */
+.node-icon {
+  font-size: 1.5rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.node-checkmark {
+  width: 26px;
+  height: 26px;
   stroke: currentcolor;
   stroke-width: 3;
   fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 28;
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 0.45s ease-out;
 }
 
-/* Step Content */
-.step-info {
-  margin-top: 1.25rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  max-width: 220px;
-}
-
-.step-name {
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: var(--brand-navy, #10193F);
-  margin: 0 0 0.5rem 0;
-  line-height: 1.3;
-}
-
-.step-desc {
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 0.875rem;
-  color: #6B7280;
-  margin: 0 0 1rem 0;
-  line-height: 1.45;
-}
-
-/* Status Badges */
-.status-badge {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.25rem 0.75rem;
+/* Status Chip Badges */
+.status-chip {
+  display: inline-block;
   border-radius: 9999px;
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 0.6875rem;
+  padding: 0.15rem 0.75rem;
+  font-size: 0.7rem;
   font-weight: 700;
-  text-transform: uppercase;
   letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
   transition: all 0.3s ease;
 }
 
-.status-badge.completed {
-  background-color: var(--success-tint, #DCFCE7);
-  color: var(--success, #16A34A);
+.status-chip.completed,
+.status-chip[data-status="completed"] {
+  background-color: var(--success-tint, #dcfce7);
+  color: var(--success, #15803d);
+  border: 1px solid color-mix(in srgb, var(--success) 30%, transparent);
 }
 
-.status-badge.in-progress {
-  background-color: var(--brand-tint, #E8EDFA);
-  color: var(--brand-primary, #1E3A8A);
+.status-chip.in-progress,
+.status-chip[data-status="in-progress"] {
+  background-color: var(--brand-tint, #e8edfa);
+  color: var(--brand-primary, #1d4ed8);
+  border: 1px solid color-mix(in srgb, var(--brand-accent) 30%, transparent);
+  animation: chip-glow 2.5s infinite;
 }
 
-.status-badge.pending {
-  background-color: #F3F4F6;
-  color: #6B7280;
+.status-chip.pending,
+.status-chip[data-status="pending"] {
+  background-color: color-mix(in srgb, var(--foreground) 5%, transparent);
+  color: var(--muted-foreground, #6b7280);
+  border: 1px solid var(--card-border, #e5e7eb);
+}
+
+/* Step Content */
+.step-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.step-title {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--foreground);
+  margin: 0.25rem 0 0;
+}
+
+.step-desc {
+  font-size: 0.78rem;
+  color: var(--muted-foreground);
+  max-width: 140px;
+  margin-top: 0.35rem;
+  line-height: 1.5;
+}
+
+/* Connectors */
+.connector {
+  width: 56px;
+  height: 4px;
+  border-radius: 9999px;
+  margin: 34px 6px 0;
+  background: var(--card-border, #e5e7eb);
+  position: relative;
+  flex-shrink: 0;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+html.dark .connector {
+  background: var(--card-border, #334155);
+}
+
+/* Connecting Line Progress Fill */
+.connector-fill {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, var(--brand-primary, #1e3a8a), var(--brand-accent, #1d4ed8));
+  border-radius: inherit;
+  transform-origin: left center;
+  transform: scaleX(0);
+  will-change: transform;
+}
+
+html.dark .connector-fill {
+  background: linear-gradient(90deg, #3b82f6, #60a5fa);
+}
+
+/* Glowing Traveling Particle */
+.connector-glow {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.9), transparent);
+  pointer-events: none;
+}
+
+/* Bottom CTA */
+.cta {
+  text-align: center;
+  margin-top: 3.5rem;
+}
+
+.cta p {
+  font-weight: 600;
+  margin-bottom: 0.85rem;
+  color: var(--foreground);
+}
+
+.cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: linear-gradient(135deg, var(--brand-primary), var(--brand-accent));
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 0.95rem;
+  padding: 0.8rem 1.6rem;
+  border-radius: 0.6rem;
+  text-decoration: none;
+  box-shadow: 0 4px 14px 0 color-mix(in srgb, var(--brand-accent) 35%, transparent);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.cta-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px 0 color-mix(in srgb, var(--brand-accent) 45%, transparent);
 }
 
 /* ============================================================
-   Stepper Responsiveness (Mobile & Tablet)
+   Keyframe Animations
+   ============================================================ */
+
+/* Active Step Pulse (Light Mode) */
+@keyframes pulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(29, 78, 216, 0.45);
+  }
+  50% {
+    box-shadow: 0 0 0 10px rgba(29, 78, 216, 0);
+  }
+}
+
+/* Active Step Pulse (Dark Mode) */
+@keyframes pulse-dark {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(96, 165, 250, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 0 10px rgba(96, 165, 250, 0);
+  }
+}
+
+/* Active Chip Subtle Glow */
+@keyframes chip-glow {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(29, 78, 216, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 8px 0 rgba(29, 78, 216, 0.25);
+  }
+}
+
+/* ============================================================
+   Accessibility (Reduced Motion)
+   ============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .node-circle.in-progress,
+  .node-circle[data-status="in-progress"],
+  .status-chip.in-progress,
+  .status-chip[data-status="in-progress"] {
+    animation: none;
+  }
+
+  .section-header,
+  .step-node {
+    opacity: 1;
+    transform: none;
+  }
+
+  html.js .section-header,
+  html.js .step-node {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ============================================================
+   Responsive Layout (Mobile & Tablet)
    ============================================================ */
 
 @media (max-width: 768px) {
-  .section-title {
-    font-size: 2.25rem;
-  }
-  
-  .section-subtitle {
-    font-size: 1rem;
-    margin-bottom: 2rem;
+  .how-it-works {
+    padding: 3.5rem 1rem;
   }
 
   .stepper-card {
-    padding: 2.5rem 1.5rem;
-    border-radius: 20px;
+    padding: 2.25rem 1.25rem;
+    border-radius: 1.25rem;
   }
 
-  .stepper-list {
+  .timeline {
     flex-direction: column;
-    align-items: stretch;
-    gap: 2.5rem;
-    padding-left: 0.75rem;
-    box-sizing: border-box;
-  }
-
-  /* Vertical Connector Line */
-  .stepper-line-bg {
-    left: 29px; /* centered relative to 44px circle + padding */
-    top: 22px;
-    bottom: 22px;
-    width: 4px;
-    height: auto;
-    right: auto;
-  }
-
-  .stepper-line-active {
-    left: 29px;
-    top: 22px;
-    width: 4px;
-    height: calc((100% - 44px) * (var(--progress-ratio, 0%) / 100%));
-    right: auto;
-    transition: height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  /* Step Column as Horizontal Row on Mobile */
-  .step-item {
-    flex-direction: row;
     align-items: flex-start;
-    text-align: left;
+    gap: 0;
+  }
+
+  .step-node {
     width: 100%;
+    max-width: 100%;
+    flex: 0 0 auto;
+    flex-direction: row;
+    align-items: center;
+    text-align: left;
     gap: 1.25rem;
   }
 
-  .step-item:hover .step-circle-container {
-    transform: none; /* disable hover scale on mobile tap */
-  }
-
-  .step-circle-container {
+  .node-circle {
     flex-shrink: 0;
-    margin-top: 0.25rem;
+    margin-bottom: 0;
+    width: 60px;
+    height: 60px;
   }
 
-  .step-info {
-    margin-top: 0;
+  .connector {
+    width: 3px;
+    height: 36px;
+    flex: 0 0 36px;
+    margin: 0 0 0 28.5px;
+    border-radius: 9999px;
+  }
+
+  .connector-fill {
+    transform-origin: top center;
+    transform: scaleY(0);
+  }
+
+  .step-content {
     align-items: flex-start;
-    max-width: 100%;
     text-align: left;
   }
 
-  .step-name {
-    font-size: 1.05rem;
-    margin-bottom: 0.35rem;
-  }
-
   .step-desc {
-    margin-bottom: 0.75rem;
+    max-width: none;
   }
 }

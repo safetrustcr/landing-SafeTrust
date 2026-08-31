@@ -11,59 +11,162 @@ export default function Stepper() {
     const nodes = Array.from(section.querySelectorAll("[data-step-node]"));
     const connectors = Array.from(section.querySelectorAll("[data-connector]"));
     const header = section.querySelector("[data-header]");
-    const chips = Array.from(section.querySelectorAll("[data-status-chip]"));
 
-    const cancelScroll = scroll(
-      animate(progressBar, { scaleX: [0, 1] }, { ease: "linear" }),
-      { target: section, offset: ["start end", "end start"] }
-    );
+    // Top progress bar linked to section scroll
+    let cancelScroll = () => {};
+    if (progressBar) {
+      cancelScroll = scroll(
+        animate(progressBar, { scaleX: [0, 1] }, { ease: "linear" }),
+        { target: section, offset: ["start end", "end start"] }
+      );
+    }
 
-    const stopInView = inView(section, () => {
-      const STEP_STAGGER = 0.35;
+    let hasAnimated = false;
+    const hoverCleanups = [];
 
-      animate(header, { opacity: [0, 1], transform: ["translateY(-12px)", "translateY(0px)"] }, { duration: 0.5 });
+    const stopInView = inView(
+      section,
+      () => {
+        if (hasAnimated) return;
+        hasAnimated = true;
 
-      animate(nodes, { opacity: [0, 1], transform: ["translateY(24px)", "translateY(0px)"] }, {
-        delay: (i) => 0.25 + i * STEP_STAGGER,
-        duration: 0.5,
-      });
-
-      connectors.forEach((connector, i) => {
-        // Orientation is driven by the CSS media query (mobile stacks connectors
-        // vertically), so derive it from the rendered box rather than a class
-        // that's never applied in the markup.
-        const rect = connector.getBoundingClientRect();
-        const isVertical = rect.height > rect.width;
-        const startAt = 0.25 + (i + 1) * STEP_STAGGER;
-        animate(connector, { transform: isVertical ? ["scaleY(0)", "scaleY(1)"] : ["scaleX(0)", "scaleX(1)"] }, { delay: startAt, duration: 0.45 });
-
-        const glow = connector.querySelector("[data-connector-glow]");
-        if (glow) {
-          animate(glow, {
-            opacity: [0, 0.8, 0],
-            transform: isVertical ? ["translateY(-100%)", "translateY(100%)"] : ["translateX(-100%)", "translateX(100%)"],
-          }, { delay: startAt, duration: 0.45 });
+        // 1. Header reveal
+        if (header) {
+          animate(
+            header,
+            { opacity: [0, 1], transform: ["translateY(-14px)", "translateY(0px)"] },
+            { duration: 0.5, ease: [0.16, 1, 0.3, 1] }
+          );
         }
-      });
 
-      nodes.forEach((node) => {
-        const circle = node.querySelector(".node-circle");
-        const icon = node.querySelector(".node-icon");
-        if (!circle) return;
-        hover(node, () => {
-          animate(circle, { scale: 1.08 }, { type: spring, stiffness: 300, damping: 15 });
-          if (icon) animate(icon, { rotate: 6 }, { type: spring, stiffness: 300, damping: 15 });
-          return () => {
-            animate(circle, { scale: 1 }, { type: spring, stiffness: 300, damping: 20 });
-            if (icon) animate(icon, { rotate: 0 }, { type: spring, stiffness: 300, damping: 20 });
-          };
+        const isMobile = window.innerWidth <= 768;
+        const STEP_STAGGER = 0.55;
+
+        // 2. Sequential progression through the 4 steps
+        nodes.forEach((node, idx) => {
+          const startTime = 0.2 + idx * STEP_STAGGER;
+          const circle = node.querySelector("[data-node-circle]");
+          const checkmark = node.querySelector("[data-checkmark]");
+          const status = circle?.getAttribute("data-status");
+
+          // Step node fade and translate in
+          animate(
+            node,
+            {
+              opacity: [0, 1],
+              transform: isMobile
+                ? ["translateX(-16px)", "translateX(0px)"]
+                : ["translateY(24px)", "translateY(0px)"],
+            },
+            {
+              delay: startTime,
+              duration: 0.45,
+              ease: [0.16, 1, 0.3, 1],
+            }
+          );
+
+          // Step circle pop-in state transition
+          if (circle) {
+            animate(
+              circle,
+              {
+                transform: ["scale(0.65)", "scale(1.12)", "scale(1)"],
+                opacity: [0, 1, 1],
+              },
+              {
+                delay: startTime + 0.08,
+                duration: 0.45,
+                ease: [0.34, 1.56, 0.64, 1],
+              }
+            );
+          }
+
+          // Checkmark draw-in for completed steps
+          if (checkmark && status === "completed") {
+            checkmark.style.strokeDashoffset = "28";
+            checkmark.style.opacity = "0";
+            animate(
+              checkmark,
+              {
+                strokeDashoffset: [28, 0],
+                opacity: [0, 1],
+              },
+              {
+                delay: startTime + 0.22,
+                duration: 0.4,
+                ease: "easeOut",
+              }
+            );
+          }
+
+          // Connector progress fill from step to step
+          if (idx < connectors.length) {
+            const connector = connectors[idx];
+            const fill = connector.querySelector("[data-connector-fill]");
+            const glow = connector.querySelector("[data-connector-glow]");
+            const nextNode = nodes[idx + 1];
+            const nextStatus = nextNode?.querySelector("[data-node-circle]")?.getAttribute("data-status");
+
+            // Fill connector if current step is completed (steps 1->2 and steps 2->3 towards active in-progress step)
+            if (status === "completed" && (nextStatus === "completed" || nextStatus === "in-progress")) {
+              const connectorStart = startTime + 0.32;
+              const fillTransform = isMobile ? { scaleY: [0, 1] } : { scaleX: [0, 1] };
+
+              if (fill) {
+                animate(fill, fillTransform, {
+                  delay: connectorStart,
+                  duration: 0.45,
+                  ease: [0.4, 0, 0.2, 1],
+                });
+              }
+
+              if (glow) {
+                const glowTransform = isMobile
+                  ? { transform: ["translateY(-100%)", "translateY(100%)"] }
+                  : { transform: ["translateX(-100%)", "translateX(100%)"] };
+
+                animate(
+                  glow,
+                  {
+                    opacity: [0, 0.85, 0],
+                    ...glowTransform,
+                  },
+                  {
+                    delay: connectorStart,
+                    duration: 0.45,
+                    ease: "easeInOut",
+                  }
+                );
+              }
+            }
+          }
         });
-      });
-    }, { amount: 0.25 });
+
+        // 3. Hover micro-animations
+        nodes.forEach((node) => {
+          const circle = node.querySelector("[data-node-circle]");
+          const icon = node.querySelector("[data-node-icon]");
+          if (!circle) return;
+
+          const stopHover = hover(node, () => {
+            animate(circle, { scale: 1.08 }, { type: spring, stiffness: 320, damping: 18 });
+            if (icon) animate(icon, { rotate: 6 }, { type: spring, stiffness: 320, damping: 18 });
+            return () => {
+              animate(circle, { scale: 1 }, { type: spring, stiffness: 320, damping: 20 });
+              if (icon) animate(icon, { rotate: 0 }, { type: spring, stiffness: 320, damping: 20 });
+            };
+          });
+
+          hoverCleanups.push(stopHover);
+        });
+      },
+      { amount: 0.2 }
+    );
 
     return () => {
       cancelScroll();
       stopInView();
+      hoverCleanups.forEach((cleanup) => cleanup && cleanup());
     };
   }, []);
 
