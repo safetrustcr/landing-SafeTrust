@@ -1,9 +1,12 @@
 ---
+import GlassPanel from "./GlassPanel.tsx";
 ---
 <section class="final-cta-section">
   <div class="cta-bg-gradient"></div>
   <div class="cta-bg-overlay"></div>
   
+  <div class="cta-glass-wrap">
+  <GlassPanel client:visible id="final-cta-glass" className="cta-glass">
   <div class="cta-content">
     <div class="eyebrow-container">
       <span class="eyebrow-pill">
@@ -13,12 +16,12 @@
     </div>
 
     <h2 class="cta-heading">
-      Ready to secure your<br/>
-      <span class="italic text-purple-accent">transactions?</span>
+      Ready to book your next stay<br/>
+      <span class="italic text-purple-accent">with escrow?</span>
     </h2>
 
     <p class="cta-description">
-      Join thousands of users who trust SafeTrust for secure, transparent, and decentralized transactions. Get started in minutes.
+      Guests get their deposit back without chasing anyone. Hosts get paid as soon as check-in is confirmed. Connect your wallet and get started in minutes.
     </p>
 
     <div class="cta-actions">
@@ -49,6 +52,8 @@
       </div>
     </div>
   </div>
+  </GlassPanel>
+  </div>
 </section>
 
 <style>
@@ -78,13 +83,16 @@
   :global(html.dark) .final-cta-section {
     border-radius: 0;
     margin: 0;
-    box-shadow: 0 0 80px rgba(124, 58, 237, 0.2);
+    box-shadow: 0 0 80px var(--orange-glow-soft);
   }
 
   .cta-bg-gradient {
     position: absolute;
     inset: 0;
-    background: linear-gradient(to bottom right, var(--surface-subtle), var(--brand-navy), var(--background));
+    background:
+      radial-gradient(circle at 85% 85%, rgba(249, 115, 22, 0.22), transparent 38%),
+      radial-gradient(circle at 15% 10%, rgba(59, 130, 246, 0.35), transparent 45%),
+      linear-gradient(135deg, #0b1533 0%, #1e3a8a 55%, #0b1533 100%);
     z-index: 1;
     border-radius: inherit;
   }
@@ -96,16 +104,31 @@
   .cta-bg-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(to top, color-mix(in srgb, var(--background) 40%, transparent), transparent);
+    background: linear-gradient(to top, rgba(11, 21, 51, 0.45), transparent);
     z-index: 2;
     border-radius: inherit;
+  }
+
+  .cta-glass-wrap {
+    position: relative;
+    z-index: 10;
+    max-width: 56rem;
+    margin: 0 auto;
+  }
+
+  /* react-glass-ui sets width: fit-content inline; stretch it to the wrapper */
+  .cta-glass-wrap :global(.cta-glass) {
+    width: 100% !important;
+  }
+
+  .cta-glass-wrap :global(.glass-panel-content) {
+    overflow: visible;
   }
 
   .cta-content {
     position: relative;
     z-index: 10;
-    max-width: 64rem;
-    margin: 0 auto;
+    padding: 3rem 2.5rem;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -120,19 +143,36 @@
     align-items: center;
     gap: 0.5rem;
     padding: 0.5rem 1rem;
-    background: color-mix(in srgb, var(--brand-accent) 12%, transparent);
-    border: 1px solid color-mix(in srgb, var(--brand-accent) 25%, transparent);
+    background: rgba(147, 197, 253, 0.14);
+    border: 1px solid rgba(147, 197, 253, 0.35);
     border-radius: 9999px;
-    color: var(--brand-accent);
+    color: #bfdbfe;
     font-weight: 600;
     font-size: 0.875rem;
+  }
+
+  @media (max-width: 640px) {
+    .cta-content {
+      padding: 2.25rem 1.25rem;
+    }
+  }
+
+  .cta-heading::after {
+    content: "";
+    display: block;
+    width: 3.5rem;
+    height: 3px;
+    margin: 1rem auto 0;
+    border-radius: 3px;
+    background: linear-gradient(90deg, #60a5fa, #f97316);
   }
 
   .cta-heading {
     font-size: 2.25rem;
     line-height: 1.2;
     font-weight: 700;
-    color: var(--foreground);
+    color: #ffffff;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
     margin: 0 0 1.5rem 0;
   }
   @media (min-width: 768px) {
@@ -143,14 +183,16 @@
 
   .text-purple-accent {
     font-style: italic;
-    background: linear-gradient(to right, #a855f7, #ec4899);
+    background: linear-gradient(90deg, #93c5fd, #60a5fa 80%, #fb923c 94%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    text-shadow: none;
   }
 
   .cta-description {
     font-size: 1.125rem;
-    color: var(--muted-foreground);
+    color: rgba(255, 255, 255, 0.9);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
     max-width: 42rem;
     margin: 0 0 2.5rem 0;
     line-height: 1.6;
@@ -241,7 +283,7 @@
   }
   .dot-green { background-color: #22c55e; }
   .dot-blue { background-color: #3b82f6; }
-  .dot-purple { background-color: #a855f7; }
+  .dot-purple { background-color: #f97316; }
 
   @keyframes pulse {
     0%, 100% { opacity: 1; }

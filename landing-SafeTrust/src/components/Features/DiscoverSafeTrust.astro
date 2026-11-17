@@ -1,18 +1,18 @@
 ---
 const features = [
-  { num: "01", title: "Smart Escrow", tag: "Security", desc: "Automated contract execution with multi-signature protection for every transaction." },
-  { num: "02", title: "Multi-Chain", tag: "Compatibility", desc: "Seamless interoperability across Stellar and other major networks." },
-  { num: "03", title: "Real-Time", tag: "Speed", desc: "Instant settlement with on-chain verification and zero intermediaries." },
-  { num: "04", title: "Audit Ready", tag: "Compliance", desc: "Fully transparent transaction history with verifiable audit trails." },
+  { num: "01", title: "Smart Escrow", tag: "Security", desc: "Rent and deposit are locked in a contract that needs both guest and host to release it." },
+  { num: "02", title: "Built on Stellar", tag: "Network", desc: "Low-cost payments and Soroban smart contracts on the Stellar network." },
+  { num: "03", title: "Fast payouts", tag: "Speed", desc: "Money moves within seconds once check-in or check-out is confirmed." },
+  { num: "04", title: "Clear history", tag: "Transparency", desc: "Every booking leaves an on-chain record that guest and host can both check." },
 ];
 ---
 
 <section id="features" class="discover">
   <p class="eyebrow-pill">Capabilities</p>
-  <h2>Discover the power of <em>SafeTrust</em></h2>
+  <h2>Escrow built for <em>rentals and stays</em></h2>
   <p class="lead">
-    Enterprise-grade infrastructure built for the next generation of decentralized
-    transactions. Secure, transparent, and verifiable.
+    Everything a guest and a host need to trust each other, from booking to check-out.
+    Decentralized, transparent, and private by design.
   </p>
 
   <div class="discover-grid">
@@ -46,7 +46,7 @@ const features = [
     padding: 0.3rem 1rem; border-radius: 999px; margin-bottom: 1rem;
   }
   h2 { font-size: clamp(1.75rem, 4vw, 2.75rem); font-weight: 800; color: var(--foreground); }
-  h2 em { color: var(--brand-accent); font-style: italic; }
+  h2 em { font-style: italic; background: var(--accent-text); -webkit-background-clip: text; background-clip: text; color: transparent; }
   .lead { color: var(--muted-foreground); max-width: 40rem; margin: 1rem auto 2.5rem; }
   .discover-grid {
     display: grid; gap: 1.5rem; text-align: left;
@@ -56,15 +56,15 @@ const features = [
     .discover-grid { grid-template-columns: 1.3fr 1fr 1fr; }
   }
   .scale-card {
-    background: #1e1b4b; color: #fff;
+    background: linear-gradient(160deg, #0b1533, #1e3a8a); color: #fff; position: relative; overflow: hidden;
     border-radius: 1rem; padding: 1.5rem;
     grid-row: span 2;
   }
   .live-badge { font-size: 0.75rem; color: #34d399; font-weight: 600; }
   .scale-card h3 { margin-top: 1rem; font-size: 1.5rem; }
-  .muted { color: #a5b4fc; font-size: 0.875rem; }
+  .muted { color: #93c5fd; font-size: 0.875rem; }
   .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 2rem; }
-  .stat-label { display: block; font-size: 0.7rem; color: #a5b4fc; margin-bottom: 0.25rem; }
+  .stat-label { display: block; font-size: 0.7rem; color: #93c5fd; margin-bottom: 0.25rem; }
   .stats strong { font-size: 1.5rem; }
   .feature-card {
     background: var(--card-bg);

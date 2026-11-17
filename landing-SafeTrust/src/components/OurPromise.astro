@@ -4,32 +4,32 @@ import ConnectWalletCTA from "./ConnectWalletCTA";
 
 const guarantees = [
   {
-    title: "Funds held in smart contract",
+    title: "Rent and deposit held in a smart contract",
     tag: "soroban",
-    desc: "Deposits stay in on-chain escrow, not in a database or custodial account.",
+    desc: "From booking to check-out the money stays in on-chain escrow — not with the host, and not with us.",
     icon: "lucide:shield-check",
     tone: "primary",
   },
   {
-    title: "Released only on dual consent",
+    title: "Released only when guest and host agree",
     tag: "2/2 sig",
-    desc: "Buyer and seller both approve before any release can happen.",
+    desc: "The host is paid once check-in is confirmed. The deposit goes back to the guest after check-out.",
     icon: "lucide:users",
     tone: "accent",
   },
   {
-    title: "Transparent arbitration",
+    title: "Fair damage claims",
     tag: "on-chain",
-    desc: "Disputes follow verifiable evidence and rules anyone can inspect.",
+    desc: "If something goes wrong, claims follow rules and evidence that both guest and host can see.",
     icon: "lucide:scale",
     tone: "emerald",
   },
 ];
 
 const miniBadges = [
-  { label: "Bank-grade security", icon: "lucide:shield-check", tone: "primary" },
-  { label: "End-to-end encrypted", icon: "lucide:lock", tone: "accent" },
-  { label: "USDT protected", icon: "lucide:coins", tone: "gold" },
+  { label: "Deposit protection", icon: "lucide:shield-check", tone: "primary" },
+  { label: "No card details shared", icon: "lucide:lock", tone: "accent" },
+  { label: "Paid in stablecoins", icon: "lucide:coins", tone: "gold" },
 ];
 ---
 
@@ -43,11 +43,12 @@ const miniBadges = [
     <div class="our-promise__content">
       <p class="our-promise__eyebrow">Our promise</p>
       <h2 class="our-promise__headline">
-        Secure, transparent, <em>trusted.</em>
+        Fair for guests. <em>Safe for hosts.</em>
       </h2>
       <p class="our-promise__description">
-        Decentralized escrow that holds every deposit until both parties confirm, with no
-        middlemen, no surprises, and code you can verify yourself.
+        Rent and deposits wait in a decentralized escrow until guest and host both confirm.
+        Guests know their deposit comes back. Hosts know the money is really there before they
+        hand over the keys. And anyone can check the rules in the code.
       </p>
 
       <ConnectWalletCTA client:visible />
@@ -69,12 +70,12 @@ const miniBadges = [
         <span class="our-promise__verified-label">Verified on-chain</span>
         <span class="our-promise__verified-version">
           <span class="our-promise__live-dot" aria-hidden="true"></span>
-          v2.4 mainnet
+          Stellar
         </span>
       </span>
 
       <div class="our-promise__card">
-        <p class="our-promise__card-eyebrow">SafeTrust guarantees</p>
+        <p class="our-promise__card-eyebrow">Every booking includes</p>
 
         <div class="our-promise__guarantees">
           {guarantees.map((guarantee) => (
@@ -103,7 +104,7 @@ const miniBadges = [
     isolation: isolate;
     overflow: hidden;
     padding: clamp(4.5rem, 8vw, 7rem) 1.5rem;
-    background: linear-gradient(135deg, rgba(40, 87, 184, 0.03), rgba(124, 58, 237, 0.03));
+    background: linear-gradient(135deg, rgba(40, 87, 184, 0.04), rgba(249, 115, 22, 0.025));
   }
 
   .our-promise::before {
@@ -146,7 +147,7 @@ const miniBadges = [
     height: 20rem;
     right: -6rem;
     bottom: -3rem;
-    background: rgba(124, 58, 237, 0.14);
+    background: rgba(249, 115, 22, 0.12);
   }
 
   .our-promise__grid {
@@ -186,7 +187,7 @@ const miniBadges = [
     content: "";
     width: 2.5rem;
     height: 1px;
-    background: linear-gradient(90deg, rgba(40, 87, 184, 0.25), #2857b8);
+    background: linear-gradient(90deg, rgba(40, 87, 184, 0.25), #2857b8 70%, #f97316);
     transform-origin: left center;
     animation: eyebrowLine 0.75s ease-out forwards;
   }
@@ -204,7 +205,7 @@ const miniBadges = [
   .our-promise__headline em {
     font-style: italic;
     color: transparent;
-    background: linear-gradient(90deg, #6d28d9, #8b5cf6 55%, #2857b8);
+    background: var(--accent-text);
     -webkit-background-clip: text;
     background-clip: text;
   }
@@ -255,8 +256,8 @@ const miniBadges = [
   }
 
   .our-promise__badge--accent .our-promise__badge-icon {
-    background: rgba(124, 58, 237, 0.16);
-    color: #7c3aed;
+    background: rgba(29, 78, 216, 0.16);
+    color: #1d4ed8;
   }
 
   .our-promise__badge--gold .our-promise__badge-icon {
@@ -373,8 +374,8 @@ const miniBadges = [
   }
 
   .our-promise__guarantee-icon--accent {
-    background: linear-gradient(135deg, rgba(124, 58, 237, 0.18), rgba(167, 139, 250, 0.22));
-    color: #7c3aed;
+    background: linear-gradient(135deg, rgba(29, 78, 216, 0.18), rgba(96, 165, 250, 0.22));
+    color: #1d4ed8;
   }
 
   .our-promise__guarantee-icon--emerald {
@@ -400,13 +401,13 @@ const miniBadges = [
     align-items: center;
     min-height: 1.5rem;
     padding: 0.1rem 0.6rem;
-    border: 1px solid rgba(124, 58, 237, 0.15);
+    border: 1px solid rgba(29, 78, 216, 0.15);
     border-radius: 999px;
-    background: rgba(124, 58, 237, 0.08);
+    background: rgba(29, 78, 216, 0.08);
     font-size: 0.68rem;
     font-weight: 700;
     letter-spacing: 0.04em;
-    color: #6d28d9;
+    color: #1e40af;
     text-transform: lowercase;
   }
 
@@ -448,7 +449,7 @@ const miniBadges = [
   }
 
   :global(.connect-wallet-cta__action:focus-visible) {
-    outline: 2px solid #8b5cf6;
+    outline: 2px solid #f97316;
     outline-offset: 3px;
   }
 
@@ -479,8 +480,8 @@ const miniBadges = [
   }
 
   :global(.connect-wallet-cta__action--secondary:hover) {
-    border-color: rgba(124, 58, 237, 0.24);
-    color: #6d28d9;
+    border-color: rgba(29, 78, 216, 0.24);
+    color: #1e40af;
   }
 
   @media (max-width: 767px) {
@@ -526,7 +527,7 @@ const miniBadges = [
 
   /* Dark mode — keep glassmorphism without near-white surfaces */
   :global(.dark) .our-promise {
-    background: linear-gradient(135deg, rgba(40, 87, 184, 0.08), rgba(124, 58, 237, 0.08));
+    background: linear-gradient(135deg, rgba(40, 87, 184, 0.1), rgba(249, 115, 22, 0.04));
   }
 
   :global(.dark) .our-promise::before {
@@ -541,7 +542,7 @@ const miniBadges = [
   }
 
   :global(.dark) .our-promise__glow--right {
-    background: rgba(167, 139, 250, 0.16);
+    background: rgba(96, 165, 250, 0.16);
     opacity: 0.7;
   }
 
@@ -587,9 +588,9 @@ const miniBadges = [
   }
 
   :global(.dark) .our-promise__tag {
-    background: rgba(167, 139, 250, 0.14);
-    border-color: rgba(167, 139, 250, 0.28);
-    color: #c4b5fd;
+    background: rgba(96, 165, 250, 0.14);
+    border-color: rgba(96, 165, 250, 0.28);
+    color: #bfdbfe;
   }
 
   :global(.dark) .connect-wallet-cta__action--secondary {
@@ -600,7 +601,7 @@ const miniBadges = [
   }
 
   :global(.dark) .connect-wallet-cta__action--secondary:hover {
-    border-color: rgba(167, 139, 250, 0.4);
-    color: #c4b5fd;
+    border-color: rgba(96, 165, 250, 0.4);
+    color: #bfdbfe;
   }
 </style>

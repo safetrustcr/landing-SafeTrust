@@ -18,6 +18,13 @@
   --success: #16a34a;
   --success-tint: #dcfce7;
   --scroll-indicator: #0f172a;
+  /* Orange accent (shared with the SafeTrust rental app) */
+  --orange: #ea580c;
+  --orange-strong: #c2410c;
+  --orange-tint: #fff1e6;
+  --orange-tint-border: #fed7aa;
+  --orange-glow: rgba(234, 88, 12, 0.22);
+  --orange-glow-soft: rgba(249, 115, 22, 0.12);
 }
 
 html.dark {
@@ -40,6 +47,12 @@ html.dark {
   --success: #4ade80;
   --success-tint: #12311e;
   --scroll-indicator: #f8fafc;
+  --orange: #ff7a1a;
+  --orange-strong: #ff6b00;
+  --orange-tint: rgba(255, 107, 0, 0.12);
+  --orange-tint-border: rgba(255, 122, 26, 0.35);
+  --orange-glow: rgba(255, 107, 0, 0.32);
+  --orange-glow-soft: rgba(255, 107, 0, 0.14);
 }
 
 html,
@@ -56,4 +69,109 @@ body {
 
 * {
   box-sizing: border-box;
+}
+
+/* ============================================================
+   Blue + orange accent system
+   Blue carries the page; orange only appears as small lines,
+   dots and gradient tips.
+   ============================================================ */
+
+:root {
+  /* Highlighted words in headings: mostly blue, warm orange tip */
+  --accent-text: linear-gradient(90deg, #1e3a8a 0%, #1d4ed8 45%, #2563eb 80%, #f97316 94%, #ea580c 100%);
+  /* Thin divider / accent lines */
+  --accent-line: linear-gradient(90deg, transparent, #1d4ed8 25%, #3b82f6 62%, #f97316 82%, transparent);
+}
+
+html.dark {
+  --accent-text: linear-gradient(90deg, #60a5fa 0%, #93c5fd 80%, #fdba74 92%, #fb923c 100%);
+  --accent-line: linear-gradient(90deg, transparent, #3b82f6 25%, #60a5fa 62%, #fb923c 82%, transparent);
+}
+
+/* Thin blue→orange line at the top of every section after the hero */
+body > section:not(#hero),
+body > footer {
+  position: relative;
+}
+
+body > section:not(#hero)::after,
+body > footer::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: min(320px, 60%);
+  height: 2px;
+  border-radius: 2px;
+  transform: translateX(-50%);
+  background: var(--accent-line);
+  opacity: 0.8;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Small orange dot before every section eyebrow */
+.eyebrow-pill::before,
+.bwe-eyebrow::before,
+.contributors-eyebrow::before {
+  content: "";
+  display: inline-block;
+  flex-shrink: 0;
+  width: 6px;
+  height: 6px;
+  margin-right: 0.5rem;
+  border-radius: 9999px;
+  vertical-align: middle;
+  background: var(--orange);
+  box-shadow: 0 0 0 3px var(--orange-glow-soft);
+}
+
+/* Short orange bar on the top edge of cards */
+:where(.escrow-card, .benefit-card, .bwe-side) {
+  position: relative;
+}
+
+.escrow-card::before,
+.our-promise__card::before,
+.feature-card::before,
+.scale-card::before,
+.benefit-card::before,
+.stepper-card::before,
+.security-card::before,
+.bwe-summary::before,
+.bwe-side::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 1.5rem;
+  width: 2.5rem;
+  height: 3px;
+  border-radius: 0 0 3px 3px;
+  background: linear-gradient(90deg, #fb923c, var(--orange-strong));
+  transition: width 0.3s ease;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.feature-card:hover::before,
+.benefit-card:hover::before,
+.security-card:hover::before,
+.bwe-side:hover::before {
+  width: 4.5rem;
+}
+
+/* Centered bar for the wide stepper card */
+.stepper-card::before {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .feature-card::before,
+  .benefit-card::before,
+  .security-card::before,
+  .bwe-side::before {
+    transition: none;
+  }
 }

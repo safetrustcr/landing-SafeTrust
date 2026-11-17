@@ -61,7 +61,7 @@ html.js .section-header {
 
 .section-header h2 em {
   font-style: italic;
-  background: linear-gradient(90deg, #6d28d9, #8b5cf6 55%, var(--brand-accent));
+  background: var(--accent-text);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -81,7 +81,7 @@ html.js .section-header {
   border-top: 2px solid color-mix(in srgb, var(--brand-primary) 30%, transparent);
   border-radius: 1.5rem;
   padding: 3rem 2rem;
-  box-shadow: 0 12px 36px -10px var(--shadow-color, rgba(15, 23, 42, 0.08));
+  box-shadow: 0 12px 36px -10px var(--shadow-color, rgba(15, 23, 42, 0.08)), 0 30px 60px -36px var(--orange-glow);
   max-width: 1060px;
   margin: 0 auto;
   position: relative;
@@ -97,7 +97,7 @@ html.dark .stepper-card {
 }
 
 /* Timeline Layout */
-.timeline {
+.how-it-works .timeline {
   display: flex;
   flex-direction: row;
   align-items: flex-start;
@@ -378,6 +378,131 @@ html.dark .connector-fill {
 }
 
 /* ============================================================
+   Active / Pending step animations
+   ============================================================ */
+
+/* Ring drawn around the circle (in-progress + pending) */
+.node-ring {
+  position: absolute;
+  inset: -7px;
+  border-radius: 9999px;
+  pointer-events: none;
+}
+
+/* In progress: spinning gradient arc, tinted with the circle's color */
+.node-ring--in-progress {
+  background: conic-gradient(from 0deg, transparent 0 55%, currentColor 100%);
+  -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 2.5px));
+  mask: radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 2.5px));
+  animation: ring-spin 1.4s linear infinite;
+}
+
+.node-circle[data-status="in-progress"] .node-icon {
+  animation: icon-breathe 2s ease-in-out infinite;
+}
+
+/* Pending: slow dashed orbit + number fading in and out */
+.node-ring--pending {
+  border: 2px dashed currentColor;
+  opacity: 0.45;
+  animation: ring-spin 12s linear infinite;
+}
+
+.node-circle[data-status="pending"] .node-icon {
+  animation: icon-wait 2.4s ease-in-out infinite;
+}
+
+/* Chips */
+.status-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.chip-live-dot {
+  position: relative;
+  width: 6px;
+  height: 6px;
+  border-radius: 9999px;
+  background: currentColor;
+}
+
+.chip-live-dot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: currentColor;
+  animation: dot-ping 1.4s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+.chip-wait-dots {
+  display: inline-flex;
+  gap: 2px;
+}
+
+.chip-wait-dots i {
+  width: 3px;
+  height: 3px;
+  border-radius: 9999px;
+  background: currentColor;
+  animation: wait-dot 1.2s ease-in-out infinite;
+}
+
+.chip-wait-dots i:nth-child(2) { animation-delay: 0.15s; }
+.chip-wait-dots i:nth-child(3) { animation-delay: 0.3s; }
+
+/* Connector from the active step to the pending one: flowing stripes */
+.connector--waiting {
+  background: repeating-linear-gradient(
+    90deg,
+    #f97316 0 8px,
+    transparent 8px 14px
+  );
+  background-size: 28px 100%;
+  animation: connector-flow 0.9s linear infinite;
+}
+
+html.dark .connector--waiting {
+  background: repeating-linear-gradient(90deg, #fb923c 0 8px, transparent 8px 14px);
+  background-size: 28px 100%;
+}
+
+@keyframes ring-spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes icon-breathe {
+  0%, 100% { scale: 1; }
+  50% { scale: 1.12; }
+}
+
+@keyframes icon-wait {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+@keyframes dot-ping {
+  0% { transform: scale(1); opacity: 0.75; }
+  100% { transform: scale(2.6); opacity: 0; }
+}
+
+@keyframes wait-dot {
+  0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+  30% { transform: translateY(-3px); opacity: 1; }
+}
+
+@keyframes connector-flow {
+  from { background-position: 0 0; }
+  to { background-position: 28px 0; }
+}
+
+@keyframes connector-flow-y {
+  from { background-position: 0 0; }
+  to { background-position: 0 28px; }
+}
+
+/* ============================================================
    Accessibility (Reduced Motion)
    ============================================================ */
 
@@ -385,8 +510,13 @@ html.dark .connector-fill {
   .node-circle.in-progress,
   .node-circle[data-status="in-progress"],
   .status-chip.in-progress,
-  .status-chip[data-status="in-progress"] {
-    animation: none;
+  .status-chip[data-status="in-progress"],
+  .node-ring,
+  .node-circle .node-icon,
+  .chip-live-dot::after,
+  .chip-wait-dots i,
+  .connector--waiting {
+    animation: none !important;
   }
 
   .section-header,
@@ -416,7 +546,7 @@ html.dark .connector-fill {
     border-radius: 1.25rem;
   }
 
-  .timeline {
+  .how-it-works .timeline {
     flex-direction: column;
     align-items: flex-start;
     gap: 0;
@@ -450,6 +580,21 @@ html.dark .connector-fill {
   .connector-fill {
     transform-origin: top center;
     transform: scaleY(0);
+  }
+
+  .connector--waiting,
+  html.dark .connector--waiting {
+    background-image: repeating-linear-gradient(
+      180deg,
+      #f97316 0 8px,
+      transparent 8px 14px
+    );
+    background-size: 100% 28px;
+    animation-name: connector-flow-y;
+  }
+
+  .node-ring {
+    inset: -6px;
   }
 
   .step-content {

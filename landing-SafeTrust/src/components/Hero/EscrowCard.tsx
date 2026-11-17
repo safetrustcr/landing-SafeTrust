@@ -82,18 +82,18 @@ export default function EscrowCard() {
   return (
     <div className="escrow-card">
       <div className="escrow-header">
-        <h3>Live Escrow</h3>
+        <h3>Booking Escrow</h3>
         <span className="status-active">● Active</span>
       </div>
 
-      <p className="label">Deposit Amount</p>
+      <p className="label">Rent + deposit · Casa Níspero, 3 nights</p>
       <p className="amount">
-        $2,500 <span className="currency">USDC</span>
+        $430 <span className="currency">USDC</span>
       </p>
 
       <div className="progress-section">
         <div className="progress-label">
-          <span>Confirmation Progress</span>
+          <span>Booking progress</span>
           <span>{progress}%</span>
         </div>
         <div className="progress-track">
@@ -102,14 +102,14 @@ export default function EscrowCard() {
       </div>
 
       <div className="timeline">
-        <p className="timeline-label">Confirmation Timeline</p>
-        {renderTimelineItem("deposit", "Deposit Sent")}
-        {renderTimelineItem("escrow", "In Escrow")}
-        {renderTimelineItem("confirmed", "Confirmed")}
+        <p className="timeline-label">Booking timeline</p>
+        {renderTimelineItem("deposit", "Guest paid")}
+        {renderTimelineItem("escrow", "Held in escrow")}
+        {renderTimelineItem("confirmed", "Check-in confirmed")}
       </div>
 
       <div className="footer">
-        <span>🌐 Stellar Mainnet</span>
+        <span>🌐 Stellar</span>
       </div>
     </div>
   );

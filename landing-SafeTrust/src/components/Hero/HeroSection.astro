@@ -5,7 +5,7 @@ import CTAButtons from "./CTAButtons.astro";
 import EscrowCard from "./EscrowCard.tsx";
 ---
 
-<section id="hero" class="hero-section" aria-label="Hero section - SafeTrust secure P2P transactions platform">
+<section id="hero" class="hero-section" aria-label="SafeTrust rental escrow for homes and hotels">
   <div class="background-visual" aria-hidden="true">
     <div class="gradient-mesh"></div>
     <div class="grid-pattern"></div>
@@ -17,17 +17,18 @@ import EscrowCard from "./EscrowCard.tsx";
     <div class="hero-content">
       <div class="badge fade-in">
         <span class="star-icon">★</span>
-        <span>Live on Stellar mainnet</span>
+        <span>Built on Stellar</span>
       </div>
 
       <h1 class="hero-headline fade-in" style="animation-delay: 0.1s">
-        Secure deposits. Zero intermediaries. P2P escrow you can
+        Rent homes and hotels with escrow you can
         <em class="highlight">actually trust.</em>
       </h1>
 
       <p class="hero-subheading fade-in" style="animation-delay: 0.2s">
-        SafeTrust holds your funds in tamper-proof blockchain escrow on Stellar —
-        automatically released when both parties agree. No banks, no middlemen, no risk.
+        SafeTrust holds rent and security deposits in a smart contract on Stellar. The host is
+        paid when check-in is confirmed, and the guest gets the deposit back after check-out.
+        Guest and host can both check every step, and no one in the middle holds the money.
       </p>
 
       <CTAButtons />
@@ -49,13 +50,16 @@ import EscrowCard from "./EscrowCard.tsx";
   .background-visual { position: absolute; inset: 0; z-index: -1; }
   .gradient-mesh {
     position: absolute; inset: 0;
-    background: radial-gradient(circle at 70% 30%, rgba(40,87,184,0.15), transparent 60%);
+    background:
+      radial-gradient(circle at 70% 30%, rgba(40,87,184,0.15), transparent 60%),
+      radial-gradient(circle at 88% 78%, rgba(249,115,22,0.14), transparent 45%),
+      radial-gradient(circle at 8% 92%, rgba(249,115,22,0.08), transparent 40%);
   }
   :global(.dark) .gradient-mesh {
     background:
       radial-gradient(ellipse 80% 60% at 70% 10%, rgba(40, 87, 184, 0.25) 0%, transparent 70%),
-      radial-gradient(ellipse 60% 50% at 10% 80%, rgba(124, 58, 237, 0.20) 0%, transparent 65%),
-      radial-gradient(ellipse 50% 40% at 90% 85%, rgba(6, 182, 212, 0.12) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 50% at 10% 80%, rgba(37, 99, 235, 0.24) 0%, transparent 65%),
+      radial-gradient(ellipse 50% 40% at 90% 85%, rgba(255, 107, 0, 0.16) 0%, transparent 60%),
       linear-gradient(160deg, #060d1f 0%, #0a1128 50%, #060d1f 100%);
   }
   .grid-pattern {
@@ -94,7 +98,7 @@ import EscrowCard from "./EscrowCard.tsx";
     color: var(--foreground);
   }
   .highlight {
-    background: linear-gradient(to right, #2857B8, #7c3aed);
+    background: var(--accent-text);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
@@ -107,6 +111,10 @@ import EscrowCard from "./EscrowCard.tsx";
     line-height: 1.6;
   }
   .escrow-card-container { display: flex; justify-content: center; }
+  .escrow-card-container :global(.escrow-card) {
+    box-shadow: 0 10px 30px -10px rgba(0,0,0,0.1), 0 30px 70px -30px var(--orange-glow);
+  }
+  .star-icon { color: var(--orange); }
   .scroll-indicator {
     position: absolute; bottom: 2rem; left: 50%;
     transform: translateX(-50%);
@@ -131,8 +139,8 @@ import EscrowCard from "./EscrowCard.tsx";
   :global(.dark) .gradient-mesh {
     background:
       radial-gradient(ellipse 80% 60% at 70% 10%, rgba(40, 87, 184, 0.25) 0%, transparent 70%),
-      radial-gradient(ellipse 60% 50% at 10% 80%, rgba(124, 58, 237, 0.20) 0%, transparent 65%),
-      radial-gradient(ellipse 50% 40% at 90% 85%, rgba(6, 182, 212, 0.12) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 50% at 10% 80%, rgba(37, 99, 235, 0.24) 0%, transparent 65%),
+      radial-gradient(ellipse 50% 40% at 90% 85%, rgba(255, 107, 0, 0.16) 0%, transparent 60%),
       linear-gradient(160deg, #060d1f 0%, #0a1128 50%, #060d1f 100%);
   }
 
