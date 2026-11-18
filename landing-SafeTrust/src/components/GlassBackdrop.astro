@@ -1,0 +1,15 @@
+---
+// Slowly drifting blue/orange light behind a section, so the glass cards
+// on top have colour to blur. Styles live in src/styles/glass.css.
+interface Props {
+  variant?: "left" | "right" | "center" | "hero";
+}
+
+const { variant = "left" } = Astro.props;
+---
+
+<div class={`glass-backdrop glass-backdrop--${variant}`} aria-hidden="true">
+  <span class="glass-blob glass-blob--blue"></span>
+  <span class="glass-blob glass-blob--sky"></span>
+  <span class="glass-blob glass-blob--orange"></span>
+</div>

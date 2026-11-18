@@ -3,6 +3,7 @@ import Navbar from "../Navbar.astro";
 import TrustBadges from "./TrustBadges.astro";
 import CTAButtons from "./CTAButtons.astro";
 import EscrowCard from "./EscrowCard.tsx";
+import GlassBackdrop from "../GlassBackdrop.astro";
 ---
 
 <section id="hero" class="hero-section" aria-label="SafeTrust rental escrow for homes and hotels">
@@ -10,6 +11,7 @@ import EscrowCard from "./EscrowCard.tsx";
     <div class="gradient-mesh"></div>
     <div class="grid-pattern"></div>
   </div>
+  <GlassBackdrop variant="hero" />
 
   <Navbar />
 
@@ -111,8 +113,12 @@ import EscrowCard from "./EscrowCard.tsx";
     line-height: 1.6;
   }
   .escrow-card-container { display: flex; justify-content: center; }
-  .escrow-card-container :global(.escrow-card) {
-    box-shadow: 0 10px 30px -10px rgba(0,0,0,0.1), 0 30px 70px -30px var(--orange-glow);
+  .escrow-card-container :global(.escrow-glass) {
+    max-width: 360px;
+    box-shadow: 0 10px 30px -10px rgba(0,0,0,0.12), 0 30px 70px -30px var(--orange-glow);
+  }
+  @media (max-width: 480px) {
+    .escrow-card-container :global(.escrow-glass) { max-width: 100%; }
   }
   .star-icon { color: var(--orange); }
   .scroll-indicator {

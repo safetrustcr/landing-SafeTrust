@@ -1,4 +1,6 @@
 ---
+import GlassBackdrop from "../GlassBackdrop.astro";
+
 const features = [
   { num: "01", title: "Smart Escrow", tag: "Security", desc: "Rent and deposit are locked in a contract that needs both guest and host to release it." },
   { num: "02", title: "Built on Stellar", tag: "Network", desc: "Low-cost payments and Soroban smart contracts on the Stellar network." },
@@ -8,6 +10,7 @@ const features = [
 ---
 
 <section id="features" class="discover">
+  <GlassBackdrop variant="right" />
   <p class="eyebrow-pill">Capabilities</p>
   <h2>Escrow built for <em>rentals and stays</em></h2>
   <p class="lead">
@@ -16,7 +19,7 @@ const features = [
   </p>
 
   <div class="discover-grid">
-    <div class="scale-card">
+    <div class="scale-card glass-card">
       <span class="live-badge">● Live Network</span>
       <h3>Platform Scale</h3>
       <p class="muted">Real-time metrics from the SafeTrust network</p>
@@ -28,7 +31,7 @@ const features = [
     </div>
 
     {features.map((f) => (
-      <div class="feature-card">
+      <div class="feature-card glass-card">
         <span class="num">{f.num}</span>
         <h3>{f.title}</h3>
         <p>{f.desc}</p>

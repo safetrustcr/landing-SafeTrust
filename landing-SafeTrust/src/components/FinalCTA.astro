@@ -6,7 +6,7 @@ import GlassPanel from "./GlassPanel.tsx";
   <div class="cta-bg-overlay"></div>
   
   <div class="cta-glass-wrap">
-  <GlassPanel client:visible id="final-cta-glass" className="cta-glass">
+  <GlassPanel client:visible className="cta-glass">
   <div class="cta-content">
     <div class="eyebrow-container">
       <span class="eyebrow-pill">
@@ -116,13 +116,13 @@ import GlassPanel from "./GlassPanel.tsx";
     margin: 0 auto;
   }
 
-  /* react-glass-ui sets width: fit-content inline; stretch it to the wrapper */
-  .cta-glass-wrap :global(.cta-glass) {
-    width: 100% !important;
-  }
-
-  .cta-glass-wrap :global(.glass-panel-content) {
-    overflow: visible;
+  /* Deep-blue tint inside the glass keeps the white text readable in both themes */
+  .cta-glass-wrap :global(.glass-surface.cta-glass) {
+    background-color: rgba(11, 21, 51, 0.32);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.35),
+      inset 0 0 0 1px rgba(255, 255, 255, 0.18),
+      0 30px 80px -30px rgba(2, 6, 23, 0.6);
   }
 
   .cta-content {

@@ -199,3 +199,11 @@
     padding-top: 0.75rem;
   }
 }
+
+/* Inside the GlassSurface wrapper the card itself is transparent */
+.glass-surface.escrow-glass .escrow-card {
+  max-width: none;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+}

@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { CheckCircle, Clock } from "lucide-react";
 import "../../styles/escrow-card.css";
+import GlassSurface from "../GlassSurface/GlassSurface.jsx";
 
 type StepState = "done" | "pending" | "idle";
 
@@ -80,6 +81,19 @@ export default function EscrowCard() {
   };
 
   return (
+    <GlassSurface
+      className="escrow-glass"
+      width="100%"
+      height="auto"
+      borderRadius={16}
+      backgroundOpacity={0.4}
+      brightness={55}
+      opacity={0.9}
+      blur={10}
+      displace={0.4}
+      distortionScale={-120}
+      saturation={1.4}
+    >
     <div className="escrow-card">
       <div className="escrow-header">
         <h3>Booking Escrow</h3>
@@ -112,5 +126,6 @@ export default function EscrowCard() {
         <span>🌐 Stellar</span>
       </div>
     </div>
+    </GlassSurface>
   );
 }

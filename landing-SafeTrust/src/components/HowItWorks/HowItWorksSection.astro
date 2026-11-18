@@ -1,6 +1,7 @@
 ---
 // src/components/HowItWorks/HowItWorksSection.astro
 import Stepper from "./Stepper.jsx";
+import GlassBackdrop from "../GlassBackdrop.astro";
 import "../../styles/stepper.css";
 
 const STEPS = [
@@ -19,6 +20,7 @@ const STATUS_CONFIG = {
 
 <section id="how-it-works" class="how-it-works" aria-label="How a SafeTrust rental escrow works">
   <div class="progress-bar" data-progress-bar></div>
+  <GlassBackdrop variant="center" />
 
   <div class="section-header" data-header>
     <p class="eyebrow-pill">HOW IT WORKS</p>
@@ -26,7 +28,7 @@ const STATUS_CONFIG = {
     <p class="subtitle">From booking to check-out — every stay follows the same transparent flow.</p>
   </div>
 
-  <div class="stepper-card">
+  <div class="stepper-card glass-card">
     <div class="timeline">
       {Array.from({ length: STEPS.length * 2 - 1 }).map((_, i) => {
         if (i % 2 === 0) {

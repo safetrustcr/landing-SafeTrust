@@ -1,0 +1,224 @@
+/* ============================================================
+   SafeTrust · Glass layer
+   - .glass-card: frosted glass for repeated cards (CSS only,
+     same look as GlassSurface's frosted mode)
+   - .glass-backdrop: slow drifting blue/orange light behind
+     sections, so the glass has colour to blur
+   - Reveal-on-scroll + hover light sweep
+   The headline pieces (hero escrow card, booking summary, final
+   CTA) use the GlassSurface React component for real refraction.
+   ============================================================ */
+
+:root {
+  --glass-bg: rgba(255, 255, 255, 0.58);
+  --glass-hi: rgba(255, 255, 255, 0.85);
+  --glass-hi-soft: rgba(255, 255, 255, 0.35);
+  --glass-sheen: rgba(255, 255, 255, 0.42);
+  --glass-sweep: rgba(255, 255, 255, 0.55);
+  --glass-blob-opacity: 0.45;
+}
+
+html.dark {
+  --glass-bg: rgba(15, 23, 42, 0.5);
+  --glass-hi: rgba(255, 255, 255, 0.22);
+  --glass-hi-soft: rgba(255, 255, 255, 0.06);
+  --glass-sheen: rgba(255, 255, 255, 0.1);
+  --glass-sweep: rgba(255, 255, 255, 0.12);
+  --glass-blob-opacity: 0.32;
+}
+
+/* Each section is its own stacking context, so backdrops with
+   z-index: -1 sit above the section background but below content. */
+body > section {
+  isolation: isolate;
+}
+
+/* ---------- Frosted glass cards ---------- */
+
+:where(.glass-card) {
+  position: relative;
+  isolation: isolate;
+}
+
+/* Doubled class + :root beats the per-section card backgrounds */
+:root .glass-card.glass-card {
+  background: var(--glass-bg);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+  backdrop-filter: blur(16px) saturate(160%);
+}
+
+/* Sheen + rim highlight, painted under the card content */
+:root .glass-card.glass-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  pointer-events: none;
+  background:
+    linear-gradient(115deg, transparent 38%, var(--glass-sweep) 50%, transparent 62%) 100% 0 / 260% 100% no-repeat,
+    linear-gradient(135deg, var(--glass-sheen) 0%, transparent 42%, transparent 64%, var(--glass-hi-soft) 100%);
+  box-shadow:
+    inset 0 1px 0 0 var(--glass-hi),
+    inset 0 -1px 0 0 var(--glass-hi-soft),
+    inset 0 0 12px 2px var(--glass-hi-soft);
+  opacity: 1;
+  transition: background-position 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Light sweep across the glass on hover */
+:root .glass-card.glass-card:hover::after {
+  background-position: 0% 0, 0 0;
+}
+
+/* Tinted variants */
+:root .scale-card.glass-card {
+  background: linear-gradient(160deg, rgba(11, 21, 51, 0.82), rgba(30, 58, 138, 0.72));
+}
+
+:root .lead-card.glass-card {
+  background: rgba(219, 234, 254, 0.62);
+}
+
+:root.dark .lead-card.glass-card {
+  background: rgba(30, 58, 138, 0.35);
+}
+
+/* Contributors sit on a dark sky in both themes */
+:root .contributor-card.glass-card {
+  background: rgba(255, 255, 255, 0.82);
+}
+
+:root.dark .contributor-card.glass-card {
+  background: rgba(30, 41, 59, 0.55);
+}
+
+/* ---------- GlassSurface islands ---------- */
+
+.glass-surface .glass-surface__content {
+  padding: 0;
+  display: block;
+}
+
+/* ---------- Drifting light behind sections ---------- */
+
+.glass-backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.glass-blob {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(70px);
+  opacity: var(--glass-blob-opacity);
+  will-change: transform;
+  animation: glass-drift 22s ease-in-out infinite alternate;
+}
+
+.glass-blob--blue {
+  width: 34rem;
+  height: 34rem;
+  background: radial-gradient(circle, #2563eb, transparent 68%);
+}
+
+.glass-blob--sky {
+  width: 26rem;
+  height: 26rem;
+  background: radial-gradient(circle, #60a5fa, transparent 68%);
+  animation-duration: 28s;
+  animation-delay: -6s;
+}
+
+.glass-blob--orange {
+  width: 18rem;
+  height: 18rem;
+  background: radial-gradient(circle, #f97316, transparent 68%);
+  opacity: calc(var(--glass-blob-opacity) * 0.7);
+  animation-duration: 18s;
+  animation-delay: -3s;
+}
+
+/* Placements */
+.glass-backdrop--left .glass-blob--blue { top: -8rem; left: -10rem; }
+.glass-backdrop--left .glass-blob--sky { bottom: -6rem; right: 8%; }
+.glass-backdrop--left .glass-blob--orange { top: 40%; right: -4rem; }
+
+.glass-backdrop--right .glass-blob--blue { top: 10%; right: -12rem; }
+.glass-backdrop--right .glass-blob--sky { bottom: -8rem; left: 6%; }
+.glass-backdrop--right .glass-blob--orange { top: -4rem; left: 30%; }
+
+.glass-backdrop--center .glass-blob--blue { top: 20%; left: 18%; }
+.glass-backdrop--center .glass-blob--sky { top: 30%; right: 12%; }
+.glass-backdrop--center .glass-blob--orange { bottom: -4rem; left: 46%; }
+
+.glass-backdrop--hero .glass-blob--blue { top: 12%; right: 4%; }
+.glass-backdrop--hero .glass-blob--sky { bottom: -10rem; left: -8rem; }
+.glass-backdrop--hero .glass-blob--orange { top: 52%; right: 22%; }
+
+@keyframes glass-drift {
+  0% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(3rem, -2rem, 0) scale(1.08); }
+  100% { transform: translate3d(-2rem, 2.5rem, 0) scale(0.96); }
+}
+
+/* Existing section glows drift too */
+.bwe-glow,
+.our-promise__glow {
+  animation: glass-drift 24s ease-in-out infinite alternate;
+}
+
+/* ---------- Gentle float for the hero glass card ---------- */
+
+.escrow-glass {
+  animation: glass-float 7s ease-in-out infinite;
+}
+
+@keyframes glass-float {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -10px; }
+}
+
+/* ---------- Reveal on scroll (CSS scroll-driven, no JS) ---------- */
+
+@supports (animation-timeline: view()) {
+  .glass-card,
+  .bwe-summary-glass,
+  .cta-glass {
+    animation: glass-reveal linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 60%;
+  }
+}
+
+@keyframes glass-reveal {
+  from {
+    opacity: 0;
+    translate: 0 28px;
+    scale: 0.97;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+    scale: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .glass-blob,
+  .bwe-glow,
+  .our-promise__glow,
+  .escrow-glass,
+  .glass-card,
+  .bwe-summary-glass,
+  .cta-glass {
+    animation: none !important;
+  }
+
+  :root .glass-card.glass-card::after {
+    transition: none;
+  }
+}

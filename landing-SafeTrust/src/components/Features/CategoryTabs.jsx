@@ -121,7 +121,7 @@ export default function InteractiveFeatures() {
         {filteredFeatures.map((feature) => (
           <article
             key={feature.id}
-            className={`benefit-card ${feature.id === "secure-escrow" ? "lead-card" : ""}`}
+            className={`benefit-card glass-card ${feature.id === "secure-escrow" ? "lead-card" : ""}`}
             role="listitem"
           >
             <div className="card-top-bar">
