@@ -22,6 +22,7 @@ import {
 } from "lucide-react";
 // @ts-expect-error CSS side-effect imports are handled by the application bundler.
 import "../../styles/book-with-escrow.css";
+import GlassSurface from "../GlassSurface/GlassSurface.jsx";
 
 type Kind = "Apartment" | "House" | "Hotel" | "Beach house";
 
@@ -200,7 +201,7 @@ export default function BookingShowcase() {
             <article
               key={l.id}
               role="listitem"
-              className={`bwe-card${isSelected ? " is-selected" : ""}`}
+              className={`bwe-card glass-card${isSelected ? " is-selected" : ""}`}
               onClick={() => select(l.id)}
             >
               <div className="bwe-card-media">
@@ -285,7 +286,21 @@ export default function BookingShowcase() {
         })}
       </div>
 
-      <aside className="bwe-summary" ref={summaryRef} aria-live="polite">
+      <aside className="bwe-summary-shell" ref={summaryRef} aria-live="polite">
+        <GlassSurface
+          className="bwe-summary-glass"
+          width="100%"
+          height="auto"
+          borderRadius={20}
+          backgroundOpacity={0.45}
+          brightness={55}
+          opacity={0.9}
+          blur={10}
+          displace={0.4}
+          distortionScale={-120}
+          saturation={1.4}
+        >
+        <div className="bwe-summary">
         <div className="bwe-summary-head">
           <img src={listing.image} alt="" aria-hidden="true" />
           <div>
@@ -383,6 +398,8 @@ export default function BookingShowcase() {
             })}
           </ol>
         </div>
+        </div>
+        </GlassSurface>
       </aside>
     </div>
   );

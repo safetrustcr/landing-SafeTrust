@@ -395,11 +395,28 @@ html.dark .bwe-summary {
   background: #111a2e;
 }
 
+.bwe-summary-shell {
+  scroll-margin-top: 5.5rem;
+}
+
 @media (min-width: 1024px) {
-  .bwe-summary {
+  .bwe-summary-shell {
     position: sticky;
     top: 6rem;
   }
+}
+
+.bwe-summary-glass {
+  box-shadow: 0 24px 60px -28px rgba(29, 78, 216, 0.45), 0 10px 30px -18px var(--shadow-color);
+}
+
+.glass-surface.bwe-summary-glass .bwe-summary,
+html.dark .glass-surface.bwe-summary-glass .bwe-summary {
+  background: transparent;
+  border-left: none;
+  border-right: none;
+  border-bottom: none;
+  box-shadow: none;
 }
 
 .bwe-summary-head {

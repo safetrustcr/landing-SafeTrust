@@ -1,6 +1,7 @@
 ---
 // Contributors.astro
 import "../styles/contributors.css";
+import GlassBackdrop from "./GlassBackdrop.astro";
 
 interface Contributor {
   login: string;
@@ -51,6 +52,7 @@ const contributorCount = usePlaceholders
 <!-- Contributors section intentionally keeps its dark “cosmic” background in both themes.
      Only the contributor card surfaces adapt for dark mode. -->
 <section id="contributors" class="contributors-section">
+  <GlassBackdrop variant="center" />
   <div class="contributors-inner">
     <span class="contributors-eyebrow">Contributors</span>
     <h2 class="contributors-title">Meet the visionaries building SafeTrust</h2>
@@ -76,7 +78,7 @@ const contributorCount = usePlaceholders
         {
           usePlaceholders
             ? placeholders.map(() => (
-                <article class="contributor-card">
+                <article class="contributor-card glass-card">
                   <span class="contributor-avatar contributor-avatar-placeholder">
                     <svg
                       viewBox="0 0 24 24"
@@ -121,7 +123,7 @@ const contributorCount = usePlaceholders
                 </article>
               ))
             : contributors.map((contributor) => (
-                <article class="contributor-card">
+                <article class="contributor-card glass-card">
                   <img
                     class="contributor-avatar"
                     src={contributor.avatar_url}

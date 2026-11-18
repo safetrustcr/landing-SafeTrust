@@ -1,45 +1,32 @@
 import type { ReactNode } from "react";
-import { GlassCard } from "react-glass-ui";
+import GlassSurface from "./GlassSurface/GlassSurface.jsx";
 
 interface GlassPanelProps {
   children?: ReactNode;
   className?: string;
-  /** Stable id: keeps the SVG filter id identical between SSR and hydration. */
-  id: string;
 }
 
-/** Liquid-glass wrapper (react-glass-ui) used by the Final CTA section. */
-export default function GlassPanel({ children, className, id }: GlassPanelProps) {
+/** Large refractive glass panel (GlassSurface) used by the Final CTA section. */
+export default function GlassPanel({ children, className = "" }: GlassPanelProps) {
   return (
-    <GlassCard
-      id={id}
+    <GlassSurface
       className={className}
-      contentClassName="glass-panel-content"
-      padding="0"
-      blur={4}
-      distortion={40}
-      flexibility={0}
-      borderColor="#ffffff"
-      borderSize={1}
+      width="100%"
+      height="auto"
       borderRadius={30}
-      borderOpacity={0.4}
-      backgroundColor="#000000"
-      backgroundOpacity={0.2}
-      innerLightColor="#ffffff"
-      innerLightSpread={1}
-      innerLightBlur={10}
-      innerLightOpacity={0}
-      outerLightColor="#ffffff"
-      outerLightSpread={1}
-      outerLightBlur={10}
-      outerLightOpacity={0}
-      color="#ffffff"
-      chromaticAberration={0}
-      onHoverScale={1}
-      saturation={100}
-      brightness={100}
+      borderWidth={0.07}
+      brightness={50}
+      opacity={0.93}
+      blur={11}
+      displace={0.5}
+      backgroundOpacity={0.1}
+      saturation={1.2}
+      distortionScale={-180}
+      redOffset={0}
+      greenOffset={10}
+      blueOffset={20}
     >
       {children}
-    </GlassCard>
+    </GlassSurface>
   );
 }
