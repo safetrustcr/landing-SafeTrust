@@ -1,0 +1,757 @@
+/* ============================================================
+   SafeTrust · Book with Escrow (rentals use case)
+   Loaded globally by a React island, so every class is bwe-prefixed.
+   ============================================================ */
+
+.bwe-section {
+  position: relative;
+  padding: 5rem 1.5rem;
+  background: var(--background);
+  color: var(--foreground);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* Warm orange glows behind the content */
+.bwe-glow {
+  position: absolute;
+  z-index: -1;
+  width: 38rem;
+  height: 38rem;
+  border-radius: 9999px;
+  filter: blur(40px);
+  pointer-events: none;
+}
+
+.bwe-glow--a {
+  top: -10rem;
+  left: -12rem;
+  background: radial-gradient(circle, rgba(37, 99, 235, 0.14), transparent 70%);
+}
+
+.bwe-glow--b {
+  bottom: -14rem;
+  right: -10rem;
+  background: radial-gradient(circle, var(--orange-glow), transparent 70%);
+  opacity: 0.6;
+}
+
+.bwe-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Header */
+.bwe-header {
+  text-align: center;
+  max-width: 44rem;
+  margin: 0 auto 3rem;
+}
+
+.bwe-eyebrow {
+  display: inline-block;
+  margin: 0 0 1.1rem;
+  padding: 0.4rem 1.1rem;
+  border-radius: 9999px;
+  background: var(--brand-tint);
+  border: 1px solid var(--brand-tint-border);
+  color: var(--brand-accent);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+html.dark .bwe-eyebrow {
+  color: var(--brand-accent);
+}
+
+.bwe-header h2 {
+  font-size: clamp(1.85rem, 4.5vw, 2.75rem);
+  font-weight: 800;
+  line-height: 1.2;
+  margin: 0 0 1rem;
+}
+
+.bwe-header h2 em {
+  font-style: italic;
+  background: var(--accent-text);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.bwe-subtitle {
+  color: var(--muted-foreground);
+  font-size: 1.05rem;
+  line-height: 1.65;
+  margin: 0;
+}
+
+.bwe-subtitle strong {
+  color: var(--brand-accent);
+}
+
+/* Layout */
+.bwe-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+@media (min-width: 1024px) {
+  .bwe-layout {
+    grid-template-columns: minmax(0, 1fr) 360px;
+  }
+}
+
+.bwe-listings {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media (min-width: 640px) {
+  .bwe-listings {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Shared buttons */
+.bwe-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 2.75rem;
+  padding: 0.65rem 1.1rem;
+  border-radius: 0.75rem;
+  font: inherit;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+}
+
+.bwe-btn:focus-visible,
+.bwe-fav:focus-visible,
+.bwe-stepper button:focus-visible {
+  outline: 2px solid var(--orange);
+  outline-offset: 2px;
+}
+
+.bwe-btn--primary {
+  border: none;
+  color: #fff;
+  background: linear-gradient(135deg, #2563eb, #1e3a8a);
+  box-shadow: 0 8px 20px -8px rgba(29, 78, 216, 0.45);
+}
+
+.bwe-btn--primary:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 26px -8px rgba(29, 78, 216, 0.55);
+}
+
+.bwe-btn--primary:disabled {
+  cursor: progress;
+}
+
+.bwe-btn--primary.is-running {
+  background-image: linear-gradient(110deg, #1e3a8a 30%, #60a5fa 50%, #1e3a8a 70%);
+  background-size: 220% 100%;
+  animation: bwe-shimmer 1.3s linear infinite;
+}
+
+.bwe-btn--primary.is-done {
+  background: linear-gradient(135deg, #22c55e, #15803d);
+  box-shadow: 0 8px 20px -8px rgba(22, 163, 74, 0.45);
+}
+
+.bwe-btn--outline {
+  background: transparent;
+  color: var(--brand-accent);
+  border: 1.5px solid var(--brand-tint-border);
+}
+
+.bwe-btn--outline:hover {
+  background: var(--brand-tint);
+  border-color: var(--brand-accent);
+}
+
+.bwe-btn--block {
+  width: 100%;
+}
+
+/* Listing card */
+.bwe-card {
+  display: flex;
+  flex-direction: column;
+  border-radius: 1.1rem;
+  overflow: hidden;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  box-shadow: 0 10px 30px -16px var(--shadow-color);
+  cursor: pointer;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+html.dark .bwe-card {
+  background: #111a2e;
+}
+
+.bwe-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 22px 44px -20px rgba(29, 78, 216, 0.4);
+}
+
+.bwe-card.is-selected {
+  border-color: var(--brand-accent);
+  box-shadow: 0 0 0 1px var(--brand-accent), 0 22px 48px -18px rgba(29, 78, 216, 0.45);
+}
+
+.bwe-card-media {
+  position: relative;
+  aspect-ratio: 3 / 2;
+  overflow: hidden;
+  background: var(--surface-subtle);
+}
+
+.bwe-card-media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.bwe-card:hover .bwe-card-media img {
+  transform: scale(1.05);
+}
+
+.bwe-kind {
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.3rem 0.65rem;
+  border-radius: 9999px;
+  background: rgba(15, 23, 42, 0.55);
+  backdrop-filter: blur(8px);
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.bwe-promoted {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.4rem 0.8rem;
+  border-top-right-radius: 0.6rem;
+  background: var(--orange-strong);
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.bwe-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 1rem 1.1rem 1.15rem;
+  flex: 1;
+}
+
+.bwe-card-price-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.bwe-price {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 800;
+}
+
+.bwe-price span {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--muted-foreground);
+}
+
+.bwe-fav {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 9999px;
+  border: none;
+  background: transparent;
+  color: #ef4444;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.bwe-fav:hover {
+  background: rgba(239, 68, 68, 0.1);
+}
+
+.bwe-fav.is-on svg {
+  fill: currentColor;
+}
+
+.bwe-fav:active {
+  transform: scale(0.9);
+}
+
+.bwe-title {
+  margin: 0;
+  font-size: 1.02rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.bwe-address {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--muted-foreground);
+}
+
+.bwe-address svg {
+  flex-shrink: 0;
+}
+
+.bwe-amenities {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 0.9rem;
+  list-style: none;
+  margin: 0.35rem 0 0.85rem;
+  padding: 0;
+  font-size: 0.8rem;
+  color: var(--muted-foreground);
+}
+
+.bwe-amenities li {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.bwe-amenities svg {
+  color: var(--brand-accent);
+}
+
+.bwe-rating {
+  margin-left: auto;
+  font-weight: 700;
+  color: var(--foreground);
+}
+
+.bwe-rating svg {
+  fill: #f59e0b;
+  color: #f59e0b;
+}
+
+.bwe-card-book {
+  margin-top: auto;
+}
+
+.bwe-card.is-selected .bwe-card-book {
+  background: var(--brand-tint);
+  color: var(--brand-accent);
+  box-shadow: inset 0 0 0 1.5px var(--brand-accent);
+}
+
+/* Booking summary */
+.bwe-summary {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  padding: 1.4rem;
+  border-radius: 1.25rem;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-top: 3px solid var(--brand-accent);
+  box-shadow: 0 24px 60px -28px rgba(29, 78, 216, 0.4), 0 10px 30px -18px var(--shadow-color);
+  scroll-margin-top: 5.5rem;
+  position: relative;
+}
+
+html.dark .bwe-summary {
+  background: #111a2e;
+}
+
+@media (min-width: 1024px) {
+  .bwe-summary {
+    position: sticky;
+    top: 6rem;
+  }
+}
+
+.bwe-summary-head {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.bwe-summary-head img {
+  width: 3.25rem;
+  height: 3.25rem;
+  border-radius: 0.75rem;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.bwe-summary-kind {
+  margin: 0;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brand-accent);
+}
+
+.bwe-summary-title {
+  margin: 0.1rem 0 0;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.bwe-summary-price {
+  margin: 0.25rem 0 0;
+  font-size: 1.6rem;
+  font-weight: 800;
+}
+
+.bwe-summary-price span {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--muted-foreground);
+}
+
+.bwe-nights {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  color: var(--muted-foreground);
+}
+
+.bwe-stepper {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.2rem;
+  border-radius: 9999px;
+  border: 1px solid var(--card-border);
+}
+
+.bwe-stepper button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.9rem;
+  height: 1.9rem;
+  border-radius: 9999px;
+  border: none;
+  background: var(--surface-subtle);
+  color: var(--foreground);
+  cursor: pointer;
+}
+
+.bwe-stepper button:hover:not(:disabled) {
+  background: var(--brand-tint);
+  color: var(--brand-accent);
+}
+
+.bwe-stepper button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.bwe-stepper output {
+  min-width: 1.75rem;
+  text-align: center;
+  font-weight: 700;
+  color: var(--foreground);
+}
+
+.bwe-lines {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  padding: 0.85rem 0;
+  border-top: 1px solid var(--card-border);
+  border-bottom: 1px solid var(--card-border);
+  font-size: 0.875rem;
+}
+
+.bwe-lines div {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.bwe-lines dt {
+  color: var(--muted-foreground);
+}
+
+.bwe-lines dd {
+  margin: 0;
+  font-weight: 600;
+}
+
+.bwe-included {
+  color: var(--success);
+}
+
+.bwe-total {
+  padding-top: 0.55rem;
+  border-top: 1px dashed var(--card-border);
+  font-size: 1rem;
+}
+
+.bwe-total dt {
+  color: var(--foreground);
+  font-weight: 700;
+}
+
+.bwe-total dd {
+  font-weight: 800;
+  color: var(--brand-accent);
+}
+
+.bwe-note {
+  margin: 0;
+  padding: 0.75rem 0.9rem;
+  border-radius: 0.75rem;
+  background: var(--brand-tint);
+  border-left: 3px solid var(--orange);
+  color: var(--foreground);
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
+/* Escrow status timeline */
+.bwe-flow {
+  margin-top: 0.25rem;
+  padding: 0.9rem 1rem;
+  border-radius: 0.9rem;
+  background: var(--surface-subtle);
+}
+
+.bwe-flow-label {
+  margin: 0 0 0.6rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+
+.bwe-flow ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.bwe-flow-step {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.7rem;
+}
+
+/* vertical line linking the icons */
+.bwe-flow-step:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  left: 0.9rem;
+  top: 2rem;
+  width: 2px;
+  height: calc(100% - 1.6rem);
+  background: var(--card-border);
+  transform: translateX(-50%);
+  transition: background-color 0.4s ease;
+}
+
+.bwe-flow-step.is-done:not(:last-child)::after {
+  background: var(--success);
+}
+
+.bwe-flow-icon {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.8rem;
+  height: 1.8rem;
+  border-radius: 9999px;
+  background: var(--card-bg);
+  border: 1.5px solid var(--card-border);
+  color: var(--muted-foreground);
+  transition: all 0.35s ease;
+}
+
+.bwe-flow-step p {
+  margin: 0.1rem 0 0;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--muted-foreground);
+  transition: color 0.3s ease;
+}
+
+.bwe-flow-step span:not(.bwe-flow-icon) {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--muted-foreground);
+  opacity: 0.85;
+}
+
+.bwe-flow-step.is-active .bwe-flow-icon {
+  border-color: var(--orange);
+  color: var(--orange);
+  background: var(--orange-tint);
+  animation: bwe-ping 1.2s ease-out infinite;
+}
+
+.bwe-flow-step.is-active p,
+.bwe-flow-step.is-done p {
+  color: var(--foreground);
+}
+
+.bwe-flow-step.is-done .bwe-flow-icon {
+  border-color: var(--success);
+  background: var(--success);
+  color: #fff;
+}
+
+/* Guest / host benefits */
+.bwe-sides {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+  margin-top: 2.5rem;
+}
+
+@media (min-width: 768px) {
+  .bwe-sides {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.bwe-side {
+  padding: 1.4rem 1.5rem;
+  border-radius: 1.1rem;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  box-shadow: 0 18px 40px -28px rgba(29, 78, 216, 0.35);
+}
+
+html.dark .bwe-side {
+  background: #111a2e;
+}
+
+.bwe-side-title {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0 0 1rem;
+  font-size: 1.05rem;
+  font-weight: 800;
+}
+
+.bwe-side-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.1rem;
+  height: 2.1rem;
+  border-radius: 0.65rem;
+  background: var(--brand-tint);
+  color: var(--brand-accent);
+}
+
+.bwe-side ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.bwe-side li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--muted-foreground);
+}
+
+.bwe-side li svg {
+  flex-shrink: 0;
+  margin-top: 0.2rem;
+  color: var(--brand-accent);
+}
+
+@keyframes bwe-ping {
+  0% { box-shadow: 0 0 0 0 var(--orange-glow); }
+  100% { box-shadow: 0 0 0 9px transparent; }
+}
+
+@keyframes bwe-shimmer {
+  from { background-position: 100% 0; }
+  to { background-position: -120% 0; }
+}
+
+@media (max-width: 640px) {
+  .bwe-section {
+    padding: 3.5rem 1rem;
+  }
+
+  .bwe-header {
+    margin-bottom: 2rem;
+  }
+
+  .bwe-summary {
+    padding: 1.15rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bwe-card,
+  .bwe-card-media img,
+  .bwe-btn {
+    transition: none;
+  }
+
+  .bwe-card:hover,
+  .bwe-card:hover .bwe-card-media img {
+    transform: none;
+  }
+
+  .bwe-btn--primary.is-running,
+  .bwe-flow-step.is-active .bwe-flow-icon {
+    animation: none;
+  }
+}

@@ -4,10 +4,10 @@ import Stepper from "./Stepper.jsx";
 import "../../styles/stepper.css";
 
 const STEPS = [
-  { id: 1, title: "Funds locked", description: "Funds locked into the escrow on booking.", status: "completed" },
-  { id: 2, title: "Held on-chain", description: "Held on-chain securely while active.", status: "completed" },
-  { id: 3, title: "Both confirm", description: "Both parties confirm to trigger release.", status: "in-progress" },
-  { id: 4, title: "Auto-released", description: "Smart contract releases funds automatically.", status: "pending" },
+  { id: 1, title: "Guest books", description: "Rent and deposit are locked in escrow at booking.", status: "completed" },
+  { id: 2, title: "Held on-chain", description: "The money waits in the contract. No one can take it alone.", status: "completed" },
+  { id: 3, title: "Check-in confirmed", description: "Guest and host both confirm the check-in.", status: "in-progress" },
+  { id: 4, title: "Auto-released", description: "Host gets paid. The deposit returns to the guest after check-out.", status: "pending" },
 ];
 
 const STATUS_CONFIG = {
@@ -17,13 +17,13 @@ const STATUS_CONFIG = {
 };
 ---
 
-<section id="how-it-works" class="how-it-works" aria-label="How SafeTrust Escrow Works">
+<section id="how-it-works" class="how-it-works" aria-label="How a SafeTrust rental escrow works">
   <div class="progress-bar" data-progress-bar></div>
 
   <div class="section-header" data-header>
     <p class="eyebrow-pill">HOW IT WORKS</p>
     <h2>Four steps. <em>Zero middlemen.</em></h2>
-    <p class="subtitle">From booking to release — every escrow follows the same transparent flow.</p>
+    <p class="subtitle">From booking to check-out — every stay follows the same transparent flow.</p>
   </div>
 
   <div class="stepper-card">
@@ -40,6 +40,9 @@ const STATUS_CONFIG = {
                 data-node-circle
                 data-status={step.status}
               >
+                {step.status !== "completed" && (
+                  <span class={`node-ring node-ring--${step.status}`} aria-hidden="true"></span>
+                )}
                 <span class="node-icon" data-node-icon>
                   {step.status === "completed" ? (
                     <svg
@@ -66,7 +69,13 @@ const STATUS_CONFIG = {
                   data-status-chip
                   data-status={step.status}
                 >
+                  {step.status === "in-progress" && (
+                    <span class="chip-live-dot" aria-hidden="true"></span>
+                  )}
                   {cfg.label}
+                  {step.status === "pending" && (
+                    <span class="chip-wait-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+                  )}
                 </span>
                 <p class="step-title">{step.title}</p>
                 <p class="step-desc">{step.description}</p>
@@ -75,8 +84,11 @@ const STATUS_CONFIG = {
           );
         }
 
+        const prevStatus = STEPS[(i - 1) / 2].status;
+        const nextStatus = STEPS[(i + 1) / 2].status;
+        const waiting = prevStatus === "in-progress" && nextStatus === "pending";
         return (
-          <div class="connector" data-connector>
+          <div class={`connector${waiting ? " connector--waiting" : ""}`} data-connector>
             <div class="connector-fill" data-connector-fill></div>
             <div class="connector-glow" data-connector-glow></div>
           </div>
@@ -86,8 +98,8 @@ const STATUS_CONFIG = {
   </div>
 
   <div class="cta">
-    <p>Ready to secure your transactions?</p>
-    <a href="#our-promise" class="cta-btn">Get Started →</a>
+    <p>Want to see it with a real booking?</p>
+    <a href="#book-with-escrow" class="cta-btn">Try a booking →</a>
   </div>
 </section>
 

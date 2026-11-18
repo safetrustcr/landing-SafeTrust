@@ -1,10 +1,11 @@
-﻿---
+---
 import ThemeToggle from "./ThemeToggle.astro";
 
 const navLinks = [
   { label: "Features", href: "#features" },
   { label: "How It Works", href: "#how-it-works" },
   { label: "Pricing", href: "#pricing" },
+  { label: "Use case · Rentals & stays", href: "#book-with-escrow" },
   { label: "Contributors", href: "#contributors" },
 ];
 ---
@@ -79,6 +80,7 @@ const navLinks = [
     color: var(--foreground);
     text-decoration: none;
     font-weight: 500;
+    white-space: nowrap;
     transition: color 0.2s ease, transform 0.2s ease;
   }
   .navbar-actions {
@@ -102,6 +104,30 @@ const navLinks = [
 
   .navbar-links a:hover {
     color: #2857B8;
+  }
+
+  @media (min-width: 1024px) {
+    .navbar-links a {
+      position: relative;
+    }
+
+    .navbar-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -6px;
+      height: 2px;
+      border-radius: 2px;
+      background: linear-gradient(90deg, #2857b8, #f97316);
+      transform: scaleX(0);
+      transform-origin: left center;
+      transition: transform 0.25s ease;
+    }
+
+    .navbar-links a:hover::after {
+      transform: scaleX(1);
+    }
   }
 
   .navbar-cta {
@@ -163,7 +189,7 @@ const navLinks = [
     transition: transform 0.2s ease, opacity 0.2s ease;
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 1023px) {
     .navbar {
       padding: 1rem 1.25rem;
     }
@@ -253,7 +279,7 @@ const navLinks = [
   :global(.dark) .navbar-links .navbar-cta {
     color: #111827;
   }
-  @media (max-width: 768px) {
+  @media (max-width: 1023px) {
     :global(.dark) .navbar-links {
       background: rgba(15, 23, 42, 0.96);
     }

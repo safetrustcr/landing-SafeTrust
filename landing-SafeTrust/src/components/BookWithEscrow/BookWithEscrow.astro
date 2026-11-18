@@ -1,0 +1,66 @@
+---
+// Use case: booking a home or hotel where rent + deposit are held in escrow.
+import { Icon } from "astro-icon/components";
+import BookingShowcase from "./BookingShowcase.tsx";
+
+const sides = [
+  {
+    who: "For guests",
+    icon: "lucide:users",
+    points: [
+      { icon: "lucide:shield-check", text: "Your deposit comes back automatically after check-out. No chasing the host." },
+      { icon: "lucide:lock", text: "Private by design: pay from your wallet. The host never sees your card or bank details." },
+      { icon: "lucide:eye", text: "See where your money is at any moment, on-chain." },
+    ],
+  },
+  {
+    who: "For hosts",
+    icon: "lucide:wallet",
+    points: [
+      { icon: "lucide:coins", text: "The full payment is locked before you hand over the keys." },
+      { icon: "lucide:clock", text: "Get paid within seconds of check-in. Blockchain payments can't be charged back." },
+      { icon: "lucide:scale", text: "Damage claims draw on the deposit already held in escrow." },
+    ],
+  },
+];
+---
+
+<section id="book-with-escrow" class="bwe-section" aria-labelledby="bwe-heading">
+  <div class="bwe-glow bwe-glow--a" aria-hidden="true"></div>
+  <div class="bwe-glow bwe-glow--b" aria-hidden="true"></div>
+
+  <div class="bwe-inner">
+    <header class="bwe-header">
+      <p class="bwe-eyebrow">Use case · Rentals &amp; stays</p>
+      <h2 id="bwe-heading">
+        Book a home or hotel, <em>protected by escrow.</em>
+      </h2>
+      <p class="bwe-subtitle">
+        Pick a stay and press <strong>Book with Escrow</strong>. Rent and deposit go into a smart
+        contract, not to the host. The host is paid only after you check in, and your deposit
+        comes back to you when you check out.
+      </p>
+    </header>
+
+    <BookingShowcase client:visible />
+
+    <div class="bwe-sides">
+      {sides.map((side) => (
+        <div class="bwe-side">
+          <p class="bwe-side-title">
+            <span class="bwe-side-icon"><Icon name={side.icon} width="18" height="18" /></span>
+            {side.who}
+          </p>
+          <ul>
+            {side.points.map((pt) => (
+              <li>
+                <Icon name={pt.icon} width="16" height="16" aria-hidden="true" />
+                <span>{pt.text}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

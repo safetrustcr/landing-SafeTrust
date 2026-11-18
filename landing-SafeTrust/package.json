@@ -17,6 +17,7 @@
     "lucide-react": "^1.17.0",
     "motion": "^12.42.2",
     "react": "^19.2.7",
-    "react-dom": "^19.2.7"
+    "react-dom": "^19.2.7",
+    "react-glass-ui": "^1.2.2"
   }
 }
