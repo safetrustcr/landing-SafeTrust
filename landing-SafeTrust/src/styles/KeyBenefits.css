@@ -45,8 +45,11 @@
 }
 
 .italic-accent {
-  color: #2563eb;
   font-style: italic;
+  background: var(--accent-text);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 .benefits-subtitle {
@@ -90,7 +93,7 @@
   background-color: #1e3a8a;
   color: #ffffff;
   font-weight: 600;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: inset 0 -2px 0 #f97316, 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 /* Grid Layout System */
@@ -102,6 +105,7 @@
 }
 
 .benefit-card {
+  overflow: hidden;
   background-color: #ffffff;
   border: 1px solid #e2e8f0;
   border-radius: 20px;
@@ -231,3 +235,28 @@
     overflow-x: auto;
   }
 }
+
+/* Hover + dark mode */
+.benefit-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 18px 36px -22px rgba(29, 78, 216, 0.35);
+}
+
+html.dark .benefits-section { background-color: var(--background); }
+html.dark .eyebrow-pill { background-color: transparent; border-color: #334155; color: #93c5fd; }
+html.dark .benefits-title,
+html.dark .card-title,
+html.dark .lead-card .card-title { color: #f8fafc; }
+html.dark .benefits-subtitle,
+html.dark .card-desc,
+html.dark .lead-card .card-desc { color: #94a3b8; }
+html.dark .tabs-wrapper { background-color: #111827; }
+html.dark .tab-btn { color: #94a3b8; }
+html.dark .tab-active { background-color: #2563eb; color: #ffffff; }
+html.dark .benefit-card { background-color: #0f172a; border-color: #1e293b; }
+html.dark .lead-card { background-color: #13213f; border-color: #1e3a8a; }
+html.dark .icon-box { background-color: #162338; color: #93c5fd; }
+html.dark .lead-card .icon-box { background-color: #2563eb; color: #ffffff; }
+html.dark .divider-line { border-top-color: #1e3a8a; }
+html.dark .metrics-label,
+html.dark .metrics-value { color: #93c5fd; }

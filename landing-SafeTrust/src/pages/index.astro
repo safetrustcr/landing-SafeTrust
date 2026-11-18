@@ -4,6 +4,7 @@ import OurPromise from "../components/OurPromise.astro";
 import DiscoverSafeTrust from "../components/Features/DiscoverSafeTrust.astro";
 import KeyBenefits from "../components/Features/KeyBenefits.astro";
 import HowItWorksSection from "../components/HowItWorks/HowItWorksSection.astro";
+import BookWithEscrow from "../components/BookWithEscrow/BookWithEscrow.astro";
 import SecuritySection from "../components/SecuritySection.astro";
 import Contributors from "../components/Contributors.astro";
 import FinalCTA from "../components/FinalCTA.astro";
@@ -16,7 +17,11 @@ import "../styles/theme.css";
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" href="/landing-logo.jpeg" />
-    <title>SafeTrust — Secure P2P Escrow on Stellar</title>
+    <title>SafeTrust — Rental escrow for homes and hotels on Stellar</title>
+    <meta
+      name="description"
+      content="Book homes and hotels with rent and deposits held in a smart contract on Stellar. Hosts are paid after check-in, guests get their deposit back after check-out."
+    />
     <script is:inline>
       (() => {
         document.documentElement.classList.add("js");
@@ -29,6 +34,7 @@ import "../styles/theme.css";
   <body>
     <HeroSection />
     <OurPromise />
+    <BookWithEscrow />
     <DiscoverSafeTrust />
     <KeyBenefits />
     <HowItWorksSection />
