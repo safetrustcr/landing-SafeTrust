@@ -11,7 +11,7 @@ const STEPS = [
   { id: 4, title: "Auto-released", description: "Host gets paid. The deposit returns to the guest after check-out.", status: "pending" },
 ];
 
-const STATUS_CONFIG = {
+const STATUS_CONFIG: Record<string, { label: string }> = {
   completed: { label: "COMPLETED" },
   "in-progress": { label: "IN PROGRESS" },
   pending: { label: "PENDING" },
