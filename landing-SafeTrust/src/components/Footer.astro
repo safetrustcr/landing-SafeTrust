@@ -1,34 +1,26 @@
 ---
-const productLinks = [
-  { label: "About", href: "/about" },
-  { label: "Features", href: "/features" },
-  { label: "Pricing", href: "/pricing" },
-  { label: "Integrations", href: "/integrations" },
-  { label: "FAQs", href: "/faqs" },
+type FooterLink = { label: string; href: string; external?: boolean };
+
+const GITHUB_ORG = "https://github.com/safetrustcr";
+const GITHUB_REPO = "https://github.com/safetrustcr/landing-SafeTrust";
+
+const productLinks: FooterLink[] = [
+  { label: "Our Promise", href: "#our-promise" },
+  { label: "Features", href: "#features" },
+  { label: "How It Works", href: "#how-it-works" },
+  { label: "Book with Escrow", href: "#book-with-escrow" },
 ];
 
-const companyLinks = [
-  { label: "Our Story", href: "/our-story" },
-  { label: "Team", href: "/team" },
-  { label: "Careers", href: "/careers" },
-  { label: "Press", href: "/press" },
-  { label: "Contact Us", href: "/contact-us" },
+const companyLinks: FooterLink[] = [
+  { label: "Contributors", href: "#contributors" },
+  { label: "GitHub", href: GITHUB_ORG, external: true },
+  { label: "Report an Issue", href: `${GITHUB_REPO}/issues`, external: true },
 ];
 
-const resourceLinks = [
-  { label: "Blog", href: "/blog" },
-  { label: "Documentation", href: "/documentation" },
-  { label: "Help Center", href: "/help-center" },
-  { label: "Security", href: "/security" },
-  { label: "API", href: "/api" },
-];
-
-const legalLinks = [
-  { label: "Terms of Service", href: "/terms" },
-  { label: "Privacy Policy", href: "/privacy" },
-  { label: "Cookie Policy", href: "/cookie" },
-  { label: "Acceptable Use", href: "/acceptable-use" },
-  { label: "Refund Policy", href: "/refund" },
+const resourceLinks: FooterLink[] = [
+  { label: "Documentation", href: `${GITHUB_REPO}#readme`, external: true },
+  { label: "Security", href: "#security" },
+  { label: "Source Code", href: GITHUB_REPO, external: true },
 ];
 ---
 
@@ -48,39 +40,37 @@ const legalLinks = [
     <div class="footer-grid">
       <div class="footer-newsletter">
         <h3 class="footer-col-title">Stay Updated</h3>
-        <p class="footer-newsletter-desc">Subscribe to get the latest news and updates from SafeTrust.</p>
-        <form class="footer-form" action="#" method="post">
-          <div class="footer-input-row">
-            <input
-              type="email"
-              name="email"
-              placeholder="Enter your email"
-              required
-              class="footer-input"
-            />
-            <button type="submit" class="footer-subscribe-btn">Subscribe</button>
-          </div>
-          <label class="footer-consent">
-            <input type="checkbox" name="consent" required />
-            <span>I agree to receive marketing emails from SafeTrust.</span>
-          </label>
-        </form>
+        <p class="footer-newsletter-desc">
+          Follow the project on
+          <a href={GITHUB_ORG} target="_blank" rel="noopener noreferrer">GitHub</a>
+          to see the latest news and updates from SafeTrust.
+        </p>
       </div>
 
       <div class="footer-col">
         <h3 class="footer-col-title">Product</h3>
         <ul class="footer-links">
           {productLinks.map((link) => (
-            <li><a href={link.href}>{link.label}</a></li>
+            <li>
+              <a
+                href={link.href}
+                {...(link.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+              >{link.label}</a>
+            </li>
           ))}
         </ul>
       </div>
 
       <div class="footer-col">
-        <h3 class="footer-col-title">Company</h3>
+        <h3 class="footer-col-title">Community</h3>
         <ul class="footer-links">
           {companyLinks.map((link) => (
-            <li><a href={link.href}>{link.label}</a></li>
+            <li>
+              <a
+                href={link.href}
+                {...(link.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+              >{link.label}</a>
+            </li>
           ))}
         </ul>
       </div>
@@ -89,16 +79,12 @@ const legalLinks = [
         <h3 class="footer-col-title">Resources</h3>
         <ul class="footer-links">
           {resourceLinks.map((link) => (
-            <li><a href={link.href}>{link.label}</a></li>
-          ))}
-        </ul>
-      </div>
-
-      <div class="footer-col">
-        <h3 class="footer-col-title">Legal</h3>
-        <ul class="footer-links">
-          {legalLinks.map((link) => (
-            <li><a href={link.href}>{link.label}</a></li>
+            <li>
+              <a
+                href={link.href}
+                {...(link.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+              >{link.label}</a>
+            </li>
           ))}
         </ul>
       </div>
@@ -214,7 +200,7 @@ const legalLinks = [
 
   @media (min-width: 1024px) {
     .footer-grid {
-      grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
     }
 
     .footer-newsletter {
