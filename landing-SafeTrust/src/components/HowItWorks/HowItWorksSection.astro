@@ -18,37 +18,37 @@ const STATUS_CONFIG: Record<string, { label: string }> = {
 };
 ---
 
-<section id="how-it-works" class="how-it-works" aria-label="How a SafeTrust rental escrow works">
-  <div class="progress-bar" data-progress-bar></div>
+<section id="how-it-works" class="hiw-section" aria-label="How a SafeTrust rental escrow works">
+  <div class="hiw-progress-bar" data-progress-bar></div>
   <GlassBackdrop variant="center" />
 
-  <div class="section-header" data-header>
-    <p class="eyebrow-pill">HOW IT WORKS</p>
+  <div class="hiw-header" data-header>
+    <p class="eyebrow-pill hiw-eyebrow-pill">HOW IT WORKS</p>
     <h2>Four steps. <em>Zero middlemen.</em></h2>
-    <p class="subtitle">From booking to check-out — every stay follows the same transparent flow.</p>
+    <p class="hiw-subtitle">From booking to check-out — every stay follows the same transparent flow.</p>
   </div>
 
-  <div class="stepper-card glass-card">
-    <div class="timeline">
+  <div class="hiw-stepper-card glass-card">
+    <div class="hiw-timeline">
       {Array.from({ length: STEPS.length * 2 - 1 }).map((_, i) => {
         if (i % 2 === 0) {
           const stepIndex = i / 2;
           const step = STEPS[stepIndex];
           const cfg = STATUS_CONFIG[step.status];
           return (
-            <div class="step-node" data-step-node>
+            <div class="hiw-step-node" data-step-node>
               <div
-                class={`node-circle ${step.status}`}
+                class={`hiw-node-circle ${step.status}`}
                 data-node-circle
                 data-status={step.status}
               >
                 {step.status !== "completed" && (
-                  <span class={`node-ring node-ring--${step.status}`} aria-hidden="true"></span>
+                  <span class={`hiw-node-ring hiw-node-ring--${step.status}`} aria-hidden="true"></span>
                 )}
-                <span class="node-icon" data-node-icon>
+                <span class="hiw-node-icon" data-node-icon>
                   {step.status === "completed" ? (
                     <svg
-                      class="node-checkmark"
+                      class="hiw-node-checkmark"
                       data-checkmark
                       viewBox="0 0 24 24"
                       fill="none"
@@ -65,22 +65,22 @@ const STATUS_CONFIG: Record<string, { label: string }> = {
                   )}
                 </span>
               </div>
-              <div class="step-content">
+              <div class="hiw-step-content">
                 <span
-                  class={`status-chip ${step.status}`}
+                  class={`hiw-status-chip ${step.status}`}
                   data-status-chip
                   data-status={step.status}
                 >
                   {step.status === "in-progress" && (
-                    <span class="chip-live-dot" aria-hidden="true"></span>
+                    <span class="hiw-chip-live-dot" aria-hidden="true"></span>
                   )}
                   {cfg.label}
                   {step.status === "pending" && (
-                    <span class="chip-wait-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+                    <span class="hiw-chip-wait-dots" aria-hidden="true"><i></i><i></i><i></i></span>
                   )}
                 </span>
-                <p class="step-title">{step.title}</p>
-                <p class="step-desc">{step.description}</p>
+                <p class="hiw-step-title">{step.title}</p>
+                <p class="hiw-step-desc">{step.description}</p>
               </div>
             </div>
           );
@@ -90,18 +90,18 @@ const STATUS_CONFIG: Record<string, { label: string }> = {
         const nextStatus = STEPS[(i + 1) / 2].status;
         const waiting = prevStatus === "in-progress" && nextStatus === "pending";
         return (
-          <div class={`connector${waiting ? " connector--waiting" : ""}`} data-connector>
-            <div class="connector-fill" data-connector-fill></div>
-            <div class="connector-glow" data-connector-glow></div>
+          <div class={`hiw-connector${waiting ? " hiw-connector--waiting" : ""}`} data-connector>
+            <div class="hiw-connector-fill" data-connector-fill></div>
+            <div class="hiw-connector-glow" data-connector-glow></div>
           </div>
         );
       })}
     </div>
   </div>
 
-  <div class="cta">
+  <div class="hiw-cta">
     <p>Want to see it with a real booking?</p>
-    <a href="#book-with-escrow" class="cta-btn">Try a booking →</a>
+    <a href="#book-with-escrow" class="hiw-cta-btn">Try a booking →</a>
   </div>
 </section>
 
