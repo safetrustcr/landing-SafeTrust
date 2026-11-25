@@ -2,7 +2,7 @@
    SafeTrust · Stepper Styling (How It Works)
    ============================================================ */
 
-.how-it-works {
+.hiw-section {
   position: relative;
   padding: 5rem 1.5rem;
   background: var(--background);
@@ -10,7 +10,7 @@
   overflow: hidden;
 }
 
-.progress-bar {
+.hiw-progress-bar {
   position: absolute;
   top: 0;
   left: 0;
@@ -23,26 +23,23 @@
 }
 
 /* Section Header */
-.section-header {
+.hiw-header {
   text-align: center;
   margin-bottom: 3.5rem;
   opacity: 1;
   transform: none;
 }
 
-html.js .section-header {
+html.js .hiw-header {
   opacity: 0;
   transform: translateY(-12px);
 }
 
-.eyebrow-pill {
-  display: inline-flex;
-  align-items: center;
+.hiw-eyebrow-pill {
   gap: 0.5rem;
   padding: 0.45rem 1.15rem;
   background: color-mix(in srgb, var(--brand-accent) 12%, transparent);
   border: 1px solid color-mix(in srgb, var(--brand-accent) 25%, transparent);
-  border-radius: 9999px;
   color: var(--brand-accent);
   font-size: 0.75rem;
   font-weight: 700;
@@ -51,7 +48,7 @@ html.js .section-header {
   margin-bottom: 1.25rem;
 }
 
-.section-header h2 {
+.hiw-header h2 {
   font-size: clamp(2rem, 4.5vw, 2.75rem);
   font-weight: 800;
   color: var(--foreground);
@@ -59,14 +56,14 @@ html.js .section-header {
   line-height: 1.2;
 }
 
-.section-header h2 em {
+.hiw-header h2 em {
   font-style: italic;
   background: var(--accent-text);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-.section-header .subtitle {
+.hiw-header .hiw-subtitle {
   color: var(--muted-foreground);
   max-width: 38rem;
   margin: 0 auto;
@@ -75,7 +72,7 @@ html.js .section-header {
 }
 
 /* Stepper Container Card */
-.stepper-card {
+.hiw-stepper-card {
   background: linear-gradient(180deg, var(--card-bg, #ffffff), color-mix(in srgb, var(--card-bg, #ffffff) 90%, var(--brand-tint, #f8faff)));
   border: 1px solid var(--card-border, #e5e7eb);
   border-top: 2px solid color-mix(in srgb, var(--brand-primary) 30%, transparent);
@@ -88,7 +85,7 @@ html.js .section-header {
   transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
-html.dark .stepper-card {
+html.dark .hiw-stepper-card {
   background: linear-gradient(180deg, rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.65));
   border-color: rgba(255, 255, 255, 0.08);
   border-top-color: color-mix(in srgb, var(--brand-primary) 50%, transparent);
@@ -97,7 +94,7 @@ html.dark .stepper-card {
 }
 
 /* Timeline Layout */
-.how-it-works .timeline {
+.hiw-section .hiw-timeline {
   display: flex;
   flex-direction: row;
   align-items: flex-start;
@@ -107,7 +104,7 @@ html.dark .stepper-card {
 }
 
 /* Step Node */
-.step-node {
+.hiw-step-node {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -120,13 +117,13 @@ html.dark .stepper-card {
   cursor: pointer;
 }
 
-html.js .step-node {
+html.js .hiw-step-node {
   opacity: 0;
   transform: translateY(24px);
 }
 
 /* Step Circle */
-.node-circle {
+.hiw-node-circle {
   width: 72px;
   height: 72px;
   border-radius: 9999px;
@@ -143,24 +140,24 @@ html.js .step-node {
 }
 
 /* State: Completed */
-.node-circle.completed,
-.node-circle[data-status="completed"] {
+.hiw-node-circle.completed,
+.hiw-node-circle[data-status="completed"] {
   background: linear-gradient(135deg, #10193f, var(--brand-primary, #1e3a8a));
   border-color: var(--brand-primary, #1e3a8a);
   color: #ffffff;
   box-shadow: 0 6px 20px -4px rgba(30, 58, 138, 0.35);
 }
 
-html.dark .node-circle.completed,
-html.dark .node-circle[data-status="completed"] {
+html.dark .hiw-node-circle.completed,
+html.dark .hiw-node-circle[data-status="completed"] {
   background: linear-gradient(135deg, #1e3a8a, #3b82f6);
   border-color: #60a5fa;
   box-shadow: 0 6px 24px -4px rgba(59, 130, 246, 0.45);
 }
 
 /* State: In-Progress (Active) */
-.node-circle.in-progress,
-.node-circle[data-status="in-progress"] {
+.hiw-node-circle.in-progress,
+.hiw-node-circle[data-status="in-progress"] {
   background: var(--card-bg, #ffffff);
   border: 2.5px solid var(--brand-accent, #1d4ed8);
   color: var(--brand-accent, #1d4ed8);
@@ -168,8 +165,8 @@ html.dark .node-circle[data-status="completed"] {
   animation: pulse 2s ease-in-out infinite;
 }
 
-html.dark .node-circle.in-progress,
-html.dark .node-circle[data-status="in-progress"] {
+html.dark .hiw-node-circle.in-progress,
+html.dark .hiw-node-circle[data-status="in-progress"] {
   background: var(--card-bg, #0f172a);
   border-color: #60a5fa;
   color: #93c5fd;
@@ -177,22 +174,22 @@ html.dark .node-circle[data-status="in-progress"] {
 }
 
 /* State: Pending */
-.node-circle.pending,
-.node-circle[data-status="pending"] {
+.hiw-node-circle.pending,
+.hiw-node-circle[data-status="pending"] {
   background: var(--card-bg, #ffffff);
   border: 2px solid var(--card-border, #d1d5db);
   color: var(--muted-foreground, #9ca3af);
 }
 
-html.dark .node-circle.pending,
-html.dark .node-circle[data-status="pending"] {
+html.dark .hiw-node-circle.pending,
+html.dark .hiw-node-circle[data-status="pending"] {
   background: rgba(15, 23, 42, 0.6);
   border-color: var(--card-border, #334155);
   color: #64748b;
 }
 
 /* Circle Icons */
-.node-icon {
+.hiw-node-icon {
   font-size: 1.5rem;
   font-weight: 700;
   display: flex;
@@ -200,7 +197,7 @@ html.dark .node-circle[data-status="pending"] {
   justify-content: center;
 }
 
-.node-checkmark {
+.hiw-node-checkmark {
   width: 26px;
   height: 26px;
   stroke: currentcolor;
@@ -214,7 +211,7 @@ html.dark .node-circle[data-status="pending"] {
 }
 
 /* Status Chip Badges */
-.status-chip {
+.hiw-status-chip {
   display: inline-block;
   border-radius: 9999px;
   padding: 0.15rem 0.75rem;
@@ -226,43 +223,43 @@ html.dark .node-circle[data-status="pending"] {
   transition: all 0.3s ease;
 }
 
-.status-chip.completed,
-.status-chip[data-status="completed"] {
+.hiw-status-chip.completed,
+.hiw-status-chip[data-status="completed"] {
   background-color: var(--success-tint, #dcfce7);
   color: var(--success, #15803d);
   border: 1px solid color-mix(in srgb, var(--success) 30%, transparent);
 }
 
-.status-chip.in-progress,
-.status-chip[data-status="in-progress"] {
+.hiw-status-chip.in-progress,
+.hiw-status-chip[data-status="in-progress"] {
   background-color: var(--brand-tint, #e8edfa);
   color: var(--brand-primary, #1d4ed8);
   border: 1px solid color-mix(in srgb, var(--brand-accent) 30%, transparent);
   animation: chip-glow 2.5s infinite;
 }
 
-.status-chip.pending,
-.status-chip[data-status="pending"] {
+.hiw-status-chip.pending,
+.hiw-status-chip[data-status="pending"] {
   background-color: color-mix(in srgb, var(--foreground) 5%, transparent);
   color: var(--muted-foreground, #6b7280);
   border: 1px solid var(--card-border, #e5e7eb);
 }
 
 /* Step Content */
-.step-content {
+.hiw-step-content {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.step-title {
+.hiw-step-title {
   font-weight: 700;
   font-size: 0.95rem;
   color: var(--foreground);
   margin: 0.25rem 0 0;
 }
 
-.step-desc {
+.hiw-step-desc {
   font-size: 0.78rem;
   color: var(--muted-foreground);
   max-width: 140px;
@@ -271,7 +268,7 @@ html.dark .node-circle[data-status="pending"] {
 }
 
 /* Connectors */
-.connector {
+.hiw-connector {
   width: 56px;
   height: 4px;
   border-radius: 9999px;
@@ -283,12 +280,12 @@ html.dark .node-circle[data-status="pending"] {
   box-sizing: border-box;
 }
 
-html.dark .connector {
+html.dark .hiw-connector {
   background: var(--card-border, #334155);
 }
 
 /* Connecting Line Progress Fill */
-.connector-fill {
+.hiw-connector-fill {
   position: absolute;
   inset: 0;
   background: linear-gradient(90deg, var(--brand-primary, #1e3a8a), var(--brand-accent, #1d4ed8));
@@ -298,12 +295,12 @@ html.dark .connector {
   will-change: transform;
 }
 
-html.dark .connector-fill {
+html.dark .hiw-connector-fill {
   background: linear-gradient(90deg, #3b82f6, #60a5fa);
 }
 
 /* Glowing Traveling Particle */
-.connector-glow {
+.hiw-connector-glow {
   position: absolute;
   inset: 0;
   opacity: 0;
@@ -312,18 +309,18 @@ html.dark .connector-fill {
 }
 
 /* Bottom CTA */
-.cta {
+.hiw-cta {
   text-align: center;
   margin-top: 3.5rem;
 }
 
-.cta p {
+.hiw-cta p {
   font-weight: 600;
   margin-bottom: 0.85rem;
   color: var(--foreground);
 }
 
-.cta-btn {
+.hiw-cta-btn {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
@@ -338,7 +335,7 @@ html.dark .connector-fill {
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.cta-btn:hover {
+.hiw-cta-btn:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 20px 0 color-mix(in srgb, var(--brand-accent) 45%, transparent);
 }
@@ -382,7 +379,7 @@ html.dark .connector-fill {
    ============================================================ */
 
 /* Ring drawn around the circle (in-progress + pending) */
-.node-ring {
+.hiw-node-ring {
   position: absolute;
   inset: -7px;
   border-radius: 9999px;
@@ -390,36 +387,36 @@ html.dark .connector-fill {
 }
 
 /* In progress: spinning gradient arc, tinted with the circle's color */
-.node-ring--in-progress {
+.hiw-node-ring--in-progress {
   background: conic-gradient(from 0deg, transparent 0 55%, currentColor 100%);
   -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 2.5px));
   mask: radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 2.5px));
   animation: ring-spin 1.4s linear infinite;
 }
 
-.node-circle[data-status="in-progress"] .node-icon {
+.hiw-node-circle[data-status="in-progress"] .hiw-node-icon {
   animation: icon-breathe 2s ease-in-out infinite;
 }
 
 /* Pending: slow dashed orbit + number fading in and out */
-.node-ring--pending {
+.hiw-node-ring--pending {
   border: 2px dashed currentColor;
   opacity: 0.45;
   animation: ring-spin 12s linear infinite;
 }
 
-.node-circle[data-status="pending"] .node-icon {
+.hiw-node-circle[data-status="pending"] .hiw-node-icon {
   animation: icon-wait 2.4s ease-in-out infinite;
 }
 
 /* Chips */
-.status-chip {
+.hiw-status-chip {
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
 }
 
-.chip-live-dot {
+.hiw-chip-live-dot {
   position: relative;
   width: 6px;
   height: 6px;
@@ -427,7 +424,7 @@ html.dark .connector-fill {
   background: currentColor;
 }
 
-.chip-live-dot::after {
+.hiw-chip-live-dot::after {
   content: "";
   position: absolute;
   inset: 0;
@@ -436,12 +433,12 @@ html.dark .connector-fill {
   animation: dot-ping 1.4s cubic-bezier(0, 0, 0.2, 1) infinite;
 }
 
-.chip-wait-dots {
+.hiw-chip-wait-dots {
   display: inline-flex;
   gap: 2px;
 }
 
-.chip-wait-dots i {
+.hiw-chip-wait-dots i {
   width: 3px;
   height: 3px;
   border-radius: 9999px;
@@ -449,11 +446,11 @@ html.dark .connector-fill {
   animation: wait-dot 1.2s ease-in-out infinite;
 }
 
-.chip-wait-dots i:nth-child(2) { animation-delay: 0.15s; }
-.chip-wait-dots i:nth-child(3) { animation-delay: 0.3s; }
+.hiw-chip-wait-dots i:nth-child(2) { animation-delay: 0.15s; }
+.hiw-chip-wait-dots i:nth-child(3) { animation-delay: 0.3s; }
 
 /* Connector from the active step to the pending one: flowing stripes */
-.connector--waiting {
+.hiw-connector--waiting {
   background: repeating-linear-gradient(
     90deg,
     #f97316 0 8px,
@@ -463,7 +460,7 @@ html.dark .connector-fill {
   animation: connector-flow 0.9s linear infinite;
 }
 
-html.dark .connector--waiting {
+html.dark .hiw-connector--waiting {
   background: repeating-linear-gradient(90deg, #fb923c 0 8px, transparent 8px 14px);
   background-size: 28px 100%;
 }
@@ -507,26 +504,26 @@ html.dark .connector--waiting {
    ============================================================ */
 
 @media (prefers-reduced-motion: reduce) {
-  .node-circle.in-progress,
-  .node-circle[data-status="in-progress"],
-  .status-chip.in-progress,
-  .status-chip[data-status="in-progress"],
-  .node-ring,
-  .node-circle .node-icon,
-  .chip-live-dot::after,
-  .chip-wait-dots i,
-  .connector--waiting {
+  .hiw-node-circle.in-progress,
+  .hiw-node-circle[data-status="in-progress"],
+  .hiw-status-chip.in-progress,
+  .hiw-status-chip[data-status="in-progress"],
+  .hiw-node-ring,
+  .hiw-node-circle .hiw-node-icon,
+  .hiw-chip-live-dot::after,
+  .hiw-chip-wait-dots i,
+  .hiw-connector--waiting {
     animation: none !important;
   }
 
-  .section-header,
-  .step-node {
+  .hiw-header,
+  .hiw-step-node {
     opacity: 1;
     transform: none;
   }
 
-  html.js .section-header,
-  html.js .step-node {
+  html.js .hiw-header,
+  html.js .hiw-step-node {
     opacity: 1;
     transform: none;
   }
@@ -537,22 +534,22 @@ html.dark .connector--waiting {
    ============================================================ */
 
 @media (max-width: 768px) {
-  .how-it-works {
+  .hiw-section {
     padding: 3.5rem 1rem;
   }
 
-  .stepper-card {
+  .hiw-stepper-card {
     padding: 2.25rem 1.25rem;
     border-radius: 1.25rem;
   }
 
-  .how-it-works .timeline {
+  .hiw-section .hiw-timeline {
     flex-direction: column;
     align-items: flex-start;
     gap: 0;
   }
 
-  .step-node {
+  .hiw-step-node {
     width: 100%;
     max-width: 100%;
     flex: 0 0 auto;
@@ -562,14 +559,14 @@ html.dark .connector--waiting {
     gap: 1.25rem;
   }
 
-  .node-circle {
+  .hiw-node-circle {
     flex-shrink: 0;
     margin-bottom: 0;
     width: 60px;
     height: 60px;
   }
 
-  .connector {
+  .hiw-connector {
     width: 3px;
     height: 36px;
     flex: 0 0 36px;
@@ -577,13 +574,13 @@ html.dark .connector--waiting {
     border-radius: 9999px;
   }
 
-  .connector-fill {
+  .hiw-connector-fill {
     transform-origin: top center;
     transform: scaleY(0);
   }
 
-  .connector--waiting,
-  html.dark .connector--waiting {
+  .hiw-connector--waiting,
+  html.dark .hiw-connector--waiting {
     background-image: repeating-linear-gradient(
       180deg,
       #f97316 0 8px,
@@ -593,16 +590,16 @@ html.dark .connector--waiting {
     animation-name: connector-flow-y;
   }
 
-  .node-ring {
+  .hiw-node-ring {
     inset: -6px;
   }
 
-  .step-content {
+  .hiw-step-content {
     align-items: flex-start;
     text-align: left;
   }
 
-  .step-desc {
+  .hiw-step-desc {
     max-width: none;
   }
 }
