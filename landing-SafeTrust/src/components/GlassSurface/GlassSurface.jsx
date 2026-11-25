@@ -749,7 +749,7 @@ const GlassSurface = ({
           <filter id={filterId} colorInterpolationFilters="sRGB" x="0%" y="0%" width="100%" height="100%">
             <feImage ref={feImageRef} x="0" y="0" width="100%" height="100%" preserveAspectRatio="none" result="map" />
 
-            <feDisplacementMap ref={redChannelRef} in="SourceGraphic" in2="map" id="redchannel" result="dispRed" />
+            <feDisplacementMap ref={redChannelRef} in="SourceGraphic" in2="map" result="dispRed" />
             <feColorMatrix
               in="dispRed"
               type="matrix"
@@ -764,7 +764,6 @@ const GlassSurface = ({
               ref={greenChannelRef}
               in="SourceGraphic"
               in2="map"
-              id="greenchannel"
               result="dispGreen"
             />
             <feColorMatrix
@@ -777,7 +776,7 @@ const GlassSurface = ({
               result="green"
             />
 
-            <feDisplacementMap ref={blueChannelRef} in="SourceGraphic" in2="map" id="bluechannel" result="dispBlue" />
+            <feDisplacementMap ref={blueChannelRef} in="SourceGraphic" in2="map" result="dispBlue" />
             <feColorMatrix
               in="dispBlue"
               type="matrix"
