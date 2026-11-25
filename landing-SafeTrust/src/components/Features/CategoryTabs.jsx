@@ -25,7 +25,7 @@ const FEATURES_DATA = [
     icon: <Lock className="icon-element" />,
     title: "Secure escrow, held by code.",
     desc: "Rent and deposits are locked in Soroban smart contracts on Stellar — verifiable, and no single party can take them.",
-    valueSecured: "$50.2M+",
+    valueSecured: "Stellar testnet",
     category: "security",
   },
   {
