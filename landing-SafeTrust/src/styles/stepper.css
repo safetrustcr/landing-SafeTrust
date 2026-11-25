@@ -122,7 +122,6 @@ html.dark .stepper-card {
 
 html.js .step-node {
   opacity: 0;
-  transform: translateY(24px);
 }
 
 /* Step Circle */
