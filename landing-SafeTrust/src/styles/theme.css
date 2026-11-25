@@ -210,7 +210,7 @@ html.dark {
   --foreground-body: #94a3b8;
   --muted-foreground: #94a3b8;
   --subtle-foreground: #94a3b8;
-  --faint-foreground: #64748b;
+  --faint-foreground: #94a3b8;
 
   /* Borders */
   --border-subtle: rgba(255, 255, 255, 0.08);
@@ -244,8 +244,8 @@ html.dark {
   --brand-mid: color-mix(in srgb, var(--brand-primary) 72%, black);
   --brand-soft: var(--brand-accent);
   --brand-light: color-mix(in srgb, var(--brand-accent) 70%, white);
-  --brand-solid: color-mix(in srgb, var(--brand-primary) 65%, black);
-  --brand-solid-hover: color-mix(in srgb, var(--brand-primary) 78%, black);
+  --brand-solid: color-mix(in srgb, var(--brand-primary) 60%, black);
+  --brand-solid-hover: color-mix(in srgb, var(--brand-primary) 70%, black);
   --brand-tint: color-mix(in srgb, var(--brand-primary) 14%, var(--card-bg));
   --brand-tint-soft: color-mix(in srgb, var(--brand-primary) 10%, var(--card-bg));
   --brand-tint-strong: color-mix(in srgb, var(--brand-primary) 22%, var(--card-bg));

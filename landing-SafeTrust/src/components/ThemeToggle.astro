@@ -189,7 +189,7 @@ import { Icon } from "astro-icon/components";
     height: 1rem;
   }
 
-  :global(html.dark) .theme-option {
+  :global(html.dark) .theme-option:not(.active) {
     color: var(--foreground-secondary);
   }
 </style>

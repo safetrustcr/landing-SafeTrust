@@ -256,6 +256,10 @@ html.dark .icon-box {
   color: var(--brand-accent);
 }
 
+html.dark .lead-card .icon-box {
+  color: var(--on-brand);
+}
+
 html.dark .divider-line {
   border-top-color: var(--brand-tint-border);
 }
