@@ -1,5 +1,6 @@
 ---
 import ThemeToggle from "./ThemeToggle.astro";
+import ConnectWalletButton from "./ConnectWalletButton";
 
 const navLinks = [
   { label: "Features", href: "#features" },
@@ -28,14 +29,26 @@ const navLinks = [
       <a href={link.href}>{link.label}</a>
     ))}
 
-    <a href="/register" class="navbar-cta mobile-cta">
-      Connect Wallet
-    </a>
+    <ConnectWalletButton
+      client:load
+      buttonClassName="navbar-cta mobile-cta"
+      controlClassName="navbar-wallet-control mobile-wallet-control"
+      installClassName="navbar-install"
+      errorClassName="navbar-wallet-error"
+      icon="none"
+    />
   </div>
 
   <div class="navbar-actions">
     <ThemeToggle />
-    <a href="/register" class="navbar-cta">Connect Wallet</a>
+    <ConnectWalletButton
+      client:load
+      buttonClassName="navbar-cta desktop-cta"
+      controlClassName="navbar-wallet-control desktop-wallet-control"
+      installClassName="navbar-install"
+      errorClassName="navbar-wallet-error"
+      icon="none"
+    />
   </div>
 </nav>
 
@@ -130,36 +143,63 @@ const navLinks = [
     }
   }
 
-  .navbar-cta {
-    display: inline-block;
+  :global(.navbar-cta) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     background: #ffffff;
     color: #111827;
     padding: 0.6rem 1.25rem;
     border: 1px solid rgba(0, 0, 0, 0.1);
     border-radius: 10px;
     font-weight: 600;
+    font: inherit;
     text-decoration: none;
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
     transition: all 0.2s ease;
+    cursor: pointer;
   }
 
-  .navbar-cta:hover {
+  :global(.navbar-cta:hover) {
     color: #111827;
     transform: scale(1.03);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
   }
 
-  :global(.dark) .navbar-cta {
+  :global(.navbar-cta:disabled) {
+    cursor: wait;
+    opacity: 0.75;
+  }
+
+  :global(.dark .navbar-cta) {
     background: #ffffff;
     color: #111827;
     border-color: rgba(255, 255, 255, 0.15);
   }
 
-  :global(.dark) .navbar-cta:hover {
+  :global(.dark .navbar-cta:hover) {
     background: transparent;
     color: #ffffff;
     transform: scale(1.03);
     box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+  }
+
+  :global(.navbar-wallet-control) {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.35rem;
+  }
+
+  :global(.navbar-install),
+  :global(.navbar-wallet-error) {
+    color: #2857b8;
+    font-size: 0.8rem;
+    text-align: center;
+  }
+
+  :global(.navbar-wallet-error) {
+    color: #b91c1c;
   }
 
   .navbar-checkbox {
@@ -208,7 +248,7 @@ const navLinks = [
       margin-left: auto;
     }
 
-    .navbar-actions .navbar-cta {
+    :global(.navbar-actions .desktop-cta) {
       display: none;
     }
 
@@ -232,7 +272,7 @@ const navLinks = [
       text-align: center;
     }
 
-    .navbar-links .navbar-cta {
+    :global(.navbar-links .navbar-cta) {
       color: #111827;
       box-sizing: border-box;
       padding: 0.85rem 1.75rem;
@@ -244,7 +284,11 @@ const navLinks = [
       display: block;
     }
 
-    .navbar-cta {
+    :global(.navbar-links .navbar-cta) {
+      width: 100%;
+    }
+
+    :global(.mobile-wallet-control) {
       width: 100%;
     }
 
@@ -255,7 +299,7 @@ const navLinks = [
     }
   }
 
-  .mobile-cta {
+  :global(.mobile-cta) {
     display: none;
   }
 
@@ -276,7 +320,7 @@ const navLinks = [
     background: #e2e8f0;
   }
 
-  :global(.dark) .navbar-links .navbar-cta {
+  :global(.dark .navbar-links .navbar-cta) {
     color: #111827;
   }
   @media (max-width: 1023px) {
@@ -284,8 +328,8 @@ const navLinks = [
       background: rgba(15, 23, 42, 0.96);
     }
 
-    .mobile-cta {
-      display: block;
+    :global(.mobile-cta) {
+      display: inline-flex;
     }
   }
 </style>
