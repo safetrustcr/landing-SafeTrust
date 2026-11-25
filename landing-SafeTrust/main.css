@@ -1,25 +1,24 @@
 /* ============================================================
-   SafeTrust · Color tokens
-   Royal blue palette (#1E3A8A primary / #1D4ED8 accent)
+   SafeTrust · Color tokens (legacy entrypoint — aligned with theme.css)
    ============================================================ */
 
 :root {
   /* Brand · royal blue */
   --brand-primary:      #1E3A8A;  /* logo, primary button, active states */
   --brand-accent:       #1D4ED8;  /* hovers, italic, accents on dark */
-  --brand-tint:         #E8EDFA;  /* pill, badge & icon backgrounds */
-  --brand-tint-border:  #C9D4F0;  /* secondary button borders */
+  --brand-tint:         color-mix(in srgb, var(--brand-accent) 10%, white);
+  --brand-tint-border:  color-mix(in srgb, var(--brand-primary) 24%, white);
   --brand-navy:         #10193F;  /* dark backgrounds */
-  --brand-italic-light: #A8BCF7;  /* italic on navy */
-  --cta-gradient: linear-gradient(180deg, #0D1638 0%, #16275F 60%, #1E3A8A 100%);
+  --brand-italic-light: color-mix(in srgb, var(--brand-accent) 22%, white);
+  --cta-gradient:       linear-gradient(180deg, color-mix(in srgb, var(--brand-primary) 40%, black) 0%, color-mix(in srgb, var(--brand-primary) 68%, black) 60%, var(--brand-primary) 100%);
 
-  /* Support (unchanged) */
+  /* Support */
   --success:        #16A34A;
   --success-tint:   #DCFCE7;
   --rating:         #F5A623;
-  --bg-page:        #F6F5FB;
+  --bg-page:        var(--background, #F6F5FB);
 }
 
 html.dark body {
-  background: #020617;
+  background: var(--background);
 }

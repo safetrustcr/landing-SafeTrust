@@ -4,14 +4,14 @@
    would otherwise collide with other sections (e.g. the How It Works stepper). */
 
 .escrow-card {
-  background: var(--card-bg, #ffffff);
-  border: 1px solid var(--card-border, #e5e7eb);
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
   border-radius: 1rem;
   padding: 1.5rem;
   width: 100%;
   max-width: 360px;
   box-sizing: border-box;
-  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 30px -10px var(--shadow-card);
   font-family: inherit;
 }
 
@@ -29,14 +29,14 @@
 }
 
 .escrow-card .status-active {
-  color: #10b981;
+  color: var(--emerald);
   font-size: 0.875rem;
   font-weight: 600;
   white-space: nowrap;
 }
 
 .escrow-card .label {
-  color: #9ca3af;
+  color: var(--faint-foreground);
   font-size: 0.875rem;
   margin-top: 1rem;
   margin-bottom: 0;
@@ -51,7 +51,7 @@
 
 .escrow-card .currency {
   font-size: 0.875rem;
-  color: #9ca3af;
+  color: var(--faint-foreground);
   font-weight: 500;
 }
 
@@ -63,20 +63,20 @@
   display: flex;
   justify-content: space-between;
   font-size: 0.75rem;
-  color: #6b7280;
+  color: var(--subtle-foreground);
   margin-bottom: 0.4rem;
 }
 
 .escrow-card .progress-track {
   height: 6px;
   border-radius: 999px;
-  background: #e5e7eb;
+  background: var(--card-border);
   overflow: hidden;
 }
 
 .escrow-card .progress-fill {
   height: 100%;
-  background: linear-gradient(90deg, #1d4ed8, #3b82f6 82%, #f97316);
+  background: linear-gradient(90deg, var(--brand-accent), var(--brand-mid) 82%, var(--orange-vivid));
   border-radius: 999px;
   transition: width 0.15s linear;
 }
@@ -92,7 +92,7 @@
 
 .escrow-card .timeline-label {
   font-size: 0.75rem;
-  color: #9ca3af;
+  color: var(--faint-foreground);
   margin: 0 0 0.5rem;
 }
 
@@ -118,7 +118,7 @@
 
 .escrow-card .timeline-item .sub {
   font-size: 0.75rem;
-  color: #9ca3af;
+  color: var(--faint-foreground);
 }
 
 .escrow-card .icon {
@@ -129,7 +129,7 @@
   align-items: center;
   justify-content: center;
   border-radius: 9999px;
-  background: rgba(229, 231, 235, 0.45);
+  background: var(--icon-well-idle);
 }
 
 .escrow-card .icon svg {
@@ -138,38 +138,46 @@
 }
 
 .escrow-card .icon.done {
-  background: rgba(16, 185, 129, 0.15);
-  color: #10b981;
+  background: var(--emerald-tint);
+  color: var(--emerald);
 }
 
 .escrow-card .icon.pending {
-  background: rgba(59, 130, 246, 0.15);
-  color: #3b82f6;
+  background: var(--brand-glow-soft);
+  color: var(--brand-mid);
 }
 
 .escrow-card .icon.idle {
-  background: rgba(107, 114, 128, 0.1);
-  color: #6b7280;
+  background: var(--icon-well-muted);
+  color: var(--subtle-foreground);
 }
 
 .escrow-card .footer {
   margin-top: 1.5rem;
   padding-top: 1rem;
-  border-top: 1px solid #e5e7eb;
+  border-top: 1px solid var(--card-border);
   font-size: 0.75rem;
-  color: #6b7280;
+  color: var(--subtle-foreground);
 }
 
-.dark .escrow-card {
-  background: #1e293b;
-  border-color: #334155;
-  color: #f1f5f9;
+html.dark .escrow-card {
+  background: var(--surface-elevated);
+  border-color: var(--card-border);
+  color: var(--foreground-strong);
 }
 
-.dark .escrow-card .label { color: #94a3b8; }
-.dark .escrow-card .progress-track { background: #334155; }
-.dark .escrow-card .timeline-label { color: #64748b; }
-.dark .escrow-card .footer { border-top-color: #334155; color: #64748b; }
+html.dark .escrow-card .label {
+  color: var(--muted-foreground);
+}
+
+html.dark .escrow-card .progress-track {
+  background: var(--card-border);
+}
+
+html.dark .escrow-card .timeline-label,
+html.dark .escrow-card .footer {
+  color: var(--faint-foreground);
+}
 
 /* Mobile */
 @media (max-width: 480px) {

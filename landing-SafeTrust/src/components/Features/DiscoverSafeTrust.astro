@@ -59,15 +59,15 @@ const features = [
     .discover-grid { grid-template-columns: 1.3fr 1fr 1fr; }
   }
   .scale-card {
-    background: linear-gradient(160deg, #0b1533, #1e3a8a); color: #fff; position: relative; overflow: hidden;
+    background: linear-gradient(160deg, var(--brand-deep), var(--brand-solid)); color: var(--on-dark); position: relative; overflow: hidden;
     border-radius: 1rem; padding: 1.5rem;
     grid-row: span 2;
   }
-  .live-badge { font-size: 0.75rem; color: #34d399; font-weight: 600; }
+  .live-badge { font-size: 0.75rem; color: var(--emerald-light); font-weight: 600; }
   .scale-card h3 { margin-top: 1rem; font-size: 1.5rem; }
-  .muted { color: #93c5fd; font-size: 0.875rem; }
+  .muted { color: var(--brand-light); font-size: 0.875rem; }
   .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 2rem; }
-  .stat-label { display: block; font-size: 0.7rem; color: #93c5fd; margin-bottom: 0.25rem; }
+  .stat-label { display: block; font-size: 0.7rem; color: var(--brand-light); margin-bottom: 0.25rem; }
   .stats strong { font-size: 1.5rem; }
   .feature-card {
     background: var(--card-bg);

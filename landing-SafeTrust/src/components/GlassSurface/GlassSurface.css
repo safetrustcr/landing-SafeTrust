@@ -163,6 +163,6 @@
 }
 
 .glass-surface:focus-visible {
-  outline: 2px solid light-dark(#007aff, #0a84ff);
+  outline: 2px solid var(--brand-accent);
   outline-offset: 2px;
 }

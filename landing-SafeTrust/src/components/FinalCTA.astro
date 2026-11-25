@@ -89,10 +89,7 @@ import GlassPanel from "./GlassPanel.tsx";
   .cta-bg-gradient {
     position: absolute;
     inset: 0;
-    background:
-      radial-gradient(circle at 85% 85%, rgba(249, 115, 22, 0.22), transparent 38%),
-      radial-gradient(circle at 15% 10%, rgba(59, 130, 246, 0.35), transparent 45%),
-      linear-gradient(135deg, #0b1533 0%, #1e3a8a 55%, #0b1533 100%);
+    background: var(--cta-section-bg);
     z-index: 1;
     border-radius: inherit;
   }
@@ -104,7 +101,7 @@ import GlassPanel from "./GlassPanel.tsx";
   .cta-bg-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(to top, rgba(11, 21, 51, 0.45), transparent);
+    background: linear-gradient(to top, var(--brand-deep-alpha), transparent);
     z-index: 2;
     border-radius: inherit;
   }
@@ -118,11 +115,11 @@ import GlassPanel from "./GlassPanel.tsx";
 
   /* Deep-blue tint inside the glass keeps the white text readable in both themes */
   .cta-glass-wrap :global(.glass-surface.cta-glass) {
-    background-color: rgba(11, 21, 51, 0.32);
+    background-color: var(--brand-deep-glass);
     box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, 0.35),
-      inset 0 0 0 1px rgba(255, 255, 255, 0.18),
-      0 30px 80px -30px rgba(2, 6, 23, 0.6);
+      inset 0 1px 0 var(--on-dark-faint),
+      inset 0 0 0 1px var(--border-on-dark-subtle),
+      0 30px 80px -30px var(--shadow-lg);
   }
 
   .cta-content {
@@ -143,10 +140,10 @@ import GlassPanel from "./GlassPanel.tsx";
     align-items: center;
     gap: 0.5rem;
     padding: 0.5rem 1rem;
-    background: rgba(147, 197, 253, 0.14);
-    border: 1px solid rgba(147, 197, 253, 0.35);
+    background: var(--brand-glow-medium);
+    border: 1px solid var(--brand-glow-strong);
     border-radius: 9999px;
-    color: #bfdbfe;
+    color: var(--brand-light);
     font-weight: 600;
     font-size: 0.875rem;
   }
@@ -164,15 +161,15 @@ import GlassPanel from "./GlassPanel.tsx";
     height: 3px;
     margin: 1rem auto 0;
     border-radius: 3px;
-    background: linear-gradient(90deg, #60a5fa, #f97316);
+    background: linear-gradient(90deg, var(--brand-soft), var(--orange-vivid));
   }
 
   .cta-heading {
     font-size: 2.25rem;
     line-height: 1.2;
     font-weight: 700;
-    color: #ffffff;
-    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+    color: var(--on-dark);
+    text-shadow: 0 2px 8px color-mix(in srgb, var(--brand-deep) 55%, transparent);
     margin: 0 0 1.5rem 0;
   }
   @media (min-width: 768px) {
@@ -183,7 +180,7 @@ import GlassPanel from "./GlassPanel.tsx";
 
   .text-purple-accent {
     font-style: italic;
-    background: linear-gradient(90deg, #93c5fd, #60a5fa 80%, #fb923c 94%);
+    background: var(--accent-text-on-dark);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     text-shadow: none;
@@ -191,8 +188,8 @@ import GlassPanel from "./GlassPanel.tsx";
 
   .cta-description {
     font-size: 1.125rem;
-    color: rgba(255, 255, 255, 0.9);
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
+    color: var(--on-dark-muted);
+    text-shadow: 0 1px 2px color-mix(in srgb, var(--brand-deep) 70%, transparent);
     max-width: 42rem;
     margin: 0 0 2.5rem 0;
     line-height: 1.6;
@@ -226,8 +223,8 @@ import GlassPanel from "./GlassPanel.tsx";
   }
 
   .btn-primary {
-    background: linear-gradient(to right, var(--brand-primary), var(--brand-accent));
-    color: white;
+    background: linear-gradient(to right, var(--brand-solid), var(--brand-solid-hover));
+    color: var(--on-brand);
     border: none;
     box-shadow: 0 4px 14px 0 color-mix(in srgb, var(--brand-accent) 39%, transparent);
   }
@@ -237,8 +234,8 @@ import GlassPanel from "./GlassPanel.tsx";
 
   .btn-secondary {
     background: transparent;
-    color: white;
-    border: 2px solid rgba(255, 255, 255, 0.5);
+    color: var(--on-dark);
+    border: 2px solid var(--on-dark-border);
   }
   .btn-secondary:hover {
     border-color: var(--brand-accent);
@@ -253,7 +250,7 @@ import GlassPanel from "./GlassPanel.tsx";
     justify-content: center;
     gap: 1.5rem;
     margin-top: 3rem;
-    color: rgba(255, 255, 255, 0.75);
+    color: var(--on-dark-subtle);
     font-size: 0.875rem;
   }
 
@@ -281,9 +278,9 @@ import GlassPanel from "./GlassPanel.tsx";
     border-radius: 50%;
     animation: pulse 2s infinite;
   }
-  .dot-green { background-color: #22c55e; }
-  .dot-blue { background-color: #3b82f6; }
-  .dot-purple { background-color: #f97316; }
+  .dot-green { background-color: var(--success-bright); }
+  .dot-blue { background-color: var(--brand-mid); }
+  .dot-purple { background-color: var(--orange-vivid); }
 
   @keyframes pulse {
     0%, 100% { opacity: 1; }

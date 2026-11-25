@@ -6,7 +6,7 @@
   position: relative;
   width: 100%;
   padding: 5rem 1.5rem 6rem;
-  background: linear-gradient(135deg, #060818, #0d1230, #060818);
+  background: var(--brand-cosmic-bg);
   overflow: hidden;
   box-sizing: border-box;
 }
@@ -17,12 +17,12 @@
   position: absolute;
   inset: 0;
   background-image:
-    radial-gradient(1.5px 1.5px at 22px 34px, rgba(255, 255, 255, 0.8), transparent),
-    radial-gradient(1px 1px at 78px 118px, rgba(255, 255, 255, 0.55), transparent),
-    radial-gradient(1.5px 1.5px at 145px 62px, rgba(255, 255, 255, 0.65), transparent),
-    radial-gradient(1px 1px at 190px 154px, rgba(255, 255, 255, 0.45), transparent),
-    radial-gradient(1px 1px at 55px 195px, rgba(255, 255, 255, 0.5), transparent),
-    radial-gradient(1.5px 1.5px at 120px 210px, rgba(255, 255, 255, 0.35), transparent);
+    radial-gradient(1.5px 1.5px at 22px 34px, var(--on-dark-muted), transparent),
+    radial-gradient(1px 1px at 78px 118px, var(--glass-sweep), transparent),
+    radial-gradient(1.5px 1.5px at 145px 62px, var(--on-dark-subtle), transparent),
+    radial-gradient(1px 1px at 190px 154px, var(--glass-sheen), transparent),
+    radial-gradient(1px 1px at 55px 195px, var(--on-dark-border), transparent),
+    radial-gradient(1.5px 1.5px at 120px 210px, var(--on-dark-faint), transparent);
   background-repeat: repeat;
   background-size: 230px 230px;
   opacity: 0.4;
@@ -46,9 +46,9 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.18em;
-  color: #bfdbfe;
-  background: rgba(37, 99, 235, 0.18);
-  border: 1px solid rgba(96, 165, 250, 0.4);
+  color: var(--brand-light);
+  background: var(--brand-glow-medium);
+  border: 1px solid var(--brand-glow-strong);
   border-radius: 999px;
   padding: 0.4rem 1.1rem;
   margin-bottom: 1.5rem;
@@ -59,7 +59,7 @@
   font-family: 'Playfair Display', Georgia, serif;
   font-size: 2.5rem;
   font-weight: 700;
-  color: #ffffff;
+  color: var(--on-dark);
   text-align: center;
   margin: 0 0 1rem;
   line-height: 1.25;
@@ -68,7 +68,7 @@
 .contributors-subtitle {
   font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 1.125rem;
-  color: #a5b0d0;
+  color: var(--brand-italic-light);
   text-align: center;
   margin: 0 0 3.5rem;
   max-width: 640px;
@@ -94,21 +94,21 @@
 
 /* Contributor card */
 .contributor-card {
-  background: var(--card-bg, #ffffff);
-  border: 1px solid var(--card-border, #e5e7eb);
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
   border-radius: 1rem;
   padding: 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  box-shadow: 0 8px 24px -8px rgba(2, 6, 23, 0.5);
+  box-shadow: 0 8px 24px -8px var(--shadow-lg);
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease;
 }
 
 .contributor-card:hover {
   transform: translateY(-6px);
-  box-shadow: 0 16px 32px -8px rgba(2, 6, 23, 0.6);
+  box-shadow: 0 16px 32px -8px var(--shadow-lg);
 }
 
 .contributor-avatar {
@@ -116,15 +116,15 @@
   height: 64px;
   border-radius: 50%;
   object-fit: cover;
-  border: 3px solid var(--surface-subtle, #ede9fe);
+  border: 3px solid var(--surface-subtle);
 }
 
 .contributor-avatar-placeholder {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--surface-subtle, #ede9fe);
-  color: var(--brand-accent, #1d4ed8);
+  background: var(--surface-subtle);
+  color: var(--brand-accent);
 }
 
 .contributor-avatar-placeholder svg {
@@ -136,7 +136,7 @@
   font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 0.8125rem;
   font-weight: 700;
-  color: var(--foreground, #10193f);
+  color: var(--foreground);
   margin: 0.875rem 0 0.75rem;
   overflow-wrap: anywhere;
 }
@@ -151,8 +151,8 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  color: var(--brand-accent, #1e40af);
-  background: var(--brand-tint, #f3f0ff);
+  color: var(--brand-accent);
+  background: var(--brand-tint);
   border-radius: 999px;
   padding: 0.25rem 0.625rem;
   margin-bottom: 0.875rem;
@@ -170,8 +170,8 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: #ffffff;
-  background: var(--brand-primary);
+  color: var(--on-brand);
+  background: var(--brand-solid);
   border-radius: 6px;
   padding: 0.5rem 0.9rem;
   text-decoration: none;
@@ -179,23 +179,23 @@
 }
 
 .contributor-profile-btn:hover {
-  background: var(--brand-accent);
+  background: var(--brand-solid-hover);
 }
 
-:global(.dark) .contributor-card {
-  background: rgba(30, 41, 59, 0.85);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+html.dark .contributor-card {
+  background: var(--surface-glass-strong);
+  border: 1px solid var(--border-subtle);
+  box-shadow: 0 4px 24px var(--shadow-md);
 }
 
-:global(.dark) .contributor-login {
-  color: #f1f5f9;
+html.dark .contributor-login {
+  color: var(--foreground-strong);
 }
 
-:global(.dark) .contributor-commits {
-  background: rgba(37, 99, 235, 0.2);
-  color: #bfdbfe;
-  border-color: rgba(96, 165, 250, 0.3);
+html.dark .contributor-commits {
+  background: var(--brand-tint-strong);
+  color: var(--brand-light);
+  border-color: var(--brand-tint-border);
 }
 
 /* Logo aside */
@@ -220,7 +220,7 @@
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.12em;
-  color: #8b93b3;
+  color: var(--on-dark-subtle);
   text-align: center;
   line-height: 1.6;
 }

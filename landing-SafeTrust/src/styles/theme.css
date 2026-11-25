@@ -1,58 +1,323 @@
+/* ============================================================
+   SafeTrust · Design tokens (Light + Dark)
+   Standardized dark-mode selector:
+     - Global CSS files:  html.dark ...
+     - Scoped Astro CSS:  :global(html.dark) ...
+   Derived tints, borders, glows and gradients track --brand-primary,
+   --brand-accent and --orange via color-mix() so changing a brand
+   colour here updates every section automatically.
+   ============================================================ */
+
 :root {
   color-scheme: light;
+
+  /* Surfaces & neutrals */
   --background: #f8fafc;
-  --foreground: #0f172a;
-  --muted-foreground: #64748b;
+  --surface-white: #ffffff;
+  --surface-alt: #f8faff;
   --card-bg: #ffffff;
   --card-border: #e5e7eb;
   --surface-subtle: #f1f5f9;
   --surface-elevated: #ffffff;
+  --surface-card-deep: #ffffff;
+  --surface-input: #ffffff;
+  --surface-navbar: rgba(255, 255, 255, 0.88);
+  --surface-navbar-mobile: rgba(255, 255, 255, 0.96);
+  --surface-overlay: rgba(255, 255, 255, 0.72);
+  --surface-overlay-soft: rgba(255, 255, 255, 0.58);
+  --surface-glass-strong: rgba(255, 255, 255, 0.85);
+  --surface-backdrop-overlay: rgba(15, 23, 42, 0.5);
+  --surface-badge-dark: rgba(15, 23, 42, 0.55);
+  --surface-hover: rgba(15, 23, 42, 0.06);
+
+  /* Text */
+  --foreground: #0f172a;
+  --foreground-strong: #111827;
+  --foreground-secondary: #334155;
+  --foreground-body: #475569;
+  --muted-foreground: #64748b;
+  --subtle-foreground: #6b7280;
+  --faint-foreground: #9ca3af;
+  --on-brand: #ffffff;
+  --on-light-cta: #111827;
+  --on-dark: #ffffff;
+  --on-dark-muted: rgba(255, 255, 255, 0.9);
+  --on-dark-subtle: rgba(255, 255, 255, 0.75);
+  --on-dark-border: rgba(255, 255, 255, 0.5);
+  --on-dark-faint: rgba(255, 255, 255, 0.35);
+
+  /* Borders */
+  --border-subtle: #e2e8f0;
+  --border-faint: #f3f4f6;
+  --border-soft: #e8ecf4;
+  --border-soft-alt: #eef1f7;
+  --border-muted: #d1d5db;
+  --border-input: #cbd5e1;
+  --border-control: rgba(15, 23, 42, 0.12);
+  --border-hairline: rgba(15, 23, 42, 0.08);
+  --border-on-light-subtle: rgba(0, 0, 0, 0.1);
+  --border-on-dark-subtle: rgba(255, 255, 255, 0.18);
+
+  /* Grids & shadows */
   --hero-grid: rgba(15, 23, 42, 0.03);
+  --promise-grid: rgba(15, 23, 42, 0.05);
   --shadow-color: rgba(15, 23, 42, 0.08);
+  --shadow-sm: rgba(15, 23, 42, 0.06);
+  --shadow-md: rgba(15, 23, 42, 0.12);
+  --shadow-lg: rgba(2, 6, 23, 0.5);
+  --shadow-card: rgba(0, 0, 0, 0.1);
+  --shadow-card-subtle: rgba(0, 0, 0, 0.02);
+  --scroll-indicator: #0f172a;
+
+  /* Base brand palette */
   --brand-navy: #10193f;
   --brand-primary: #1e3a8a;
   --brand-accent: #1d4ed8;
-  --brand-tint: #e8edfa;
-  --brand-tint-border: #cbd5e1;
-  --brand-italic-light: #dbeafe;
-  --success: #16a34a;
-  --success-tint: #dcfce7;
-  --scroll-indicator: #0f172a;
+
+  /* Derived brand tokens (track --brand-primary & --brand-accent) */
+  --brand-hover: color-mix(in srgb, var(--brand-accent) 92%, white);
+  --brand-mid: color-mix(in srgb, var(--brand-accent) 78%, white);
+  --brand-soft: color-mix(in srgb, var(--brand-accent) 62%, white);
+  --brand-light: color-mix(in srgb, var(--brand-accent) 44%, white);
+  --brand-solid: var(--brand-primary);
+  --brand-solid-hover: var(--brand-accent);
+  --brand-tint: color-mix(in srgb, var(--brand-accent) 10%, white);
+  --brand-tint-soft: color-mix(in srgb, var(--brand-accent) 6%, white);
+  --brand-tint-strong: color-mix(in srgb, var(--brand-accent) 16%, white);
+  --brand-tint-border: color-mix(in srgb, var(--brand-primary) 24%, white);
+  --brand-italic-light: color-mix(in srgb, var(--brand-accent) 22%, white);
+  --brand-lead-bg: var(--brand-tint-soft);
+  --brand-lead-border: var(--brand-tint-strong);
+  --brand-glow: color-mix(in srgb, var(--brand-accent) 24%, transparent);
+  --brand-glow-soft: color-mix(in srgb, var(--brand-accent) 12%, transparent);
+  --brand-glow-medium: color-mix(in srgb, var(--brand-accent) 16%, transparent);
+  --brand-glow-strong: color-mix(in srgb, var(--brand-accent) 40%, transparent);
+  --brand-primary-glow: color-mix(in srgb, var(--brand-primary) 35%, transparent);
+  --brand-primary-glow-soft: color-mix(in srgb, var(--brand-primary) 8%, transparent);
+  --brand-deep: color-mix(in srgb, var(--brand-primary) 40%, black);
+  --brand-deep-mid: color-mix(in srgb, var(--brand-primary) 68%, black);
+  --brand-deep-alpha: color-mix(in srgb, var(--brand-deep) 45%, transparent);
+  --brand-deep-glass: color-mix(in srgb, var(--brand-deep) 32%, transparent);
+  --brand-cosmic-bg: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--brand-primary) 18%, black),
+    color-mix(in srgb, var(--brand-primary) 34%, black),
+    color-mix(in srgb, var(--brand-primary) 18%, black)
+  );
+  --cta-gradient: linear-gradient(180deg, var(--brand-deep) 0%, var(--brand-deep-mid) 60%, var(--brand-primary) 100%);
+  --cta-section-bg:
+    radial-gradient(circle at 85% 85%, var(--orange-glow), transparent 38%),
+    radial-gradient(circle at 15% 10%, var(--brand-glow-strong), transparent 45%),
+    linear-gradient(135deg, var(--brand-deep) 0%, var(--brand-primary) 55%, var(--brand-deep) 100%);
+
   /* Orange accent (shared with the SafeTrust rental app) */
   --orange: #ea580c;
   --orange-strong: #c2410c;
-  --orange-tint: #fff1e6;
-  --orange-tint-border: #fed7aa;
-  --orange-glow: rgba(234, 88, 12, 0.22);
-  --orange-glow-soft: rgba(249, 115, 22, 0.12);
+  --orange-vivid: color-mix(in srgb, var(--orange) 86%, white);
+  --orange-light: color-mix(in srgb, var(--orange) 68%, white);
+  --orange-tint: color-mix(in srgb, var(--orange) 10%, white);
+  --orange-tint-border: color-mix(in srgb, var(--orange) 32%, white);
+  --orange-glow: color-mix(in srgb, var(--orange) 22%, transparent);
+  --orange-glow-soft: color-mix(in srgb, var(--orange) 12%, transparent);
+
+  /* Highlighted words & divider lines */
+  --accent-text: linear-gradient(
+    90deg,
+    var(--brand-primary) 0%,
+    var(--brand-accent) 45%,
+    var(--brand-hover) 80%,
+    var(--orange-vivid) 94%,
+    var(--orange) 100%
+  );
+  --accent-text-on-dark: linear-gradient(
+    90deg,
+    var(--brand-light) 0%,
+    var(--brand-soft) 80%,
+    var(--orange-light) 94%
+  );
+  --accent-line: linear-gradient(
+    90deg,
+    transparent,
+    var(--brand-accent) 25%,
+    var(--brand-mid) 62%,
+    var(--orange-vivid) 82%,
+    transparent
+  );
+
+  /* Semantic / status tokens */
+  --success: #16a34a;
+  --success-strong: #15803d;
+  --success-bright: #22c55e;
+  --success-tint: #dcfce7;
+  --success-glow: rgba(22, 163, 74, 0.45);
+  --success-pulse: rgba(34, 197, 94, 0.5);
+  --emerald: #10b981;
+  --emerald-light: #34d399;
+  --emerald-tint: rgba(16, 185, 129, 0.15);
+  --warning: #f59e0b;
+  --warning-strong: #d97706;
+  --warning-tint: rgba(245, 158, 11, 0.16);
+  --danger: #ef4444;
+  --danger-strong: #dc2626;
+  --danger-tint: rgba(239, 68, 68, 0.1);
+  --accent-purple: #7c3aed;
+
+  /* Glass surface tokens */
+  --glass-bg: rgba(255, 255, 255, 0.58);
+  --glass-hi: rgba(255, 255, 255, 0.85);
+  --glass-hi-soft: rgba(255, 255, 255, 0.35);
+  --glass-sheen: rgba(255, 255, 255, 0.42);
+  --glass-sweep: rgba(255, 255, 255, 0.55);
+  --glass-shimmer: rgba(255, 255, 255, 0.9);
+  --glass-blob-opacity: 0.45;
+  --glass-lead-bg: color-mix(in srgb, var(--brand-italic-light) 62%, transparent);
+  --glass-contributor-bg: rgba(255, 255, 255, 0.82);
+
+  /* Hero backdrop mesh */
+  --hero-mesh:
+    radial-gradient(circle at 70% 30%, color-mix(in srgb, var(--brand-accent) 15%, transparent), transparent 60%),
+    radial-gradient(circle at 88% 78%, color-mix(in srgb, var(--orange) 14%, transparent), transparent 45%),
+    radial-gradient(circle at 8% 92%, color-mix(in srgb, var(--orange) 8%, transparent), transparent 40%);
+
+  /* Neutral icon wells */
+  --icon-well-idle: rgba(229, 231, 235, 0.45);
+  --icon-well-muted: rgba(107, 114, 128, 0.1);
 }
 
 html.dark {
   color-scheme: dark;
+
+  /* Surfaces & neutrals */
   --background: #020617;
-  --foreground: #f8fafc;
-  --muted-foreground: #94a3b8;
+  --surface-alt: #0a0f1e;
   --card-bg: #0f172a;
   --card-border: #334155;
   --surface-subtle: #111827;
   --surface-elevated: #172033;
+  --surface-card-deep: #111a2e;
+  --surface-input: rgba(255, 255, 255, 0.06);
+  --surface-navbar: rgba(15, 23, 42, 0.9);
+  --surface-navbar-mobile: rgba(15, 23, 42, 0.96);
+  --surface-overlay: rgba(255, 255, 255, 0.06);
+  --surface-overlay-soft: rgba(255, 255, 255, 0.06);
+  --surface-glass-strong: rgba(30, 41, 59, 0.82);
+  --surface-hover: rgba(255, 255, 255, 0.08);
+
+  /* Text */
+  --foreground: #f8fafc;
+  --foreground-strong: #f1f5f9;
+  --foreground-secondary: #e2e8f0;
+  --foreground-body: #94a3b8;
+  --muted-foreground: #94a3b8;
+  --subtle-foreground: #94a3b8;
+  --faint-foreground: #64748b;
+
+  /* Borders */
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-faint: rgba(255, 255, 255, 0.07);
+  --border-soft: rgba(255, 255, 255, 0.08);
+  --border-soft-alt: rgba(255, 255, 255, 0.08);
+  --border-muted: #334155;
+  --border-input: rgba(255, 255, 255, 0.12);
+  --border-control: rgba(255, 255, 255, 0.15);
+  --border-hairline: rgba(255, 255, 255, 0.08);
+  --border-on-dark-subtle: rgba(255, 255, 255, 0.15);
+
+  /* Grids & shadows */
   --hero-grid: rgba(255, 255, 255, 0.04);
+  --promise-grid: rgba(255, 255, 255, 0.05);
   --shadow-color: rgba(2, 6, 23, 0.45);
+  --shadow-sm: rgba(0, 0, 0, 0.25);
+  --shadow-md: rgba(0, 0, 0, 0.35);
+  --shadow-lg: rgba(0, 0, 0, 0.55);
+  --shadow-card: rgba(0, 0, 0, 0.35);
+  --shadow-card-subtle: rgba(0, 0, 0, 0.2);
+  --scroll-indicator: #f8fafc;
+
+  /* Base brand palette */
   --brand-navy: #f8fafc;
   --brand-primary: #60a5fa;
   --brand-accent: #93c5fd;
-  --brand-tint: #162338;
-  --brand-tint-border: #334155;
-  --brand-italic-light: #bfdbfe;
-  --success: #4ade80;
-  --success-tint: #12311e;
-  --scroll-indicator: #f8fafc;
+
+  /* Derived brand tokens in dark mode */
+  --brand-hover: color-mix(in srgb, var(--brand-primary) 82%, white);
+  --brand-mid: color-mix(in srgb, var(--brand-primary) 72%, black);
+  --brand-soft: var(--brand-accent);
+  --brand-light: color-mix(in srgb, var(--brand-accent) 70%, white);
+  --brand-solid: color-mix(in srgb, var(--brand-primary) 65%, black);
+  --brand-solid-hover: color-mix(in srgb, var(--brand-primary) 78%, black);
+  --brand-tint: color-mix(in srgb, var(--brand-primary) 14%, var(--card-bg));
+  --brand-tint-soft: color-mix(in srgb, var(--brand-primary) 10%, var(--card-bg));
+  --brand-tint-strong: color-mix(in srgb, var(--brand-primary) 22%, var(--card-bg));
+  --brand-tint-border: color-mix(in srgb, var(--brand-primary) 28%, var(--card-border));
+  --brand-italic-light: color-mix(in srgb, var(--brand-accent) 70%, white);
+  --brand-lead-bg: color-mix(in srgb, var(--brand-primary) 14%, var(--card-bg));
+  --brand-lead-border: color-mix(in srgb, var(--brand-primary) 40%, var(--card-border));
+  --brand-glow: color-mix(in srgb, var(--brand-primary) 28%, transparent);
+  --brand-glow-soft: color-mix(in srgb, var(--brand-primary) 14%, transparent);
+  --brand-glow-medium: color-mix(in srgb, var(--brand-primary) 18%, transparent);
+  --brand-glow-strong: color-mix(in srgb, var(--brand-primary) 42%, transparent);
+  --brand-primary-glow: color-mix(in srgb, var(--brand-primary) 35%, transparent);
+  --brand-primary-glow-soft: color-mix(in srgb, var(--brand-primary) 12%, transparent);
+  --brand-deep: color-mix(in srgb, var(--brand-primary) 24%, #020617);
+  --brand-deep-mid: color-mix(in srgb, var(--brand-primary) 42%, #020617);
+  --cta-gradient: linear-gradient(180deg, var(--brand-deep) 0%, var(--brand-deep-mid) 60%, var(--brand-solid) 100%);
+  --cta-section-bg:
+    radial-gradient(circle at 85% 85%, var(--orange-glow), transparent 38%),
+    radial-gradient(circle at 15% 10%, var(--brand-glow-strong), transparent 45%),
+    linear-gradient(135deg, var(--brand-deep) 0%, var(--brand-solid) 55%, var(--brand-deep) 100%);
+
+  /* Orange accent in dark mode */
   --orange: #ff7a1a;
   --orange-strong: #ff6b00;
-  --orange-tint: rgba(255, 107, 0, 0.12);
-  --orange-tint-border: rgba(255, 122, 26, 0.35);
-  --orange-glow: rgba(255, 107, 0, 0.32);
-  --orange-glow-soft: rgba(255, 107, 0, 0.14);
+  --orange-vivid: color-mix(in srgb, var(--orange) 88%, white);
+  --orange-light: color-mix(in srgb, var(--orange) 70%, white);
+  --orange-tint: color-mix(in srgb, var(--orange) 12%, transparent);
+  --orange-tint-border: color-mix(in srgb, var(--orange) 35%, transparent);
+  --orange-glow: color-mix(in srgb, var(--orange) 32%, transparent);
+  --orange-glow-soft: color-mix(in srgb, var(--orange) 14%, transparent);
+
+  --accent-text: linear-gradient(
+    90deg,
+    var(--brand-primary) 0%,
+    var(--brand-accent) 80%,
+    var(--brand-light) 92%,
+    var(--orange-light) 100%
+  );
+  --accent-line: linear-gradient(
+    90deg,
+    transparent,
+    var(--brand-mid) 25%,
+    var(--brand-primary) 62%,
+    var(--orange-light) 82%,
+    transparent
+  );
+
+  /* Semantic / status tokens */
+  --success: #4ade80;
+  --success-strong: #22c55e;
+  --success-bright: #4ade80;
+  --success-tint: #12311e;
+
+  /* Glass surface tokens */
+  --glass-bg: rgba(15, 23, 42, 0.5);
+  --glass-hi: rgba(255, 255, 255, 0.22);
+  --glass-hi-soft: rgba(255, 255, 255, 0.06);
+  --glass-sheen: rgba(255, 255, 255, 0.1);
+  --glass-sweep: rgba(255, 255, 255, 0.12);
+  --glass-blob-opacity: 0.32;
+  --glass-lead-bg: color-mix(in srgb, var(--brand-primary) 22%, transparent);
+  --glass-contributor-bg: rgba(30, 41, 59, 0.55);
+
+  /* Hero backdrop mesh in dark mode */
+  --hero-mesh:
+    radial-gradient(ellipse 80% 60% at 70% 10%, var(--brand-glow) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 50% at 10% 80%, var(--brand-glow) 0%, transparent 65%),
+    radial-gradient(ellipse 50% 40% at 90% 85%, color-mix(in srgb, var(--orange) 16%, transparent) 0%, transparent 60%),
+    linear-gradient(160deg, color-mix(in srgb, var(--brand-primary) 16%, var(--background)) 0%, var(--brand-deep) 50%, color-mix(in srgb, var(--brand-primary) 16%, var(--background)) 100%);
+
+  --icon-well-idle: rgba(148, 163, 184, 0.14);
+  --icon-well-muted: rgba(148, 163, 184, 0.12);
 }
 
 html,
@@ -76,18 +341,6 @@ body {
    Blue carries the page; orange only appears as small lines,
    dots and gradient tips.
    ============================================================ */
-
-:root {
-  /* Highlighted words in headings: mostly blue, warm orange tip */
-  --accent-text: linear-gradient(90deg, #1e3a8a 0%, #1d4ed8 45%, #2563eb 80%, #f97316 94%, #ea580c 100%);
-  /* Thin divider / accent lines */
-  --accent-line: linear-gradient(90deg, transparent, #1d4ed8 25%, #3b82f6 62%, #f97316 82%, transparent);
-}
-
-html.dark {
-  --accent-text: linear-gradient(90deg, #60a5fa 0%, #93c5fd 80%, #fdba74 92%, #fb923c 100%);
-  --accent-line: linear-gradient(90deg, transparent, #3b82f6 25%, #60a5fa 62%, #fb923c 82%, transparent);
-}
 
 /* Thin blue→orange line at the top of every section after the hero */
 body > section:not(#hero),
@@ -148,7 +401,7 @@ body > footer::after {
   width: 2.5rem;
   height: 3px;
   border-radius: 0 0 3px 3px;
-  background: linear-gradient(90deg, #fb923c, var(--orange-strong));
+  background: linear-gradient(90deg, var(--orange-light), var(--orange-strong));
   transition: width 0.3s ease;
   pointer-events: none;
   z-index: 2;

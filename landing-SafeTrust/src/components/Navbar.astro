@@ -50,9 +50,9 @@ const navLinks = [
     gap: 1rem;
     padding: 1rem 2rem;
     backdrop-filter: blur(16px);
-    background: rgba(255, 255, 255, 0.88);
-    border-bottom: 1px solid rgba(15, 23, 42, 0.08);
-    box-shadow: 0 1px 12px rgba(15, 23, 42, 0.06);
+    background: var(--surface-navbar);
+    border-bottom: 1px solid var(--border-hairline);
+    box-shadow: 0 1px 12px var(--shadow-sm);
     transition: background 0.25s ease, box-shadow 0.25s ease;
   }
 
@@ -103,7 +103,7 @@ const navLinks = [
   }
 
   .navbar-links a:hover {
-    color: #2857B8;
+    color: var(--brand-primary);
   }
 
   @media (min-width: 1024px) {
@@ -119,7 +119,7 @@ const navLinks = [
       bottom: -6px;
       height: 2px;
       border-radius: 2px;
-      background: linear-gradient(90deg, #2857b8, #f97316);
+      background: linear-gradient(90deg, var(--brand-primary), var(--orange-vivid));
       transform: scaleX(0);
       transform-origin: left center;
       transition: transform 0.25s ease;
@@ -132,34 +132,34 @@ const navLinks = [
 
   .navbar-cta {
     display: inline-block;
-    background: #ffffff;
-    color: #111827;
+    background: var(--surface-white);
+    color: var(--on-light-cta);
     padding: 0.6rem 1.25rem;
-    border: 1px solid rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--border-on-light-subtle);
     border-radius: 10px;
     font-weight: 600;
     text-decoration: none;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 1px 4px var(--shadow-card);
     transition: all 0.2s ease;
   }
 
   .navbar-cta:hover {
-    color: #111827;
+    color: var(--on-light-cta);
     transform: scale(1.03);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 4px 12px var(--shadow-md);
   }
 
-  :global(.dark) .navbar-cta {
-    background: #ffffff;
-    color: #111827;
-    border-color: rgba(255, 255, 255, 0.15);
+  :global(html.dark) .navbar-cta {
+    background: var(--surface-white);
+    color: var(--on-light-cta);
+    border-color: var(--border-on-dark-subtle);
   }
 
-  :global(.dark) .navbar-cta:hover {
+  :global(html.dark) .navbar-cta:hover {
     background: transparent;
-    color: #ffffff;
+    color: var(--on-dark);
     transform: scale(1.03);
-    box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 15px var(--glass-hi-soft);
   }
 
   .navbar-checkbox {
@@ -184,7 +184,7 @@ const navLinks = [
     display: block;
     width: 1.5rem;
     height: 2px;
-    background: #111827;
+    background: var(--foreground-strong);
     border-radius: 999px;
     transition: transform 0.2s ease, opacity 0.2s ease;
   }
@@ -219,11 +219,11 @@ const navLinks = [
       flex-direction: column;
       align-items: stretch;
       gap: 0.75rem;
-      background: rgba(255, 255, 255, 0.96);
+      background: var(--surface-navbar-mobile);
       border-bottom-left-radius: 16px;
       border-bottom-right-radius: 16px;
-      border-top: 1px solid rgba(15, 23, 42, 0.08);
-      box-shadow: 0 12px 24px rgba(15, 23, 42, 0.08);
+      border-top: 1px solid var(--border-hairline);
+      box-shadow: 0 12px 24px var(--shadow-color);
       max-height: 0;
       overflow: hidden;
       opacity: 0;
@@ -233,7 +233,7 @@ const navLinks = [
     }
 
     .navbar-links .navbar-cta {
-      color: #111827;
+      color: var(--on-light-cta);
       box-sizing: border-box;
       padding: 0.85rem 1.75rem;
       text-align: center;
@@ -259,31 +259,22 @@ const navLinks = [
     display: none;
   }
 
-  :global(.dark) .navbar {
-    background: rgba(15, 23, 42, 0.9);
-    border-bottom-color: rgba(255, 255, 255, 0.08);
+  :global(html.dark) .navbar-links a {
+    color: var(--foreground-secondary);
   }
 
-  :global(.dark) .navbar-links a {
-    color: #e2e8f0;
+  :global(html.dark) .navbar-links a:hover {
+    color: var(--brand-primary);
   }
 
-  :global(.dark) .navbar-links a:hover {
-    color: #60a5fa;
+  :global(html.dark) .navbar-toggle span {
+    background: var(--foreground-secondary);
   }
 
-  :global(.dark) .navbar-toggle span {
-    background: #e2e8f0;
-  }
-
-  :global(.dark) .navbar-links .navbar-cta {
-    color: #111827;
+  :global(html.dark) .navbar-links .navbar-cta {
+    color: var(--on-light-cta);
   }
   @media (max-width: 1023px) {
-    :global(.dark) .navbar-links {
-      background: rgba(15, 23, 42, 0.96);
-    }
-
     .mobile-cta {
       display: block;
     }

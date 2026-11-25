@@ -26,7 +26,7 @@
 .bwe-glow--a {
   top: -10rem;
   left: -12rem;
-  background: radial-gradient(circle, rgba(37, 99, 235, 0.14), transparent 70%);
+  background: radial-gradient(circle, var(--brand-glow-medium), transparent 70%);
 }
 
 .bwe-glow--b {
@@ -143,14 +143,14 @@ html.dark .bwe-eyebrow {
 
 .bwe-btn--primary {
   border: none;
-  color: #fff;
-  background: linear-gradient(135deg, #2563eb, #1e3a8a);
-  box-shadow: 0 8px 20px -8px rgba(29, 78, 216, 0.45);
+  color: var(--on-brand);
+  background: linear-gradient(135deg, var(--brand-solid-hover), var(--brand-solid));
+  box-shadow: 0 8px 20px -8px var(--brand-glow-strong);
 }
 
 .bwe-btn--primary:hover:not(:disabled) {
   transform: translateY(-1px);
-  box-shadow: 0 12px 26px -8px rgba(29, 78, 216, 0.55);
+  box-shadow: 0 12px 26px -8px var(--brand-glow-strong);
 }
 
 .bwe-btn--primary:disabled {
@@ -158,14 +158,14 @@ html.dark .bwe-eyebrow {
 }
 
 .bwe-btn--primary.is-running {
-  background-image: linear-gradient(110deg, #1e3a8a 30%, #60a5fa 50%, #1e3a8a 70%);
+  background-image: linear-gradient(110deg, var(--brand-solid) 30%, var(--brand-soft) 50%, var(--brand-solid) 70%);
   background-size: 220% 100%;
   animation: bwe-shimmer 1.3s linear infinite;
 }
 
 .bwe-btn--primary.is-done {
-  background: linear-gradient(135deg, #22c55e, #15803d);
-  box-shadow: 0 8px 20px -8px rgba(22, 163, 74, 0.45);
+  background: linear-gradient(135deg, var(--success-bright), var(--success-strong));
+  box-shadow: 0 8px 20px -8px var(--success-glow);
 }
 
 .bwe-btn--outline {
@@ -197,17 +197,17 @@ html.dark .bwe-eyebrow {
 }
 
 html.dark .bwe-card {
-  background: #111a2e;
+  background: var(--surface-card-deep);
 }
 
 .bwe-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 22px 44px -20px rgba(29, 78, 216, 0.4);
+  box-shadow: 0 22px 44px -20px var(--brand-glow-strong);
 }
 
 .bwe-card.is-selected {
   border-color: var(--brand-accent);
-  box-shadow: 0 0 0 1px var(--brand-accent), 0 22px 48px -18px rgba(29, 78, 216, 0.45);
+  box-shadow: 0 0 0 1px var(--brand-accent), 0 22px 48px -18px var(--brand-glow-strong);
 }
 
 .bwe-card-media {
@@ -238,9 +238,9 @@ html.dark .bwe-card {
   gap: 0.35rem;
   padding: 0.3rem 0.65rem;
   border-radius: 9999px;
-  background: rgba(15, 23, 42, 0.55);
+  background: var(--surface-badge-dark);
   backdrop-filter: blur(8px);
-  color: #fff;
+  color: var(--on-dark);
   font-size: 0.75rem;
   font-weight: 600;
 }
@@ -255,7 +255,7 @@ html.dark .bwe-card {
   padding: 0.4rem 0.8rem;
   border-top-right-radius: 0.6rem;
   background: var(--orange-strong);
-  color: #fff;
+  color: var(--on-dark);
   font-size: 0.7rem;
   font-weight: 800;
   letter-spacing: 0.06em;
@@ -297,13 +297,13 @@ html.dark .bwe-card {
   border-radius: 9999px;
   border: none;
   background: transparent;
-  color: #ef4444;
+  color: var(--danger);
   cursor: pointer;
   transition: background-color 0.2s ease, transform 0.2s ease;
 }
 
 .bwe-fav:hover {
-  background: rgba(239, 68, 68, 0.1);
+  background: var(--danger-tint);
 }
 
 .bwe-fav.is-on svg {
@@ -362,8 +362,8 @@ html.dark .bwe-card {
 }
 
 .bwe-rating svg {
-  fill: #f59e0b;
-  color: #f59e0b;
+  fill: var(--warning);
+  color: var(--warning);
 }
 
 .bwe-card-book {
@@ -386,13 +386,13 @@ html.dark .bwe-card {
   background: var(--card-bg);
   border: 1px solid var(--card-border);
   border-top: 3px solid var(--brand-accent);
-  box-shadow: 0 24px 60px -28px rgba(29, 78, 216, 0.4), 0 10px 30px -18px var(--shadow-color);
+  box-shadow: 0 24px 60px -28px var(--brand-glow-strong), 0 10px 30px -18px var(--shadow-color);
   scroll-margin-top: 5.5rem;
   position: relative;
 }
 
 html.dark .bwe-summary {
-  background: #111a2e;
+  background: var(--surface-card-deep);
 }
 
 .bwe-summary-shell {
@@ -407,7 +407,7 @@ html.dark .bwe-summary {
 }
 
 .bwe-summary-glass {
-  box-shadow: 0 24px 60px -28px rgba(29, 78, 216, 0.45), 0 10px 30px -18px var(--shadow-color);
+  box-shadow: 0 24px 60px -28px var(--brand-glow-strong), 0 10px 30px -18px var(--shadow-color);
 }
 
 .glass-surface.bwe-summary-glass .bwe-summary,
@@ -658,7 +658,7 @@ html.dark .glass-surface.bwe-summary-glass .bwe-summary {
 .bwe-flow-step.is-done .bwe-flow-icon {
   border-color: var(--success);
   background: var(--success);
-  color: #fff;
+  color: var(--on-brand);
 }
 
 /* Guest / host benefits */
@@ -680,11 +680,11 @@ html.dark .glass-surface.bwe-summary-glass .bwe-summary {
   border-radius: 1.1rem;
   background: var(--card-bg);
   border: 1px solid var(--card-border);
-  box-shadow: 0 18px 40px -28px rgba(29, 78, 216, 0.35);
+  box-shadow: 0 18px 40px -28px var(--brand-glow-strong);
 }
 
 html.dark .bwe-side {
-  background: #111a2e;
+  background: var(--surface-card-deep);
 }
 
 .bwe-side-title {

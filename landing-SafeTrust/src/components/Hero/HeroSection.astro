@@ -52,17 +52,7 @@ import GlassBackdrop from "../GlassBackdrop.astro";
   .background-visual { position: absolute; inset: 0; z-index: -1; }
   .gradient-mesh {
     position: absolute; inset: 0;
-    background:
-      radial-gradient(circle at 70% 30%, rgba(40,87,184,0.15), transparent 60%),
-      radial-gradient(circle at 88% 78%, rgba(249,115,22,0.14), transparent 45%),
-      radial-gradient(circle at 8% 92%, rgba(249,115,22,0.08), transparent 40%);
-  }
-  :global(.dark) .gradient-mesh {
-    background:
-      radial-gradient(ellipse 80% 60% at 70% 10%, rgba(40, 87, 184, 0.25) 0%, transparent 70%),
-      radial-gradient(ellipse 60% 50% at 10% 80%, rgba(37, 99, 235, 0.24) 0%, transparent 65%),
-      radial-gradient(ellipse 50% 40% at 90% 85%, rgba(255, 107, 0, 0.16) 0%, transparent 60%),
-      linear-gradient(160deg, #060d1f 0%, #0a1128 50%, #060d1f 100%);
+    background: var(--hero-mesh);
   }
   .grid-pattern {
     position: absolute; inset: 0;
@@ -70,7 +60,7 @@ import GlassBackdrop from "../GlassBackdrop.astro";
                       linear-gradient(90deg, var(--hero-grid) 1px, transparent 1px);
     background-size: 40px 40px;
   }
-  :global(.dark) .grid-pattern { display: none; }
+  :global(html.dark) .grid-pattern { display: none; }
   .hero-container {
     display: grid;
     grid-template-columns: 1fr;
@@ -85,7 +75,7 @@ import GlassBackdrop from "../GlassBackdrop.astro";
   .badge {
     display: inline-flex; align-items: center; gap: 0.5rem;
     padding: 0.5rem 1rem;
-    background: linear-gradient(to right, var(--brand-tint), rgba(255,255,255,0.4));
+    background: linear-gradient(to right, var(--brand-tint), var(--glass-hi-soft));
     border: 1px solid var(--brand-tint-border);
     border-radius: 999px;
     font-size: 0.875rem; font-weight: 600;
@@ -115,7 +105,7 @@ import GlassBackdrop from "../GlassBackdrop.astro";
   .escrow-card-container { display: flex; justify-content: center; }
   .escrow-card-container :global(.escrow-glass) {
     max-width: 360px;
-    box-shadow: 0 10px 30px -10px rgba(0,0,0,0.12), 0 30px 70px -30px var(--orange-glow);
+    box-shadow: 0 10px 30px -10px var(--shadow-md), 0 30px 70px -30px var(--orange-glow);
   }
   @media (max-width: 480px) {
     .escrow-card-container :global(.escrow-glass) { max-width: 100%; }
@@ -140,18 +130,6 @@ import GlassBackdrop from "../GlassBackdrop.astro";
   @keyframes bounce {
     0%, 100% { transform: translate(-50%, 0); }
     50% { transform: translate(-50%, 6px); }
-  }
-
-  :global(.dark) .gradient-mesh {
-    background:
-      radial-gradient(ellipse 80% 60% at 70% 10%, rgba(40, 87, 184, 0.25) 0%, transparent 70%),
-      radial-gradient(ellipse 60% 50% at 10% 80%, rgba(37, 99, 235, 0.24) 0%, transparent 65%),
-      radial-gradient(ellipse 50% 40% at 90% 85%, rgba(255, 107, 0, 0.16) 0%, transparent 60%),
-      linear-gradient(160deg, #060d1f 0%, #0a1128 50%, #060d1f 100%);
-  }
-
-  :global(.dark) .grid-pattern {
-    display: none;
   }
 </style>
 

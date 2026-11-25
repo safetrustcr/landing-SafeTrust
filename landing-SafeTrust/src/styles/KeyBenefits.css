@@ -1,6 +1,6 @@
 .benefits-section {
   padding: 80px 24px;
-  background-color: #ffffff;
+  background-color: var(--background);
   display: flex;
   justify-content: center;
   font-family:
@@ -27,9 +27,9 @@
   font-size: 15px;
   font-weight: 700;
   letter-spacing: 0.05em;
-  color: #2563eb;
-  border: 1.5px solid #e2e8f0;
-  background-color: #ffffff;
+  color: var(--brand-hover);
+  border: 1.5px solid var(--border-subtle);
+  background-color: var(--surface-white);
   padding: 6px 16px;
   border-radius: 9999px;
   margin-bottom: 24px;
@@ -38,7 +38,7 @@
 .benefits-title {
   font-size: 44px;
   font-weight: 700;
-  color: #111827;
+  color: var(--foreground-strong);
   letter-spacing: -0.02em;
   margin: 0 0 16px 0;
   line-height: 1.2;
@@ -54,7 +54,7 @@
 
 .benefits-subtitle {
   font-size: 16px;
-  color: #4b5563;
+  color: var(--subtle-foreground);
   margin: 0;
   max-width: 600px;
   line-height: 1.5;
@@ -70,7 +70,7 @@
 /* Tab Layout Engine */
 .tabs-wrapper {
   display: inline-flex;
-  background-color: #f1f5f9;
+  background-color: var(--surface-subtle);
   padding: 6px;
   border-radius: 12px;
   margin-bottom: 48px;
@@ -83,17 +83,17 @@
   padding: 10px 28px;
   font-size: 14px;
   font-weight: 500;
-  color: #64748b;
+  color: var(--muted-foreground);
   cursor: pointer;
   border-radius: 8px;
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .tab-active {
-  background-color: #1e3a8a;
-  color: #ffffff;
+  background-color: var(--brand-solid);
+  color: var(--on-brand);
   font-weight: 600;
-  box-shadow: inset 0 -2px 0 #f97316, 0 1px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: inset 0 -2px 0 var(--orange-vivid), 0 1px 3px var(--shadow-card);
 }
 
 /* Grid Layout System */
@@ -106,8 +106,8 @@
 
 .benefit-card {
   overflow: hidden;
-  background-color: #ffffff;
-  border: 1px solid #e2e8f0;
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-subtle);
   border-radius: 20px;
   padding: 28px;
   display: flex;
@@ -127,8 +127,8 @@
 }
 
 .icon-box {
-  background-color: #eff6ff;
-  color: #2563eb;
+  background-color: var(--brand-tint);
+  color: var(--brand-hover);
   padding: 12px;
   border-radius: 12px;
   display: inline-flex;
@@ -143,21 +143,21 @@
 
 .card-number {
   font-size: 13px;
-  color: #94a3b8;
+  color: var(--muted-foreground);
   font-weight: 500;
 }
 
 .card-title {
   font-size: 18px;
   font-weight: 600;
-  color: #0f172a;
+  color: var(--foreground);
   margin: 0 0 12px 0;
   line-height: 1.4;
 }
 
 .card-desc {
   font-size: 14px;
-  color: #64748b;
+  color: var(--muted-foreground);
   margin: 0;
   line-height: 1.6;
 }
@@ -165,24 +165,24 @@
 /* Lead Feature Structural Modifier */
 .lead-card {
   grid-column: span 2;
-  background-color: #eff6ff;
-  border-color: transparent;
+  background-color: var(--brand-lead-bg);
+  border-color: var(--brand-lead-border);
 }
 
 .lead-card .icon-box {
-  background-color: #1e3a8a;
-  color: #ffffff;
+  background-color: var(--brand-solid);
+  color: var(--on-brand);
 }
 
 .lead-card .card-title {
   font-size: 28px;
-  color: #0f172a;
+  color: var(--foreground);
   letter-spacing: -0.01em;
   font-weight: 700;
 }
 
 .lead-card .card-desc {
-  color: #334155;
+  color: var(--foreground-secondary);
   font-size: 15px;
 }
 
@@ -192,7 +192,7 @@
 }
 
 .divider-line {
-  border-top: 1px dashed #bfdbfe;
+  border-top: 1px dashed var(--brand-tint-strong);
   margin-bottom: 16px;
 }
 
@@ -205,14 +205,14 @@
 .metrics-label {
   font-size: 12px;
   font-weight: 700;
-  color: #1e3a8a;
+  color: var(--brand-primary);
   letter-spacing: 0.05em;
 }
 
 .metrics-value {
   font-size: 26px;
   font-weight: 700;
-  color: #1e3a8a;
+  color: var(--brand-primary);
   font-style: italic;
 }
 
@@ -239,24 +239,28 @@
 /* Hover + dark mode */
 .benefit-card:hover {
   transform: translateY(-3px);
-  box-shadow: 0 18px 36px -22px rgba(29, 78, 216, 0.35);
+  box-shadow: 0 18px 36px -22px var(--brand-glow-strong);
 }
 
-html.dark .benefits-section { background-color: var(--background); }
-html.dark .eyebrow-pill { background-color: transparent; border-color: #334155; color: #93c5fd; }
-html.dark .benefits-title,
-html.dark .card-title,
-html.dark .lead-card .card-title { color: #f8fafc; }
-html.dark .benefits-subtitle,
-html.dark .card-desc,
-html.dark .lead-card .card-desc { color: #94a3b8; }
-html.dark .tabs-wrapper { background-color: #111827; }
-html.dark .tab-btn { color: #94a3b8; }
-html.dark .tab-active { background-color: #2563eb; color: #ffffff; }
-html.dark .benefit-card { background-color: #0f172a; border-color: #1e293b; }
-html.dark .lead-card { background-color: #13213f; border-color: #1e3a8a; }
-html.dark .icon-box { background-color: #162338; color: #93c5fd; }
-html.dark .lead-card .icon-box { background-color: #2563eb; color: #ffffff; }
-html.dark .divider-line { border-top-color: #1e3a8a; }
+html.dark .eyebrow-pill {
+  background-color: transparent;
+  border-color: var(--card-border);
+  color: var(--brand-accent);
+}
+
+html.dark .lead-card .card-desc {
+  color: var(--muted-foreground);
+}
+
+html.dark .icon-box {
+  color: var(--brand-accent);
+}
+
+html.dark .divider-line {
+  border-top-color: var(--brand-tint-border);
+}
+
 html.dark .metrics-label,
-html.dark .metrics-value { color: #93c5fd; }
+html.dark .metrics-value {
+  color: var(--brand-accent);
+}
