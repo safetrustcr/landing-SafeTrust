@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useRef } from "react";
 import {
   Lock,
   Zap,
@@ -11,6 +11,8 @@ import {
 } from "lucide-react";
 
 const CATEGORIES = ["all", "security", "payments", "trust"];
+const PANEL_ID = "key-benefits-panel";
+const tabId = (category) => `key-benefits-tab-${category}`;
 const TAB_LABELS = {
   all: "All",
   security: "Security",
@@ -88,11 +90,41 @@ const FEATURES_DATA = [
 
 export default function InteractiveFeatures() {
   const [activeTab, setActiveTab] = useState("all");
+  const tabRefs = useRef([]);
 
   const filteredFeatures = useMemo(() => {
     if (activeTab === "all") return FEATURES_DATA;
     return FEATURES_DATA.filter((f) => f.category === activeTab);
   }, [activeTab]);
+
+  const selectTab = (index) => {
+    const nextIndex = (index + CATEGORIES.length) % CATEGORIES.length;
+    setActiveTab(CATEGORIES[nextIndex]);
+    tabRefs.current[nextIndex]?.focus();
+  };
+
+  const handleTabKeyDown = (event, index) => {
+    switch (event.key) {
+      case "ArrowRight":
+        event.preventDefault();
+        selectTab(index + 1);
+        break;
+      case "ArrowLeft":
+        event.preventDefault();
+        selectTab(index - 1);
+        break;
+      case "Home":
+        event.preventDefault();
+        selectTab(0);
+        break;
+      case "End":
+        event.preventDefault();
+        selectTab(CATEGORIES.length - 1);
+        break;
+      default:
+        break;
+    }
+  };
 
   return (
     <div className="features-island-container">
@@ -102,14 +134,21 @@ export default function InteractiveFeatures() {
         role="tablist"
         aria-label="Feature categories"
       >
-        {CATEGORIES.map((cat) => (
+        {CATEGORIES.map((cat, index) => (
           <button
             key={cat}
+            ref={(node) => {
+              tabRefs.current[index] = node;
+            }}
             type="button"
+            id={tabId(cat)}
             role="tab"
             aria-selected={activeTab === cat}
+            aria-controls={PANEL_ID}
+            tabIndex={activeTab === cat ? 0 : -1}
             className={`tab-btn ${activeTab === cat ? "tab-active" : ""}`}
             onClick={() => setActiveTab(cat)}
+            onKeyDown={(event) => handleTabKeyDown(event, index)}
           >
             {TAB_LABELS[cat]}
           </button>
@@ -117,12 +156,17 @@ export default function InteractiveFeatures() {
       </div>
 
       {/* Grid Mechanic Display */}
-      <div className="benefits-grid" role="list">
+      <div
+        id={PANEL_ID}
+        role="tabpanel"
+        aria-labelledby={tabId(activeTab)}
+        tabIndex={0}
+        className="benefits-grid"
+      >
         {filteredFeatures.map((feature) => (
           <article
             key={feature.id}
             className={`benefit-card glass-card ${feature.id === "secure-escrow" ? "lead-card" : ""}`}
-            role="listitem"
           >
             <div className="card-top-bar">
               <div className="icon-box">{feature.icon}</div>

@@ -96,6 +96,17 @@
   box-shadow: inset 0 -2px 0 #f97316, 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
+.tab-btn:focus-visible {
+  outline: 2px solid #1e3a8a;
+  outline-offset: 2px;
+}
+
+.benefits-grid:focus-visible {
+  outline: 2px solid #1e3a8a;
+  outline-offset: 4px;
+  border-radius: 12px;
+}
+
 /* Grid Layout System */
 .benefits-grid {
   display: grid;
@@ -253,6 +264,8 @@ html.dark .lead-card .card-desc { color: #94a3b8; }
 html.dark .tabs-wrapper { background-color: #111827; }
 html.dark .tab-btn { color: #94a3b8; }
 html.dark .tab-active { background-color: #2563eb; color: #ffffff; }
+html.dark .tab-btn:focus-visible,
+html.dark .benefits-grid:focus-visible { outline-color: #93c5fd; }
 html.dark .benefit-card { background-color: #0f172a; border-color: #1e293b; }
 html.dark .lead-card { background-color: #13213f; border-color: #1e3a8a; }
 html.dark .icon-box { background-color: #162338; color: #93c5fd; }

@@ -168,6 +168,15 @@ body > footer::after {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  /* Decorative keyframes should not loop forever for reduced-motion users. */
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+
   .feature-card::before,
   .benefit-card::before,
   .security-card::before,

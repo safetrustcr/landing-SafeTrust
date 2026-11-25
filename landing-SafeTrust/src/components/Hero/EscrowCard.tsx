@@ -12,6 +12,13 @@ export default function EscrowCard() {
   const [progress, setProgress] = useState(38);
 
   useEffect(() => {
+    // Respect the user's reduced-motion preference: show the completed state
+    // instead of looping the progress bar forever.
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setProgress(100);
+      return;
+    }
+
     const interval = setInterval(() => {
       setProgress((p) => (p >= 100 ? 38 : p + 1));
     }, 150);

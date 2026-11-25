@@ -12,6 +12,46 @@ export default function Stepper() {
     const connectors = Array.from(section.querySelectorAll("[data-connector]"));
     const header = section.querySelector("[data-header]");
 
+    // Reduced motion: reveal everything in its final state, no animation.
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      const reveal = (element) => {
+        if (!element) return;
+        element.style.opacity = "1";
+        element.style.transform = "none";
+      };
+
+      reveal(header);
+      reveal(progressBar);
+
+      const isMobile = window.innerWidth <= 768;
+
+      nodes.forEach((node, idx) => {
+        reveal(node);
+
+        const circle = node.querySelector("[data-node-circle]");
+        const checkmark = node.querySelector("[data-checkmark]");
+        const status = circle?.getAttribute("data-status");
+
+        reveal(circle);
+
+        if (checkmark && status === "completed") {
+          checkmark.style.strokeDashoffset = "0";
+          checkmark.style.opacity = "1";
+        }
+
+        const connector = connectors[idx];
+        const nextNode = nodes[idx + 1];
+        const nextStatus = nextNode?.querySelector("[data-node-circle]")?.getAttribute("data-status");
+
+        if (connector && status === "completed" && (nextStatus === "completed" || nextStatus === "in-progress")) {
+          const fill = connector.querySelector("[data-connector-fill]");
+          if (fill) fill.style.transform = isMobile ? "scaleY(1)" : "scaleX(1)";
+        }
+      });
+
+      return;
+    }
+
     // Top progress bar linked to section scroll
     let cancelScroll = () => {};
     if (progressBar) {
