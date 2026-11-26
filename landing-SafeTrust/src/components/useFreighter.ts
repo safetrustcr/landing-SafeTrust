@@ -17,6 +17,7 @@ const initialState: WalletState = {
 
 let walletState = initialState;
 let walletWatcher: InstanceType<typeof freighter.WatchWalletChanges> | null = null;
+let connectRequestPending = false;
 const listeners = new Set<() => void>();
 
 function getErrorMessage(error: unknown): string {
@@ -42,7 +43,9 @@ function updateWalletState(nextState: WalletState) {
     return;
   }
 
-  walletState = nextState;
+  walletState = connectRequestPending && nextState.status !== "connecting"
+    ? { ...nextState, status: "connecting" }
+    : nextState;
   listeners.forEach((listener) => listener());
 }
 
@@ -151,8 +154,9 @@ function getSnapshot() {
 }
 
 async function connect() {
-  if (walletState.status === "connecting") return;
+  if (connectRequestPending) return;
 
+  connectRequestPending = true;
   updateWalletState({ ...walletState, status: "connecting", error: null });
 
   try {
@@ -161,6 +165,7 @@ async function connect() {
       throw connectionError;
     }
     if (!isConnected) {
+      connectRequestPending = false;
       updateWalletState({ status: "unavailable", address: null, error: null });
       return;
     }
@@ -170,6 +175,7 @@ async function connect() {
       throw accessError;
     }
     if (!address) {
+      connectRequestPending = false;
       updateWalletState({
         status: "idle",
         address: null,
@@ -178,13 +184,17 @@ async function connect() {
       return;
     }
 
+    connectRequestPending = false;
     updateWalletState({ status: "connected", address, error: null });
   } catch (connectionFailure) {
+    connectRequestPending = false;
     updateWalletState({
       status: "idle",
       address: null,
       error: getErrorMessage(connectionFailure),
     });
+  } finally {
+    connectRequestPending = false;
   }
 }
 

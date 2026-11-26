@@ -17,14 +17,19 @@ const navLinks = [
     <span>SafeTrust</span>
   </a>
 
-  <input type="checkbox" id="nav-toggle" class="navbar-checkbox" aria-label="Toggle navigation" />
-  <label for="nav-toggle" class="navbar-toggle" aria-hidden="true">
+  <button
+    type="button"
+    class="navbar-toggle"
+    aria-label="Open navigation menu"
+    aria-expanded="false"
+    aria-controls="navbar-links"
+  >
     <span></span>
     <span></span>
     <span></span>
-  </label>
+  </button>
 
-  <div class="navbar-links">
+  <div class="navbar-links" id="navbar-links" data-open="false">
     {navLinks.map((link) => (
       <a href={link.href}>{link.label}</a>
     ))}
@@ -51,6 +56,38 @@ const navLinks = [
     />
   </div>
 </nav>
+
+<script>
+  document.querySelectorAll<HTMLElement>(".navbar").forEach((navbar) => {
+    const toggle = navbar.querySelector<HTMLButtonElement>(".navbar-toggle");
+    const links = navbar.querySelector<HTMLElement>(".navbar-links");
+    if (!toggle || !links) return;
+
+    const setMenuOpen = (isOpen: boolean) => {
+      links.dataset.open = String(isOpen);
+      toggle.setAttribute("aria-expanded", String(isOpen));
+      toggle.setAttribute(
+        "aria-label",
+        isOpen ? "Close navigation menu" : "Open navigation menu",
+      );
+    };
+
+    toggle.addEventListener("click", () => {
+      setMenuOpen(links.dataset.open !== "true");
+    });
+
+    links.addEventListener("click", (event) => {
+      if ((event.target as HTMLElement).closest("a")) setMenuOpen(false);
+    });
+
+    navbar.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && links.dataset.open === "true") {
+        setMenuOpen(false);
+        toggle.focus();
+      }
+    });
+  });
+</script>
 
 <style>
   .navbar {
@@ -202,12 +239,10 @@ const navLinks = [
     color: #b91c1c;
   }
 
-  .navbar-checkbox {
+  :global(.mobile-wallet-control) {
     display: none;
   }
 
-  /* CAMBIO: flex-direction column para que los spans se apilen como hamburguesa real,
-     gap en vez de margin para un espaciado más predecible */
   .navbar-toggle {
     display: none;
     flex-direction: column;
@@ -218,6 +253,12 @@ const navLinks = [
     background: transparent;
     border: none;
     padding: 0.5rem;
+  }
+
+  .navbar-toggle:focus-visible {
+    outline: 2px solid #2857b8;
+    outline-offset: 3px;
+    border-radius: 6px;
   }
 
   .navbar-toggle span {
@@ -236,12 +277,9 @@ const navLinks = [
 
     .navbar-toggle {
       display: flex;
-      /* CAMBIO: se ubica después de navbar-actions para quedar a la derecha del ThemeToggle */
       order: 3;
     }
 
-    /* CAMBIO: en vez de ocultar navbar-actions completo, se muestra solo el ThemeToggle
-       y se reordena para que aparezca a la izquierda del botón hamburguesa */
     .navbar-actions {
       display: flex;
       order: 2;
@@ -291,15 +329,11 @@ const navLinks = [
       width: 100%;
     }
 
-    .navbar-checkbox:checked + .navbar-toggle + .navbar-links {
+    .navbar-links[data-open="true"] {
       max-height: 420px;
       opacity: 1;
       pointer-events: auto;
     }
-  }
-
-  :global(.mobile-wallet-control) {
-    display: none;
   }
 
   :global(.dark) .navbar {
@@ -325,10 +359,6 @@ const navLinks = [
   @media (max-width: 1023px) {
     :global(.dark) .navbar-links {
       background: rgba(15, 23, 42, 0.96);
-    }
-
-    :global(.mobile-cta) {
-      display: inline-flex;
     }
   }
 </style>

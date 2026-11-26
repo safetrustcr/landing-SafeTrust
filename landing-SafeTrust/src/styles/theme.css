@@ -58,6 +58,8 @@ html.dark {
 html,
 body {
   background: var(--background);
+  color: var(--foreground);
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 .wallet-connect-status {
@@ -70,8 +72,6 @@ body {
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border: 0;
-  color: var(--foreground);
-  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 body {
