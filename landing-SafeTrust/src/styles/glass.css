@@ -9,24 +9,6 @@
    CTA) use the GlassSurface React component for real refraction.
    ============================================================ */
 
-:root {
-  --glass-bg: rgba(255, 255, 255, 0.58);
-  --glass-hi: rgba(255, 255, 255, 0.85);
-  --glass-hi-soft: rgba(255, 255, 255, 0.35);
-  --glass-sheen: rgba(255, 255, 255, 0.42);
-  --glass-sweep: rgba(255, 255, 255, 0.55);
-  --glass-blob-opacity: 0.45;
-}
-
-html.dark {
-  --glass-bg: rgba(15, 23, 42, 0.5);
-  --glass-hi: rgba(255, 255, 255, 0.22);
-  --glass-hi-soft: rgba(255, 255, 255, 0.06);
-  --glass-sheen: rgba(255, 255, 255, 0.1);
-  --glass-sweep: rgba(255, 255, 255, 0.12);
-  --glass-blob-opacity: 0.32;
-}
-
 /* Each section is its own stacking context, so backdrops with
    z-index: -1 sit above the section background but below content. */
 body > section {
@@ -73,24 +55,20 @@ body > section {
 
 /* Tinted variants */
 :root .scale-card.glass-card {
-  background: linear-gradient(160deg, rgba(11, 21, 51, 0.82), rgba(30, 58, 138, 0.72));
+  background: linear-gradient(
+    160deg,
+    color-mix(in srgb, var(--brand-deep) 82%, transparent),
+    color-mix(in srgb, var(--brand-solid) 72%, transparent)
+  );
 }
 
 :root .kb-lead-card.glass-card {
-  background: rgba(219, 234, 254, 0.62);
-}
-
-:root.dark .kb-lead-card.glass-card {
-  background: rgba(30, 58, 138, 0.35);
+  background: var(--glass-lead-bg);
 }
 
 /* Contributors sit on a dark sky in both themes */
 :root .contributor-card.glass-card {
-  background: rgba(255, 255, 255, 0.82);
-}
-
-:root.dark .contributor-card.glass-card {
-  background: rgba(30, 41, 59, 0.55);
+  background: var(--glass-contributor-bg);
 }
 
 /* ---------- GlassSurface islands ---------- */
@@ -122,13 +100,13 @@ body > section {
 .glass-blob--blue {
   width: 34rem;
   height: 34rem;
-  background: radial-gradient(circle, #2563eb, transparent 68%);
+  background: radial-gradient(circle, var(--brand-accent), transparent 68%);
 }
 
 .glass-blob--sky {
   width: 26rem;
   height: 26rem;
-  background: radial-gradient(circle, #60a5fa, transparent 68%);
+  background: radial-gradient(circle, var(--brand-soft), transparent 68%);
   animation-duration: 28s;
   animation-delay: -6s;
 }
@@ -136,7 +114,7 @@ body > section {
 .glass-blob--orange {
   width: 18rem;
   height: 18rem;
-  background: radial-gradient(circle, #f97316, transparent 68%);
+  background: radial-gradient(circle, var(--orange-vivid), transparent 68%);
   opacity: calc(var(--glass-blob-opacity) * 0.7);
   animation-duration: 18s;
   animation-delay: -3s;

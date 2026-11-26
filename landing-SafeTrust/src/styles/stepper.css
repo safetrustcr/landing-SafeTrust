@@ -73,12 +73,12 @@ html.js .hiw-header {
 
 /* Stepper Container Card */
 .hiw-stepper-card {
-  background: linear-gradient(180deg, var(--card-bg, #ffffff), color-mix(in srgb, var(--card-bg, #ffffff) 90%, var(--brand-tint, #f8faff)));
-  border: 1px solid var(--card-border, #e5e7eb);
+  background: linear-gradient(180deg, var(--card-bg), color-mix(in srgb, var(--card-bg) 90%, var(--brand-tint)));
+  border: 1px solid var(--card-border);
   border-top: 2px solid color-mix(in srgb, var(--brand-primary) 30%, transparent);
   border-radius: 1.5rem;
   padding: 3rem 2rem;
-  box-shadow: 0 12px 36px -10px var(--shadow-color, rgba(15, 23, 42, 0.08)), 0 30px 60px -36px var(--orange-glow);
+  box-shadow: 0 12px 36px -10px var(--shadow-color), 0 30px 60px -36px var(--orange-glow);
   max-width: 1060px;
   margin: 0 auto;
   position: relative;
@@ -86,10 +86,14 @@ html.js .hiw-header {
 }
 
 html.dark .hiw-stepper-card {
-  background: linear-gradient(180deg, rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.65));
-  border-color: rgba(255, 255, 255, 0.08);
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--card-bg) 85%, transparent),
+    color-mix(in srgb, var(--card-bg) 65%, transparent)
+  );
+  border-color: var(--border-subtle);
   border-top-color: color-mix(in srgb, var(--brand-primary) 50%, transparent);
-  box-shadow: 0 16px 48px -12px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 16px 48px -12px var(--shadow-lg);
   backdrop-filter: blur(12px);
 }
 
@@ -126,8 +130,8 @@ html.js .hiw-step-node {
   width: 72px;
   height: 72px;
   border-radius: 9999px;
-  border: 2px solid var(--card-border, #d1d5db);
-  background: var(--card-bg, #ffffff);
+  border: 2px solid var(--border-muted);
+  background: var(--card-bg);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -141,50 +145,50 @@ html.js .hiw-step-node {
 /* State: Completed */
 .hiw-node-circle.completed,
 .hiw-node-circle[data-status="completed"] {
-  background: linear-gradient(135deg, #10193f, var(--brand-primary, #1e3a8a));
-  border-color: var(--brand-primary, #1e3a8a);
-  color: #ffffff;
-  box-shadow: 0 6px 20px -4px rgba(30, 58, 138, 0.35);
+  background: linear-gradient(135deg, var(--brand-deep), var(--brand-primary));
+  border-color: var(--brand-primary);
+  color: var(--on-brand);
+  box-shadow: 0 6px 20px -4px var(--brand-primary-glow);
 }
 
 html.dark .hiw-node-circle.completed,
 html.dark .hiw-node-circle[data-status="completed"] {
-  background: linear-gradient(135deg, #1e3a8a, #3b82f6);
-  border-color: #60a5fa;
-  box-shadow: 0 6px 24px -4px rgba(59, 130, 246, 0.45);
+  background: linear-gradient(135deg, var(--brand-solid), var(--brand-solid-hover));
+  border-color: var(--brand-primary);
+  box-shadow: 0 6px 24px -4px var(--brand-glow-strong);
 }
 
 /* State: In-Progress (Active) */
 .hiw-node-circle.in-progress,
 .hiw-node-circle[data-status="in-progress"] {
-  background: var(--card-bg, #ffffff);
-  border: 2.5px solid var(--brand-accent, #1d4ed8);
-  color: var(--brand-accent, #1d4ed8);
-  box-shadow: 0 0 0 4px rgba(29, 78, 216, 0.15);
+  background: var(--card-bg);
+  border: 2.5px solid var(--brand-accent);
+  color: var(--brand-accent);
+  box-shadow: 0 0 0 4px var(--brand-glow-medium);
   animation: pulse 2s ease-in-out infinite;
 }
 
 html.dark .hiw-node-circle.in-progress,
 html.dark .hiw-node-circle[data-status="in-progress"] {
-  background: var(--card-bg, #0f172a);
-  border-color: #60a5fa;
-  color: #93c5fd;
+  background: var(--card-bg);
+  border-color: var(--brand-primary);
+  color: var(--brand-accent);
   animation: pulse-dark 2s ease-in-out infinite;
 }
 
 /* State: Pending */
 .hiw-node-circle.pending,
 .hiw-node-circle[data-status="pending"] {
-  background: var(--card-bg, #ffffff);
-  border: 2px solid var(--card-border, #d1d5db);
-  color: var(--muted-foreground, #9ca3af);
+  background: var(--card-bg);
+  border: 2px solid var(--border-muted);
+  color: var(--muted-foreground);
 }
 
 html.dark .hiw-node-circle.pending,
 html.dark .hiw-node-circle[data-status="pending"] {
-  background: rgba(15, 23, 42, 0.6);
-  border-color: var(--card-border, #334155);
-  color: #64748b;
+  background: color-mix(in srgb, var(--card-bg) 60%, transparent);
+  border-color: var(--card-border);
+  color: var(--faint-foreground);
 }
 
 /* Circle Icons */
@@ -224,15 +228,15 @@ html.dark .hiw-node-circle[data-status="pending"] {
 
 .hiw-status-chip.completed,
 .hiw-status-chip[data-status="completed"] {
-  background-color: var(--success-tint, #dcfce7);
-  color: var(--success, #15803d);
+  background-color: var(--success-tint);
+  color: var(--success);
   border: 1px solid color-mix(in srgb, var(--success) 30%, transparent);
 }
 
 .hiw-status-chip.in-progress,
 .hiw-status-chip[data-status="in-progress"] {
-  background-color: var(--brand-tint, #e8edfa);
-  color: var(--brand-primary, #1d4ed8);
+  background-color: var(--brand-tint);
+  color: var(--brand-accent);
   border: 1px solid color-mix(in srgb, var(--brand-accent) 30%, transparent);
   animation: chip-glow 2.5s infinite;
 }
@@ -240,8 +244,8 @@ html.dark .hiw-node-circle[data-status="pending"] {
 .hiw-status-chip.pending,
 .hiw-status-chip[data-status="pending"] {
   background-color: color-mix(in srgb, var(--foreground) 5%, transparent);
-  color: var(--muted-foreground, #6b7280);
-  border: 1px solid var(--card-border, #e5e7eb);
+  color: var(--subtle-foreground);
+  border: 1px solid var(--card-border);
 }
 
 /* Step Content */
@@ -272,22 +276,18 @@ html.dark .hiw-node-circle[data-status="pending"] {
   height: 4px;
   border-radius: 9999px;
   margin: 34px 6px 0;
-  background: var(--card-border, #e5e7eb);
+  background: var(--card-border);
   position: relative;
   flex-shrink: 0;
   overflow: hidden;
   box-sizing: border-box;
 }
 
-html.dark .hiw-connector {
-  background: var(--card-border, #334155);
-}
-
 /* Connecting Line Progress Fill */
 .hiw-connector-fill {
   position: absolute;
   inset: 0;
-  background: linear-gradient(90deg, var(--brand-primary, #1e3a8a), var(--brand-accent, #1d4ed8));
+  background: linear-gradient(90deg, var(--brand-primary), var(--brand-accent));
   border-radius: inherit;
   transform-origin: left center;
   transform: scaleX(0);
@@ -295,7 +295,7 @@ html.dark .hiw-connector {
 }
 
 html.dark .hiw-connector-fill {
-  background: linear-gradient(90deg, #3b82f6, #60a5fa);
+  background: linear-gradient(90deg, var(--brand-solid-hover), var(--brand-primary));
 }
 
 /* Glowing Traveling Particle */
@@ -303,7 +303,7 @@ html.dark .hiw-connector-fill {
   position: absolute;
   inset: 0;
   opacity: 0;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.9), transparent);
+  background: linear-gradient(90deg, transparent, var(--glass-shimmer), transparent);
   pointer-events: none;
 }
 
@@ -323,8 +323,8 @@ html.dark .hiw-connector-fill {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  background: linear-gradient(135deg, var(--brand-primary), var(--brand-accent));
-  color: #ffffff;
+  background: linear-gradient(135deg, var(--brand-solid), var(--brand-solid-hover));
+  color: var(--on-brand);
   font-weight: 700;
   font-size: 0.95rem;
   padding: 0.8rem 1.6rem;
@@ -346,30 +346,30 @@ html.dark .hiw-connector-fill {
 /* Active Step Pulse (Light Mode) */
 @keyframes pulse {
   0%, 100% {
-    box-shadow: 0 0 0 0 rgba(29, 78, 216, 0.45);
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--brand-accent) 45%, transparent);
   }
   50% {
-    box-shadow: 0 0 0 10px rgba(29, 78, 216, 0);
+    box-shadow: 0 0 0 10px color-mix(in srgb, var(--brand-accent) 0%, transparent);
   }
 }
 
 /* Active Step Pulse (Dark Mode) */
 @keyframes pulse-dark {
   0%, 100% {
-    box-shadow: 0 0 0 0 rgba(96, 165, 250, 0.5);
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--brand-primary) 50%, transparent);
   }
   50% {
-    box-shadow: 0 0 0 10px rgba(96, 165, 250, 0);
+    box-shadow: 0 0 0 10px color-mix(in srgb, var(--brand-primary) 0%, transparent);
   }
 }
 
 /* Active Chip Subtle Glow */
 @keyframes chip-glow {
   0%, 100% {
-    box-shadow: 0 0 0 0 rgba(29, 78, 216, 0.2);
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--brand-accent) 20%, transparent);
   }
   50% {
-    box-shadow: 0 0 8px 0 rgba(29, 78, 216, 0.25);
+    box-shadow: 0 0 8px 0 color-mix(in srgb, var(--brand-accent) 25%, transparent);
   }
 }
 
@@ -388,8 +388,8 @@ html.dark .hiw-connector-fill {
 /* In progress: spinning gradient arc, tinted with the circle's color */
 .hiw-node-ring--in-progress {
   background: conic-gradient(from 0deg, transparent 0 55%, currentColor 100%);
-  -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 2.5px));
-  mask: radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 2.5px));
+  -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 3px), black calc(100% - 2.5px));
+  mask: radial-gradient(farthest-side, transparent calc(100% - 3px), black calc(100% - 2.5px));
   animation: ring-spin 1.4s linear infinite;
 }
 
@@ -452,7 +452,7 @@ html.dark .hiw-connector-fill {
 .hiw-connector--waiting {
   background: repeating-linear-gradient(
     90deg,
-    #f97316 0 8px,
+    var(--orange-vivid) 0 8px,
     transparent 8px 14px
   );
   background-size: 28px 100%;
@@ -460,7 +460,7 @@ html.dark .hiw-connector-fill {
 }
 
 html.dark .hiw-connector--waiting {
-  background: repeating-linear-gradient(90deg, #fb923c 0 8px, transparent 8px 14px);
+  background: repeating-linear-gradient(90deg, var(--orange-light) 0 8px, transparent 8px 14px);
   background-size: 28px 100%;
 }
 
@@ -578,11 +578,20 @@ html.dark .hiw-connector--waiting {
     transform: scaleY(0);
   }
 
-  .hiw-connector--waiting,
+  .hiw-connector--waiting {
+    background-image: repeating-linear-gradient(
+      180deg,
+      var(--orange-vivid) 0 8px,
+      transparent 8px 14px
+    );
+    background-size: 100% 28px;
+    animation-name: connector-flow-y;
+  }
+
   html.dark .hiw-connector--waiting {
     background-image: repeating-linear-gradient(
       180deg,
-      #f97316 0 8px,
+      var(--orange-light) 0 8px,
       transparent 8px 14px
     );
     background-size: 100% 28px;

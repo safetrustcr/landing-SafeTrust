@@ -2,7 +2,7 @@
 
 .our-promise {
   font-family: Inter, system-ui, -apple-system, sans-serif;
-  background: #ffffff;
+  background: var(--card-bg);
   padding: 4.5rem 1.25rem;
 }
 
@@ -57,7 +57,7 @@
   font-size: clamp(2rem, 4vw, 2.75rem);
   font-weight: 700;
   line-height: 1.15;
-  color: #0f172a;
+  color: var(--foreground);
   margin: 0 0 1.25rem;
   letter-spacing: -0.02em;
 }
@@ -72,7 +72,7 @@
 .our-promise__copy {
   font-size: 1rem;
   line-height: 1.65;
-  color: #64748b;
+  color: var(--muted-foreground);
   max-width: 32rem;
   margin: 0 0 2rem;
 }
@@ -92,7 +92,7 @@
   font-size: 0.9375rem;
   font-weight: 600;
   color: var(--brand-primary);
-  background: #ffffff;
+  background: var(--card-bg);
   border: 1.5px solid var(--brand-tint-border);
   border-radius: 0.625rem;
   text-decoration: none;
@@ -127,7 +127,7 @@
   gap: 0.5rem;
   font-size: 0.8125rem;
   font-weight: 500;
-  color: #334155;
+  color: var(--foreground-secondary);
 }
 
 .our-promise__trust-icon {
@@ -151,7 +151,7 @@
 }
 
 .our-promise__trust-icon--accent {
-  background: #dbeafe;
+  background: var(--brand-tint-strong);
   color: var(--brand-accent);
 }
 
@@ -167,11 +167,11 @@
   right: 0;
   z-index: 2;
   background: var(--brand-navy);
-  color: #ffffff;
+  color: var(--on-brand);
   border-radius: 0.5rem;
   padding: 0.5rem 0.875rem;
   text-align: left;
-  box-shadow: 0 8px 24px rgba(16, 25, 63, 0.25);
+  box-shadow: 0 8px 24px var(--brand-glow);
 }
 
 .our-promise__verified-label {
@@ -191,11 +191,11 @@
 }
 
 .our-promise__card {
-  background: #ffffff;
-  border: 1px solid #e8ecf4;
+  background: var(--card-bg);
+  border: 1px solid var(--border-soft);
   border-radius: 1rem;
   padding: 2rem 1.5rem 1.5rem;
-  box-shadow: 0 4px 24px rgba(30, 58, 138, 0.06);
+  box-shadow: 0 4px 24px var(--shadow-sm);
 }
 
 @media (min-width: 768px) {
@@ -209,7 +209,7 @@
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: #94a3b8;
+  color: var(--muted-foreground);
   margin: 0 0 1.25rem;
 }
 
@@ -218,7 +218,7 @@
   grid-template-columns: auto 1fr;
   gap: 0.75rem 1rem;
   padding: 1.125rem 0;
-  border-bottom: 1px solid #eef1f7;
+  border-bottom: 1px solid var(--border-soft-alt);
 }
 
 .our-promise__guarantee:last-child {
@@ -252,7 +252,7 @@
 .our-promise__guarantee-name {
   font-size: 0.9375rem;
   font-weight: 600;
-  color: #0f172a;
+  color: var(--foreground);
   margin: 0;
 }
 
@@ -269,7 +269,7 @@
 .our-promise__guarantee-desc {
   font-size: 0.8125rem;
   line-height: 1.5;
-  color: #64748b;
+  color: var(--muted-foreground);
   margin: 0;
 }
 
@@ -281,18 +281,18 @@
   padding: 0.875rem 1.5rem;
   font-size: 0.9375rem;
   font-weight: 600;
-  color: #ffffff;
+  color: var(--on-brand);
   background: var(--cta-gradient);
   border: none;
   border-radius: 0.625rem;
   cursor: pointer;
-  box-shadow: 0 4px 14px rgba(30, 58, 138, 0.35);
+  box-shadow: 0 4px 14px var(--brand-primary-glow);
   transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .connect-wallet-btn:hover {
   transform: translateY(-1px);
-  box-shadow: 0 6px 20px rgba(30, 58, 138, 0.4);
+  box-shadow: 0 6px 20px var(--brand-primary-glow);
 }
 
 .connect-wallet-btn:disabled {
@@ -304,7 +304,7 @@
   position: fixed;
   inset: 0;
   z-index: 50;
-  background: rgba(15, 23, 42, 0.5);
+  background: var(--surface-backdrop-overlay);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -312,24 +312,24 @@
 }
 
 .connect-wallet-modal {
-  background: #fff;
+  background: var(--card-bg);
   border-radius: 1rem;
   max-width: 24rem;
   width: 100%;
   padding: 1.5rem;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 20px 50px var(--shadow-md);
 }
 
 .connect-wallet-modal h3 {
   margin: 0 0 0.5rem;
   font-size: 1.25rem;
-  color: #0f172a;
+  color: var(--foreground);
 }
 
 .connect-wallet-modal p {
   margin: 0 0 1rem;
   font-size: 0.875rem;
-  color: #64748b;
+  color: var(--muted-foreground);
 }
 
 .connect-wallet-modal__actions {
@@ -340,9 +340,10 @@
 
 .connect-wallet-modal__wallet {
   padding: 0.75rem 1rem;
-  border: 1px solid #e2e8f0;
+  border: 1px solid var(--border-subtle);
   border-radius: 0.5rem;
-  background: #f8fafc;
+  background: var(--background);
+  color: var(--foreground);
   font-weight: 600;
   cursor: pointer;
   text-align: left;
@@ -357,7 +358,7 @@
   margin-top: 0.75rem;
   background: none;
   border: none;
-  color: #64748b;
+  color: var(--muted-foreground);
   font-size: 0.875rem;
   cursor: pointer;
   width: 100%;
@@ -365,7 +366,7 @@
 }
 
 .connect-wallet-modal__error {
-  color: #dc2626;
+  color: var(--danger-strong);
   font-size: 0.8125rem;
   margin-bottom: 0.75rem;
 }

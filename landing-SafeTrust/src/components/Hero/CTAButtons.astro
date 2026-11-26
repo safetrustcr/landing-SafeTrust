@@ -18,16 +18,16 @@
     text-decoration: none; transition: transform 0.2s, box-shadow 0.2s;
   }
   .btn-primary {
-    background: linear-gradient(to right, #2857B8, #1e40af);
-    color: #fff;
+    background: linear-gradient(to right, var(--brand-solid), var(--brand-solid-hover));
+    color: var(--on-brand);
   }
-  .btn-primary:hover { transform: scale(1.03); box-shadow: 0 10px 25px -5px rgba(40,87,184,0.4); }
+  .btn-primary:hover { transform: scale(1.03); box-shadow: 0 10px 25px -5px var(--brand-glow-strong); }
   .btn-secondary {
     background: var(--card-bg);
     border: 2px solid var(--card-border);
     color: var(--foreground);
   }
-  .btn-secondary:hover { border-color: var(--brand-accent); background: rgba(29,78,216,0.08); }
+  .btn-secondary:hover { border-color: var(--brand-accent); background: var(--brand-primary-glow-soft); }
   .arrow { transition: transform 0.2s; }
   .btn-primary:hover .arrow, .btn-secondary:hover .arrow { transform: translateX(4px); }
 </style>

@@ -18,7 +18,7 @@
   font-family: 'Playfair Display', Georgia, serif;
   font-size: 2.5rem;
   font-weight: 700;
-  color: var(--brand-navy, #10193F);
+  color: var(--brand-navy);
   text-align: center;
   margin: 0 0 1rem;
   line-height: 1.25;
@@ -27,7 +27,7 @@
 .security-subtitle {
   font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 1.125rem;
-  color: #4B5563;
+  color: var(--subtle-foreground);
   text-align: center;
   margin: 0 0 3.5rem;
   max-width: 600px;
@@ -45,12 +45,12 @@
 
 /* Security Card Styling */
 .security-card {
-  background-color: #ffffff;
-  border: 1px solid #E2E8F0;
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-subtle);
   border-radius: 16px;
   padding: 2.25rem 2rem;
   box-sizing: border-box;
-  box-shadow: 0 4px 20px -2px rgba(30, 58, 138, 0.06), 0 1px 2px rgba(0, 0, 0, 0.02);
+  box-shadow: 0 4px 20px -2px var(--shadow-sm), 0 1px 2px var(--shadow-card-subtle);
   display: flex;
   flex-direction: column;
   position: relative;
@@ -61,16 +61,16 @@
 /* Hover Accent animations */
 .security-card:hover {
   transform: translateY(-8px);
-  box-shadow: 0 16px 36px -8px rgba(30, 58, 138, 0.08), 0 1px 3px rgba(0, 0, 0, 0.02);
+  box-shadow: 0 16px 36px -8px var(--shadow-color), 0 1px 3px var(--shadow-card-subtle);
 }
 
 /* Border Accent styles */
 .security-card.border-primary {
-  border-top: 4px solid var(--brand-primary, #1E3A8A);
+  border-top: 4px solid var(--brand-primary);
 }
 
 .security-card.border-accent {
-  border-top: 4px solid var(--brand-accent, #1D4ED8);
+  border-top: 4px solid var(--brand-accent);
 }
 
 /* Icon Badge Container */
@@ -91,18 +91,18 @@
 
 /* Badge Color Themes */
 .security-icon-badge.theme-green {
-  background-color: var(--success-tint, #DCFCE7);
-  color: var(--success, #16A34A);
+  background-color: var(--success-tint);
+  color: var(--success);
 }
 
 .security-icon-badge.theme-blue {
-  background-color: var(--brand-tint, #E8EDFA);
-  color: var(--brand-accent, #1D4ED8);
+  background-color: var(--brand-tint);
+  color: var(--brand-accent);
 }
 
 .security-icon-badge.theme-navy {
-  background-color: var(--brand-tint, #E8EDFA);
-  color: var(--brand-primary, #1E3A8A);
+  background-color: var(--brand-tint);
+  color: var(--brand-primary);
 }
 
 /* SVG Icon details */
@@ -119,7 +119,7 @@
   font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 1.25rem;
   font-weight: 700;
-  color: var(--brand-navy, #10193F);
+  color: var(--brand-navy);
   margin: 1.5rem 0 0.5rem;
   line-height: 1.35;
 }
@@ -127,7 +127,7 @@
 .security-card-desc {
   font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 0.95rem;
-  color: #6B7280;
+  color: var(--subtle-foreground);
   margin: 0 0 2rem;
   line-height: 1.5;
   min-height: 48px; /* keeps text aligned vertically across cards */
@@ -136,7 +136,7 @@
 /* Dotted Divider */
 .security-dotted-divider {
   border: 0;
-  border-top: 1px dotted #D1D5DB;
+  border-top: 1px dotted var(--border-muted);
   margin: 0 0 1.25rem 0;
   width: 100%;
 }
@@ -159,7 +159,7 @@
   font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 0.75rem;
   font-weight: 700;
-  color: #9CA3AF;
+  color: var(--faint-foreground);
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
@@ -172,18 +172,18 @@
 }
 
 .score-value.color-green {
-  color: var(--success, #16A34A);
+  color: var(--success);
 }
 
 .score-value.color-blue {
-  color: var(--brand-accent, #1D4ED8);
+  color: var(--brand-accent);
 }
 
 .certs-label {
   font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 0.75rem;
   font-weight: 500;
-  color: #9CA3AF;
+  color: var(--faint-foreground);
   text-align: right;
   margin-top: 0.35rem;
   letter-spacing: 0.02em;
@@ -229,59 +229,25 @@
    Dark mode
    ============================================================ */
 
-html.dark .security-title {
-  color: #f1f5f9;
-}
-
-html.dark .security-subtitle {
-  color: #94a3b8;
-}
-
 html.dark .security-card {
-  background: rgba(30, 41, 59, 0.8);
-  border-color: rgba(255, 255, 255, 0.08);
-  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.35), 0 1px 2px rgba(0, 0, 0, 0.2);
+  background: var(--surface-glass-strong);
+  border-color: var(--border-subtle);
+  box-shadow: 0 4px 20px -2px var(--shadow-md), 0 1px 2px var(--shadow-card-subtle);
 }
 
 html.dark .security-card:hover {
-  box-shadow: 0 16px 36px -8px rgba(0, 0, 0, 0.45), 0 1px 3px rgba(0, 0, 0, 0.25);
-}
-
-html.dark .security-card-title {
-  color: #f1f5f9;
-}
-
-html.dark .security-card-desc {
-  color: #94a3b8;
+  box-shadow: 0 16px 36px -8px var(--shadow-color), 0 1px 3px var(--shadow-sm);
 }
 
 html.dark .security-dotted-divider {
-  border-top-color: rgba(255, 255, 255, 0.12);
-}
-
-html.dark .score-label {
-  color: #94a3b8;
-}
-
-html.dark .score-value.color-green {
-  color: #4ade80;
+  border-top-color: var(--border-input);
 }
 
 html.dark .score-value.color-blue {
-  color: #60a5fa;
-}
-
-html.dark .certs-label {
-  color: #94a3b8;
-}
-
-html.dark .security-icon-badge.theme-green {
-  background-color: #12311e;
-  color: #4ade80;
+  color: var(--brand-primary);
 }
 
 html.dark .security-icon-badge.theme-blue,
 html.dark .security-icon-badge.theme-navy {
-  background-color: #162338;
-  color: #93c5fd;
+  color: var(--brand-accent);
 }

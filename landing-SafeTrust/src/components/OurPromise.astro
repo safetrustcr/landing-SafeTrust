@@ -104,7 +104,11 @@ const miniBadges = [
     isolation: isolate;
     overflow: hidden;
     padding: clamp(4.5rem, 8vw, 7rem) 1.5rem;
-    background: linear-gradient(135deg, rgba(40, 87, 184, 0.04), rgba(249, 115, 22, 0.025));
+    background: linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--brand-accent) 4%, transparent),
+      color-mix(in srgb, var(--orange) 2.5%, transparent)
+    );
   }
 
   .our-promise::before {
@@ -113,10 +117,10 @@ const miniBadges = [
     inset: 0;
     z-index: -2;
     background-image:
-      linear-gradient(rgba(15, 23, 42, 0.05) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(15, 23, 42, 0.05) 1px, transparent 1px);
+      linear-gradient(var(--promise-grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--promise-grid) 1px, transparent 1px);
     background-size: 36px 36px;
-    mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.55), transparent 92%);
+    mask-image: linear-gradient(to bottom, color-mix(in srgb, black 55%, transparent), transparent 92%);
     pointer-events: none;
   }
 
@@ -139,7 +143,7 @@ const miniBadges = [
     height: 18rem;
     left: -4rem;
     top: 2rem;
-    background: rgba(40, 87, 184, 0.16);
+    background: var(--brand-glow-medium);
   }
 
   .our-promise__glow--right {
@@ -147,7 +151,7 @@ const miniBadges = [
     height: 20rem;
     right: -6rem;
     bottom: -3rem;
-    background: rgba(249, 115, 22, 0.12);
+    background: var(--orange-glow-soft);
   }
 
   .our-promise__grid {
@@ -177,7 +181,7 @@ const miniBadges = [
     font-weight: 800;
     letter-spacing: 0.28em;
     text-transform: uppercase;
-    color: #2857b8;
+    color: var(--brand-primary);
     opacity: 0;
     transform: translateY(12px);
     animation: eyebrowReveal 0.75s ease-out forwards;
@@ -187,7 +191,12 @@ const miniBadges = [
     content: "";
     width: 2.5rem;
     height: 1px;
-    background: linear-gradient(90deg, rgba(40, 87, 184, 0.25), #2857b8 70%, #f97316);
+    background: linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--brand-primary) 25%, transparent),
+      var(--brand-primary) 70%,
+      var(--orange-vivid)
+    );
     transform-origin: left center;
     animation: eyebrowLine 0.75s ease-out forwards;
   }
@@ -198,7 +207,7 @@ const miniBadges = [
     font-weight: 800;
     line-height: 1.05;
     letter-spacing: -0.04em;
-    color: #0f172a;
+    color: var(--foreground);
     text-wrap: balance;
   }
 
@@ -215,7 +224,7 @@ const miniBadges = [
     margin: 1.5rem 0 0;
     font-size: 1.0625rem;
     line-height: 1.8;
-    color: #64748b;
+    color: var(--muted-foreground);
   }
 
   .our-promise__badges {
@@ -230,14 +239,14 @@ const miniBadges = [
     align-items: center;
     gap: 0.55rem;
     padding: 0.7rem 1rem;
-    border: 1px solid rgba(40, 87, 184, 0.14);
+    border: 1px solid var(--brand-tint-border);
     border-radius: 999px;
-    background: rgba(255, 255, 255, 0.58);
-    box-shadow: 0 10px 24px -18px rgba(15, 23, 42, 0.4);
+    background: var(--glass-bg);
+    box-shadow: 0 10px 24px -18px color-mix(in srgb, var(--foreground) 40%, transparent);
     backdrop-filter: blur(10px);
     font-size: 0.875rem;
     font-weight: 600;
-    color: #1e293b;
+    color: var(--foreground-secondary);
   }
 
   .our-promise__badge-icon {
@@ -251,18 +260,18 @@ const miniBadges = [
   }
 
   .our-promise__badge--primary .our-promise__badge-icon {
-    background: rgba(40, 87, 184, 0.14);
-    color: #2857b8;
+    background: var(--brand-glow-medium);
+    color: var(--brand-primary);
   }
 
   .our-promise__badge--accent .our-promise__badge-icon {
-    background: rgba(29, 78, 216, 0.16);
-    color: #1d4ed8;
+    background: var(--brand-glow-medium);
+    color: var(--brand-accent);
   }
 
   .our-promise__badge--gold .our-promise__badge-icon {
-    background: rgba(245, 158, 11, 0.16);
-    color: #d97706;
+    background: var(--warning-tint);
+    color: var(--warning-strong);
   }
 
   .our-promise__card-shell {
@@ -278,11 +287,11 @@ const miniBadges = [
     flex-direction: column;
     gap: 0.25rem;
     padding: 0.7rem 0.9rem;
-    border: 1px solid rgba(148, 163, 184, 0.18);
+    border: 1px solid var(--border-subtle);
     border-radius: 0.9rem;
-    background: rgba(16, 25, 63, 0.95);
-    box-shadow: 0 18px 36px -20px rgba(16, 25, 63, 0.8);
-    color: #fff;
+    background: color-mix(in srgb, var(--brand-deep) 95%, transparent);
+    box-shadow: 0 18px 36px -20px var(--brand-deep);
+    color: var(--on-dark);
     backdrop-filter: blur(16px);
   }
 
@@ -298,14 +307,14 @@ const miniBadges = [
     align-items: center;
     gap: 0.45rem;
     font-size: 0.78rem;
-    color: #bfdbfe;
+    color: var(--brand-light);
   }
 
   .our-promise__live-dot {
     width: 0.55rem;
     height: 0.55rem;
     border-radius: 999px;
-    background: #22c55e;
+    background: var(--success-bright);
     animation: pulseDot 1.8s ease-out infinite;
   }
 
@@ -313,12 +322,12 @@ const miniBadges = [
     position: relative;
     overflow: hidden;
     padding: 2rem 1.5rem 1.5rem;
-    border: 1px solid rgba(40, 87, 184, 0.15);
+    border: 1px solid var(--brand-tint-border);
     border-radius: 1.5rem;
     background:
-      linear-gradient(180deg, rgba(255, 255, 255, 0.82), rgba(255, 255, 255, 0.7)),
-      radial-gradient(circle at top left, rgba(191, 219, 254, 0.28), transparent 42%);
-    box-shadow: 0 20px 40px -12px rgba(40, 87, 184, 0.12);
+      linear-gradient(180deg, var(--glass-hi), color-mix(in srgb, var(--surface-white) 70%, transparent)),
+      radial-gradient(circle at top left, color-mix(in srgb, var(--brand-light) 28%, transparent), transparent 42%);
+    box-shadow: 0 20px 40px -12px var(--brand-glow-soft);
     backdrop-filter: blur(16px);
   }
 
@@ -326,7 +335,7 @@ const miniBadges = [
     content: "";
     position: absolute;
     inset: 0;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.18), transparent 42%);
+    background: linear-gradient(135deg, var(--border-on-dark-subtle), transparent 42%);
     pointer-events: none;
   }
 
@@ -336,7 +345,7 @@ const miniBadges = [
     font-weight: 800;
     letter-spacing: 0.16em;
     text-transform: uppercase;
-    color: #64748b;
+    color: var(--muted-foreground);
   }
 
   .our-promise__guarantees {
@@ -350,7 +359,7 @@ const miniBadges = [
     gap: 1rem;
     align-items: start;
     padding: 1rem 0;
-    border-top: 1px solid rgba(148, 163, 184, 0.18);
+    border-top: 1px solid var(--border-subtle);
   }
 
   .our-promise__guarantee:first-child {
@@ -365,27 +374,39 @@ const miniBadges = [
     width: 2.8rem;
     height: 2.8rem;
     border-radius: 0.9rem;
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.55);
+    box-shadow: inset 0 1px 0 var(--glass-sweep);
   }
 
   .our-promise__guarantee-icon--primary {
-    background: linear-gradient(135deg, rgba(40, 87, 184, 0.18), rgba(96, 165, 250, 0.24));
-    color: #2857b8;
+    background: linear-gradient(
+      135deg,
+      var(--brand-glow-medium),
+      color-mix(in srgb, var(--brand-soft) 24%, transparent)
+    );
+    color: var(--brand-primary);
   }
 
   .our-promise__guarantee-icon--accent {
-    background: linear-gradient(135deg, rgba(29, 78, 216, 0.18), rgba(96, 165, 250, 0.22));
-    color: #1d4ed8;
+    background: linear-gradient(
+      135deg,
+      var(--brand-glow-medium),
+      color-mix(in srgb, var(--brand-soft) 22%, transparent)
+    );
+    color: var(--brand-accent);
   }
 
   .our-promise__guarantee-icon--emerald {
-    background: linear-gradient(135deg, rgba(22, 163, 74, 0.18), rgba(74, 222, 128, 0.2));
-    color: #15803d;
+    background: linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--success) 18%, transparent),
+      color-mix(in srgb, var(--success-bright) 20%, transparent)
+    );
+    color: var(--success-strong);
   }
 
   .our-promise__guarantee-copy strong {
     font-size: 1rem;
-    color: #0f172a;
+    color: var(--foreground);
   }
 
   .our-promise__guarantee-header {
@@ -401,13 +422,13 @@ const miniBadges = [
     align-items: center;
     min-height: 1.5rem;
     padding: 0.1rem 0.6rem;
-    border: 1px solid rgba(29, 78, 216, 0.15);
+    border: 1px solid var(--brand-tint-border);
     border-radius: 999px;
-    background: rgba(29, 78, 216, 0.08);
+    background: var(--brand-tint);
     font-size: 0.68rem;
     font-weight: 700;
     letter-spacing: 0.04em;
-    color: #1e40af;
+    color: var(--brand-primary);
     text-transform: lowercase;
   }
 
@@ -415,7 +436,7 @@ const miniBadges = [
     margin: 0;
     font-size: 0.9rem;
     line-height: 1.65;
-    color: #64748b;
+    color: var(--muted-foreground);
   }
 
   :global(.connect-wallet-cta) {
@@ -449,15 +470,15 @@ const miniBadges = [
   }
 
   :global(.connect-wallet-cta__action:focus-visible) {
-    outline: 2px solid #f97316;
+    outline: 2px solid var(--orange-vivid);
     outline-offset: 3px;
   }
 
   :global(.connect-wallet-cta__action--primary) {
-    border: 1px solid rgba(16, 25, 63, 0.08);
-    background: linear-gradient(135deg, #10193f, #1e3a8a 68%, #2857b8);
-    box-shadow: 0 16px 30px -18px rgba(30, 58, 138, 0.75);
-    color: #fff;
+    border: 1px solid var(--border-hairline);
+    background: linear-gradient(135deg, var(--brand-deep), var(--brand-solid) 68%, var(--brand-solid-hover));
+    box-shadow: 0 16px 30px -18px var(--brand-primary-glow);
+    color: var(--on-brand);
     cursor: pointer;
   }
 
@@ -468,10 +489,10 @@ const miniBadges = [
   }
 
   :global(.connect-wallet-cta__action--secondary) {
-    border: 1px solid rgba(40, 87, 184, 0.14);
-    background: rgba(255, 255, 255, 0.72);
-    color: #2857b8;
-    box-shadow: 0 10px 24px -18px rgba(15, 23, 42, 0.35);
+    border: 1px solid var(--brand-tint-border);
+    background: var(--surface-overlay);
+    color: var(--brand-primary);
+    box-shadow: 0 10px 24px -18px var(--shadow-md);
   }
 
   :global(.connect-wallet-cta__icon) {
@@ -480,8 +501,8 @@ const miniBadges = [
   }
 
   :global(.connect-wallet-cta__action--secondary:hover) {
-    border-color: rgba(29, 78, 216, 0.24);
-    color: #1e40af;
+    border-color: var(--brand-accent);
+    color: var(--brand-accent);
   }
 
   @media (max-width: 767px) {
@@ -520,88 +541,74 @@ const miniBadges = [
   }
 
   @keyframes pulseDot {
-    0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.5); }
-    70% { box-shadow: 0 0 0 10px rgba(34, 197, 94, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+    0% { box-shadow: 0 0 0 0 var(--success-pulse); }
+    70% { box-shadow: 0 0 0 10px color-mix(in srgb, var(--success-bright) 0%, transparent); }
+    100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--success-bright) 0%, transparent); }
   }
 
   /* Dark mode — keep glassmorphism without near-white surfaces */
-  :global(.dark) .our-promise {
-    background: linear-gradient(135deg, rgba(40, 87, 184, 0.1), rgba(249, 115, 22, 0.04));
+  :global(html.dark) .our-promise {
+    background: linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--brand-primary) 10%, transparent),
+      color-mix(in srgb, var(--orange) 4%, transparent)
+    );
   }
 
-  :global(.dark) .our-promise::before {
-    background-image:
-      linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
-  }
-
-  :global(.dark) .our-promise__glow--left {
-    background: rgba(96, 165, 250, 0.18);
+  :global(html.dark) .our-promise__glow--left {
+    background: var(--brand-glow-medium);
     opacity: 0.7;
   }
 
-  :global(.dark) .our-promise__glow--right {
-    background: rgba(96, 165, 250, 0.16);
+  :global(html.dark) .our-promise__glow--right {
+    background: var(--brand-glow-medium);
     opacity: 0.7;
   }
 
-  :global(.dark) .our-promise__headline {
-    color: #f1f5f9;
+  :global(html.dark) .our-promise__headline {
+    color: var(--foreground-strong);
   }
 
-  :global(.dark) .our-promise__description {
-    color: #94a3b8;
+  :global(html.dark) .our-promise__badge {
+    background: var(--surface-overlay);
+    border-color: var(--border-subtle);
+    color: var(--foreground-secondary);
+    box-shadow: 0 10px 24px -18px var(--shadow-lg);
   }
 
-  :global(.dark) .our-promise__badge {
-    background: rgba(255, 255, 255, 0.06);
-    border-color: rgba(255, 255, 255, 0.1);
-    color: #e2e8f0;
-    box-shadow: 0 10px 24px -18px rgba(0, 0, 0, 0.55);
+  :global(html.dark) .our-promise__card {
+    background: linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--surface-elevated) 90%, transparent),
+      color-mix(in srgb, var(--card-bg) 85%, transparent)
+    );
+    border-color: var(--border-subtle);
+    box-shadow: 0 20px 40px -12px var(--shadow-lg);
   }
 
-  :global(.dark) .our-promise__card {
-    background: linear-gradient(180deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.85));
-    border-color: rgba(255, 255, 255, 0.08);
-    box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.4);
+  :global(html.dark) .our-promise__card::after {
+    background: linear-gradient(135deg, var(--glass-hi-soft), transparent 42%);
   }
 
-  :global(.dark) .our-promise__card::after {
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.06), transparent 42%);
+  :global(html.dark) .our-promise__guarantee-copy strong {
+    color: var(--foreground-strong);
   }
 
-  :global(.dark) .our-promise__card-eyebrow {
-    color: #94a3b8;
+  :global(html.dark) .our-promise__tag {
+    background: var(--brand-glow-soft);
+    border-color: var(--brand-tint-border);
+    color: var(--brand-light);
   }
 
-  :global(.dark) .our-promise__guarantee {
-    border-top-color: rgba(255, 255, 255, 0.07);
-  }
-
-  :global(.dark) .our-promise__guarantee-copy strong {
-    color: #f1f5f9;
-  }
-
-  :global(.dark) .our-promise__guarantee-copy p {
-    color: #94a3b8;
-  }
-
-  :global(.dark) .our-promise__tag {
-    background: rgba(96, 165, 250, 0.14);
-    border-color: rgba(96, 165, 250, 0.28);
-    color: #bfdbfe;
-  }
-
-  :global(.dark) .connect-wallet-cta__action--secondary {
-    background: rgba(255, 255, 255, 0.06);
-    border-color: rgba(255, 255, 255, 0.12);
-    color: #93c5fd;
+  :global(html.dark) .our-promise :global(.connect-wallet-cta__action--secondary) {
+    background: var(--surface-overlay);
+    border-color: var(--border-input);
+    color: var(--brand-soft);
     box-shadow: none;
   }
 
-  :global(.dark) .connect-wallet-cta__action--secondary:hover {
-    border-color: rgba(96, 165, 250, 0.4);
-    color: #bfdbfe;
+  :global(html.dark) .our-promise :global(.connect-wallet-cta__action--secondary:hover) {
+    border-color: var(--brand-glow-strong);
+    color: var(--brand-light);
   }
 </style>
