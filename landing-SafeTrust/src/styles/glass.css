@@ -76,11 +76,11 @@ body > section {
   background: linear-gradient(160deg, rgba(11, 21, 51, 0.82), rgba(30, 58, 138, 0.72));
 }
 
-:root .lead-card.glass-card {
+:root .kb-lead-card.glass-card {
   background: rgba(219, 234, 254, 0.62);
 }
 
-:root.dark .lead-card.glass-card {
+:root.dark .kb-lead-card.glass-card {
   background: rgba(30, 58, 138, 0.35);
 }
 

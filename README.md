@@ -61,8 +61,10 @@ landing-SafeTrust/
 ├── astro.config.mjs              # React + astro-icon integrations, Lucide icon allow-list
 ├── package.json
 ├── public/
-│   ├── landing-logo.jpeg         # favicon
-│   └── landing-logo-Photoroom.png
+│   ├── logo-64.png                # 2x logo for 32px slots and favicon source
+│   ├── logo-240.png               # 2x logo for the 120px Contributors slot
+│   ├── favicon.ico                # browser tab icon (16/32px)
+│   └── apple-touch-icon.png       # 180px iOS home-screen icon
 └── src/
     ├── env.d.ts
     ├── pages/

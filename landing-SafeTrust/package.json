@@ -1,12 +1,16 @@
 {
-  "name": "hl-landingpage",
+  "name": "safetrust-landing",
   "type": "module",
   "version": "0.0.1",
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "check": "astro check",
+    "lint": "eslint . --ext .js,.jsx,.astro",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "dependencies": {
     "@astrojs/react": "^5.0.7",
@@ -18,5 +22,15 @@
     "motion": "^12.42.2",
     "react": "^19.2.7",
     "react-dom": "^19.2.7"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.12",
+    "@typescript-eslint/parser": "^8.74.0",
+    "eslint": "^8.57.1",
+    "eslint-plugin-astro": "^1.7.0",
+    "eslint-plugin-react": "^7.37.5",
+    "prettier": "^3.10.1",
+    "prettier-plugin-astro": "^1.1.2",
+    "typescript": "^5.9.3"
   }
 }

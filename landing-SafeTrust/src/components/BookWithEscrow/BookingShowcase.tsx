@@ -20,7 +20,6 @@ import {
   Waves,
   Wallet,
 } from "lucide-react";
-// @ts-expect-error CSS side-effect imports are handled by the application bundler.
 import "../../styles/book-with-escrow.css";
 import GlassSurface from "../GlassSurface/GlassSurface.jsx";
 
