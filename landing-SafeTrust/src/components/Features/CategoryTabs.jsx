@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import { useState, useMemo } from "react";
 import {
   Lock,
   Zap,
@@ -22,7 +22,7 @@ const FEATURES_DATA = [
   {
     id: "secure-escrow",
     num: "01",
-    icon: <Lock className="icon-element" />,
+    icon: <Lock className="kb-icon-element" />,
     title: "Secure escrow, held by code.",
     desc: "Rent and deposits are locked in Soroban smart contracts on Stellar — verifiable, and no single party can take them.",
     valueSecured: "$50.2M+",
@@ -31,7 +31,7 @@ const FEATURES_DATA = [
   {
     id: "instant-transactions",
     num: "02",
-    icon: <Zap className="icon-element" />,
+    icon: <Zap className="kb-icon-element" />,
     title: "Fast host payouts",
     desc: "Hosts are paid within seconds of check-in.",
     category: "payments",
@@ -39,7 +39,7 @@ const FEATURES_DATA = [
   {
     id: "decentralized-trust",
     num: "03",
-    icon: <Globe className="icon-element" />,
+    icon: <Globe className="kb-icon-element" />,
     title: "Decentralized trust",
     desc: "No booking platform holds the money in the middle.",
     category: "trust",
@@ -47,7 +47,7 @@ const FEATURES_DATA = [
   {
     id: "real-time-tracking",
     num: "04",
-    icon: <BarChart3 className="icon-element" />,
+    icon: <BarChart3 className="kb-icon-element" />,
     title: "Real-time tracking",
     desc: "Guest and host see the booking status at every step.",
     category: "trust",
@@ -55,7 +55,7 @@ const FEATURES_DATA = [
   {
     id: "fair-dispute-resolution",
     num: "05",
-    icon: <Scale className="icon-element" />,
+    icon: <Scale className="kb-icon-element" />,
     title: "Fair dispute resolution",
     desc: "Damage claims follow rules both sides can see.",
     category: "trust",
@@ -63,7 +63,7 @@ const FEATURES_DATA = [
   {
     id: "cost-efficient",
     num: "06",
-    icon: <Wallet className="icon-element" />,
+    icon: <Wallet className="kb-icon-element" />,
     title: "Cost efficient",
     desc: "Stellar network fees cost a fraction of a cent.",
     category: "payments",
@@ -71,7 +71,7 @@ const FEATURES_DATA = [
   {
     id: "enhanced-security",
     num: "07",
-    icon: <ShieldCheck className="icon-element" />,
+    icon: <ShieldCheck className="kb-icon-element" />,
     title: "Private payments",
     desc: "Pay from your wallet. No card or bank details go to the host.",
     category: "security",
@@ -79,7 +79,7 @@ const FEATURES_DATA = [
   {
     id: "multi-currency",
     num: "08",
-    icon: <Coins className="icon-element" />,
+    icon: <Coins className="kb-icon-element" />,
     title: "Stablecoin payments",
     desc: "Pay rent in USDC, so prices don't swing.",
     category: "payments",
@@ -95,10 +95,10 @@ export default function InteractiveFeatures() {
   }, [activeTab]);
 
   return (
-    <div className="features-island-container">
+    <div className="kb-features-container">
       {/* Dynamic Tab Switcher */}
       <div
-        className="tabs-wrapper"
+        className="kb-tabs-wrapper"
         role="tablist"
         aria-label="Feature categories"
       >
@@ -108,7 +108,7 @@ export default function InteractiveFeatures() {
             type="button"
             role="tab"
             aria-selected={activeTab === cat}
-            className={`tab-btn ${activeTab === cat ? "tab-active" : ""}`}
+            className={`kb-tab-btn ${activeTab === cat ? "kb-tab-active" : ""}`}
             onClick={() => setActiveTab(cat)}
           >
             {TAB_LABELS[cat]}
@@ -117,29 +117,29 @@ export default function InteractiveFeatures() {
       </div>
 
       {/* Grid Mechanic Display */}
-      <div className="benefits-grid" role="list">
+      <div className="kb-grid" role="list">
         {filteredFeatures.map((feature) => (
           <article
             key={feature.id}
-            className={`benefit-card glass-card ${feature.id === "secure-escrow" ? "lead-card" : ""}`}
+            className={`kb-card glass-card ${feature.id === "secure-escrow" ? "kb-lead-card" : ""}`}
             role="listitem"
           >
-            <div className="card-top-bar">
-              <div className="icon-box">{feature.icon}</div>
-              <span className="card-number">{feature.num}</span>
+            <div className="kb-card-top-bar">
+              <div className="kb-icon-box">{feature.icon}</div>
+              <span className="kb-card-number">{feature.num}</span>
             </div>
 
             <div className="card-body">
-              <h3 className="card-title">{feature.title}</h3>
-              <p className="card-desc">{feature.desc}</p>
+              <h3 className="kb-card-title">{feature.title}</h3>
+              <p className="kb-card-desc">{feature.desc}</p>
             </div>
 
             {feature.valueSecured && (
-              <div className="card-footer">
-                <div className="divider-line" />
-                <div className="footer-metrics">
-                  <span className="metrics-label">VALUE SECURED</span>
-                  <span className="metrics-value">{feature.valueSecured}</span>
+              <div className="kb-card-footer">
+                <div className="kb-divider-line" />
+                <div className="kb-footer-metrics">
+                  <span className="kb-metrics-label">VALUE SECURED</span>
+                  <span className="kb-metrics-value">{feature.valueSecured}</span>
                 </div>
               </div>
             )}

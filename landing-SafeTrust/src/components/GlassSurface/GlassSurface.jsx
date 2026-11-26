@@ -1,6 +1,5 @@
 'use client';
 
-/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState, useRef, useId } from 'react';
 import './GlassSurface.css';
 
@@ -280,7 +279,9 @@ const bendShape = (trace, edge, softness, calm, level) => {
 
 const GlassSurface = ({
   children,
+  /** @type {number | string} */
   width = 200,
+  /** @type {number | string} */
   height = 80,
   borderRadius = 20,
   borderWidth = 0.07,

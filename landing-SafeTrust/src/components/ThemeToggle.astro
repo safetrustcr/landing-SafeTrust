@@ -29,66 +29,7 @@ import { Icon } from "astro-icon/components";
 </div>
 
 <script>
-  const btn = document.getElementById("theme-toggle-btn");
-  const dropdown = document.getElementById("theme-dropdown");
-
-  function getTheme() {
-    return localStorage.getItem("theme") || "system";
-  }
-
-  function setTheme(theme) {
-    localStorage.setItem("theme", theme);
-    applyTheme(theme);
-    updateActive(theme);
-  }
-
-  function applyTheme(theme) {
-    const dark =
-      theme === "dark" ||
-      (theme === "system" &&
-        window.matchMedia("(prefers-color-scheme: dark)").matches);
-    document.documentElement.classList.toggle("dark", dark);
-  }
-
-  function updateActive(theme) {
-    dropdown.querySelectorAll(".theme-option").forEach((opt) => {
-      opt.classList.toggle("active", opt.dataset.theme === theme);
-    });
-  }
-
-  function closeDropdown() {
-    dropdown.classList.remove("open");
-    btn.setAttribute("aria-expanded", "false");
-  }
-
-  btn.addEventListener("click", (e) => {
-    e.stopPropagation();
-    const isOpen = dropdown.classList.toggle("open");
-    btn.setAttribute("aria-expanded", isOpen);
-  });
-
-  dropdown.querySelectorAll(".theme-option").forEach((item) => {
-    item.addEventListener("click", () => {
-      setTheme(item.dataset.theme);
-      closeDropdown();
-    });
-  });
-
-  document.addEventListener("click", () => {
-    if (dropdown.classList.contains("open")) {
-      closeDropdown();
-    }
-  });
-
-  const mq = window.matchMedia("(prefers-color-scheme: dark)");
-  mq.addEventListener("change", () => {
-    if (getTheme() === "system") {
-      applyTheme("system");
-    }
-  });
-
-  applyTheme(getTheme());
-  updateActive(getTheme());
+  import "../scripts/theme-toggle";
 </script>
 
 <style>

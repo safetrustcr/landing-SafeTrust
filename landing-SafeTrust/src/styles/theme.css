@@ -364,6 +364,13 @@ body > footer::after {
   z-index: 1;
 }
 
+/* Shared eyebrow pill base */
+.eyebrow-pill {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 9999px;
+}
+
 /* Small orange dot before every section eyebrow */
 .eyebrow-pill::before,
 .bwe-eyebrow::before,
@@ -381,7 +388,7 @@ body > footer::after {
 }
 
 /* Short orange bar on the top edge of cards */
-:where(.escrow-card, .benefit-card, .bwe-side) {
+:where(.escrow-card, .kb-card, .bwe-side) {
   position: relative;
 }
 
@@ -389,8 +396,8 @@ body > footer::after {
 .our-promise__card::before,
 .feature-card::before,
 .scale-card::before,
-.benefit-card::before,
-.stepper-card::before,
+.kb-card::before,
+.hiw-stepper-card::before,
 .security-card::before,
 .bwe-summary::before,
 .bwe-side::before {
@@ -408,21 +415,21 @@ body > footer::after {
 }
 
 .feature-card:hover::before,
-.benefit-card:hover::before,
+.kb-card:hover::before,
 .security-card:hover::before,
 .bwe-side:hover::before {
   width: 4.5rem;
 }
 
 /* Centered bar for the wide stepper card */
-.stepper-card::before {
+.hiw-stepper-card::before {
   left: 50%;
   transform: translateX(-50%);
 }
 
 @media (prefers-reduced-motion: reduce) {
   .feature-card::before,
-  .benefit-card::before,
+  .kb-card::before,
   .security-card::before,
   .bwe-side::before {
     transition: none;

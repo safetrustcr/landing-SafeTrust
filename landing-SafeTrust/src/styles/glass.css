@@ -62,7 +62,7 @@ body > section {
   );
 }
 
-:root .lead-card.glass-card {
+:root .kb-lead-card.glass-card {
   background: var(--glass-lead-bg);
 }
 
