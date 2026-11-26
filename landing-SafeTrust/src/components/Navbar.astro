@@ -248,8 +248,11 @@ const navLinks = [
       margin-left: auto;
     }
 
-    :global(.navbar-actions .desktop-cta) {
+    :global(.desktop-wallet-control) {
       display: none;
+    }
+    :global(.mobile-wallet-control) {
+      display: flex;
     }
 
     .navbar-links {
@@ -288,10 +291,6 @@ const navLinks = [
       width: 100%;
     }
 
-    :global(.mobile-wallet-control) {
-      width: 100%;
-    }
-
     .navbar-checkbox:checked + .navbar-toggle + .navbar-links {
       max-height: 420px;
       opacity: 1;
@@ -299,7 +298,7 @@ const navLinks = [
     }
   }
 
-  :global(.mobile-cta) {
+  :global(.mobile-wallet-control) {
     display: none;
   }
 

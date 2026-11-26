@@ -241,7 +241,7 @@ import ConnectWalletButton from "./ConnectWalletButton";
     opacity: 0.8;
   }
 
-  .final-wallet-control {
+  .cta-actions :global(.final-wallet-control) {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -249,18 +249,18 @@ import ConnectWalletButton from "./ConnectWalletButton";
     width: 100%;
   }
 
-  .final-wallet-install,
-  .final-wallet-error {
+  .cta-actions :global(.final-wallet-install),
+  .cta-actions :global(.final-wallet-error) {
     color: #ffffff;
     font-size: 0.875rem;
   }
 
-  .final-wallet-error {
+  .cta-actions :global(.final-wallet-error) {
     color: #fecaca;
   }
 
   @media (min-width: 640px) {
-    .final-wallet-control {
+    .cta-actions :global(.final-wallet-control) {
       width: auto;
     }
   }

@@ -34,7 +34,6 @@ export default function ConnectWalletButton({
         className={buttonClassName}
         onClick={connect}
         disabled={status === "connecting"}
-        aria-live="polite"
       >
         {icon !== "none" && (
           <span className="wallet-connect-button__icon" aria-hidden="true">
@@ -68,6 +67,15 @@ export default function ConnectWalletButton({
           {error}
         </span>
       )}
+      <span className="wallet-connect-status" role="status" aria-live="polite" aria-atomic="true">
+        {status === "connecting"
+          ? "Connecting to Freighter."
+          : status === "connected" && address
+            ? `Wallet connected: ${shortenAddress(address)}.`
+            : status === "unavailable"
+              ? "Freighter is unavailable. Install Freighter to connect."
+              : ""}
+      </span>
     </div>
   );
 }
