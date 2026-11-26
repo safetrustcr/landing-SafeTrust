@@ -62,9 +62,11 @@ const navLinks = [
     const toggle = navbar.querySelector<HTMLButtonElement>(".navbar-toggle");
     const links = navbar.querySelector<HTMLElement>(".navbar-links");
     if (!toggle || !links) return;
+    const mobileMenu = window.matchMedia("(max-width: 1023px)");
 
     const setMenuOpen = (isOpen: boolean) => {
       links.dataset.open = String(isOpen);
+      links.inert = mobileMenu.matches && !isOpen;
       toggle.setAttribute("aria-expanded", String(isOpen));
       toggle.setAttribute(
         "aria-label",
@@ -72,16 +74,28 @@ const navLinks = [
       );
     };
 
+    setMenuOpen(links.dataset.open === "true");
+    mobileMenu.addEventListener("change", () => {
+      links.inert = mobileMenu.matches && links.dataset.open !== "true";
+    });
+
     toggle.addEventListener("click", () => {
       setMenuOpen(links.dataset.open !== "true");
     });
 
     links.addEventListener("click", (event) => {
-      if ((event.target as HTMLElement).closest("a")) setMenuOpen(false);
+      if (mobileMenu.matches && (event.target as HTMLElement).closest("a")) {
+        setMenuOpen(false);
+        toggle.focus();
+      }
     });
 
     navbar.addEventListener("keydown", (event) => {
-      if (event.key === "Escape" && links.dataset.open === "true") {
+      if (
+        mobileMenu.matches &&
+        event.key === "Escape" &&
+        links.dataset.open === "true"
+      ) {
         setMenuOpen(false);
         toggle.focus();
       }
@@ -308,6 +322,7 @@ const navLinks = [
       max-height: 0;
       overflow: hidden;
       opacity: 0;
+      visibility: hidden;
       pointer-events: none;
       transition: max-height 0.25s ease, opacity 0.25s ease;
       text-align: center;
@@ -332,6 +347,7 @@ const navLinks = [
     .navbar-links[data-open="true"] {
       max-height: 420px;
       opacity: 1;
+      visibility: visible;
       pointer-events: auto;
     }
   }
