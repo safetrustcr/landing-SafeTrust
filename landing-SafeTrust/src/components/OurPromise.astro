@@ -425,6 +425,10 @@ const miniBadges = [
     margin-top: 1.75rem;
   }
 
+  :global(.connect-wallet-cta__control) {
+    display: contents;
+  }
+
   :global(.connect-wallet-cta__action) {
     display: inline-flex;
     align-items: center;
@@ -482,6 +486,16 @@ const miniBadges = [
   :global(.connect-wallet-cta__action--secondary:hover) {
     border-color: rgba(29, 78, 216, 0.24);
     color: #1e40af;
+  }
+
+  :global(.connect-wallet-cta__install) {
+    text-align: center;
+  }
+
+  :global(.connect-wallet-cta__error) {
+    align-self: center;
+    color: #b91c1c;
+    font-size: 0.875rem;
   }
 
   @media (max-width: 767px) {

@@ -1,55 +1,16 @@
-import freighter from "@stellar/freighter-api";
-import { ArrowRight, CheckCircle2, Lock } from "lucide-react";
-import { useState } from "react";
+import { ArrowRight } from "lucide-react";
+import ConnectWalletButton from "./ConnectWalletButton";
 
 export default function ConnectWalletCTA() {
-
-  const [state, setState] = useState<"idle" | "connecting" | "connected">("idle");
-
-  const handleClick = async () => {
-    if (state !== "idle") return;
-    setState("connecting");
-    try {
-      const { isConnected: hasFreighter } = await freighter.isConnected();
-      if (!hasFreighter) {
-        setState("idle");
-        return;
-      }
-      const { address, error } = await freighter.requestAccess();
-      if (error || !address) {
-        setState("idle");
-        return;
-      }
-      setState("connected");
-    } catch {
-      setState("idle");
-    }
-  };
-
-  const label = {
-    idle: "Connect Wallet",
-    connecting: "Connecting...",
-    connected: "Wallet Connected",
-  }[state];
-
-  const LeadingIcon = state === "connected" ? CheckCircle2 : Lock;
-
   return (
     <div className="connect-wallet-cta">
-      <button
-        type="button"
-        onClick={handleClick}
-        disabled={state === "connecting"}
-        className="connect-wallet-cta__action connect-wallet-cta__action--primary"
-      >
-        <span className="connect-wallet-cta__icon" aria-hidden="true">
-          <LeadingIcon size={17} strokeWidth={2.2} />
-        </span>
-        <span>{label}</span>
-        <span className="connect-wallet-cta__icon" aria-hidden="true">
-          <ArrowRight size={16} strokeWidth={2.2} />
-        </span>
-      </button>
+      <ConnectWalletButton
+        buttonClassName="connect-wallet-cta__action connect-wallet-cta__action--primary"
+        controlClassName="connect-wallet-cta__control"
+        installClassName="connect-wallet-cta__action connect-wallet-cta__action--secondary connect-wallet-cta__install"
+        errorClassName="connect-wallet-cta__error"
+        icon="lock"
+      />
 
       <a
         href="#how-it-works"

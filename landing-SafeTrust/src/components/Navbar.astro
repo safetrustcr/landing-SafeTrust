@@ -1,5 +1,6 @@
 ---
 import ThemeToggle from "./ThemeToggle.astro";
+import ConnectWalletButton from "./ConnectWalletButton";
 
 const navLinks = [
   { label: "Features", href: "#features" },
@@ -16,28 +17,91 @@ const navLinks = [
     <span>SafeTrust</span>
   </a>
 
-  <input type="checkbox" id="nav-toggle" class="navbar-checkbox" aria-label="Toggle navigation" />
-  <label for="nav-toggle" class="navbar-toggle" aria-hidden="true">
+  <button
+    type="button"
+    class="navbar-toggle"
+    aria-label="Open navigation menu"
+    aria-expanded="false"
+    aria-controls="navbar-links"
+  >
     <span></span>
     <span></span>
     <span></span>
-  </label>
+  </button>
 
-  <div class="navbar-links">
+  <div class="navbar-links" id="navbar-links" data-open="false">
     {navLinks.map((link) => (
       <a href={link.href}>{link.label}</a>
     ))}
 
-    <a href="/register" class="navbar-cta mobile-cta">
-      Connect Wallet
-    </a>
+    <ConnectWalletButton
+      client:load
+      buttonClassName="navbar-cta mobile-cta"
+      controlClassName="navbar-wallet-control mobile-wallet-control"
+      installClassName="navbar-install"
+      errorClassName="navbar-wallet-error"
+      icon="none"
+    />
   </div>
 
   <div class="navbar-actions">
     <ThemeToggle />
-    <a href="/register" class="navbar-cta">Connect Wallet</a>
+    <ConnectWalletButton
+      client:load
+      buttonClassName="navbar-cta desktop-cta"
+      controlClassName="navbar-wallet-control desktop-wallet-control"
+      installClassName="navbar-install"
+      errorClassName="navbar-wallet-error"
+      icon="none"
+    />
   </div>
 </nav>
+
+<script>
+  document.querySelectorAll<HTMLElement>(".navbar").forEach((navbar) => {
+    const toggle = navbar.querySelector<HTMLButtonElement>(".navbar-toggle");
+    const links = navbar.querySelector<HTMLElement>(".navbar-links");
+    if (!toggle || !links) return;
+    const mobileMenu = window.matchMedia("(max-width: 1023px)");
+
+    const setMenuOpen = (isOpen: boolean) => {
+      links.dataset.open = String(isOpen);
+      links.inert = mobileMenu.matches && !isOpen;
+      toggle.setAttribute("aria-expanded", String(isOpen));
+      toggle.setAttribute(
+        "aria-label",
+        isOpen ? "Close navigation menu" : "Open navigation menu",
+      );
+    };
+
+    setMenuOpen(links.dataset.open === "true");
+    mobileMenu.addEventListener("change", () => {
+      links.inert = mobileMenu.matches && links.dataset.open !== "true";
+    });
+
+    toggle.addEventListener("click", () => {
+      setMenuOpen(links.dataset.open !== "true");
+    });
+
+    links.addEventListener("click", (event) => {
+      if (mobileMenu.matches && (event.target as HTMLElement).closest("a")) {
+        setMenuOpen(false);
+        toggle.focus();
+      }
+    });
+
+    navbar.addEventListener("keydown", (event) => {
+      if (
+        mobileMenu.matches &&
+        event.key === "Escape" &&
+        links.dataset.open === "true"
+      ) {
+        setMenuOpen(false);
+        toggle.focus();
+      }
+    });
+  });
+</script>
 
 <style>
   .navbar {
@@ -130,44 +194,69 @@ const navLinks = [
     }
   }
 
-  .navbar-cta {
-    display: inline-block;
+  :global(.navbar-cta) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     background: #ffffff;
     color: #111827;
     padding: 0.6rem 1.25rem;
     border: 1px solid rgba(0, 0, 0, 0.1);
     border-radius: 10px;
     font-weight: 600;
+    font: inherit;
     text-decoration: none;
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
     transition: all 0.2s ease;
+    cursor: pointer;
   }
 
-  .navbar-cta:hover {
+  :global(.navbar-cta:hover) {
     color: #111827;
     transform: scale(1.03);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
   }
 
-  :global(.dark) .navbar-cta {
+  :global(.navbar-cta:disabled) {
+    cursor: wait;
+    opacity: 0.75;
+  }
+
+  :global(.dark .navbar-cta) {
     background: #ffffff;
     color: #111827;
     border-color: rgba(255, 255, 255, 0.15);
   }
 
-  :global(.dark) .navbar-cta:hover {
+  :global(.dark .navbar-cta:hover) {
     background: transparent;
     color: #ffffff;
     transform: scale(1.03);
     box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
   }
 
-  .navbar-checkbox {
+  :global(.navbar-wallet-control) {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.35rem;
+  }
+
+  :global(.navbar-install),
+  :global(.navbar-wallet-error) {
+    color: #2857b8;
+    font-size: 0.8rem;
+    text-align: center;
+  }
+
+  :global(.navbar-wallet-error) {
+    color: #b91c1c;
+  }
+
+  :global(.mobile-wallet-control) {
     display: none;
   }
 
-  /* CAMBIO: flex-direction column para que los spans se apilen como hamburguesa real,
-     gap en vez de margin para un espaciado más predecible */
   .navbar-toggle {
     display: none;
     flex-direction: column;
@@ -178,6 +267,12 @@ const navLinks = [
     background: transparent;
     border: none;
     padding: 0.5rem;
+  }
+
+  .navbar-toggle:focus-visible {
+    outline: 2px solid #2857b8;
+    outline-offset: 3px;
+    border-radius: 6px;
   }
 
   .navbar-toggle span {
@@ -196,20 +291,20 @@ const navLinks = [
 
     .navbar-toggle {
       display: flex;
-      /* CAMBIO: se ubica después de navbar-actions para quedar a la derecha del ThemeToggle */
       order: 3;
     }
 
-    /* CAMBIO: en vez de ocultar navbar-actions completo, se muestra solo el ThemeToggle
-       y se reordena para que aparezca a la izquierda del botón hamburguesa */
     .navbar-actions {
       display: flex;
       order: 2;
       margin-left: auto;
     }
 
-    .navbar-actions .navbar-cta {
+    :global(.desktop-wallet-control) {
       display: none;
+    }
+    :global(.mobile-wallet-control) {
+      display: flex;
     }
 
     .navbar-links {
@@ -227,12 +322,13 @@ const navLinks = [
       max-height: 0;
       overflow: hidden;
       opacity: 0;
+      visibility: hidden;
       pointer-events: none;
       transition: max-height 0.25s ease, opacity 0.25s ease;
       text-align: center;
     }
 
-    .navbar-links .navbar-cta {
+    :global(.navbar-links .navbar-cta) {
       color: #111827;
       box-sizing: border-box;
       padding: 0.85rem 1.75rem;
@@ -244,19 +340,16 @@ const navLinks = [
       display: block;
     }
 
-    .navbar-cta {
+    :global(.navbar-links .navbar-cta) {
       width: 100%;
     }
 
-    .navbar-checkbox:checked + .navbar-toggle + .navbar-links {
+    .navbar-links[data-open="true"] {
       max-height: 420px;
       opacity: 1;
+      visibility: visible;
       pointer-events: auto;
     }
-  }
-
-  .mobile-cta {
-    display: none;
   }
 
   :global(.dark) .navbar {
@@ -276,16 +369,12 @@ const navLinks = [
     background: #e2e8f0;
   }
 
-  :global(.dark) .navbar-links .navbar-cta {
+  :global(.dark .navbar-links .navbar-cta) {
     color: #111827;
   }
   @media (max-width: 1023px) {
     :global(.dark) .navbar-links {
       background: rgba(15, 23, 42, 0.96);
-    }
-
-    .mobile-cta {
-      display: block;
     }
   }
 </style>
