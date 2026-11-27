@@ -41,7 +41,7 @@
 
 /* Eyebrow pill */
 .contributors-eyebrow {
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   font-size: 0.75rem;
   font-weight: 700;
   text-transform: uppercase;
@@ -56,7 +56,7 @@
 
 /* Headings */
 .contributors-title {
-  font-family: 'Playfair Display', Georgia, serif;
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   font-size: 2.5rem;
   font-weight: 700;
   color: #ffffff;
@@ -66,7 +66,7 @@
 }
 
 .contributors-subtitle {
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   font-size: 1.125rem;
   color: #a5b0d0;
   text-align: center;
@@ -133,7 +133,7 @@
 }
 
 .contributor-login {
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   font-size: 0.8125rem;
   font-weight: 700;
   color: var(--foreground, #10193f);
@@ -146,7 +146,7 @@
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   font-size: 0.625rem;
   font-weight: 700;
   text-transform: uppercase;
@@ -165,7 +165,7 @@
 
 /* Profile button */
 .contributor-profile-btn {
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   font-size: 0.6875rem;
   font-weight: 700;
   text-transform: uppercase;
@@ -215,7 +215,7 @@
 }
 
 .contributors-logo-label {
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   font-size: 0.6875rem;
   font-weight: 600;
   text-transform: uppercase;
