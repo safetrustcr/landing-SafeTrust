@@ -220,6 +220,7 @@ body > section {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .glass-blob,
   .bwe-glow,
   .our-promise__glow,
   .escrow-glass,
