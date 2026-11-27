@@ -1,5 +1,5 @@
 // src/components/Hero/EscrowCard.tsx
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { CheckCircle, Clock } from "lucide-react";
 import "../../styles/escrow-card.css";
 import GlassSurface from "../GlassSurface/GlassSurface.jsx";
@@ -10,9 +10,26 @@ type StepKey = "deposit" | "escrow" | "confirmed";
 
 export default function EscrowCard() {
   const [progress, setProgress] = useState(38);
+  const cardRef = useRef<HTMLDivElement>(null);
+  const visibleRef = useRef(true);
+
+  useEffect(() => {
+    const el = cardRef.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        visibleRef.current = entry.isIntersecting;
+      },
+      { threshold: 0 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     const interval = setInterval(() => {
+      if (!visibleRef.current) return;
       setProgress((p) => (p >= 100 ? 38 : p + 1));
     }, 150);
     return () => clearInterval(interval);
@@ -94,7 +111,7 @@ export default function EscrowCard() {
       distortionScale={-120}
       saturation={1.4}
     >
-    <div className="escrow-card">
+    <div className="escrow-card" ref={cardRef}>
       <div className="escrow-header">
         <h3>Booking Escrow</h3>
         <span className="status-active">● Active</span>

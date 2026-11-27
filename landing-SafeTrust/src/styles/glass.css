@@ -207,6 +207,18 @@ body > section {
   }
 }
 
+/* ---------- Mobile: disable card blur below 768 px ---------- */
+/* backdrop-filter is GPU-intensive; mid-range Android phones stutter
+   when it is applied to 48+ elements. Keep the background tint but
+   remove the blur pass on small screens where the effect is barely
+   visible anyway. */
+@media (max-width: 767px) {
+  :root .glass-card.glass-card {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .glass-blob,
   .bwe-glow,
